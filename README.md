@@ -1,2 +1,2 @@
 # timeboard
-TimeBoard is a Palm OS app designed to give you information about your Palm device at a glance and be used with just one hand.
+TimeBoard is a Palm OS app designed to provide quick information about your device and be operated with one hand.
