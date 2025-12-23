@@ -52,7 +52,7 @@ Provides detailed battery and system information:
 TimeBoard can be downloaded from the following locations:
 
 - 📦 **GitHub Releases**: download the latest `.prc` files from the  
-  [`/releases`](./releases) folder in this repository
+  [`/Releases`](./Releases) folder in this repository
 - 🌴 **PalmDB**: https://palmdb.net/app/timeboard
 
 ## Technology
@@ -60,7 +60,7 @@ TimeBoard can be downloaded from the following locations:
 - Developed using **[OrbForms Designer](https://github.com/OrbWorks/orbworks-archive)**
 - Written in **OrbC**
 
-More features are planned for future releases.
+More features are planned for future releases"
 
 ---
 
