@@ -41,11 +41,16 @@ Provides detailed battery and system information:
 - Estimated remaining usage time  
 - Total device uptime  
 
+## Compatibility
+
+- Compatible with **Palm OS 3.5 and later**
+- Designed to run on both **grayscale and color** Palm OS devices
+- Optimized for older hardware while remaining functional on newer Palm OS versions
+
 ## Technology
 
 - Developed using **[OrbForms Designer](https://github.com/OrbWorks/orbworks-archive)**
 - Written in **OrbC**
-- Optimized for classic Palm OS devices, including older hardware
 
 More features are planned for future releases.
 
