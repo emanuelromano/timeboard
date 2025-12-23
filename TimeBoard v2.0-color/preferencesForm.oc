@@ -1,0 +1,59 @@
+// preferences
+
+
+// event handlers
+handler preferencesForm.onopen() {
+	// set main theme
+	setTheme(preferences[0].selectedTheme, false);
+	
+	// Sounds button and icon hidden - WIP
+	soundPrefsButton.visible = false;
+	bitmap1134.visible = false;
+}
+
+handler preferencesForm.ondraw() {
+	draw.begin();
+
+	draw.fgRGB(shadowR, shadowG, shadowB);
+	draw.frame(clrFG, 3, 3, preferencesForm.w-3, preferencesForm.h-3, 6, 3);
+	
+	draw.fgRGB(themeR, themeG, themeB);
+	draw.frame(clrFG, 3, 3, preferencesForm.w-4, preferencesForm.h-4, 6, 3);
+	
+	draw.font(fntLargeBold);
+	draw.textRGB(shadowR, shadowG, shadowB);
+	draw.text(clrFG, 10, 8, "Preferences");
+
+	draw.end();	
+}
+
+handler preferencesForm.onresize() {
+	// UIform attach this form for drawind methods
+	draw.attachForm(this);
+}
+
+
+// button handlers
+handler timePrefsButton.onselect() {
+	prefsTimeDateForm.load();
+}
+
+handler buttonsPrefsButton.onselect() {
+	prefsButtonsForm.load();
+}
+
+handler soundPrefsButton.onselect() {
+	prefsSoundsForm.load();
+}
+
+handler themePrefsButton.onselect() {
+	prefsThemeForm.load();
+}
+
+handler morePrefsButton.onselect() {
+	prefsMoreForm.load();
+}
+
+handler backPrefsButton.onselect() {
+	mainForm.load();
+}

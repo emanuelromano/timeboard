@@ -1,0 +1,114 @@
+// Buttons Preferences Form
+
+
+struct InfoText {
+	string infoA;
+	string infoB;
+};
+
+InfoText info[2];
+
+// Set new preferences
+bool SetNewButtonsPrefs() {
+	preferences[0].buttonsMode = buttonsMode;
+	
+  	return prefs.set("KS10", true, preferences, typeof(AppPreferences), 1);
+}
+
+
+// Event handlers
+handler prefsButtonsForm.onopen() {
+	// UIform attach this form for drawind methods
+	draw.attachForm(this);
+	
+	// Set info strings
+	info[0].infoA = "Up key: Enter selected view";
+	info[0].infoB = "Down key: Scroll through views";
+	info[1].infoA = "Up/Down keys: Scroll through views";
+	info[1].infoB = "Center key: Enter selected view";
+	
+	// Get preferences
+	GetPrefs();
+	buttonsMode = preferences[0].buttonsMode;
+	
+	if (buttonsMode == 1) {
+		twoKeysPush.checked = true;
+		
+		infoLabel1.text = info[0].infoA;
+		infoLabel2.text = info[0].infoB;
+		
+		navTwoBMP.visible = true;
+		navThreeBMP.visible = false;
+	}
+	else
+	{
+		threeKeysPush.checked = true;
+		
+		infoLabel1.text = info[1].infoA;
+		infoLabel2.text = info[1].infoB;
+		
+		navTwoBMP.visible = false;
+		navThreeBMP.visible = true;
+	}
+		
+	draw.attachForm(this);
+}
+
+handler prefsButtonsForm.ondraw() {
+	draw.begin();
+	
+	draw.fgRGB(shadowR, shadowG, shadowB);
+	draw.frame(clrFG, 3, 3, prefsButtonsForm.w-3, prefsButtonsForm.h-3, 6, 3);
+	
+	draw.fgRGB(themeR, themeG, themeB);
+	draw.frame(clrFG, 3, 3, prefsButtonsForm.w-4, prefsButtonsForm.h-4, 6, 3);
+	
+	draw.font(fntLargeBold);
+	draw.textRGB(shadowR, shadowG, shadowB);
+	draw.text(clrFG, 10, 8, "Buttons");
+	
+	draw.end();
+}
+
+handler prefsButtonsForm.onresize() {
+	// UIform attach this form for drawind methods
+	draw.attachForm(this);
+}
+
+
+// Push buttons handlers
+handler twoKeysPush.onselect() {
+	buttonsMode = 1;
+	twoKeysPush.checked = true;
+	threeKeysPush.checked = false;
+	
+	infoLabel1.text = info[0].infoA;
+	infoLabel2.text = info[0].infoB;
+	
+	navThreeBMP.visible = false;
+	navTwoBMP.visible = true;
+}
+
+
+handler threeKeysPush.onselect() {
+	buttonsMode = 2;
+	twoKeysPush.checked = false;
+	threeKeysPush.checked = true;
+	
+	infoLabel1.text = info[1].infoA;
+	infoLabel2.text = info[1].infoB;
+	
+	navTwoBMP.visible = false;
+	navThreeBMP.visible = true;
+}
+
+
+// Soft button handlers
+handler saveButtonsButton.onselect() {
+	SetNewButtonsPrefs();
+	preferencesForm.load();
+}
+
+handler cancelButtonsButton.onselect() {
+	preferencesForm.load();
+}

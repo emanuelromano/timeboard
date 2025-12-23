@@ -1,0 +1,83 @@
+struct ActionGadget {
+	// A UIGadget must always be the first member of a gadget
+	UIGadget gadget;
+
+	// default event handlers
+	void onopen();
+	void ondraw();
+
+	// internal methods
+	void SetAction(int action, Bitmap actionBMP, int colorDepth);
+	void DrawAction(Bitmap actionBMP, bool drawBg);
+	void SetActionTheme(int frmR, int frmG, int frmB,
+							int bgR, int bgG, int bgB,
+							int shdR, int shdG, int shdB,
+							int txtR, int txtG, int txtB);
+	//void Dr
+	
+	// internal data
+	Draw 	draw;
+	int 	actionSet, clrDepth;
+	Bitmap	actBMP;
+};
+
+
+// color theme variables
+int actBorderR, actBorderG, actBorderB,
+	actBackgroundR, actBackgroundG, actBackgroundB,
+	actShadowR, actShadowG, actShadowB,
+	actTextR, actTextG, actTextB;
+
+void ActionGadget.SetActionTheme(int frmR, int frmG, int frmB,
+									int bgR, int bgG, int bgB,
+									int shdR, int shdG, int shdB,
+									int txtR, int txtG, int txtB) {
+	actBorderR = frmR;
+	actBorderG = frmG;
+	actBorderB = frmB;
+	
+	actBackgroundR = bgR;
+	actBackgroundG = bgG;
+	actBackgroundB = bgB;
+	
+	actShadowR = shdR;
+	actShadowG = shdG;
+	actShadowB = shdB;
+	
+	actTextR = txtR;
+	actTextG = txtG;
+	actTextB = txtB;
+}
+
+
+void ActionGadget.SetAction(int action, Bitmap actionBMP, int colorDepth) {
+	actionSet = action;
+	actBMP = actionBMP;
+	clrDepth = colorDepth;
+}
+
+
+void ActionGadget.DrawAction(Bitmap actionBMP, bool drawBg) {
+	draw.begin();
+
+	// BMP background
+	if (drawBg && clrDepth > 4) {
+		draw.fgRGB(actBackgroundR, actBackgroundG, actBackgroundB);
+		draw.rect(clrFG, 5, 5, 9, gadget.h-10, 0);
+		draw.rect(clrFG, 14, 9, gadget.w-6, gadget.h-11, 0);
+	}
+	
+	draw.bitmap(actionBMP, 3, 3);
+		
+	draw.end();
+}
+
+
+void ActionGadget.onopen() {
+	draw.attachGadget(gadget); 
+}
+
+
+void ActionGadget.ondraw() {
+	DrawAction(actBMP, false);
+}

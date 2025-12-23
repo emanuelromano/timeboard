@@ -1,0 +1,191 @@
+/* ----------------------------------------------
+	TimeBoard (codenamed KASIO) - A fun clock app for Palm OS
+
+	Written by @coloraturip,
+	based on the Analog Clock sample app
+	from OrbForms Designer.
+
+	- Supports Palm OS 3.5 or newer
+
+	Project started on March 13th, 2025
+---------------------------------------------- */
+
+
+// Global object and variable definitions
+Preferences prefs;
+Event e;
+//Draw buffer;
+Draw draw;
+Date today;
+int actionSet = 1;
+int hours, minutes, seconds, amPm; // 1: am / 2: pm
+int colorDepth, originalColorDepth;
+int backgroundColorIndex;
+bool grayScaleApp = true;
+
+
+// App preferences structure
+struct AppPreferences {
+	int colorDepth;
+	int openingForm;
+	int selectedTheme;
+	int selectedBackground;
+	bool showConnectors;
+	int timeFormat;
+	int dateFormat;
+	bool startOnSunday;
+	int buttonsMode;
+	bool enableSounds;
+	bool hourlyChime;
+	bool minuteChime;
+	bool secondsChime;
+	float dischargeRate;
+	string lastCalibration;
+	int sleepTime;
+	bool easterEgg;
+	int bgColorIndex;
+};
+
+AppPreferences preferences[1];
+
+
+// Getting saved preferences
+// Returns false if there's no stored preferences
+bool GetPrefs() {
+	return prefs.get("KS10", true, preferences, typeof(AppPreferences), 1);
+}
+
+
+// Set default preferences in case they don't exist
+bool SetDefaultPrefs() {	
+	preferences[0].colorDepth = clock.getdepth(); // original color depth supported by host device
+	preferences[0].openingForm = 1; // open: Overview
+	preferences[0].selectedTheme = 1; // theme: Sky Blue
+	preferences[0].selectedBackground = 1; // background: Day
+	preferences[0].showConnectors = true; // show connectors on interface
+	preferences[0].timeFormat = 1; // 24 hours
+	preferences[0].dateFormat = 1; // MM-DD-YYYY
+	preferences[0].startOnSunday = true; // Sunday first day on the week
+	preferences[0].buttonsMode = 1; // UP: enter - DOWN: select
+	preferences[0].enableSounds = false; // all sounds disabled
+	preferences[0].hourlyChime = false;
+	preferences[0].minuteChime = false;
+	preferences[0].secondsChime = false;
+	preferences[0].dischargeRate = 0; // no discharge rate yet
+	preferences[0].lastCalibration = "00-00-0000"; // no last calibration
+	preferences[0].sleepTime = 1; // 5 minutes for battery remaining test
+	preferences[0].easterEgg = false;
+	// For COLOR app version only:
+	preferences[0].bgColorIndex = 0; // white background
+
+	return prefs.set("KS10", true, preferences, typeof(AppPreferences), 1);
+}
+
+
+void twelveHrFormat(int hour) {
+	if (hour == 0) {
+		hours = 12;
+		amPm = 1; // AM
+	}
+	else if (hour < 12) {
+		hours = hour;
+		amPm = 1; // AM
+	}
+	else if (hour == 12) {
+		hours = 12;
+		amPm = 2; // PM
+	}
+	else {
+		hours = hour - 12;
+		amPm = 2; // PM
+	}
+}
+
+
+void setClock(int timeFormat) {
+	today.now();
+	
+	if (timeFormat == 1) {
+		// 24 hs
+		hours = today.hour;
+		minutes = today.min;
+		seconds = today.sec;
+	}
+	else
+	{
+		// 12 hs
+		twelveHrFormat(today.hour);
+		minutes = today.min;
+		seconds = today.sec;
+	}
+}
+
+
+// Save preferences when closing the app
+void SavePrefsOnClose() {
+	prefs.get("KS10", true, preferences, typeof(AppPreferences), 1);
+	prefs.set("KS10", true, preferences, typeof(AppPreferences), 1);
+}
+
+
+// Form event handlers
+handler clock.onstart() {
+	int version = osver();
+	
+	// VALIDATIONS
+	// Minimun OS version warning
+	if (version < 50462720) {
+    	alert("TimeBoard requires Palm OS 3.5 or higher.\nApp will exit.");
+    	clock.abort();
+	}
+	
+	// Get color depth supported by device at the moment
+	colorDepth = clock.getdepth();
+	originalColorDepth = clock.getdepth();
+	
+	if (grayScaleApp) {
+		if (colorDepth > 4) {
+			alert("This version of TimeBoard does not support Palm devices with color screens.\nPlease install the color version instead.\nApp will exit.");
+			clock.abort();
+		}
+	}
+	
+	if (colorDepth >= 16) {
+		clock.setdepth(8); // sets 8bpp mode
+		colorDepth = clock.getdepth();
+	}
+	
+	// If there is no default prefs, set default prefs
+	if (GetPrefs() == false) {
+		SetDefaultPrefs();
+	}
+	
+	// Set time format
+	setClock(preferences[0].timeFormat);
+	
+	// Set background color index
+	backgroundColorIndex = preferences[0].bgColorIndex;
+	
+	// Main view selection
+	switch (preferences[0].openingForm) {
+		case 1:
+			mainForm.load();
+			break;
+		case 2:
+			fullClockForm.load();
+			break;
+		case 3:
+			fullDigiClockForm.load();
+			break;
+	}
+}
+
+handler clock.onstop() {
+	// Release memory used by buffer
+	//buffer.release();
+	
+	// Set original device color depth before exiting
+	clock.setdepth(originalColorDepth);
+	
+	SavePrefsOnClose();
+}

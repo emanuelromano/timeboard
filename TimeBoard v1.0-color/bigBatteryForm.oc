@@ -1,0 +1,82 @@
+// Big Battery
+
+
+// event handlers
+handler bigBatteryForm.onopen() {
+	// UIform attach this form for drawind methods;
+	draw.attachForm(this);
+	
+	// get preferences
+	GetPrefs();
+	
+	bigBatteryBackButton.visible = false;
+	batteryCalButton.visible = false;
+	
+	// battery status
+	charA = battery(false);
+	charB = battery(false);
+	
+	timer(100);
+}
+
+handler bigBatteryForm.ondraw() {
+	// Draw main background from saved preferences
+	setMainBg(preferences[0].selectedBackground);
+	
+	// draw big battery
+	bigBatteryGadget.DrawBatteryFrame();
+	bigBatteryGadget.DrawBigBatteryIcon();
+	bigBatteryGadget.RemainingChargeEst(preferences[0].dischargeRate, preferences[0].lastCalibration);
+	bigBatteryGadget.UpTime();
+	bigBatteryGadget.DrawBatteryInfo();
+	
+}
+
+handler bigBatteryForm.onresize() {
+	// UIform attach this form for drawind methods;
+	draw.attachForm(this);
+}
+
+handler bigBatteryForm.ontimer() {
+	charB = battery(false);
+	
+	if (bigBatteryForm.obscured == false) {
+		if (charB != charA) {
+			// battery icon
+			bigBatteryGadget.DrawBigBatteryIcon();
+			
+			charA = battery(false);
+		}
+		
+		bigBatteryGadget.RemainingChargeEst(preferences[0].dischargeRate, preferences[0].lastCalibration);
+		bigBatteryGadget.UpTime();
+		bigBatteryGadget.DrawBatteryInfo();
+	}
+	
+	timer(100);
+}
+
+
+// gadget handlers
+handler bigBatteryGadget.ondraw() {
+	bigBatteryBackButton.visible = true;
+	batteryCalButton.visible = true;
+}
+
+
+// button handlers
+handler bigBatteryBackButton.onselect() {
+	mainForm.load();
+}
+
+handler batteryCalButton.onselect() {
+	batteryCalibrateForm.load();
+}
+
+
+// hard button handlers
+handler bigBatteryForm.onhkey() {
+	if (keystate() == 4) { // down key
+		mainForm.load();
+	}
+}

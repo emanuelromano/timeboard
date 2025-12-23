@@ -1,0 +1,66 @@
+// Big Clock Form
+
+
+// event handlers
+handler bigClockForm.onopen() {
+	// UIform attach this form for drawind methods
+	draw.attachForm(this);
+	
+	clockMaxButton.visible = false;
+	bigClockBackButton.visible = false;
+	
+	// passing buttons to gadgets by reference
+	bigClockGadget.SetClockPrefs(true, true, false, fntBold);
+	bigClockGadget.GetClockButton(true, bigClockBackButton);
+	bigClockGadget.GetClockButton2(true, clockMaxButton);
+	
+	// timer 1 sec
+	timer(100);
+}
+
+
+handler bigClockForm.ondraw() {
+	// draw main theme from saved preferences
+	drawMainTheme();
+}
+
+
+handler bigClockForm.onresize() {
+	// UIform attach this form for drawind methods
+	draw.attachForm(this);
+}
+
+
+handler bigClockForm.ontimer() {
+	bigClockGadget.DrawClockHands(false);
+	
+	// sound every second
+	if (soundsEnabled) {
+		tone(180, 5, sysPrefSysSoundVolume);
+	}
+	
+	timer(100);
+}
+
+
+// button handlers
+handler bigClockBackButton.onselect() {
+	mainForm.load();
+}
+
+
+handler clockMaxButton.onselect() {
+	fullClockForm.load();
+}
+
+
+// hard button handlers
+handler bigClockForm.onhkey() {
+	if (keystate() == 2) { // up key
+		fullClockForm.load();
+	}
+	
+	if (keystate() == 4) { // down key
+		mainForm.load();
+	}
+}

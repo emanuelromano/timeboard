@@ -1,0 +1,89 @@
+// More Preferences Form
+
+
+// preference variables
+int viewSelected, sleepTimeSelected;
+string views[3], sleepOptions[2];
+
+
+// set new preferences
+bool SetNewMorePrefs() {
+	preferences[0].openingForm = viewSelected;
+	preferences[0].sleepTime = sleepTimeSelected;
+	
+  	return prefs.set("KS10", true, preferences, typeof(AppPreferences), 1);
+}
+
+
+// event handlers
+handler prefsMoreForm.onopen() {
+	// UIform attach this form for drawind methods
+	draw.attachForm(this);
+	
+	// add items to themes and backgrounds lists
+	views[0] = "Overview";
+	views[1] = "Analog clock";
+	views[2] = "Digital clock";
+	mainViewList.setitems(3, views);
+	
+	sleepOptions[0] = "5 minutes";
+	sleepOptions[1] = "10 minutes";
+	measurePeriodList.setitems(2, sleepOptions);
+	
+	// get preferences
+	GetPrefs();
+	
+	viewSelected = preferences[0].openingForm;
+	mainViewPopup.text = views[viewSelected - 1];
+	mainViewList.selitem = viewSelected - 1;
+	
+	sleepTimeSelected = preferences[0].sleepTime;
+	measurePeriodPopup.text = sleepOptions[sleepTimeSelected - 1];
+	measurePeriodList.selitem = sleepTimeSelected - 1;
+}
+
+handler prefsMoreForm.ondraw() {
+	draw.begin();
+	
+	draw.fgRGB(shadowR, shadowG, shadowB);
+	draw.frame(clrFG, 3, 3, prefsMoreForm.w-3, prefsMoreForm.h-3, 6, 3);
+	
+	draw.fgRGB(themeR, themeG, themeB);
+	draw.frame(clrFG, 3, 3, prefsMoreForm.w-4, prefsMoreForm.h-4, 6, 3);
+	
+	draw.font(fntLargeBold);
+	draw.textRGB(shadowR, shadowG, shadowB);
+	draw.text(clrFG, 10, 8, "More");
+	
+	draw.end();
+}
+
+handler prefsMoreForm.onresize() {
+	// UIform attach this form for drawind methods
+	draw.attachForm(this);
+}
+
+
+// set view selected
+handler mainViewPopup.onlistselect() {
+	viewSelected = e.value + 1;
+	mainViewPopup.text = views[e.value];
+}
+
+
+// set time period selected
+handler measurePeriodPopup.onlistselect() {
+	sleepTimeSelected = e.value + 1;
+	measurePeriodPopup.text = sleepOptions[e.value];
+}
+
+
+// soft button handlers
+handler saveMoreButton.onselect() {
+	SetNewMorePrefs();
+	preferencesForm.load();
+}
+
+handler cancelMoreButton.onselect() {
+	preferencesForm.load();
+}

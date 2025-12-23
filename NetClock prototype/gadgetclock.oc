@@ -1,0 +1,178 @@
+// --------------------
+// ESTRUCTURAS
+// --------------------
+struct Point {
+	int x, y;
+};
+
+struct ClockHand {
+	int index;     // índice 0..59 (en vez de ángulo float)
+	int length;
+};
+
+const float pi = 3.141592;
+
+
+// --------------------
+// GADGET
+// --------------------
+struct ClockGadget {
+	// UIGadget SIEMPRE primero
+	UIGadget gadget;
+
+	// handlers
+	void onopen();
+	void ondraw();
+
+	// métodos internos
+	void CalculateFace();
+	void DrawClockFace();
+	void DrawClockHands();
+	void DrawHand(ClockHand hand, int color);
+
+	// dibujo
+	Draw draw;
+
+	// geometría
+	Point face[12];
+	Point ptCenter;
+	int radius;
+	int border;
+
+	// manos
+	ClockHand chHour, chMin, chSec;
+
+	// optimización
+	float sinTable[60];
+	float cosTable[60];
+	int lastSec;
+	bool faceDrawn;
+};
+
+
+// --------------------
+// PRECALCULAR GEOMETRÍA
+// --------------------
+void ClockGadget.CalculateFace() {
+	int i;
+
+	border = 3;
+	draw.attachGadget(gadget);
+
+	// radio según tamaño del gadget
+	if (gadget.h >= gadget.w) {
+		radius = (gadget.w - 2 * border) * 0.4;
+	} else {
+		radius = (gadget.h - 2 * border) * 0.4;
+	}
+
+	ptCenter.x = gadget.w / 2;
+	ptCenter.y = gadget.h / 2;
+
+	// posiciones de los números
+	for (i = 0; i < 12; i++) {
+		face[i].x = ptCenter.x + cos((i * 30 - 90) * pi / 180) * radius;
+		face[i].y = ptCenter.y + sin((i * 30 - 90) * pi / 180) * radius;
+	}
+
+	// longitudes
+	chSec.length  = radius - 5;
+	chMin.length  = radius - 5;
+	chHour.length = (radius - 5) * 0.6;
+
+	// tablas seno / coseno (MUY importante en Palm)
+	for (i = 0; i < 60; i++) {
+		sinTable[i] = sin((i * 6 - 90) * pi / 180);
+		cosTable[i] = cos((i * 6 - 90) * pi / 180);
+	}
+
+	lastSec   = -1;
+	faceDrawn = false;
+}
+
+
+// --------------------
+// EVENTOS
+// --------------------
+void ClockGadget.onopen() {
+	CalculateFace();
+}
+
+void ClockGadget.ondraw() {
+	if (!faceDrawn) {
+		DrawClockFace();
+		faceDrawn = true;
+	}
+	DrawClockHands();
+}
+
+
+// --------------------
+// DIBUJAR CARA
+// --------------------
+void ClockGadget.DrawClockFace() {
+	int i;
+
+	draw.begin();
+
+	draw.frame(clrFG, border, border,
+	           gadget.w - border, gadget.h - border,
+	           5, border);
+
+	draw.textAlign(11);
+	draw.text(clrFG, face[0].x, face[0].y, "12");
+
+	for (i = 1; i < 12; i++) {
+		draw.text(clrFG, face[i].x, face[i].y, i);
+	}
+
+	draw.pixel(clrFG, ptCenter.x, ptCenter.y);
+	draw.end();
+}
+
+
+// --------------------
+// DIBUJAR MANOS
+// --------------------
+void ClockGadget.DrawHand(ClockHand hand, int color) {
+	int x, y;
+
+	x = cosTable[hand.index] * hand.length + ptCenter.x;
+	y = sinTable[hand.index] * hand.length + ptCenter.y;
+
+	draw.line(color, ptCenter.x, ptCenter.y, x, y);
+}
+
+void ClockGadget.DrawClockHands() {
+	Date now;
+	int hIndex;
+
+	now.now();
+
+	// si no cambió el segundo, no redibujar
+	if (now.sec == lastSec) return;
+	lastSec = now.sec;
+
+	draw.begin();
+
+	// borrar manos previas
+	DrawHand(chHour, clrBG);
+	DrawHand(chMin,  clrBG);
+	DrawHand(chSec,  clrBG);
+
+	// segundos y minutos directos
+	chSec.index = now.sec;
+	chMin.index = now.min;
+
+	// hora interpolada usando minutos (sin floats)
+	hIndex = (now.hour % 12) * 5 + now.min / 12;
+	chHour.index = hIndex;
+
+	// dibujar manos actuales
+	DrawHand(chHour, clrFG);
+	DrawHand(chMin,  clrFG);
+	DrawHand(chSec,  clrFG);
+
+	draw.end();
+}
+

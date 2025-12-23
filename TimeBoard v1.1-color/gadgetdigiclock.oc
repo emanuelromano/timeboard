@@ -1,0 +1,630 @@
+// bitmaps for each number
+@bitmap Bitmap num0blank {
+	id = 8092
+	image8 = "graphics/0-blank-lr.bmp"
+	image16 = "graphics/0-blank-lr.bmp"
+}
+
+@bitmap Bitmap num0 {
+	id = 8000
+	image8 = "graphics/0-lr.bmp"
+	image16 = "graphics/0-lr.bmp"
+}
+
+@bitmap Bitmap num1 {
+	id = 8001
+	image8 = "graphics/1-lr.bmp"
+	image16 = "graphics/1-lr.bmp"
+}
+
+@bitmap Bitmap num2 {
+	id = 8002
+	image8 = "graphics/2-lr.bmp"
+	image16 = "graphics/2-lr.bmp"
+}
+
+@bitmap Bitmap num3 {
+	id = 8003
+	image8 = "graphics/3-lr.bmp"
+	image16 = "graphics/3-lr.bmp"
+}
+
+@bitmap Bitmap num4 {
+	id = 8004
+	image8 = "graphics/4-lr.bmp"
+	image16 = "graphics/4-lr.bmp"
+}
+
+@bitmap Bitmap num5 {
+	id = 8005
+	image8 = "graphics/5-lr.bmp"
+	image16 = "graphics/5-lr.bmp"
+}
+
+@bitmap Bitmap num6 {
+	id = 8006
+	image8 = "graphics/6-lr.bmp"
+	image16 = "graphics/6-lr.bmp"
+}
+
+@bitmap Bitmap num7 {
+	id = 8007
+	image8 = "graphics/7-lr.bmp"
+	image16 = "graphics/7-lr.bmp"
+}
+
+@bitmap Bitmap num8 {
+	id = 8008
+	image8 = "graphics/8-lr.bmp"
+	image16 = "graphics/8-lr.bmp"
+}
+
+@bitmap Bitmap num9 {
+	id = 8009
+	image8 = "graphics/9-lr.bmp"
+	image16 = "graphics/9-lr.bmp"
+}
+
+@bitmap Bitmap hourPoints {
+	id = 8020
+	image8 = "graphics/hr-points-lr.bmp"
+	image16 = "graphics/hr-points-lr.bmp"
+}
+
+
+// Bitmaps for each seconds number
+@bitmap Bitmap num0sec {
+	id = 8010
+	image8 = "graphics/small-0-lr.bmp"
+	image16 = "graphics/small-0-lr.bmp"
+}
+
+@bitmap Bitmap num1sec {
+	id = 8011
+	image8 = "graphics/small-1-lr.bmp"
+	image16 = "graphics/small-1-lr.bmp"
+}
+
+@bitmap Bitmap num2sec {
+	id = 8012
+	image8 = "graphics/small-2-lr.bmp"
+	image16 = "graphics/small-2-lr.bmp"
+}
+
+@bitmap Bitmap num3sec {
+	id = 8013
+	image8 = "graphics/small-3-lr.bmp"
+	image16 = "graphics/small-3-lr.bmp"
+}
+
+@bitmap Bitmap num4sec {
+	id = 8014
+	image8 = "graphics/small-4-lr.bmp"
+	image16 = "graphics/small-4-lr.bmp"
+}
+
+@bitmap Bitmap num5sec {
+	id = 8015
+	image8 = "graphics/small-5-lr.bmp"
+	image16 = "graphics/small-5-lr.bmp"
+}
+
+@bitmap Bitmap num6sec {
+	id = 8016
+	image8 = "graphics/small-6-lr.bmp"
+	image16 = "graphics/small-6-lr.bmp"
+}
+
+@bitmap Bitmap num7sec {
+	id = 8017
+	image8 = "graphics/small-7-lr.bmp"
+	image16 = "graphics/small-7-lr.bmp"
+}
+
+@bitmap Bitmap num8sec {
+	id = 8018
+	image8 = "graphics/small-8-lr.bmp"
+	image16 = "graphics/small-8-lr.bmp"
+}
+
+@bitmap Bitmap num9sec {
+	id = 8019
+	image8 = "graphics/small-9-lr.bmp"
+	image16 = "graphics/small-9-lr.bmp"
+}
+
+@bitmap Bitmap amBMP {
+	id = 8090
+	image8 = "graphics/am.bmp"
+	image16 = "graphics/am.bmp"
+}
+
+@bitmap Bitmap pmBMP {
+	id = 8091
+	image8 = "graphics/pm.bmp"
+	image16 = "graphics/pm.bmp"
+}
+
+
+struct DigiClockGadget {
+	// A UIGadget must always be the first member of a gadget
+	UIGadget gadget;
+
+	// Default event handlers
+	void onopen();
+	void ondraw();
+
+	// Internal methods
+	void DrawDigiClock(int hours, int minutes, int seconds, int amPm);
+	void SetDigiClockTheme(int frmR, int frmG, int frmB,
+							int bgR, int bgG, int bgB,
+							int shdR, int shdG, int shdB,
+							int txtR, int txtG, int txtB);
+	void DrawMiniDigiClock(int hour, int minute, int second);
+	void ShowDate();
+	void SetDigiClockPrefs(bool pref1, bool pref2, int hours, int minutes, int seconds, int dateFormat, int timeFormat, int amPm);
+	void GetDigiClockButton(bool hasButton, UIButton button);
+	
+	// Internal data
+	Draw 	draw;
+	Date	today;
+	int		hr, min, sec,
+			dateF, timeF, amOrPm;
+	int 	border;
+	string	sthr, stmin, stsec;
+	
+	bool hasButton1, hasButton2,
+	preference1, preference2, preference3, preference4;
+	UIButton digiClockButton1, digiClockButton2;
+};
+
+
+// Color theme variables
+int digiMiniBackgroundR, digiMiniBackgroundG, digiMiniBackgroundB,
+	digiBackgroundR, digiBackgroundG, digiBackgroundB,
+	digiShadowR, digiShadowG, digiShadowB,
+	digiTextR, digiTextG, digiTextB;
+
+void DigiClockGadget.SetDigiClockTheme(int mBgR, int mBgG, int mGbB,
+									int bgR, int bgG, int bgB,
+									int shdR, int shdG, int shdB,
+									int txtR, int txtG, int txtB) {
+	digiMiniBackgroundR = mBgR;
+	digiMiniBackgroundG = mBgG;
+	digiMiniBackgroundB = mGbB;
+	
+	digiBackgroundR = bgR;
+	digiBackgroundG = bgG;
+	digiBackgroundB = bgB;
+	
+	digiShadowR = shdR;
+	digiShadowG = shdG;
+	digiShadowB = shdB;
+	
+	digiTextR = txtR;
+	digiTextG = txtG;
+	digiTextB = txtB;
+}
+
+
+void DigiClockGadget.DrawDigiClock(int hours, int minutes, int seconds, int amPm) {
+	string sthr, stmin, stsec,
+			stHr1, stHr2,
+			stMin1, stMin2,
+			stSec1, stSec2;
+	Bitmap hr1, hr2, min1, points, min2, sec1, sec2, amPmBMP;
+	
+	if (strlen(hours) == 1)
+		sthr = ("0" + (hours));
+	else
+		sthr = ("" + (hours));
+		
+	if (strlen(minutes) == 1)
+		stmin = ("0" + (minutes));
+	else
+		stmin = ("" + (minutes));
+		
+	if (strlen(seconds) == 1)
+		stsec = ("0" + (seconds));
+	else
+		stsec = ("" + (seconds));
+
+	stHr1 = strleft(sthr, 1);
+	stHr2 = strright(sthr, 1);
+	stMin1 = strleft(stmin, 1);
+	stMin2 = strright(stmin, 1);
+	stSec1 = strleft(stsec, 1);
+	stSec2 = strright(stsec, 1);
+
+	// Hour BMPs
+	switch (stHr1) {
+		case "0":
+			hr1.id = 8000;
+			break;
+		case "1":
+			hr1.id = 8001;
+			break;
+		case "2":
+			hr1.id = 8002;
+			break;
+		case "3":
+			hr1.id = 8003;
+			break;
+		case "4":
+			hr1.id = 8004;
+			break;
+		case "5":
+			hr1.id = 8005;
+			break;
+		case "6":
+			hr1.id = 8006;
+			break;
+		case "7":
+			hr1.id = 8007;
+			break;
+		case "8":
+			hr1.id = 8008;
+			break;
+		case "9":
+			hr1.id = 8009;
+			break;
+	}
+
+	switch (stHr2) {
+		case "0":
+			hr2.id = 8000;
+			break;
+		case "1":
+			hr2.id = 8001;
+			break;
+		case "2":
+			hr2.id = 8002;
+			break;
+		case "3":
+			hr2.id = 8003;
+			break;
+		case "4":
+			hr2.id = 8004;
+			break;
+		case "5":
+			hr2.id = 8005;
+			break;
+		case "6":
+			hr2.id = 8006;
+			break;
+		case "7":
+			hr2.id = 8007;
+			break;
+		case "8":
+			hr2.id = 8008;
+			break;
+		case "9":
+			hr2.id = 8009;
+			break;
+	}
+
+	// Hour points
+	points.id = 8020;
+	
+	// Minutes BMPs
+	switch (stMin1) {
+		case "0":
+			min1.id = 8000;
+			break;
+		case "1":
+			min1.id = 8001;
+			break;
+		case "2":
+			min1.id = 8002;
+			break;
+		case "3":
+			min1.id = 8003;
+			break;
+		case "4":
+			min1.id = 8004;
+			break;
+		case "5":
+			min1.id = 8005;
+			break;
+		case "6":
+			min1.id = 8006;
+			break;
+		case "7":
+			min1.id = 8007;
+			break;
+		case "8":
+			min1.id = 8008;
+			break;
+		case "9":
+			min1.id = 8009;
+			break;
+	}
+
+	switch (stMin2) {
+		case "0":
+			min2.id = 8000;
+			break;
+		case "1":
+			min2.id = 8001;
+			break;
+		case "2":
+			min2.id = 8002;
+			break;
+		case "3":
+			min2.id = 8003;
+			break;
+		case "4":
+			min2.id = 8004;
+			break;
+		case "5":
+			min2.id = 8005;
+			break;
+		case "6":
+			min2.id = 8006;
+			break;
+		case "7":
+			min2.id = 8007;
+			break;
+		case "8":
+			min2.id = 8008;
+			break;
+		case "9":
+			min2.id = 8009;
+			break;
+	}
+
+	// Seconds BMPs
+	switch (stSec1) {
+		case "0":
+			sec1.id = 8010;
+			break;
+		case "1":
+			sec1.id = 8011;
+			break;
+		case "2":
+			sec1.id = 8012;
+			break;
+		case "3":
+			sec1.id = 8013;
+			break;
+		case "4":
+			sec1.id = 8014;
+			break;
+		case "5":
+			sec1.id = 8015;
+			break;
+		case "6":
+			sec1.id = 8016;
+			break;
+		case "7":
+			sec1.id = 8017;
+			break;
+		case "8":
+			sec1.id = 8018;
+			break;
+		case "9":
+			sec1.id = 8019;
+			break;
+	}
+
+	switch (stSec2) {
+		case "0":
+			sec2.id = 8010;
+			break;
+		case "1":
+			sec2.id = 8011;
+			break;
+		case "2":
+			sec2.id = 8012;
+			break;
+		case "3":
+			sec2.id = 8013;
+			break;
+		case "4":
+			sec2.id = 8014;
+			break;
+		case "5":
+			sec2.id = 8015;
+			break;
+		case "6":
+			sec2.id = 8016;
+			break;
+		case "7":
+			sec2.id = 8017;
+			break;
+		case "8":
+			sec2.id = 8018;
+			break;
+		case "9":
+			sec2.id = 8019;
+			break;
+	}
+	
+	if (timeF == 2) {
+		if (stHr1 == "0") {
+			hr1.id = 8092;
+		}
+	}
+	
+	if (amPm == 1) {
+		amPmBMP.id = 8090;
+	}
+	else
+	{
+		amPmBMP.id = 8091;
+	}
+
+	draw.begin();
+
+	// Draw hour
+	draw.bitmap(hr1, (gadget.w / 2)-75, (gadget.h / 2)-41);
+	draw.bitmap(hr2, (gadget.w / 2)-40, (gadget.h / 2)-41);
+	draw.bitmap(points, (gadget.w / 2)-4, (gadget.h / 2)-29);
+	draw.bitmap(min1, (gadget.w / 2)+8, (gadget.h / 2)-41);
+	draw.bitmap(min2, (gadget.w / 2)+43, (gadget.h / 2)-41);
+	
+	// Draw seconds
+	draw.bitmap(sec1, (gadget.w / 2)+43, (gadget.h / 2)+20);
+	draw.bitmap(sec2, (gadget.w / 2)+56, (gadget.h / 2)+20);
+	
+	if (timeF == 2) {
+		draw.bitmap(amPmBMP, (gadget.w / 2)-69, (gadget.h / 2)+20);
+	}
+
+	draw.end();
+}
+
+
+void DigiClockGadget.DrawMiniDigiClock(int hour, int minute, int second) {
+	if (timeF == 1) {
+		if (strlen(hour) == 1)
+			sthr = "0" + hour;
+		else
+			sthr = "" + hour;
+	}
+	else
+	{
+		if (strlen(hour) == 1)
+			sthr = " " + hour;
+		else
+			sthr = "" + hour;
+	}
+	
+	if (strlen(minute) == 1)
+		stmin = "0" + minute;
+	else
+		stmin = "" + minute;
+	
+	if (strlen(second) == 1)
+		stsec = "0" + second;
+	else
+		stsec = "" + second;
+
+	draw.begin();
+	
+	draw.bgRGB(digiMiniBackgroundR, digiMiniBackgroundG, digiMiniBackgroundB);
+	draw.textRGB(digiTextR, digiTextG, digiTextB);
+	draw.textAlign(12);
+	draw.font(fntLargeBold );
+	draw.text(clrText, 33, 11, sthr + ":" + stmin);
+	draw.textAlign(11);
+	draw.font(fntStandard);
+	draw.text(clrText, 27, 22, stsec);
+	
+	draw.end();
+}
+
+
+void DigiClockGadget.ShowDate() {
+	string stday;
+	today.now();
+	
+	draw.begin();
+	draw.bgRGB(digiBackgroundR, digiBackgroundG, digiBackgroundB);
+
+	// Date
+	draw.textAlign(10);
+	draw.textRGB(255, 51, 0);
+	
+	switch (dateF) {
+		case 1:
+			draw.text(clrText, 6, 7, today.month + "-" + today.day);
+			break;
+		case 2:
+			draw.text(clrText, 6, 7, today.day + "-" + today.month);
+			break;
+		case 3:
+			draw.text(clrText, 6, 7, today.month + "/" + today.day);
+			break;
+		case 4:
+			draw.text(clrText, 6, 7, today.day + "/" + today.month);
+			break;
+	}
+	
+	// Year
+	draw.textAlign(12);
+	draw.text(clrText, gadget.w-4, 7, today.year);
+	
+	// Weekday
+	switch (today.weekday) {
+		case 0:
+			stday = "SUNDAY";
+			break;
+		case 1:
+			stday = "MONDAY";
+			break;
+		case 2:
+			stday = "TUESDAY";
+			break;
+		case 3:
+			stday = "WEDNESDAY";
+			break;
+		case 4:
+			stday = "THURSDAY";
+			break;
+		case 5:
+			stday = "FRIDAY";
+			break;
+		case 6:
+			stday = "SATURDAY";
+			break;
+		default:
+			stday = "---";
+	}
+	
+	draw.textAlign(10);
+	draw.text(clrText, 6, gadget.h-10, stday);
+
+	draw.end();
+}
+
+
+void DigiClockGadget.GetDigiClockButton(bool hasButton, UIButton button) {
+	hasButton2 = hasButton;
+	digiClockButton2 = button;
+}
+
+
+void DigiClockGadget.SetDigiClockPrefs(bool pref1, bool pref2, int hours, int minutes, int seconds, int dateFormat, int timeFormat, int amPm) {
+	preference1 = pref1;
+	preference2 = pref2;
+	
+	hr = hours;
+	min = minutes;
+	sec = seconds;
+	
+	dateF = dateFormat;
+	timeF = timeFormat;
+	amOrPm = amPm;
+}
+
+
+void DigiClockGadget.onopen() {
+	draw.attachGadget(gadget);
+}
+
+
+void DigiClockGadget.ondraw() {
+	if (preference1) {
+		// Background
+		draw.begin();
+		draw.fgRGB(digiBackgroundR, digiBackgroundG, digiBackgroundB);
+		draw.rect(clrFG, 0, 0, gadget.w, gadget.h, 0);
+		draw.end();
+		
+		DrawDigiClock(hr, min, sec, amOrPm);
+		ShowDate();
+	}
+	
+	if (preference2) {
+		DrawMiniDigiClock(hr, min, sec);
+	}
+	
+	if (hasButton1) {
+		digiClockButton1.visible = true;
+	}
+	
+	if (hasButton2) {
+		digiClockButton2.visible = true;
+	}
+}

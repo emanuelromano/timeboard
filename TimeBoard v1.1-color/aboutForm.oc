@@ -1,0 +1,93 @@
+// About form
+
+
+int eggCount = 0;
+
+
+// Event handlers
+handler aboutForm.onopen() {
+	setTheme(preferences[0].selectedTheme, false);
+	
+	draw.attachForm(this);
+}
+
+handler aboutForm.ondraw() {
+	draw.begin();
+	
+	draw.fgRGB(shadowR, shadowG, shadowB);
+	draw.frame(clrFG, 3, 3, aboutForm.w-3, aboutForm.h-3, 6, 3);
+	
+	draw.fgRGB(themeR, themeG, themeB);
+	draw.frame(clrFG, 3, 3, aboutForm.w-4, aboutForm.h-4, 6, 3);
+	
+	draw.font(fntBold);
+	draw.textRGB(shadowR, shadowG, shadowB);
+	draw.text(clrFG, 33, 8, "TimeBoard"); // app name
+	
+	draw.font(fntStandard);
+	draw.text(clrFG, 33, 18, "v" + clock.version); // app version number
+	
+	aboutField.text = aboutString.text; // info displayed
+	
+	// page up to show scrollbar
+	aboutField.scroll(-3);
+	aboutScroll.update(aboutField);
+		
+	draw.end();
+}
+
+handler aboutForm.onresize() {
+	// UIform attach this form for drawing methods;
+	draw.attachForm(this);
+}
+
+
+// field and scroll handlers
+handler aboutField.onchange() {
+	aboutScroll.update(this);
+}
+
+handler aboutScroll.onmove() {
+	aboutField.scroll(e.value - e.prev);
+	update(aboutField);
+}
+
+
+// soft button handlers
+handler okButton.onselect() {
+	mainForm.load();
+}
+
+handler easterEggButton.onselect() {
+	eggCount = eggCount + 1;
+	
+	if (eggCount == 7) {
+		if (easterEgg == false) {
+			alert("Orange cat: 'Meow...'");
+			
+			preferences[0].easterEgg = true;
+  			prefs.set("KS10", true, preferences, typeof(AppPreferences), 1);
+  			eggCount = 0;
+		}
+		else
+		{
+			alert("Orange cat: 'OK, bye.'");
+			
+			preferences[0].easterEgg = false;
+  			prefs.set("KS10", true, preferences, typeof(AppPreferences), 1);
+  			eggCount = 0;
+		}
+	}
+}
+
+
+// Hard buttons handler
+handler aboutForm.onhkey() {
+	if (e.key == evUp) {
+		aboutField.scroll(-3);
+		aboutScroll.update(aboutField);
+	} else if (e.key == evDown) {
+		aboutField.scroll(3);
+		aboutScroll.update(aboutField);
+	}
+}

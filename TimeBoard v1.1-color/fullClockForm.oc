@@ -1,0 +1,124 @@
+// Fullscreen Clock
+
+
+// Event handlers
+handler fullClockForm.onopen() {
+	// UIform attach this form for drawing methods
+	draw.attachForm(this);
+	
+	fullClockBackButton.visible = false;
+	
+	timeFormat = preferences[0].timeFormat;
+	dateFormat = preferences[0].dateFormat;
+	
+	setClock(timeFormat);
+	
+	// Passing buttons to gadgets by reference
+	fullClockGadget.SetClockPrefs(true, fntLargeBold, hours, minutes, seconds, timeFormat, amPm, dateFormat);
+	fullClockGadget.GetClockButton2(true, fullClockBackButton);
+	
+	timer(1);
+}
+
+
+handler fullClockForm.ondraw() {
+	string text = "Please wait...";
+	draw.begin();
+	draw.bgRGB(clockBgR, clockBgG, clockBgB);
+	draw.rect(clrBG, 0, 0, 160, 160, 0);
+	draw.bitmap(sandClockBMP, (fullClockForm.w/2)-17, (fullClockForm.h/2)-17.5);
+	draw.font(fntBold);
+	draw.textRGB(clockSecR, clockSecG, clockSecB);
+	draw.text(clrText, (fullClockForm.w/2)-33.5, (fullClockForm.h/2)+20, text);
+	draw.end();
+}
+
+
+handler fullClockForm.onresize() {
+	// UIform attach this form for drawing methods
+	draw.attachForm(this);
+}
+
+
+handler fullClockForm.ontimer() {
+	dayB = today.day;
+	
+	setClock(timeFormat);
+	
+	if (seconds != lastSec) {
+		if (mainForm.obscured == false) {
+			if (dayB != dayA) {
+				// Draw date
+				fullClockGadget.ShowDate();
+				
+				dayA = today.day;
+			}
+			
+			fullClockGadget.DrawClockHands(true, hours, minutes, seconds, amPm, dateFormat);
+		}
+	}
+	
+	updateClockOnSleep();
+	
+	lastSec = seconds;
+	
+	timer(timerTicks);
+}
+
+
+// Soft button handlers
+handler fullClockBackButton.onselect() {
+	mainForm.load();
+}
+
+
+// Hard button handlers
+handler fullClockForm.onhkey() {
+	if (keystate() == 4) { // down key
+		mainForm.load();
+	}
+}
+
+
+// menuBar handlers
+handler fcMenuGeneral.onselect() {
+	actionSet = 1;
+	mainForm.load();
+}
+
+handler fcMenuBigClock.onselect() {
+	actionSet = 1;
+	fullClockForm.load();
+}
+
+handler fcMenuBigDigiClock.onselect() {
+	actionSet = 2;
+	fullDigiClockForm.load();
+}
+
+handler fcMenuCalendar.onselect() {
+	actionSet = 3;
+	bigCalendarForm.load();
+}
+
+handler fcMenuBattery.onselect() {
+	actionSet = 4;
+	bigBatteryForm.load();
+}
+
+handler fcMenuPreferences.onselect() {
+	preferencesForm.load();
+}
+
+handler fcMenuHelp.onselect() {
+	helpForm.load();
+}
+
+handler fcMenuAbout.onselect() {
+	aboutForm.load();
+}
+
+handler fcMenuExit.onselect() {
+	SavePrefsOnClose();
+	clock.abort();
+}

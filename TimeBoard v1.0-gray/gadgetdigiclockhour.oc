@@ -1,0 +1,440 @@
+// bitmaps for each number
+/*@bitmap Bitmap num0 {
+	id = 8000
+	image4 = "graphics/0-lr.bmp"
+	image8 = "graphics/0-lr.bmp"
+	image16 = "graphics/0-lr.bmp"
+}
+
+@bitmap Bitmap num1 {
+	id = 8001
+	image4 = "graphics/1-lr.bmp"
+	image8 = "graphics/1-lr.bmp"
+	image16 = "graphics/1-lr.bmp"
+}
+
+@bitmap Bitmap num2 {
+	id = 8002
+	image4 = "graphics/2-lr.bmp"
+	image8 = "graphics/2-lr.bmp"
+	image16 = "graphics/2-lr.bmp"
+}
+
+@bitmap Bitmap num3 {
+	id = 8003
+	image4 = "graphics/3-lr.bmp"
+	image8 = "graphics/3-lr.bmp"
+	image16 = "graphics/3-lr.bmp"
+}
+
+@bitmap Bitmap num4 {
+	id = 8004
+	image4 = "graphics/4-lr.bmp"
+	image8 = "graphics/4-lr.bmp"
+	image16 = "graphics/4-lr.bmp"
+}
+
+@bitmap Bitmap num5 {
+	id = 8005
+	image4 = "graphics/5-lr.bmp"
+	image8 = "graphics/5-lr.bmp"
+	image16 = "graphics/5-lr.bmp"
+}
+
+@bitmap Bitmap num6 {
+	id = 8006
+	image4 = "graphics/6-lr.bmp"
+	image8 = "graphics/6-lr.bmp"
+	image16 = "graphics/6-lr.bmp"
+}
+
+@bitmap Bitmap num7 {
+	id = 8007
+	image4 = "graphics/7-lr.bmp"
+	image8 = "graphics/7-lr.bmp"
+	image16 = "graphics/7-lr.bmp"
+}
+
+@bitmap Bitmap num8 {
+	id = 8008
+	image4 = "graphics/8-lr.bmp"
+	image8 = "graphics/8-lr.bmp"
+	image16 = "graphics/8-lr.bmp"
+}
+
+@bitmap Bitmap num9 {
+	id = 8009
+	image4 = "graphics/9-lr.bmp"
+	image8 = "graphics/9-lr.bmp"
+	image16 = "graphics/9-lr.bmp"
+}
+
+@bitmap Bitmap hourPoints {
+	id = 8020
+	image4 = "graphics/hr-points-lr.bmp"
+	image8 = "graphics/hr-points-lr.bmp"
+	image16 = "graphics/hr-points-lr.bmp"
+}
+
+
+// bitmaps for each seconds number
+@bitmap Bitmap num0sec {
+	id = 8010
+	image4 = "graphics/small-0-lr.bmp"
+	image8 = "graphics/small-0-lr.bmp"
+	image16 = "graphics/small-0-lr.bmp"
+}
+
+@bitmap Bitmap num1sec {
+	id = 8011
+	image4 = "graphics/small-1-lr.bmp"
+	image8 = "graphics/small-1-lr.bmp"
+	image16 = "graphics/small-1-lr.bmp"
+}
+
+@bitmap Bitmap num2sec {
+	id = 8012
+	image4 = "graphics/small-2-lr.bmp"
+	image8 = "graphics/small-2-lr.bmp"
+	image16 = "graphics/small-2-lr.bmp"
+}
+
+@bitmap Bitmap num3sec {
+	id = 8013
+	image4 = "graphics/small-3-lr.bmp"
+	image8 = "graphics/small-3-lr.bmp"
+	image16 = "graphics/small-3-lr.bmp"
+}
+
+@bitmap Bitmap num4sec {
+	id = 8014
+	image4 = "graphics/small-4-lr.bmp"
+	image8 = "graphics/small-4-lr.bmp"
+	image16 = "graphics/small-4-lr.bmp"
+}
+
+@bitmap Bitmap num5sec {
+	id = 8015
+	image4 = "graphics/small-5-lr.bmp"
+	image8 = "graphics/small-5-lr.bmp"
+	image16 = "graphics/small-5-lr.bmp"
+}
+
+@bitmap Bitmap num6sec {
+	id = 8016
+	image4 = "graphics/small-6-lr.bmp"
+	image8 = "graphics/small-6-lr.bmp"
+	image16 = "graphics/small-6-lr.bmp"
+}
+
+@bitmap Bitmap num7sec {
+	id = 8017
+	image4 = "graphics/small-7-lr.bmp"
+	image8 = "graphics/small-7-lr.bmp"
+	image16 = "graphics/small-7-lr.bmp"
+}
+
+@bitmap Bitmap num8sec {
+	id = 8018
+	image4 = "graphics/small-8-lr.bmp"
+	image8 = "graphics/small-8-lr.bmp"
+	image16 = "graphics/small-8-lr.bmp"
+}
+
+@bitmap Bitmap num9sec {
+	id = 8019
+	image4 = "graphics/small-9-lr.bmp"
+	image8 = "graphics/small-9-lr.bmp"
+	image16 = "graphics/small-9-lr.bmp"
+}
+*/
+
+struct DigiClockHourGadget {
+	// A UIGadget must always be the first member of a gadget
+	UIGadget gadget;
+
+	// default event handlers
+	void onopen();
+	void ondraw();
+
+	// internal methods
+	void SetHour(int hours, int minutes, int seconds);
+	void SetDigiClock(int hours, int minutes, int seconds);
+	
+	// internal data
+	Draw 	draw;
+	Date	today;
+	int hr, min, sec;
+};
+
+/*
+void DigiClockHourGadget.SetHour(int hours, int minutes, int seconds) {	
+	hr = hours;
+	min = minutes;
+	sec = seconds;
+}
+
+
+void DigiClockHourGadget.SetDigiClock(int hours, int minutes, int seconds) {
+	string sthr, stmin, stsec,
+			stHr1, stHr2,
+			stMin1, stMin2,
+			stSec1, stSec2;
+	Bitmap hr1, hr2, min1, points, min2, sec1, sec2;
+	
+	hr = hours;
+	min = minutes;
+	sec = seconds;
+	
+	if (strlen(hr) == 1)
+		sthr = ("0" + (hr));
+	else
+		sthr = ("" + (hr));
+		
+	if (strlen(min) == 1)
+		stmin = ("0" + (min));
+	else
+		stmin = ("" + (min));
+		
+	if (strlen(sec) == 1)
+		stsec = ("0" + (sec));
+	else
+		stsec = ("" + (sec));
+	
+	
+	stHr1 = strleft(sthr, 1);
+	stHr2 = strright(sthr, 1);
+	stMin1 = strleft(stmin, 1);
+	stMin2 = strright(stmin, 1);
+	stSec1 = strleft(stsec, 1);
+	stSec2 = strright(stsec, 1);
+	
+	// hour BMPs
+	switch (stHr1) {
+		case "0":
+			hr1.id = 8000;
+			break;
+		case "1":
+			hr1.id = 8001;
+			break;
+		case "2":
+			hr1.id = 8002;
+			break;
+		case "3":
+			hr1.id = 8003;
+			break;
+		case "4":
+			hr1.id = 8004;
+			break;
+		case "5":
+			hr1.id = 8005;
+			break;
+		case "6":
+			hr1.id = 8006;
+			break;
+		case "7":
+			hr1.id = 8007;
+			break;
+		case "8":
+			hr1.id = 8008;
+			break;
+		case "9":
+			hr1.id = 8009;
+			break;
+	}
+	
+	switch (stHr2) {
+		case "0":
+			hr2.id = 8000;
+			break;
+		case "1":
+			hr2.id = 8001;
+			break;
+		case "2":
+			hr2.id = 8002;
+			break;
+		case "3":
+			hr2.id = 8003;
+			break;
+		case "4":
+			hr2.id = 8004;
+			break;
+		case "5":
+			hr2.id = 8005;
+			break;
+		case "6":
+			hr2.id = 8006;
+			break;
+		case "7":
+			hr2.id = 8007;
+			break;
+		case "8":
+			hr2.id = 8008;
+			break;
+		case "9":
+			hr2.id = 8009;
+			break;
+	}
+	
+	// hour points
+	points.id = 8020;
+	
+	// minutes BMPs
+	switch (stMin1) {
+		case "0":
+			min1.id = 8000;
+			break;
+		case "1":
+			min1.id = 8001;
+			break;
+		case "2":
+			min1.id = 8002;
+			break;
+		case "3":
+			min1.id = 8003;
+			break;
+		case "4":
+			min1.id = 8004;
+			break;
+		case "5":
+			min1.id = 8005;
+			break;
+		case "6":
+			min1.id = 8006;
+			break;
+		case "7":
+			min1.id = 8007;
+			break;
+		case "8":
+			min1.id = 8008;
+			break;
+		case "9":
+			min1.id = 8009;
+			break;
+	}
+	
+	switch (stMin2) {
+		case "0":
+			min2.id = 8000;
+			break;
+		case "1":
+			min2.id = 8001;
+			break;
+		case "2":
+			min2.id = 8002;
+			break;
+		case "3":
+			min2.id = 8003;
+			break;
+		case "4":
+			min2.id = 8004;
+			break;
+		case "5":
+			min2.id = 8005;
+			break;
+		case "6":
+			min2.id = 8006;
+			break;
+		case "7":
+			min2.id = 8007;
+			break;
+		case "8":
+			min2.id = 8008;
+			break;
+		case "9":
+			min2.id = 8009;
+			break;	}
+
+	// seconds BMPs
+	switch (stSec1) {
+		case "0":
+			sec1.id = 8010;
+			break;
+		case "1":
+			sec1.id = 8011;
+			break;
+		case "2":
+			sec1.id = 8012;
+			break;
+		case "3":
+			sec1.id = 8013;
+			break;
+		case "4":
+			sec1.id = 8014;
+			break;
+		case "5":
+			sec1.id = 8015;
+			break;
+		case "6":
+			sec1.id = 8016;
+			break;
+		case "7":
+			sec1.id = 8017;
+			break;
+		case "8":
+			sec1.id = 8018;
+			break;
+		case "9":
+			sec1.id = 8019;
+			break;
+	}
+	
+	switch (stSec2) {
+		case "0":
+			sec2.id = 8010;
+			break;
+		case "1":
+			sec2.id = 8011;
+			break;
+		case "2":
+			sec2.id = 8012;
+			break;
+		case "3":
+			sec2.id = 8013;
+			break;
+		case "4":
+			sec2.id = 8014;
+			break;
+		case "5":
+			sec2.id = 8015;
+			break;
+		case "6":
+			sec2.id = 8016;
+			break;
+		case "7":
+			sec2.id = 8017;
+			break;
+		case "8":
+			sec2.id = 8018;
+			break;
+		case "9":
+			sec2.id = 8019;
+			break;
+	}
+
+	draw.begin();
+
+	// draw hour
+	draw.bitmap(hr1, (gadget.w / 2)-75, (gadget.h / 2)-41);
+	draw.bitmap(hr2, (gadget.w / 2)-40, (gadget.h / 2)-41);
+	draw.bitmap(points, (gadget.w / 2)-4, (gadget.h / 2)-29);
+	draw.bitmap(min1, (gadget.w / 2)+8, (gadget.h / 2)-41);
+	draw.bitmap(min2, (gadget.w / 2)+43, (gadget.h / 2)-41);
+	
+	// draw seconds
+	draw.bitmap(sec1, (gadget.w / 2)+43, (gadget.h / 2)+20);
+	draw.bitmap(sec2, (gadget.w / 2)+56, (gadget.h / 2)+20);
+	
+	draw.end();
+}
+
+
+void DigiClockHourGadget.onopen() {
+	draw.attachGadget(gadget); 
+}
+
+
+void DigiClockHourGadget.ondraw() {
+	SetDigiClock(hr, min, sec); 
+}
+*/

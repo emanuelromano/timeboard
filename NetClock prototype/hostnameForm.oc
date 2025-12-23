@@ -1,0 +1,26 @@
+
+handler buttonResolve.onselect() {
+	Network net;
+	string addr;
+	int err;
+
+	err = net.open();
+	if (err != 0) {
+		alert("Unable to open network, err = " + err);
+		return;
+	}
+	
+	err = net.getHostByName(fieldHostName.text, &addr);
+	if (err != 0) {
+		alert("Unable to resolve, err = " + err);
+		return;
+	}
+	
+	fieldIpAddress.text = addr;
+	net.close();
+}
+
+
+handler resolveBackButton.onselect() {
+	hostnameForm.close();
+}

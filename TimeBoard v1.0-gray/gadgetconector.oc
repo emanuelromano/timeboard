@@ -1,0 +1,99 @@
+struct ConnectorGadget {
+	// A UIGadget must always be the first member of a gadget
+	UIGadget gadget;
+
+	// default event handlers
+	void onopen();
+	void ondraw();
+
+	// internal methods
+	void DrawConnector(bool orientFlag);
+	void GetOrientation(bool value);
+	
+	// internal data
+	Draw 	draw;
+	bool orientation;
+};
+
+
+void ConnectorGadget.GetOrientation(bool value) {
+	orientation = value;
+}
+
+
+void ConnectorGadget.DrawConnector(bool orientFlag) {
+	draw.begin();
+	
+	if (orientFlag) {
+		// rectangle connectors gradient
+		draw.fgRGB(153, 153, 204); // connector color 1
+		draw.rect(clrFG, 0, 0, gadget.w, gadget.h, 0);
+	
+		draw.fgRGB(153, 204, 204); // connector color 2
+		draw.rect(clrFG, 2, 0, gadget.w, gadget.h, 0);
+	
+		draw.fgRGB(255, 255, 255); // connector color 3
+		draw.rect(clrFG, 4, 0, gadget.w, gadget.h, 0);
+	
+		draw.fgRGB(153, 204, 204); // connector color 4
+		draw.rect(clrFG, 6, 0, gadget.w, gadget.h, 0);
+	
+		draw.fgRGB(204, 204, 255); // connector color 5
+		draw.rect(clrFG, 8, 0, gadget.w, gadget.h, 0);
+	
+		draw.fgRGB(153, 153, 204); // connector color 6
+		draw.rect(clrFG, 11, 0, gadget.w, gadget.h, 0);
+	
+		draw.fgRGB(102, 102, 204); // connector color 7
+		draw.rect(clrFG, 16, 0, gadget.w, gadget.h, 0);
+	
+		draw.fgRGB(51, 0, 153); // connector color 8
+		draw.rect(clrFG, 19, 0, gadget.w, gadget.h, 0);
+	
+		draw.fgRGB(153, 153, 204); // connector color 9
+		draw.rect(clrFG, 23, 0, gadget.w, gadget.h, 0);
+	}
+	else
+	{
+		// rectangle connectors gradient
+		draw.fgRGB(153, 153, 204); // connector color 1
+		draw.rect(clrFG, 0, 0, gadget.w, gadget.h, 0);
+	
+		draw.fgRGB(153, 204, 204); // connector color 2
+		draw.rect(clrFG, 0, 2, gadget.w, gadget.h, 0);
+	
+		draw.fgRGB(255, 255, 255); // connector color 3
+		draw.rect(clrFG, 0, 4, gadget.w, gadget.h, 0);
+	
+		draw.fgRGB(153, 204, 204); // connector color 4
+		draw.rect(clrFG, 0, 6, gadget.w, gadget.h, 0);
+	
+		draw.fgRGB(204, 204, 255); // connector color 5
+		draw.rect(clrFG, 0, 8, gadget.w, gadget.h, 0);
+	
+		draw.fgRGB(153, 153, 204); // connector color 6
+		draw.rect(clrFG, 0, 11, gadget.w, gadget.h, 0);
+	
+		draw.fgRGB(102, 102, 204); // connector color 7
+		draw.rect(clrFG, 0, 16, gadget.w, gadget.h, 0);
+	
+		draw.fgRGB(51, 0, 153); // connector color 8
+		draw.rect(clrFG, 0, 19, gadget.w, gadget.h, 0);
+	
+		draw.fgRGB(153, 153, 204); // connector color 9
+		draw.rect(clrFG, 0, 23, gadget.w, gadget.h, 0);
+	}
+	
+	draw.end();
+
+}
+
+
+void ConnectorGadget.onopen() {
+	draw.attachGadget(gadget); 
+}
+
+
+void ConnectorGadget.ondraw() {
+	DrawConnector(orientation);
+}

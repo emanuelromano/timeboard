@@ -1,0 +1,431 @@
+// Reutilized from OrbForm's Analog Clock sample project
+// Modified by @coloraturip
+
+const float pi = 3.141592;
+
+
+struct Point {
+	int x, y;
+};
+
+
+struct ClockHand {
+	float angle;
+	int length;
+};
+
+
+struct ClockGadget {
+	// A UIGadget must always be the first member of a gadget
+	UIGadget gadget;
+
+	// Default event handlers
+	void onopen();
+	void ondraw();
+
+	// Internal methods
+	void CalculateFace();
+	void DrawClockFace(bool frameFlag, int fontType);
+	void DrawClockDots();
+	void DrawDigitalClock(int hours, int minutes, int amPm);
+	void DrawClockHand(ClockHand hand, int color);
+	void DrawClockHands(bool showDigital, int hours, int minutes, int seconds, int amPm, int dateFormat);
+	void SetClockTheme(int frmR, int frmG, int frmB,
+						int bgR, int bgG, int bgB,
+						int shdR, int shdG, int shdB,
+						int txtR, int txtG, int txtB,
+						int cHndR, int cHndG, int cHndB,
+						int cSecR, int cSecG, int cSecB);
+	void SetClockPrefs(bool pref1, int pref2, int hours, int minutes, int seconds, int timeFormat, int amPm, int dateFormat);
+	void GetClockButton2(bool hasButton, UIButton button);
+	void ShowDate();
+	void DrawBuffer();
+
+	// Internal data
+	Draw	clockBuffer;
+	Draw 	draw;
+	Date	today;
+
+	Point	face[12], dots[12];	
+	int 	radius;
+	int 	border;
+	int		hr, min, sec, amOrPm;
+	Point	ptCenter;
+
+	ClockHand chHour, chMin, chSec;
+	
+	bool hasButton1, hasButton2,
+		preference1;
+	int preference2,
+	timeF, dateF;
+	UIButton clockButton1, clockButton2;
+};
+
+
+void ClockGadget.CalculateFace() {
+	int i;
+	border = 3;
+
+	if (gadget.h >=  gadget.w) {
+		radius = 0.80 * (gadget.w - 2*border) / 2;
+	} else {
+		radius = 0.80 * (gadget.h - 2*border) / 2;
+	}
+		
+	// Center
+	if (gadget.h == 101) {
+		ptCenter.x = (gadget.w / 2)+8;
+		ptCenter.y = (gadget.h / 2)+8;
+	}
+	else
+	{
+		ptCenter.x = (gadget.w / 2);
+		ptCenter.y = (gadget.h / 2);
+	}
+	
+	for (i=0;i<12;i++) {
+		face[i].x = ptCenter.x + cos((i * 30 - 90) * pi / 180) * radius;
+		face[i].y = ptCenter.y + sin((i * 30 - 90) * pi / 180) * radius;
+	}
+	
+	// Clock hands lenght
+	chSec.length = radius - 7;
+	chMin.length = radius - 7;
+	chHour.length = (radius - 6) * 0.7;
+}
+
+
+// Color theme variables
+int cFrameR, cFrameG, cFrameB,
+	cBackgroundR, cBackgroundG, cBackgroundB,
+	cShadowR, cShadowG, cShadowB,
+	cTextR, cTextG, cTextB,
+	cHandsR, cHandsG, cHandsB,
+	cSecondsR, cSecondsG, cSecondsB;
+
+
+void ClockGadget.SetClockTheme(int frmR, int frmG, int frmB,
+								int bgR, int bgG, int bgB,
+								int shdR, int shdG, int shdB,
+								int txtR, int txtG, int txtB,
+								int cHndR, int cHndG, int cHndB,
+								int cSecR, int cSecG, int cSecB) {
+	cFrameR = frmR;
+	cFrameG = frmG;
+	cFrameB = frmB;
+	
+	cBackgroundR = bgR;
+	cBackgroundG = bgG;
+	cBackgroundB = bgB;
+	
+	cShadowR = shdR;
+	cShadowG = shdG;
+	cShadowB = shdB;
+	
+	cTextR = txtR;
+	cTextG = txtG;
+	cTextB = txtB;
+	
+	cHandsR = cHndR;
+	cHandsG = cHndG;
+	cHandsB = cHndB;
+	
+	cSecondsR = cSecR;
+	cSecondsG = cSecG;
+	cSecondsB = cSecB;
+}
+
+
+void ClockGadget.ShowDate() {
+	string stday;
+	today.now();
+
+	// Year
+	clockBuffer.bgRGB(cBackgroundR, cBackgroundG, cBackgroundB);
+	clockBuffer.font(fntStandard);
+	clockBuffer.textAlign(10);
+	clockBuffer.textRGB(cTextR, cTextG, cTextB);
+	clockBuffer.text(clrText, 6, 7, today.year);
+	
+	// Date
+	clockBuffer.textRGB(cTextR, cTextG, cTextB);
+	
+	switch (dateF) {
+		case 1:
+			clockBuffer.text(clrText, 6, 17, today.month + "-" + today.day);
+			break;
+		case 2:
+			clockBuffer.text(clrText, 6, 17, today.day + "-" + today.month);
+			break;
+		case 3:
+			clockBuffer.text(clrText, 6, 17, today.month + "/" + today.day);
+			break;
+		case 4:
+			clockBuffer.text(clrText, 6, 17, today.day + "/" + today.month);
+			break;
+	}
+	
+	// Weekday		
+	switch (today.weekday) {
+		case 0:
+			stday = "SUN.";
+			break;
+		case 1:
+			stday = "MON.";
+			break;
+		case 2:
+			stday = "TUE.";
+			break;
+		case 3:
+			stday = "WED.";
+			break;
+		case 4:
+			stday = "THU.";
+			break;
+		case 5:
+			stday = "FRI.";
+			break;
+		case 6:
+			stday = "SAT.";
+			break;
+		default:
+			stday = "---";
+	}
+	
+	clockBuffer.textRGB(cHandsR, cHandsG, cHandsB);
+	clockBuffer.text(clrText, 6, gadget.h-10, stday);
+}
+
+
+void ClockGadget.DrawClockDots() {
+	int i, x, y;
+	int centerX, centerY;
+	float theta;
+	int radius;
+	
+	centerX = gadget.w / 2;
+	centerY = gadget.h / 2;
+	radius = 72;  // distance from the center to the dots
+	
+	for (i = 0; i < 60; i++) {
+    	theta = (2 * pi / 60) * i;  // angles in radians
+    	x = centerX + (radius * cos(theta));
+    	y = centerY + (radius * sin(theta));
+    	
+    	clockBuffer.fgRGB(cFrameR, cFrameG, cFrameB); // text color
+    	clockBuffer.pixel(clrFG, x, y);  // draws the dots
+	}
+}
+
+
+// Show digital clock
+void ClockGadget.DrawDigitalClock(int hours, int minutes, int amPm) {
+	string sthr, stmin;
+	
+	if (timeF == 1) {
+		if (strlen(hours) == 1)
+			sthr = ("0" + (hours));
+		else
+			sthr = ("" + (hours));
+	}
+	else
+	{
+		if (strlen(hours) == 1)
+			sthr = ("   " + (hours));
+		else
+			sthr = ("" + (hours));
+	}
+
+	if (strlen(minutes) == 1)
+		stmin = ("0" + (minutes));
+	else
+		stmin = ("" + (minutes));
+	
+	// Hour
+	clockBuffer.bgRGB(cBackgroundR, cBackgroundG, cBackgroundB);
+	clockBuffer.textRGB(cSecondsR, cSecondsG, cSecondsB);
+	clockBuffer.textAlign(12);
+	clockBuffer.font(fntBold);
+	clockBuffer.text(clrText, gadget.w-4, 7, (sthr) + ":" + (stmin));
+	
+	//Show AM/PM on fullscreen view
+	if (timeF == 2) {
+		if (amPm == 1) {
+			clockBuffer.font(fntStandard);
+			clockBuffer.text(clrText, gadget.w-4, 17, "AM");
+		}
+		else
+		{
+			clockBuffer.font(fntStandard);
+			clockBuffer.text(clrText, gadget.w-4, 17, "PM");
+		}
+	}
+}
+
+
+void ClockGadget.DrawClockFace(bool frameFlag, int fontType) {
+	int i;
+	
+	// BUFFER:
+	clockBuffer.begin();
+	
+	clockBuffer.pixel(clrFG, ptCenter.x, ptCenter.y);
+	
+	if (frameFlag) {
+		clockBuffer.bgRGB(cBackgroundR, cBackgroundG, cBackgroundB); // background color
+		clockBuffer.rect(clrBG, 0, 0, gadget.w, gadget.h, 0);
+		
+		ShowDate();
+		
+		DrawClockDots();
+		
+		DrawDigitalClock(hr, min, amOrPm);
+		
+		// Draw clock numbers when clock is in fullscreen mode
+		clockBuffer.textRGB(cTextR, cTextG, cTextB); // text color
+		clockBuffer.textAlign(11);
+		clockBuffer.font(fontType);
+		clockBuffer.text(clrText, face[0].x, face[0].y, "12");
+		for (i=1; i<12; i++) {
+			clockBuffer.text(clrText, face[i].x, face[i].y, i);
+		}
+	}
+	
+	clockBuffer.end();
+	
+	// Draw the buffer on screen
+	DrawBuffer();
+}
+
+
+void ClockGadget.DrawClockHand(ClockHand hand, int color) {
+	int x, y;
+	
+	x = cos(hand.angle) * hand.length + ptCenter.x;
+	y = sin(hand.angle) * hand.length + ptCenter.y;
+	
+	clockBuffer.line(color, ptCenter.x, ptCenter.y, x, y);
+}
+
+
+void ClockGadget.DrawClockHands(bool showDigital, int hours, int minutes, int seconds, int amPm, int dateFormat) {
+	int hr, min;
+	float oldHrAngle, oldMinAngle, oldSecAngle,
+			newHrAngle, newMinAngle, newSecAngle;
+		
+	oldHrAngle = chHour.angle;
+	oldMinAngle = chMin.angle;
+	oldSecAngle = chSec.angle;
+	
+	// Calculate new angles
+	newHrAngle = ((float)(hours % 12) * 30 + minutes / 2 - 90) / 180 * pi;
+	newMinAngle = ((float)minutes * 6 - 90) / 180 * pi;
+	newSecAngle = ((float)seconds * 6 - 90) / 180 * pi;
+	
+	// BUFFER:
+	// Create offscreen buffer
+	if (showDigital) {
+		clockBuffer.create(160, 160);
+		clockBuffer.release();
+	}
+	else
+	{
+		clockBuffer.create(101, 101);
+		clockBuffer.release();
+	}
+	
+	// Erase previouly drawn hands
+	clockBuffer.begin();
+	clockBuffer.bgRGB(cBackgroundR, cBackgroundG, cBackgroundB); // background color
+	
+	if (oldHrAngle != newHrAngle) DrawClockHand(chHour, clrBG);
+	
+	if (oldMinAngle != newMinAngle) DrawClockHand(chMin, clrBG);
+	
+	if (oldSecAngle != newSecAngle) DrawClockHand(chSec, clrBG);
+	
+	// Set new angles
+	chHour.angle = newHrAngle;
+	chMin.angle = newMinAngle;
+	chSec.angle = newSecAngle;
+	
+	// Draw the current time
+	clockBuffer.fgRGB(cHandsR, cHandsG, cHandsB);
+	DrawClockHand(chHour, clrFG); // hours hand
+	DrawClockHand(chMin, clrFG); // minutes hand
+	
+	clockBuffer.fgRGB(cSecondsR, cSecondsG, cSecondsB);
+	DrawClockHand(chSec, clrFG); // seconds hand with new color
+	clockBuffer.rect(clrFG, ptCenter.x-1, ptCenter.y-1, ptCenter.x+2, ptCenter.y+2, 2);
+	clockBuffer.fgRGB(cHandsR, cHandsG, cHandsB);
+	
+	// Show AM/PM on Overview
+	if (!showDigital) {
+		clockBuffer.bgRGB(cBackgroundR, cBackgroundG, cBackgroundB);
+		clockBuffer.textRGB(cSecondsR, cSecondsG, cSecondsB);
+		clockBuffer.textAlign(12);
+		clockBuffer.font(fntStandard);
+
+		if (timeF == 2) {
+			if (amPm == 1)
+				clockBuffer.text(clrText, gadget.w, 18, "AM");
+			else
+				clockBuffer.text(clrText, gadget.w, 18, "PM");
+		}
+	}
+	
+	if (showDigital) DrawDigitalClock(hours, minutes, amPm);
+	
+	clockBuffer.end();
+	
+	//DrawBuffer();
+}
+
+
+void ClockGadget.GetClockButton2(bool hasButton, UIButton button) {
+	hasButton2 = hasButton;
+	clockButton2 = button;
+}
+
+
+void ClockGadget.SetClockPrefs(bool pref1, int pref2, int hours, int minutes, int seconds, int timeFormat, int amPm, int dateFormat) {
+	preference1 = pref1;
+	preference2 = pref2;
+	
+	hr = hours;
+	min = minutes;
+	sec = seconds;
+	
+	timeF = timeFormat;
+	amOrPm = amPm;
+	dateF = dateFormat;
+}
+
+
+// Draw the buffer on screen
+void ClockGadget.DrawBuffer() {
+	draw.begin();
+	draw.draw(clockBuffer, gadget.x, gadget.y);
+	draw.end();
+}
+
+
+void ClockGadget.onopen() {
+	// Create offscreen buffer
+	clockBuffer.create(160, 160);
+	
+	draw.attachGadget(gadget);
+}
+
+
+void ClockGadget.ondraw() {
+	CalculateFace();
+	
+	if (preference1) DrawClockFace(preference1, preference2);
+	
+	if (hasButton1) clockButton1.visible = true;
+	
+	if (hasButton2) clockButton2.visible = true;
+	
+	DrawClockHands(preference2, hr, min, sec, amOrPm, dateF);
+}

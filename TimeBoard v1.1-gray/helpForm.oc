@@ -1,0 +1,65 @@
+// Help form
+
+
+// Event handlers
+handler helpForm.onopen() {
+	setTheme(preferences[0].selectedTheme, false);
+	
+	draw.attachForm(this);
+}
+
+handler helpForm.ondraw() {
+	draw.begin();
+	
+	draw.fgRGB(shadowR, shadowG, shadowB);
+	draw.frame(clrFG, 3, 3, helpForm.w-3, helpForm.h-3, 6, 3);
+	
+	draw.fgRGB(themeR, themeG, themeB);
+	draw.frame(clrFG, 3, 3, helpForm.w-4, helpForm.h-4, 6, 3);
+	
+	draw.font(fntLargeBold);
+	draw.textRGB(shadowR, shadowG, shadowB);
+	draw.text(clrFG, 10, 8, "Help");
+		
+	helpField.text = helpString.text; // info displayed
+	
+	// page up to show scrollbar
+	helpField.scroll(-3);
+	helpScroll.update(helpField);
+		
+	draw.end();
+}
+
+handler helpForm.onresize() {
+	// UIform attach this form for drawing methods;
+	draw.attachForm(this);
+}
+
+
+// field and scroll handlers
+handler helpField.onchange() {
+	helpScroll.update(this);
+}
+
+handler helpScroll.onmove() {
+	helpField.scroll(e.value - e.prev);
+	update(helpField);
+}
+
+
+// soft button handlers
+handler backHelpButton.onselect() {
+	mainForm.load();
+}
+
+
+// Hard buttons handler
+handler helpForm.onhkey() {
+	if (e.key == evUp) {
+		helpField.scroll(-3);
+		helpScroll.update(helpField);
+	} else if (e.key == evDown) {
+		helpField.scroll(3);
+		helpScroll.update(helpField);
+	}
+}

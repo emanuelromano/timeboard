@@ -1,0 +1,299 @@
+// ---- FUNCIONES DE RED Y PARSE ----
+
+// parámetros globales
+string apiURL = "worldtimeapi.org";
+/*string petition = "GET /api/ip HTTP/1.1\r\n" +
+					"Host: " + apiURL + "\r\n" +
+					"User-Agent: PalmOS-OrbForms\r\n" +
+					"Accept: application/json\r\n" +
+					"Connection: close\r\n" +
+					"\r\n";*/
+string petition = "GET /api/ip HTTP/1.0\r\n" +
+					"Host: " + apiURL + "\r\n" +
+					"Connection: close\r\n" +
+					"\r\n";
+int port = 80;
+string globalResponse;
+string year, month, day, hour, minute, second, offset;
+bool setFlag;
+
+
+/*int getTime() {
+	Network net;
+	Socket s;
+	string addr = "";        // Siempre inicializar strings antes de pasarlas por referencia
+	string response = "";    // También inicializar el buffer de respuesta
+	string prevChar, lastChar;
+	int err, pos, last;
+	
+	year = month = day = hour = minute = second = offset = "";
+	
+	error = false;
+	
+	// 1- Abrir la red
+	err = net.open();
+	if (err != 0) {
+		//alert("Unable to open network, err = " + err);
+		net.close();
+		return err;
+	}
+		
+	// 2- Resolver el nombre del host
+	err = net.getHostByName(apiURL, &addr);
+	if (err == 0 && strlen(addr) > 0) {
+	
+		// 3- Abrir socket TCP
+		err = s.open(netAfInet, netSockStream, netProtoIpTcp);
+		if (err == 0) {
+	
+    		// 4- Conectarse al servidor (puerto 80)
+    		err = s.connect(addr + ":" + port);
+    		if (err == 0) {
+	
+        		// 5- Enviar petición HTTP GET
+        		err = s.sends(petition);
+        		//alert(petition);
+        		if (err == 0) {
+	
+            		// 6- Recibir respuesta
+            		err = s.recvs(&response);
+            		//alert(err + " - " + response);
+            		if (err == 0 && strlen(response) > 1) {
+	
+                		// 7- Buscar el comienzo del cuerpo (después de los encabezados HTTP)
+                		pos = strstr(response, "\r\n\r\n", 0);
+                		if (pos >= 0) {
+                    		response = substr(response, pos + 4, strlen(response) - (pos + 4));
+                		}
+	
+						// --- NUEVO BLOQUE ---
+						// 7.5 - Corregir duplicado del último carácter si lo hay
+						if (strlen(response) > 1) {
+							last = strlen(response) - 1;
+							lastChar = substr(response, last, 1);
+							prevChar = substr(response, last - 1, 1);
+							if (lastChar == prevChar) {
+								response = strleft(response, last);
+							}
+						}
+						// --- FIN BLOQUE NUEVO ---
+	
+                		// 8- Mostrar los primeros 1024 caracteres del JSON recibido
+                		//netTimeField.text = "Bytes: " + strlen(response) + "\n" + strleft(response, 1024);
+                		//fieldHeadlines.text = strleft(response, 1024);
+                		globalResponse = strleft(response, 1024);
+                		//error = false;
+                		return err;
+            		} /*else {
+                		//alert("Unable to receive, err = " + err);
+                		//error = true;
+                		s.close();
+                		net.close();
+                		return err;
+            		}*/
+	
+        		/*} else {
+            		//alert("Unable to send, err = " + err);
+            		//error = true;
+            		s.close();
+            		net.close();
+            		return err;
+        		}*/
+	
+    		/*} else {
+        		//alert("Unable to connect, err = " + err);
+        		//error = true;
+        		s.close();
+        		net.close();
+        		return err;
+    		}*/
+			
+    		//s.close();
+    		//net.close();
+		/*} else {
+    		//alert("Unable to open socket, err = " + err);
+    		//error = true;
+    		s.close();
+    		net.close();
+    		return err;
+		}*/
+		
+	/*} else {
+		//alert("Unable to resolve host, err = " + err);
+		//error = true;
+		s.close();
+		net.close();
+		return err;
+	}
+    s.close();
+    net.close();
+	return err;
+}*/
+
+
+int getTime() {
+    Network net;
+    Socket s;
+    string addr = "";
+    string response = "";
+    string prevChar, lastChar;
+    int err;
+    int pos, last;
+
+    // limpiar globals
+    year = month = day = hour = minute = second = offset = "";
+    globalResponse = "";
+
+    // 1- abrir red
+    err = net.open();
+    if (err != 0) {
+        net.close();
+        return err;
+    }
+
+    // 2- DNS
+    err = net.getHostByName(apiURL, &addr);
+    if (err != 0 || strlen(addr) == 0) {
+        net.close();
+        return err;
+    }
+
+    // 3- socket
+    err = s.open(netAfInet, netSockStream, netProtoIpTcp);
+    if (err != 0) {
+        net.close();
+        return err;
+    }
+
+    // 4- connect
+    err = s.connect(addr + ":" + format(port, 0));
+    if (err != 0) {
+        s.close();
+        net.close();
+        return err;
+    }
+
+    // 5- send
+    err = s.sends(petition);
+    if (err != 0) {
+        s.close();
+        net.close();
+        return err;
+    }
+
+    // 6- recv
+    err = s.recvs(&response);
+    if (err != 0 || strlen(response) <= 1) {
+        s.close();
+        net.close();
+        return err;
+    }
+
+    // 7- quitar headers
+    pos = strstr(response, "\r\n\r\n", 0);
+    if (pos >= 0) {
+        response = substr(response, pos + 4,
+                           strlen(response) - (pos + 4));
+    }
+
+    // 8- corregir último carácter duplicado
+    if (strlen(response) > 1) {
+        last = strlen(response) - 1;
+        lastChar = substr(response, last, 1);
+        prevChar = substr(response, last - 1, 1);
+        if (lastChar == prevChar) {
+            response = strleft(response, last);
+        }
+    }
+
+    globalResponse = strleft(response, 1024);
+
+    s.close();
+    net.close();
+    return 0;
+}
+
+
+string jsonGet(string json, string key) {
+    string pattern = "\"" + key + "\":\"";
+    int start = strstr(json, pattern, 0);
+    int end;
+
+    if (start < 0) {
+        return "";
+    }
+
+    // Mover al inicio del valor
+    start += strlen(pattern);
+
+    // Buscar el final exacto del valor: ", 
+    end = strstr(json, "\",", start);
+    if (end < 0) {
+        return "";
+    }
+
+    return substr(json, start, end - start);
+}
+
+
+void parseDateTime(string dt) {
+	int pos;
+	
+    if (strlen(dt) < 25) {
+        year = month = day = hour = minute = second = offset = "";
+        return;
+    }
+
+    year   = substr(dt, 0, 4);
+    month  = substr(dt, 5, 2);
+    day    = substr(dt, 8, 2);
+
+    hour   = substr(dt, 11, 2);
+    minute = substr(dt, 14, 2);
+    second = substr(dt, 17, 2);
+
+    // Offset GMT: buscar '+' o '-'
+    pos = strstr(dt, "+", 0);
+    if (pos < 0) {
+        pos = strstr(dt, "-", 20);   // después de los segundos
+    }
+
+    if (pos >= 0) {
+        offset = substr(dt, pos, 6); // -03:00
+    } else {
+        offset = "";
+    }
+}
+
+
+void setSystemDateTime() {
+    Date d;
+    int y, m, da;
+    int hr, min, sec;
+
+    // Convertir strings a int
+    y  = lparse(year);
+    m  = lparse(month);
+    da = lparse(day);
+
+    hr  = lparse(hour);
+    min = lparse(minute);
+    sec  = lparse(second);
+
+    // Validación mínima
+    if (y < 1904 || m < 1 || m > 12 || da < 1 || da > 31) {
+        alert("Invalid date.");
+        return;
+    }
+
+    // Setear fecha usando ymd (yyyymmdd)
+    d.ymd = y * 10000 + m * 100 + da;
+
+    // Setear hora
+    d.hour = hr;
+    d.min  = min;
+    d.sec  = sec;
+
+	// Función obtenida desde el add-in OrbTimeSet.oc
+	setSystemTimeDate(d);
+}

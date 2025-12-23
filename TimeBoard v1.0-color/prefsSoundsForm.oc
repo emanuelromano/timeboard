@@ -1,0 +1,97 @@
+// Sounds Preferences Form
+
+// set new preferences
+bool SetNewSoundPrefs() {
+	preferences[0].enableSounds = enableSoundsCb.checked;
+	preferences[0].hourlyChime = hourChimeCb.checked;
+	preferences[0].minuteChime = minuteChimeCb.checked;
+	preferences[0].secondsChime = secondsChimeCb.checked;
+	
+  	return prefs.set("KS10", true, preferences, typeof(AppPreferences), 1);
+}
+
+
+// event handlers
+handler prefsSoundsForm.onopen() {
+	// UIform attach this form for drawind methods
+	draw.attachForm(this);
+			
+	// get preferences
+	GetPrefs();
+	
+	enableSoundsCb.checked = preferences[0].enableSounds;
+	hourChimeCb.checked = preferences[0].hourlyChime;
+	minuteChimeCb.checked = preferences[0].minuteChime;
+	secondsChimeCb.checked = preferences[0].secondsChime;
+	
+	if (enableSoundsCb.checked) {
+		hourChimeCb.visible = true;
+		minuteChimeCb.visible = true;
+		secondsChimeCb.visible = true;
+	}
+	else
+	{
+		hourChimeCb.checked = false;
+		minuteChimeCb.checked = false;
+		secondsChimeCb.checked = false;
+	
+		hourChimeCb.visible = false;
+		minuteChimeCb.visible = false;
+		secondsChimeCb.visible = false;
+	}
+	
+	draw.attachForm(this);
+}
+
+handler prefsSoundsForm.ondraw() {
+	draw.begin();
+	
+	draw.fgRGB(shadowR, shadowG, shadowB);
+	draw.frame(clrFG, 3, 3, prefsSoundsForm.w-3, prefsSoundsForm.h-3, 6, 3);
+	
+	draw.fgRGB(themeR, themeG, themeB);
+	draw.frame(clrFG, 3, 3, prefsSoundsForm.w-4, prefsSoundsForm.h-4, 6, 3);
+	
+	draw.font(fntLargeBold);
+	draw.textRGB(shadowR, shadowG, shadowB);
+	draw.text(clrFG, 10, 8, "Sounds");
+	
+	draw.end();
+}
+
+handler prefsSoundsForm.onresize() {
+	// UIform attach this form for drawind methods
+	draw.attachForm(this);
+}
+
+
+handler enableSoundsCb.onselect() {
+	if (enableSoundsCb.checked) {
+		hourChimeCb.visible = true;
+		minuteChimeCb.visible = true;
+		secondsChimeCb.visible = true;
+	}
+	else
+	{
+		hourChimeCb.visible = false;
+		minuteChimeCb.visible = false;
+		secondsChimeCb.visible = false;
+	}
+}
+
+
+// soft button handlers
+handler saveSoundButton.onselect() {
+	if (hourChimeCb.checked == false &&
+		minuteChimeCb.checked == false &&
+		secondsChimeCb.checked == false) {
+		enableSoundsCb.checked = false;
+		}
+
+	SetNewSoundPrefs();
+	preferencesForm.load();
+}
+
+handler cancelSoundButton.onselect() {
+	preferencesForm.load();
+}

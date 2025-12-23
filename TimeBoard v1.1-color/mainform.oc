@@ -1,0 +1,1947 @@
+// Main Form
+
+
+// Imported bitmats
+
+// Themed buttons
+@bitmap Bitmap btnNormalTheme1 {
+	id = 8071
+	image8 = "graphics/more-normal-lr-th1.bmp"
+	image16 = "graphics/more-normal-lr-th1.bmp"
+}
+
+@bitmap Bitmap btnNormalTheme2 {
+	id = 8072
+	image8 = "graphics/more-normal-lr-th2.bmp"
+	image16 = "graphics/more-normal-lr-th2.bmp"
+}
+
+@bitmap Bitmap btnNormalTheme3 {
+	id = 8073
+	image8 = "graphics/more-normal-lr-th3.bmp"
+	image16 = "graphics/more-normal-lr-th3.bmp"
+}
+
+@bitmap Bitmap btnNormalTheme4 {
+	id = 8074
+	image8 = "graphics/more-normal-lr-th4.bmp"
+	image16 = "graphics/more-normal-lr-th4.bmp"
+}
+
+@bitmap Bitmap btnNormalTheme5 {
+	id = 8075
+	image8 = "graphics/more-normal-lr-th5.bmp"
+	image16 = "graphics/more-normal-lr-th5.bmp"
+}
+
+@bitmap Bitmap btnNormalTheme6 {
+	id = 8076
+	image8 = "graphics/more-normal-lr-th6.bmp"
+	image16 = "graphics/more-normal-lr-th6.bmp"
+}
+
+@bitmap Bitmap btnNormalTheme7 {
+	id = 8077
+	image8 = "graphics/more-normal-lr-th7.bmp"
+	image16 = "graphics/more-normal-lr-th7.bmp"
+}
+
+@bitmap Bitmap btnNormalTheme8 {
+	id = 8078
+	image8 = "graphics/more-normal-lr-th8.bmp"
+	image16 = "graphics/more-normal-lr-th8.bmp"
+}
+
+@bitmap Bitmap btnNormalTheme9 {
+	id = 8079
+	image8 = "graphics/more-normal-lr-th9.bmp"
+	image16 = "graphics/more-normal-lr-th9.bmp"
+}
+
+@bitmap Bitmap btnPressedTheme1 {
+	id = 8081
+	image8 = "graphics/more-pressed-lr-th1.bmp"
+	image16 = "graphics/more-pressed-lr-th1.bmp"
+}
+
+@bitmap Bitmap btnPressedTheme2 {
+	id = 8082
+	image8 = "graphics/more-pressed-lr-th2.bmp"
+	image16 = "graphics/more-pressed-lr-th2.bmp"
+}
+
+@bitmap Bitmap btnPressedTheme3 {
+	id = 8083
+	image8 = "graphics/more-pressed-lr-th3.bmp"
+	image16 = "graphics/more-pressed-lr-th3.bmp"
+}
+
+@bitmap Bitmap btnPressedTheme4 {
+	id = 8084
+	image8 = "graphics/more-pressed-lr-th4.bmp"
+	image16 = "graphics/more-pressed-lr-th4.bmp"
+}
+
+@bitmap Bitmap btnPressedTheme5 {
+	id = 8085
+	image8 = "graphics/more-pressed-lr-th5.bmp"
+	image16 = "graphics/more-pressed-lr-th5.bmp"
+}
+
+@bitmap Bitmap btnPressedTheme6 {
+	id = 8086
+	image8 = "graphics/more-pressed-lr-th6.bmp"
+	image16 = "graphics/more-pressed-lr-th6.bmp"
+}
+
+@bitmap Bitmap btnPressedTheme7 {
+	id = 8087
+	image8 = "graphics/more-pressed-lr-th7.bmp"
+	image16 = "graphics/more-pressed-lr-th7.bmp"
+}
+
+@bitmap Bitmap btnPressedTheme8 {
+	id = 8088
+	image8 = "graphics/more-pressed-lr-th8.bmp"
+	image16 = "graphics/more-pressed-lr-th8.bmp"
+}
+
+@bitmap Bitmap btnPressedTheme9 {
+	id = 8089
+	image8 = "graphics/more-pressed-lr-th9.bmp"
+	image16 = "graphics/more-pressed-lr-th9.bmp"
+}
+
+
+// Global variables
+Draw mainBuffer;
+Bitmap actionSetBMP;
+int hr, min, charge, chargeFill, fill,
+	charA, charB,
+	dayA, dayB,
+	hardKeyPressed,
+	calendarMode,
+	timeFormat,
+	dateFormat,
+	timerTicks,
+	delta,
+	lastSec,
+	lastSecs,
+	updateTimer = 0,
+	buttonsMode;
+string hoursStr, minutesStr, secondsStr,
+	sthr, stmin;
+bool soundsEnabled, showConnectors, startOnSunday, easterEgg;
+
+
+// Main form background
+void setMainBg(int background) {
+	if (colorDepth > 4) {
+		switch (background) {
+			case 1:
+				// form background: Day
+				mainBuffer.bgRGB(204, 255, 153);
+				mainBuffer.rect(clrBG, 0, 0, draw.nw, draw.nh, 0);
+				mainBuffer.bgRGB(153, 204, 255);
+				mainBuffer.rect(clrBG, 0, 0, draw.nw, 60, 0);
+				mainBuffer.bgRGB(255, 255, 153);
+				mainBuffer.rect(clrBG, -47, -50, 57, 50, 50);
+				break;			
+			case 2:
+				// form background: Sunrise
+				mainBuffer.bgRGB(255, 153, 0);
+				mainBuffer.rect(clrBG, 0, 0, draw.nw, draw.nh, 0);
+				mainBuffer.bgRGB(255, 255, 0);
+				mainBuffer.rect(clrBG, 90, 20, 190, 120, 50);
+				mainBuffer.bgRGB(153, 0, 0);
+				mainBuffer.rect(clrBG, 0, 60, draw.nw, draw.nh, 0);
+				break;
+			case 3:
+				// form background: Sunset
+				mainBuffer.bgRGB(255, 153, 204);
+				mainBuffer.rect(clrBG, 0, 0, draw.nw, draw.nh, 0);
+				mainBuffer.bgRGB(255, 255, 0);
+				mainBuffer.rect(clrBG, -50, 20, 50, 120, 50);
+				mainBuffer.bgRGB(50, 50, 102);
+				mainBuffer.rect(clrBG, 0, 60, draw.nw, draw.nh, 0);
+				break;
+				
+			case 4:
+				// form background: Night
+				mainBuffer.bgRGB(51, 51, 102);
+				mainBuffer.rect(clrBG, 0, 0, draw.nw, draw.nh, 0);
+				mainBuffer.bgRGB(51, 102, 153);
+				mainBuffer.rect(clrBG, 0, 0, draw.nw, 60, 0);
+				mainBuffer.bgRGB(255, 255, 204);
+				mainBuffer.rect(clrBG, 40, -40, 120, 40, 40);
+				break;
+				
+			case 5:
+				// form background: Custom...
+				mainBuffer.fg(backgroundColorIndex);
+				mainBuffer.rect(clrFG, 0, 0, draw.nw, draw.nh, 0);
+				break;
+		}
+	}
+}
+
+
+// Global theme variables
+int themeR, themeG, themeB,
+	shadowR, shadowG, shadowB,
+	highlightR, highlightG, highlightB,
+	batteryBgR, batteryBgG, batteryBgB,
+	textR, textG, textB,
+	clockBgR, clockBgG, clockBgB,
+	clockTxtR, clockTxtG, clockTxtB,
+	clockHndR, clockHndG, clockHndB,
+	clockSecR, clockSecG, clockSecB,
+	battTxtR, battTxtG, battTxtB,
+	digiBgR, digiBgG, digiBgB,
+	digiTxtR, digiTxtG, digiTxtB;
+
+
+// Themes
+void setTheme(int theme, bool mainForm) {
+	if (colorDepth > 4) {
+		switch (theme) {
+			case 1: // Sky Blue
+				themeR = 102;
+				themeG = 102;
+				themeB = 255;
+				
+				shadowR = 0;
+				shadowG = 0;
+				shadowB = 102;
+				
+				highlightR = 0;
+				highlightG = 51;
+				highlightB = 153;
+				
+				batteryBgR = 0;
+				batteryBgG = 51;
+				batteryBgB = 153;
+				
+				textR = 255;
+				textG = 255;
+				textB = 255;
+				
+				// clock theme
+				clockBgR = 255;
+				clockBgG = 255;
+				clockBgB = 255;
+				
+				clockTxtR = 80;
+				clockTxtG = 80;
+				clockTxtB = 80;
+				
+				clockHndR = 0;
+				clockHndG = 51;
+				clockHndB = 153;
+				
+				clockSecR = 255;
+				clockSecG = 51;
+				clockSecB = 51;
+				
+				// battery text
+				battTxtR = 255;
+				battTxtG = 255;
+				battTxtB = 255;
+				
+				// digiclock background and text	
+				digiBgR = 255;
+				digiBgG = 255;
+				digiBgB = 255;
+				
+				digiTxtR = 255;
+				digiTxtG = 255;
+				digiTxtB = 255;
+				
+				// Draw main background BMP
+				if (mainForm) mainBuffer.bitmap(theme1BMP, 0, 0);
+				
+				clockGadget.SetClockTheme(themeR, themeG, themeB,
+											clockBgR, clockBgG, clockBgB,
+											shadowR, shadowG, shadowB,
+											clockTxtR, clockTxtG, clockTxtB,
+											clockHndR, clockHndG, clockHndB,
+											clockSecR, clockSecG, clockSecB);
+				
+				calendarGadget.SetCalendarTheme(themeR, themeG, themeB,
+												highlightR, highlightG, highlightB,
+												shadowR, shadowG, shadowB,
+												textR, textG, textB);
+				
+				batteryGadget.SetBatteryTheme(themeR, themeG, themeB,
+												batteryBgR, batteryBgG, batteryBgB,
+												shadowR, shadowG, shadowB,
+												battTxtR, battTxtG, battTxtB);
+												
+				digiClockGadget.SetDigiClockTheme(batteryBgR, batteryBgG, batteryBgB,
+									digiBgR, digiBgG, digiBgB,
+									shadowR, shadowG, shadowB,
+									digiTxtR, digiTxtG, digiTxtB);
+	
+				actionGadget.SetActionTheme(themeR, themeG, themeB,
+									batteryBgR, batteryBgG, batteryBgB,
+									shadowR, shadowG, shadowB,
+									textR, textG, textB);
+				break;
+				
+			case 2: // Purple Eva-01				
+				themeR = 152;
+				themeG = 51;
+				themeB = 204;
+				
+				shadowR = 102;
+				shadowG = 0;
+				shadowB = 153;
+				
+				highlightR = 153;
+				highlightG = 255;
+				highlightB = 0;
+				
+				batteryBgR = 102;
+				batteryBgG = 0;
+				batteryBgB = 153;
+				
+				textR = 0;
+				textG = 51;
+				textB = 102;
+				
+				// clock theme
+				clockBgR = 255;
+				clockBgG = 255;
+				clockBgB = 255;
+				
+				clockTxtR = 80;
+				clockTxtG = 80;
+				clockTxtB = 80;
+				
+				clockHndR = 102;
+				clockHndG = 0;
+				clockHndB = 102;
+				
+				clockSecR = 255;
+				clockSecG = 100;
+				clockSecB = 0;
+				
+				// battery text
+				battTxtR = 255;
+				battTxtG = 255;
+				battTxtB = 255;
+				
+				// digiclock background and text	
+				digiBgR = 255;
+				digiBgG = 255;
+				digiBgB = 255;
+				
+				digiTxtR = 255;
+				digiTxtG = 255;
+				digiTxtB = 255;
+				
+				// Draw main background BMP
+				if (mainForm) mainBuffer.bitmap(theme2BMP, 0, 0);
+				
+				clockGadget.SetClockTheme(152, 204, 0,
+											clockBgR, clockBgG, clockBgB,
+											shadowR, shadowG, shadowB,
+											clockTxtR, clockTxtG, clockTxtB,
+											clockHndR, clockHndG, clockHndB,
+											clockSecR, clockSecG, clockSecB);
+				
+				calendarGadget.SetCalendarTheme(themeR, themeG, themeB,
+												highlightR, highlightG, highlightB,
+												shadowR, shadowG, shadowB,
+												textR, textG, textB);
+				
+				batteryGadget.SetBatteryTheme(themeR, themeG, themeB,
+												batteryBgR, batteryBgG, batteryBgB,
+												shadowR, shadowG, shadowB,
+												battTxtR, battTxtG, battTxtB);
+												
+				digiClockGadget.SetDigiClockTheme(batteryBgR, batteryBgG, batteryBgB,
+									digiBgR, digiBgG, digiBgB,
+									shadowR, shadowG, shadowB,
+									digiTxtR, digiTxtG, digiTxtB);
+	
+				actionGadget.SetActionTheme(themeR, themeG, themeB,
+									batteryBgR, batteryBgG, batteryBgB,
+									shadowR, shadowG, shadowB,
+									textR, textG, textB);
+				break;
+				
+			case 3: // PokéRed
+				themeR = 240;
+				themeG = 30;
+				themeB = 20;
+				
+				shadowR = 101;
+				shadowG = 0;
+				shadowB = 0;
+				
+				highlightR = 255;
+				highlightG = 204;
+				highlightB = 153;
+				
+				batteryBgR = 130;
+				batteryBgG = 10;
+				batteryBgB = 10;
+				
+				textR = 0;
+				textG = 0;
+				textB = 0;
+				
+				// clock theme
+				clockBgR = 255;
+				clockBgG = 255;
+				clockBgB = 255;
+				
+				clockTxtR = 80;
+				clockTxtG = 80;
+				clockTxtB = 80;
+				
+				clockHndR = 51;
+				clockHndG = 80;
+				clockHndB = 153;
+				
+				clockSecR = 255;
+				clockSecG = 0;
+				clockSecB = 0;
+				
+				// battery text
+				battTxtR = 255;
+				battTxtG = 255;
+				battTxtB = 255;
+				
+				// digiclock background and text	
+				digiBgR = 255;
+				digiBgG = 255;
+				digiBgB = 255;
+				
+				digiTxtR = 255;
+				digiTxtG = 255;
+				digiTxtB = 255;
+				
+				// Draw main background BMP
+				if (mainForm) mainBuffer.bitmap(theme3BMP, 0, 0);
+				
+				clockGadget.SetClockTheme(themeR, themeG, themeB,
+											clockBgR, clockBgG, clockBgB,
+											shadowR, shadowG, shadowB,
+											clockTxtR, clockTxtG, clockTxtB,
+											clockHndR, clockHndG, clockHndB,
+											clockSecR, clockSecG, clockSecB);
+				
+				calendarGadget.SetCalendarTheme(themeR, themeG, themeB,
+												highlightR, highlightG, highlightB,
+												shadowR, shadowG, shadowB,
+												textR, textG, textB);
+				
+				batteryGadget.SetBatteryTheme(themeR, themeG, themeB,
+												batteryBgR, batteryBgG, batteryBgB,
+												shadowR, shadowG, shadowB,
+												battTxtR, battTxtG, battTxtB);
+												
+				digiClockGadget.SetDigiClockTheme(batteryBgR, batteryBgG, batteryBgB,
+									digiBgR, digiBgG, digiBgB,
+									shadowR, shadowG, shadowB,
+									digiTxtR, digiTxtG, digiTxtB);
+	
+				actionGadget.SetActionTheme(themeR, themeG, themeB,
+									batteryBgR, batteryBgG, batteryBgB,
+									shadowR, shadowG, shadowB,
+									textR, textG, textB);
+				break;
+				
+			case 4: // Juicy Orange
+				themeR = 237;
+				themeG = 109;
+				themeB = 24;
+				
+				shadowR = 102;
+				shadowG = 0;
+				shadowB = 0;
+				
+				highlightR = 255;
+				highlightG = 255;
+				highlightB = 153;
+				
+				batteryBgR = 153;
+				batteryBgG = 51;
+				batteryBgB = 0;
+				
+				textR = 100;
+				textG = 50;
+				textB = 100;
+				
+				// clock theme
+				clockBgR = 255;
+				clockBgG = 255;
+				clockBgB = 255;
+				
+				clockTxtR = 80;
+				clockTxtG = 80;
+				clockTxtB = 80;
+				
+				clockHndR = 204;
+				clockHndG = 0;
+				clockHndB = 0;
+				
+				clockSecR = 255;
+				clockSecG = 150;
+				clockSecB = 0;
+				
+				// battery text
+				battTxtR = 255;
+				battTxtG = 255;
+				battTxtB = 255;
+				
+				// digiclock background and text	
+				digiBgR = 255;
+				digiBgG = 255;
+				digiBgB = 255;
+				
+				digiTxtR = 255;
+				digiTxtG = 255;
+				digiTxtB = 255;
+				
+				// Draw main background BMP
+				if (mainForm) mainBuffer.bitmap(theme4BMP, 0, 0);
+				
+				clockGadget.SetClockTheme(themeR, themeG, themeB,
+											clockBgR, clockBgG, clockBgB,
+											shadowR, shadowG, shadowB,
+											clockTxtR, clockTxtG, clockTxtB,
+											clockHndR, clockHndG, clockHndB,
+											clockSecR, clockSecG, clockSecB);
+				
+				calendarGadget.SetCalendarTheme(themeR, themeG, themeB,
+												highlightR, highlightG, highlightB,
+												shadowR, shadowG, shadowB,
+												textR, textG, textB);
+				
+				batteryGadget.SetBatteryTheme(themeR, themeG, themeB,
+												batteryBgR, batteryBgG, batteryBgB,
+												shadowR, shadowG, shadowB,
+												battTxtR, battTxtG, battTxtB);
+												
+				digiClockGadget.SetDigiClockTheme(batteryBgR, batteryBgG, batteryBgB,
+									digiBgR, digiBgG, digiBgB,
+									shadowR, shadowG, shadowB,
+									digiTxtR, digiTxtG, digiTxtB);
+	
+				actionGadget.SetActionTheme(themeR, themeG, themeB,
+									batteryBgR, batteryBgG, batteryBgB,
+									shadowR, shadowG, shadowB,
+									textR, textG, textB);
+				break;
+				
+			case 5: // Peach Yellow
+				themeR = 255;
+				themeG = 204;
+				themeB = 51;
+				
+				shadowR = 102;
+				shadowG = 51;
+				shadowB = 0;
+				
+				highlightR = 255;
+				highlightG = 255;
+				highlightB = 204;
+				
+				batteryBgR = 153;
+				batteryBgG = 102;
+				batteryBgB = 51;
+				
+				textR = 0;
+				textG = 51;
+				textB = 102;
+				
+				// clock theme
+				clockBgR = 255;
+				clockBgG = 255;
+				clockBgB = 255;
+				
+				clockTxtR = 80;
+				clockTxtG = 80;
+				clockTxtB = 80;
+				
+				clockHndR = 204;
+				clockHndG = 51;
+				clockHndB = 0;
+				
+				clockSecR = 255;
+				clockSecG = 153;
+				clockSecB = 0;
+				
+				// battery text
+				battTxtR = 255;
+				battTxtG = 255;
+				battTxtB = 255;
+				
+				// digiclock background and text	
+				digiBgR = 255;
+				digiBgG = 255;
+				digiBgB = 255;
+				
+				digiTxtR = 255;
+				digiTxtG = 255;
+				digiTxtB = 255;
+				
+				// Draw main background BMP
+				if (mainForm) mainBuffer.bitmap(theme5BMP, 0, 0);
+				
+				clockGadget.SetClockTheme(clockSecR, clockSecG, clockSecB,
+											clockBgR, clockBgG, clockBgB,
+											shadowR, shadowG, shadowB,
+											clockTxtR, clockTxtG, clockTxtB,
+											clockHndR, clockHndG, clockHndB,
+											clockSecR, clockSecG, clockSecB);
+				
+				calendarGadget.SetCalendarTheme(themeR, themeG, themeB,
+												highlightR, highlightG, highlightB,
+												shadowR, shadowG, shadowB,
+												textR, textG, textB);
+				
+				batteryGadget.SetBatteryTheme(themeR, themeG, themeB,
+												batteryBgR, batteryBgG, batteryBgB,
+												shadowR, shadowG, shadowB,
+												battTxtR, battTxtG, battTxtB);
+												
+				digiClockGadget.SetDigiClockTheme(batteryBgR, batteryBgG, batteryBgB,
+									digiBgR, digiBgG, digiBgB,
+									shadowR, shadowG, shadowB,
+									digiTxtR, digiTxtG, digiTxtB);
+	
+				actionGadget.SetActionTheme(themeR, themeG, themeB,
+									batteryBgR, batteryBgG, batteryBgB,
+									shadowR, shadowG, shadowB,
+									textR, textG, textB);
+				break;
+				
+			case 6: // Lime Green
+				themeR = 127;
+				themeG = 220;
+				themeB = 20;
+				
+				shadowR = 0;
+				shadowG = 51;
+				shadowB = 0;
+				
+				highlightR = 204;
+				highlightG = 255;
+				highlightB = 153;
+				
+				batteryBgR = 0;
+				batteryBgG = 102;
+				batteryBgB = 0;
+				
+				textR = 0;
+				textG = 51;
+				textB = 102;
+				
+				// clock theme
+				clockBgR = 255;
+				clockBgG = 255;
+				clockBgB = 255;
+				
+				clockTxtR = 80;
+				clockTxtG = 80;
+				clockTxtB = 80;
+				
+				clockHndR = 51;
+				clockHndG = 102;
+				clockHndB = 51;
+				
+				clockSecR = 255;
+				clockSecG = 160;
+				clockSecB = 0;
+				
+				// battery text
+				battTxtR = 255;
+				battTxtG = 255;
+				battTxtB = 255;
+				
+				// digiclock background and text	
+				digiBgR = 255;
+				digiBgG = 255;
+				digiBgB = 255;
+				
+				digiTxtR = 255;
+				digiTxtG = 255;
+				digiTxtB = 255;
+				
+				// Draw main background BMP
+				if (mainForm) mainBuffer.bitmap(theme6BMP, 0, 0);
+				
+				clockGadget.SetClockTheme(themeR, themeG, themeB,
+											clockBgR, clockBgG, clockBgB,
+											shadowR, shadowG, shadowB,
+											clockTxtR, clockTxtG, clockTxtB,
+											clockHndR, clockHndG, clockHndB,
+											clockSecR, clockSecG, clockSecB);
+				
+				calendarGadget.SetCalendarTheme(themeR, themeG, themeB,
+												highlightR, highlightG, highlightB,
+												shadowR, shadowG, shadowB,
+												textR, textG, textB);
+				
+				batteryGadget.SetBatteryTheme(themeR, themeG, themeB,
+												batteryBgR, batteryBgG, batteryBgB,
+												shadowR, shadowG, shadowB,
+												battTxtR, battTxtG, battTxtB);
+												
+				digiClockGadget.SetDigiClockTheme(batteryBgR, batteryBgG, batteryBgB,
+									digiBgR, digiBgG, digiBgB,
+									shadowR, shadowG, shadowB,
+									digiTxtR, digiTxtG, digiTxtB);
+	
+				actionGadget.SetActionTheme(themeR, themeG, themeB,
+									batteryBgR, batteryBgG, batteryBgB,
+									shadowR, shadowG, shadowB,
+									textR, textG, textB);
+				break;
+				
+			case 7: // Gray Cloud
+				themeR = 204;
+				themeG = 204;
+				themeB = 204;
+				
+				shadowR = 68;
+				shadowG = 68;
+				shadowB = 68;
+				
+				highlightR = 102;
+				highlightG = 102;
+				highlightB = 102;
+				
+				batteryBgR = 102;
+				batteryBgG = 102;
+				batteryBgB = 102;
+				
+				textR = 255;
+				textG = 255;
+				textB = 255;
+				
+				// clock theme
+				clockBgR = 102;
+				clockBgG = 102;
+				clockBgB = 102;
+				
+				clockTxtR = 250;
+				clockTxtG = 250;
+				clockTxtB = 250;
+				
+				clockHndR = 153;
+				clockHndG = 204;
+				clockHndB = 255;
+				
+				clockSecR = 255;
+				clockSecG = 204;
+				clockSecB = 51;
+				
+				// battery text
+				battTxtR = 255;
+				battTxtG = 255;
+				battTxtB = 255;
+				
+				// digiclock background and text	
+				digiBgR = 255;
+				digiBgG = 255;
+				digiBgB = 255;
+				
+				digiTxtR = 255;
+				digiTxtG = 255;
+				digiTxtB = 255;
+				
+				// Draw main background BMP
+				if (mainForm) mainBuffer.bitmap(theme7BMP, 0, 0);
+				
+				clockGadget.SetClockTheme(clockSecR, clockSecG, clockSecB,
+											clockBgR, clockBgG, clockBgB,
+											shadowR, shadowG, shadowB,
+											clockTxtR, clockTxtG, clockTxtB,
+											clockHndR, clockHndG, clockHndB,
+											clockSecR, clockSecG, clockSecB);
+				
+				calendarGadget.SetCalendarTheme(themeR, themeG, themeB,
+												highlightR, highlightG, highlightB,
+												shadowR, shadowG, shadowB,
+												textR, textG, textB);
+				
+				batteryGadget.SetBatteryTheme(themeR, themeG, themeB,
+												batteryBgR, batteryBgG, batteryBgB,
+												shadowR, shadowG, shadowB,
+												battTxtR, battTxtG, battTxtB);
+												
+				digiClockGadget.SetDigiClockTheme(batteryBgR, batteryBgG, batteryBgB,
+									digiBgR, digiBgG, digiBgB,
+									shadowR, shadowG, shadowB,
+									digiTxtR, digiTxtG, digiTxtB);
+	
+				actionGadget.SetActionTheme(themeR, themeG, themeB,
+									batteryBgR, batteryBgG, batteryBgB,
+									shadowR, shadowG, shadowB,
+									textR, textG, textB);
+				break;
+				
+			case 8: // Dark Cloud
+				themeR = 119;
+				themeG = 119;
+				themeB = 119;
+				
+				shadowR = 68;
+				shadowG = 68;
+				shadowB = 68;
+				
+				highlightR = 51;
+				highlightG = 51;
+				highlightB = 51;
+				
+				batteryBgR = 51;
+				batteryBgG = 51;
+				batteryBgB = 51;
+				
+				textR = 255;
+				textG = 255;
+				textB = 255;
+				
+				// clock theme
+				clockBgR = 51;
+				clockBgG = 51;
+				clockBgB = 51;
+				
+				clockTxtR = 204;
+				clockTxtG = 204;
+				clockTxtB = 255;
+				
+				clockHndR = 153;
+				clockHndG = 204;
+				clockHndB = 255;
+				
+				clockSecR = 255;
+				clockSecG = 51;
+				clockSecB = 0;
+				
+				// battery text
+				battTxtR = 255;
+				battTxtG = 255;
+				battTxtB = 255;
+				
+				// digiclock background and text	
+				digiBgR = 255;
+				digiBgG = 255;
+				digiBgB = 255;
+				
+				digiTxtR = 255;
+				digiTxtG = 255;
+				digiTxtB = 255;
+				
+				// Draw main background BMP
+				if (mainForm) mainBuffer.bitmap(theme8BMP, 0, 0);
+				
+				clockGadget.SetClockTheme(clockSecR, clockSecG, clockSecB,
+											clockBgR, clockBgG, clockBgB,
+											shadowR, shadowG, shadowB,
+											clockTxtR, clockTxtG, clockTxtB,
+											clockHndR, clockHndG, clockHndB,
+											clockSecR, clockSecG, clockSecB);
+				
+				calendarGadget.SetCalendarTheme(themeR, themeG, themeB,
+												highlightR, highlightG, highlightB,
+												shadowR, shadowG, shadowB,
+												textR, textG, textB);
+				
+				batteryGadget.SetBatteryTheme(themeR, themeG, themeB,
+												batteryBgR, batteryBgG, batteryBgB,
+												shadowR, shadowG, shadowB,
+												battTxtR, battTxtG, battTxtB);
+												
+				digiClockGadget.SetDigiClockTheme(batteryBgR, batteryBgG, batteryBgB,
+									digiBgR, digiBgG, digiBgB,
+									shadowR, shadowG, shadowB,
+									digiTxtR, digiTxtG, digiTxtB);
+	
+				actionGadget.SetActionTheme(themeR, themeG, themeB,
+									batteryBgR, batteryBgG, batteryBgB,
+									shadowR, shadowG, shadowB,
+									textR, textG, textB);
+				break;
+		}
+	}
+	else
+	{
+		if (colorDepth == 1) {
+			themeR = 0;
+			themeG = 0;
+			themeB = 0;
+			
+			shadowR = 0;
+			shadowG = 0;
+			shadowB = 0;
+			
+			highlightR = 255;
+			highlightG = 255;
+			highlightB = 255;
+			
+			batteryBgR = 255;
+			batteryBgG = 255;
+			batteryBgB = 255;
+			
+			textR = 0;
+			textG = 0;
+			textB = 0;
+			
+			// clock theme
+			clockBgR = 255;
+			clockBgG = 255;
+			clockBgB = 255;
+			
+			clockTxtR = 0;
+			clockTxtG = 0;
+			clockTxtB = 0;
+			
+			clockHndR = 102;
+			clockHndG = 102;
+			clockHndB = 102;
+			
+			clockSecR = 102;
+			clockSecG = 102;
+			clockSecB = 102;
+			
+			// battery text
+			battTxtR = 0;
+			battTxtG = 0;
+			battTxtB = 0;
+			
+			// digiclock background and text	
+			digiBgR = 255;
+			digiBgG = 255;
+			digiBgB = 255;
+			
+			digiTxtR = 0;
+			digiTxtG = 0;
+			digiTxtB = 0;
+			
+			// Draw main background BMP
+			if (mainForm) mainBuffer.bitmap(themeGray, 0, 0);
+	
+			clockGadget.SetClockTheme(themeR, themeG, themeB,
+										clockBgR, clockBgG, clockBgB,
+										shadowR, shadowG, shadowB,
+										clockTxtR, clockTxtG, clockTxtB,
+										clockHndR, clockHndG, clockHndB,
+										clockSecR, clockSecG, clockSecB);
+			
+			calendarGadget.SetCalendarTheme(themeR, themeG, themeB,
+											highlightR, highlightG, highlightB,
+											shadowR, shadowG, shadowB,
+											textR, textG, textB);
+			
+			batteryGadget.SetBatteryTheme(themeR, themeG, themeB,
+											batteryBgR, batteryBgG, batteryBgB,
+											shadowR, shadowG, shadowB,
+											battTxtR, battTxtG, battTxtB);
+											
+			digiClockGadget.SetDigiClockTheme(batteryBgR, batteryBgG, batteryBgB,
+								digiBgR, digiBgG, digiBgB,
+								shadowR, shadowG, shadowB,
+								digiTxtR, digiTxtG, digiTxtB);
+	
+			actionGadget.SetActionTheme(themeR, themeG, themeB,
+								batteryBgR, batteryBgG, batteryBgB,
+								shadowR, shadowG, shadowB,
+								textR, textG, textB);
+		}
+		
+		if (colorDepth == 2) {		
+			themeR = 85;
+			themeG = 85;
+			themeB = 85;
+			
+			shadowR = 0;
+			shadowG = 0;
+			shadowB = 0;
+			
+			highlightR = 255;
+			highlightG = 255;
+			highlightB = 255;
+			
+			batteryBgR = 255;
+			batteryBgG = 255;
+			batteryBgB = 255;
+			
+			textR = 0;
+			textG = 0;
+			textB = 0;
+			
+			// clock theme
+			clockBgR = 255;
+			clockBgG = 255;
+			clockBgB = 255;
+			
+			clockTxtR = 0;
+			clockTxtG = 0;
+			clockTxtB = 0;
+			
+			clockHndR = 0;
+			clockHndG = 0;
+			clockHndB = 0;
+			
+			clockSecR = 102;
+			clockSecG = 102;
+			clockSecB = 102;
+			
+			// battery text
+			battTxtR = 0;
+			battTxtG = 0;
+			battTxtB = 0;
+			
+			// digiclock background and text	
+			digiBgR = 255;
+			digiBgG = 255;
+			digiBgB = 255;
+			
+			digiTxtR = 0;
+			digiTxtG = 0;
+			digiTxtB = 0;
+			
+			// Draw main background BMP
+			if (mainForm) mainBuffer.bitmap(themeGray, 0, 0);
+	
+			clockGadget.SetClockTheme(themeR, themeG, themeB,
+										clockBgR, clockBgG, clockBgB,
+										shadowR, shadowG, shadowB,
+										clockTxtR, clockTxtG, clockTxtB,
+										clockHndR, clockHndG, clockHndB,
+										clockSecR, clockSecG, clockSecB);
+			
+			calendarGadget.SetCalendarTheme(themeR, themeG, themeB,
+											highlightR, highlightG, highlightB,
+											shadowR, shadowG, shadowB,
+											textR, textG, textB);
+			
+			batteryGadget.SetBatteryTheme(themeR, themeG, themeB,
+											batteryBgR, batteryBgG, batteryBgB,
+											shadowR, shadowG, shadowB,
+											battTxtR, battTxtG, battTxtB);
+											
+			digiClockGadget.SetDigiClockTheme(batteryBgR, batteryBgG, batteryBgB,
+								digiBgR, digiBgG, digiBgB,
+								shadowR, shadowG, shadowB,
+								digiTxtR, digiTxtG, digiTxtB);
+	
+			actionGadget.SetActionTheme(themeR, themeG, themeB,
+								batteryBgR, batteryBgG, batteryBgB,
+								shadowR, shadowG, shadowB,
+								textR, textG, textB);
+		}
+		
+		if (colorDepth == 4) {		
+			themeR = 138;
+			themeG = 138;
+			themeB = 138;
+			
+			shadowR = 0;
+			shadowG = 0;
+			shadowB = 0;
+			
+			highlightR = 255;
+			highlightG = 255;
+			highlightB = 255;
+			
+			batteryBgR = 255;
+			batteryBgG = 255;
+			batteryBgB = 255;
+			
+			textR = 0;
+			textG = 0;
+			textB = 0;
+			
+			// clock theme
+			clockBgR = 255;
+			clockBgG = 255;
+			clockBgB = 255;
+			
+			clockTxtR = 0;
+			clockTxtG = 0;
+			clockTxtB = 0;
+			
+			clockHndR = 0;
+			clockHndG = 0;
+			clockHndB = 0;
+			
+			clockSecR = 102;
+			clockSecG = 102;
+			clockSecB = 102;
+			
+			// battery text
+			battTxtR = 0;
+			battTxtG = 0;
+			battTxtB = 0;
+			
+			// digiclock background and text	
+			digiBgR = 255;
+			digiBgG = 255;
+			digiBgB = 255;
+			
+			digiTxtR = 0;
+			digiTxtG = 0;
+			digiTxtB = 0;
+			
+			// Draw main background BMP
+			if (mainForm) mainBuffer.bitmap(themeGray, 0, 0);
+	
+			clockGadget.SetClockTheme(themeR, themeG, themeB,
+										clockBgR, clockBgG, clockBgB,
+										shadowR, shadowG, shadowB,
+										clockTxtR, clockTxtG, clockTxtB,
+										clockHndR, clockHndG, clockHndB,
+										clockSecR, clockSecG, clockSecB);
+			
+			calendarGadget.SetCalendarTheme(themeR, themeG, themeB,
+											highlightR, highlightG, highlightB,
+											shadowR, shadowG, shadowB,
+											textR, textG, textB);
+			
+			batteryGadget.SetBatteryTheme(themeR, themeG, themeB,
+											batteryBgR, batteryBgG, batteryBgB,
+											shadowR, shadowG, shadowB,
+											battTxtR, battTxtG, battTxtB);
+											
+			digiClockGadget.SetDigiClockTheme(batteryBgR, batteryBgG, batteryBgB,
+								digiBgR, digiBgG, digiBgB,
+								shadowR, shadowG, shadowB,
+								digiTxtR, digiTxtG, digiTxtB);
+	
+			actionGadget.SetActionTheme(themeR, themeG, themeB,
+								batteryBgR, batteryBgG, batteryBgB,
+								shadowR, shadowG, shadowB,
+								textR, textG, textB);
+		}
+	}
+}
+
+
+// DRAW ON SCREEN ELEMENTS from BUFFER
+void drawBuffer() {
+	draw.begin();
+	draw.draw(mainBuffer, 0, 0); // draw buffer
+	draw.end();
+}
+
+
+// BUFFER functions
+ClockHand chHour, chMin, chSec;
+Point ptCenter;
+
+void drawClockHandBuffer(ClockHand hand, int color) {
+	int x, y;
+	
+	x = cos(hand.angle) * hand.length + ptCenter.x;
+	y = sin(hand.angle) * hand.length + ptCenter.y;
+	
+	mainBuffer.line(color, ptCenter.x, ptCenter.y, x, y);
+}
+
+
+void drawClockBuffer() {
+	int hr, min;
+	float hrAngle, minAngle, secAngle;
+	
+	ptCenter.x = 58;
+	ptCenter.y = 58;
+		
+	// Calculate new angles
+	hrAngle = ((float)(hours % 12) * 30 + minutes / 2 - 90) / 180 * pi;
+	minAngle = ((float)minutes * 6 - 90) / 180 * pi;
+	secAngle = ((float)seconds * 6 - 90) / 180 * pi;
+	
+	//Clock hands lenght
+	chSec.length = 31;
+	chMin.length = 31;
+	chHour.length = 22;
+	
+	chHour.angle = hrAngle;
+	chMin.angle = minAngle;
+	chSec.angle = secAngle;
+	
+	// Draw the current time
+	mainBuffer.fgRGB(clockHndR, clockHndG, clockHndB);
+	drawClockHandBuffer(chHour, clrFG); // hours hand
+	drawClockHandBuffer(chMin, clrFG); // minutes hand
+	
+	mainBuffer.fgRGB(clockSecR, clockSecG, clockSecB);
+	drawClockHandBuffer(chSec, clrFG); // seconds hand with new color
+	mainBuffer.rect(clrFG, ptCenter.x-1, ptCenter.y-1, ptCenter.x+2, ptCenter.y+2, 2);
+	mainBuffer.fgRGB(clockHndR, clockHndG, clockHndB);
+	
+	// Show AM/PM on Overview
+	if (timeFormat == 2) {
+		mainBuffer.bgRGB(clockBgR, clockBgG, clockBgB);
+		mainBuffer.textRGB(clockSecR, clockSecG, clockSecB);
+		mainBuffer.textAlign(12);
+		mainBuffer.font(fntStandard);
+
+		if (amPm == 1)
+			mainBuffer.text(clrText, 101, 18, "AM");
+		else
+			mainBuffer.text(clrText, 101, 18, "PM");
+	}
+}
+
+
+void drawMiniDigiClockBuffer() {
+	string sthr, stmin, stsec;
+	
+	if (timeFormat == 1) {
+		if (strlen(hours) == 1)
+			sthr = "0" + hours;
+		else
+			sthr = "" + hours;
+	}
+	else
+	{
+		if (strlen(hours) == 1)
+			sthr = " " + hours;
+		else
+			sthr = "" + hours;
+	}
+	
+	if (strlen(minutes) == 1)
+		stmin = "0" + minutes;
+	else
+		stmin = "" + minutes;
+	
+	if (strlen(seconds) == 1)
+		stsec = "0" + seconds;
+	else
+		stsec = "" + seconds;
+	
+	mainBuffer.bgRGB(digiMiniBackgroundR, digiMiniBackgroundG, digiMiniBackgroundB);
+	mainBuffer.textRGB(digiTextR, digiTextG, digiTextB);
+	mainBuffer.textAlign(12);
+	mainBuffer.font(fntLargeBold );
+	mainBuffer.text(clrText, 146, 19, sthr + ":" + stmin);
+	mainBuffer.textAlign(11);
+	mainBuffer.font(fntStandard);
+	mainBuffer.text(clrText, 140, 30, stsec);
+}
+
+
+void drawBatteryIconBuffer() {	
+	int battX, battY, battEndX, battEndY, battFill;
+	int battClr1R, battClr1G, battClr1B,
+		battClr2R, battClr2G, battClr2B,
+		battClr3R, battClr3G, battClr3B;
+	
+	if (colorDepth > 4) {
+		battClr1R = 51;
+		battClr1G = 255;
+		battClr1B = 0;
+		
+		battClr2R = 204;
+		battClr2G = 255;
+		battClr2B = 204;
+		
+		battClr3R = 51;
+		battClr3G = 153;
+		battClr3B = 51;
+	}
+	else
+	{
+		if (colorDepth == 1) {
+			battClr1R = 0;
+			battClr1G = 0;
+			battClr1B = 0;
+			
+			battClr2R = 255;
+			battClr2G = 255;
+			battClr2B = 255;
+			
+			battClr3R = 0;
+			battClr3G = 0;
+			battClr3B = 0;
+		}
+		
+		if (colorDepth == 2 || colorDepth == 4) {
+			battClr1R = 128;
+			battClr1G = 128;
+			battClr1B = 128;
+			
+			battClr2R = 255;
+			battClr2G = 255;
+			battClr2B = 255;
+			
+			battClr3R = 0;
+			battClr3G = 0;
+			battClr3B = 0;
+		}
+	}
+	
+	battX = 121;
+	battY = 59;
+	battEndX = battX + 21;
+	battEndY = battY + 9;
+			
+	// battery charge
+	charge = battery(false);
+	
+	if (charge <= 100 && charge >= 91) {
+		chargeFill = 1;
+	}
+	
+	if (charge <= 90 && charge >= 81) {
+		chargeFill = 2;
+	}
+	
+	if (charge <= 80 && charge >= 71) {
+		chargeFill = 3;
+	}
+	
+	if (charge <= 70 && charge >= 61) {
+		chargeFill = 4;
+	}
+	
+	if (charge <= 60 && charge >= 51) {
+		chargeFill = 5;
+	}
+	
+	if (charge <= 50 && charge >= 41) {
+		chargeFill = 6;
+	}
+	
+	if (charge <= 40 && charge >= 31) {
+		chargeFill = 7;
+	}
+	
+	if (charge <= 30 && charge >= 21) {
+		chargeFill = 8;
+	}
+	
+	if (charge <= 20 && charge >= 11) {
+		chargeFill = 9;
+	}
+	
+	if (charge <= 10 && charge >= 1) {
+		chargeFill = 10;
+	}
+	
+	if (charge = 0) {
+		chargeFill = 11;
+	}
+	
+	switch (chargeFill) {
+		case 1:
+			fill = battEndX-1;
+			break;
+		case 2:
+			fill = battEndX-3;
+			break;
+		case 3:
+			fill = battEndX-5;
+			break;
+		case 4:
+			fill = battEndX-7;
+			break;
+		case 5:
+			fill = battEndX-9;
+			break;
+		case 6:
+			fill = battEndX-11;
+			break;
+		case 7:
+			fill = battEndX-13;
+			break;
+		case 8:
+			fill = battEndX-15;
+			break;
+		case 9:
+			fill = battEndX-17;
+			break;
+		case 10:
+			fill = battEndX-19;
+			break;
+		case 11:
+			fill = battEndX-20;
+			break;
+		default:
+			fill = battEndX-20;
+	}
+	
+	// charge fill gradient
+	mainBuffer.fgRGB(battBackgroundR, battBackgroundG, battBackgroundB);
+	mainBuffer.rect(clrFG, battX+1, battY+1, battEndX-1, battEndY-1, 0);
+	mainBuffer.fgRGB(battClr1R, battClr1G, battClr1B); // charge color 1 - base
+	mainBuffer.rect(clrFG, battX+1, battY+1, fill, battEndY-1, 0);
+	mainBuffer.fgRGB(battClr2R, battClr2G, battClr2B); // charge color 2
+	mainBuffer.rect(clrFG, battX+1, battY+2, fill, battEndY-6, 0);
+	mainBuffer.fgRGB(battClr3R, battClr3G, battClr3B); // charge color 3
+	mainBuffer.rect(clrFG, battX+1, battY+6, fill, battEndY-1, 0);
+}
+
+
+void drawBatteryPercBuffer() {
+	mainBuffer.bgRGB(batteryBgR, batteryBgG, batteryBgB); // background color
+	mainBuffer.textRGB(battTxtR, battTxtG, battTxtB); // font color
+	mainBuffer.textAlign(11);
+	mainBuffer.text(clrText, 132, 75, " " + battery(false) + "% ");
+}
+
+
+// Draw date in calendar
+void setCalendarBuffer() {
+	int dateOnCalendar;
+	string dayStr, monthStr, monthYear;
+	today.now();
+	
+	// Weekday
+	switch (today.weekday) {
+		case 0:
+			dayStr = "Sunday         ";
+			break;
+		case 1:
+			dayStr = "Monday         ";
+			break;
+		case 2:
+			dayStr = "Tuesday        ";
+			break;
+		case 3:
+			dayStr = "Wednesday      ";
+			break;
+		case 4:
+			dayStr = "Thursday       ";
+			break;
+		case 5:
+			dayStr = "Friday         ";
+			break;
+		case 6:
+			dayStr = "Saturday       ";
+			break;
+		default:
+			dayStr = "---            ";
+	}
+	
+	// Month
+	switch (today.month) {
+		case 1:
+			monthStr = "Jan";
+			break;
+		case 2:
+			monthStr = "Feb";
+			break;
+		case 3:
+			monthStr = "Mar";
+			break;
+		case 4:
+			monthStr = "Apr";
+			break;
+		case 5:
+			monthStr = "May";
+			break;
+		case 6:
+			monthStr = "Jun";
+			break;
+		case 7:
+			monthStr = "Jul";
+			break;
+		case 8:
+			monthStr = "Aug";
+			break;
+		case 9:
+			monthStr = "Sep";
+			break;
+		case 10:
+			monthStr = "Oct";
+			break;
+		case 11:
+			monthStr = "Nov";
+			break;
+		case 12:
+			monthStr = "Dec";
+			break;
+		default:
+			monthStr = "---";
+	}
+	
+	// month + year
+	monthYear = monthStr + ", " + today.year + "   ";
+	
+	// draw date on calendar	
+	mainBuffer.bgRGB(255, 255, 255);
+	mainBuffer.textRGB(0, 51, 102);
+	mainBuffer.font(fntLargeBold);
+	mainBuffer.textAlign(11);
+	dateOnCalendar = today.day;
+	
+	if (strlen(dateOnCalendar) == 1) {
+		mainBuffer.text(clrText, 25, 134, "  " + dateOnCalendar + "  ");
+	}
+	else
+	{
+		mainBuffer.text(clrText, 23, 134, strleft(dateOnCalendar, 1)  + " ");
+		mainBuffer.text(clrText, 29, 134, strright(dateOnCalendar, 1));
+	}
+	
+	// draw weekday
+	mainBuffer.bgRGB(highlightR, highlightG, highlightB);
+	mainBuffer.textRGB(textR, textG, textB);
+	mainBuffer.font(fntStandard);
+	mainBuffer.textAlign(00);
+	mainBuffer.text(clrText, 40, 122, dayStr);
+	
+	// draw month and year
+	mainBuffer.font(fntBold);
+	mainBuffer.textAlign(00);
+	mainBuffer.text(clrText, 40, 132, monthYear);
+}
+
+
+void drawActionBuffer() {
+	int x, y;
+	
+	x = 118;
+	y = 118;
+
+	if (colorDepth > 4) {
+		mainBuffer.fgRGB(batteryBgR, batteryBgG, batteryBgB);
+		mainBuffer.rect(clrFG, x, y, x+4, y+24, 0);
+		mainBuffer.rect(clrFG, x+9, y+4, x+28, y+23, 0);
+	}
+	
+	mainBuffer.bitmap(actionSetBMP, x-2, y-2);
+}
+
+
+// Set main theme from saved preferences and draw buffer
+void drawMainTheme() {
+	int selectedTheme, bmpID, sbmpID;
+	
+	// BUFFER:
+	mainBuffer.begin();
+	
+	// Draw main form background
+	setMainBg(preferences[0].selectedBackground);
+	
+	// Set main theme
+	selectedTheme = preferences[0].selectedTheme;
+	setTheme(selectedTheme, true);
+	
+	// Draw connectors BMP if true
+	if (showConnectors) {
+		mainBuffer.bitmap(connector1BMP, 109, 15);
+		mainBuffer.bitmap(connector2BMP, 121, 47);
+		mainBuffer.bitmap(connector2BMP, 121, 109);
+		mainBuffer.bitmap(connector1BMP, 109, 120);
+		mainBuffer.bitmap(connector2BMP, 15, 109);
+	}
+	
+	// Widget buffers
+	drawClockBuffer();
+	drawMiniDigiClockBuffer();
+	drawBatteryIconBuffer();
+	drawBatteryPercBuffer();
+	setCalendarBuffer();
+	drawActionBuffer();
+	
+	// Hide DOWN arrow on Actions widget if two-key navigation is enabled
+	if (colorDepth > 4) {
+		if (buttonsMode == 1) {
+			mainBuffer.fgRGB(themeR, themeG, themeB);
+			mainBuffer.rect(clrFG, 133, 145, 140, 149, 0);
+		}
+	}
+	
+	mainBuffer.end();
+	
+	// Buttons BMPs if color depth is more than 4bpp
+	if (colorDepth > 4) {
+		switch (selectedTheme) {
+			case 1:
+				bmpID = 8071;
+				sbmpID = 8081;
+				break;
+			case 2:
+				bmpID = 8072;
+				sbmpID = 8082;
+				break;
+			case 3:
+				bmpID = 8073;
+				sbmpID = 8083;
+				break;
+			case 4:
+				bmpID = 8074;
+				sbmpID = 8084;
+				break;
+			case 5:
+				bmpID = 8075;
+				sbmpID = 8085;
+				break;
+			case 6:
+				bmpID = 8076;
+				sbmpID = 8086;
+				break;
+			case 7:
+				bmpID = 8078;
+				sbmpID = 8088;
+				break;
+			case 8:
+				bmpID = 8079;
+				sbmpID = 8089;
+				break;
+		}
+		
+		bigClockButton.bmpid = bmpID;
+		bigClockButton.sbmpid = sbmpID;
+		digiClockButton.bmpid = bmpID;
+		digiClockButton.sbmpid = sbmpID;
+		bigBatteryButton.bmpid = bmpID;
+		bigBatteryButton.sbmpid = sbmpID;
+		bigCalendarButton.bmpid = bmpID;
+		bigCalendarButton.sbmpid =sbmpID;
+	}
+	
+	// DRAW ON SCREEN ELEMENTS from buffer
+	drawBuffer();
+}
+
+
+void setActionBMP(int action) {
+	switch (action) {
+		case 1:
+			actionSetBMP.id = action1BMP.id;
+			break;
+		case 2:
+			actionSetBMP.id = action2BMP.id;
+			break;
+		case 3:
+			actionSetBMP.id = action3BMP.id;
+			break;
+		case 4:
+			actionSetBMP.id = action4BMP.id;
+			break;
+		case 5:
+			actionSetBMP.id = action5BMP.id;
+			break;
+	}
+}
+
+
+void updateClockOnSleep() {
+	today.now();
+
+	delta = today.secs - lastSecs;
+	
+	// If more than 2 seconds have passed, synchronize with the real time.
+	if (delta > 2) {
+		if (timeFormat == 1) {
+			// 24 hs
+			hours = today.hour;
+			minutes = today.min;
+			seconds = today.sec;
+		}
+		else
+		{
+			// 12 hs
+			twelveHrFormat(today.hour);
+			minutes = today.min;
+			seconds = today.sec;
+		}
+	}
+		
+	lastSecs = today.secs;
+}
+
+
+// Event handlers
+handler mainForm.onopen() {
+	// UIform attach this form for drawing methods
+	draw.attachForm(this);
+	
+	// Create offscreen buffer
+	mainBuffer.create(160, 160); 
+	
+	// Getting saved preferences
+	GetPrefs();
+	
+	// Set preferences
+	showConnectors = preferences[0].showConnectors;
+	startOnSunday = preferences[0].startOnSunday;
+	timeFormat = preferences[0].timeFormat;
+	dateFormat = preferences[0].dateFormat;
+	buttonsMode = preferences[0].buttonsMode; 
+	easterEgg = preferences[0].easterEgg;
+	
+	// Battery status
+	charA = battery(false);
+	charB = battery(false);
+	
+	// Date & hour
+	dayA = today.day;
+	dayB = today.day;
+	
+	lastSecs = today.secs;
+	setClock(timeFormat);
+
+	// Hide buttons initially
+	bigClockButton.visible = false;
+	digiClockButton.visible = false;
+	bigBatteryButton.visible = false;
+	bigCalendarButton.visible = false;
+	prefsButton.visible = false;
+	
+	// Passing buttons and prefs to gadgets by reference
+	clockGadget.SetClockPrefs(false, fntStandard, hours, minutes, seconds, timeFormat, amPm, dateFormat);
+	digiClockGadget.SetDigiClockPrefs(false, true, hours, minutes, seconds, dateFormat, timeFormat, amPm);
+	batteryGadget.GetBatteryParms(colorDepth);
+	calendarGadget.SetCalendarObjects(calendarBMP, bigCalendarButton);
+	setActionBMP(actionSet);
+	actionGadget.SetAction(actionSet, actionSetBMP, colorDepth);
+	
+	// Show small calendar widget without grid
+	calendarMode = 1;
+	
+	// Set cat bitmap to not be visible
+	easterEggBMP.visible = false;
+	
+	// Timer will run 5 times per second / 1 sec = 100 ticks
+	timerTicks = 20; // tickspersec()
+	
+	timer(1);
+}
+
+
+handler mainForm.ondraw() {
+	// Draw main theme from saved preferences
+	drawMainTheme();
+	
+	easterEggBMP.visible = easterEgg;
+	
+	// Show buttons
+	bigClockButton.visible = true;
+	digiClockButton.visible = true;
+	bigBatteryButton.visible = true;
+	bigCalendarButton.visible = true;
+	prefsButton.visible = true;
+}
+
+
+handler mainForm.onresize() {
+	// UIform attach this form for drawing methods
+	draw.attachForm(this);
+}
+
+
+// Timer handler
+handler mainForm.ontimer() {
+	setClock(timeFormat);
+	
+	dayB = today.day;
+	charB = battery(false);
+		
+	if (seconds != lastSec) {
+		if (!mainForm.obscured) {
+			if (charB != charA) {
+				// Battery icon
+				batteryGadget.DrawBatteryIcon(true);
+				// Battery percentage
+				batteryGadget.DrawBatteryPerc();
+				
+				charA = battery(false);
+			}
+			
+			if (dayB != dayA) {
+				// Draw date in calendar
+				calendarGadget.SetCalendar(false, startOnSunday);
+				bigCalendarButton.visible = true;
+				
+				dayA = today.day;
+			}
+			
+			// Main clock
+			clockGadget.DrawClockHands(false, hours, minutes, seconds, amPm, dateFormat);
+			
+			// Digital clock
+			digiClockGadget.DrawMiniDigiClock(hours, minutes, seconds);
+		}
+	}
+	
+	updateClockOnSleep();
+	
+	lastSec = seconds;
+	
+	timer(timerTicks);
+}
+
+
+// Hard button handlers
+handler mainForm.onhkey() {
+	/*int key;
+	clock.hookhard(false);
+	
+	key = e.key; // 4: key up - 5: key down
+	
+	if (key == 4) {
+		alert(keystate());
+		bigClockForm.load();
+	}
+	
+	if (key == 5) {
+		alert(keystate());
+		bigCalendarForm.load();
+	}*/
+
+	if (buttonsMode == 1) {
+		if (keystate() == 2) { // up button pressed
+			switch(actionSet) {
+				case 1:
+					actionSet = 1;
+					fullClockForm.load();
+					break;
+				case 2:
+					actionSet = 2;
+					fullDigiClockForm.load();
+					break;
+				case 3:
+					actionSet = 3;
+					bigCalendarForm.load();
+					break;
+				case 4:
+					actionSet = 4;
+					bigBatteryForm.load();
+					break;
+				case 5:
+					SavePrefsOnClose();
+					clock.abort();
+					break;
+			}
+		}
+		
+		if (keystate() == 4) { // down button pressed
+			actionSet = actionSet + 1;
+			
+			if (actionSet  == 6) {
+				actionSet = 1;
+			}
+
+			setActionBMP(actionSet);
+			actionGadget.DrawAction(actionSetBMP, true);
+		}
+	}
+
+	if (buttonsMode == 2) {
+		if (keystate() == 2) { // up button pressed
+			actionSet = actionSet - 1;
+			
+			if (actionSet  == 0) {
+				actionSet = 5;
+			}
+			
+			setActionBMP(actionSet);
+			actionGadget.DrawAction(actionSetBMP, true);
+		}
+		
+		if (keystate() == 4) { // down button pressed
+			actionSet = actionSet + 1;
+			
+			if (actionSet  == 6) {
+				actionSet = 1;
+			}
+			
+			setActionBMP(actionSet);
+			actionGadget.DrawAction(actionSetBMP, true);
+		}
+		
+		if (keystate() == 0) { // center button pressed
+			switch(actionSet) {
+				case 1:
+					actionSet = 1;
+					fullClockForm.load();
+					break;
+				case 2:
+					actionSet = 2;
+					fullDigiClockForm.load();
+					break;
+				case 3:
+					actionSet = 3;
+					bigCalendarForm.load();
+					break;
+				case 4:
+					actionSet = 4;
+					bigBatteryForm.load();
+					break;
+				case 5:
+					SavePrefsOnClose();
+					clock.abort();
+					break;
+			}
+		}
+	}
+}
+
+
+// Soft button handlers
+handler bigClockButton.onselect() {
+	fullClockForm.load();
+}
+
+handler digiClockButton.onselect() {
+	fullDigiClockForm.load();
+}
+
+handler bigBatteryButton.onselect() {
+	bigBatteryForm.load();
+}
+
+handler bigCalendarButton.onselect() {
+	bigCalendarForm.load();
+}
+
+handler prefsButton.onselect() {
+	preferencesForm.load();
+}
+
+
+// MenuBar handlers
+handler menuGeneral.onselect() {
+	actionSet = 1;
+	mainForm.load();
+}
+
+handler menuBigClock.onselect() {
+	actionSet = 1;
+	fullClockForm.load();
+}
+
+handler menuBigDigiClock.onselect() {
+	actionSet = 2;
+	fullDigiClockForm.load();
+}
+
+handler menuCalendar.onselect() {
+	actionSet = 3;
+	bigCalendarForm.load();
+}
+
+handler menuBattery.onselect() {
+	actionSet = 4;
+	bigBatteryForm.load();
+}
+
+handler menuPreferences.onselect() {
+	preferencesForm.load();
+}
+
+handler menuHelp.onselect() {
+	helpForm.load();
+}
+
+handler menuAbout.onselect() {
+	aboutForm.load();
+}
+
+handler menuExit.onselect() {
+	SavePrefsOnClose();
+	clock.abort();
+}

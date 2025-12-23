@@ -1,0 +1,124 @@
+// Time & Date Preferences Form
+
+
+// preference variables
+int firstDaySelected;
+//bool startOnSunday;
+string timeFormats[2], dateFormats[4], firstDays[2];
+
+
+// set new preferences
+bool SetNewTimeDatePrefs() {
+	preferences[0].timeFormat = timeFormat;
+	preferences[0].dateFormat = dateFormat;
+	preferences[0].startOnSunday = startOnSunday;
+	
+  	return prefs.set("KS10", true, preferences, typeof(AppPreferences), 1);
+}
+
+
+// event handlers
+handler prefsTimeDateForm.onopen() {
+	// UIform attach this form for drawind methods
+	draw.attachForm(this);
+	
+	// add items to themes and backgrounds lists
+	timeFormats[0] = "24 hours";
+	timeFormats[1] = "12 hours";
+	timeFormatList.setitems(2, timeFormats);
+	
+	dateFormats[0] = "M-D-Y";
+	dateFormats[1] = "D-M-Y";
+	dateFormats[2] = "M/D/Y";
+	dateFormats[3] = "D/M/Y";
+	dateFormatList.setitems(4, dateFormats);
+	
+	firstDays[0] = "Sunday";
+	firstDays[1] = "Monday";
+	firstDayList.setitems(2, firstDays);
+	
+	// get preferences
+	GetPrefs();
+	
+	timeFormat = preferences[0].timeFormat;
+	timeFormatPopup.text = timeFormats[timeFormat - 1];
+	timeFormatList.selitem = timeFormat - 1;
+	
+	dateFormat = preferences[0].dateFormat;
+	dateFormatPopup.text = dateFormats[dateFormat - 1];
+	dateFormatList.selitem = dateFormat - 1;
+	
+	startOnSunday = preferences[0].startOnSunday;
+	
+	if (startOnSunday) {
+		firstDayPopup.text = firstDays[0];
+		firstDayList.selitem = 0;
+	}
+	else
+	{
+		firstDayPopup.text = firstDays[1];
+		firstDayList.selitem = 1;
+	}
+
+}
+
+handler prefsTimeDateForm.ondraw() {
+	draw.begin();
+	
+	draw.fgRGB(shadowR, shadowG, shadowB);
+	draw.frame(clrFG, 3, 3, prefsTimeDateForm.w-3, prefsTimeDateForm.h-3, 6, 3);
+	
+	draw.fgRGB(themeR, themeG, themeB);
+	draw.frame(clrFG, 3, 3, prefsTimeDateForm.w-4, prefsTimeDateForm.h-4, 6, 3);
+	
+	draw.font(fntLargeBold);
+	draw.textRGB(shadowR, shadowG, shadowB);
+	draw.text(clrFG, 10, 8, "Time & Date");
+	
+	draw.end();
+}
+
+
+handler prefsTimeDateForm.onresize() {
+	// UIform attach this form for drawind methods
+	draw.attachForm(this);
+}
+
+
+// set view selected
+handler timeFormatPopup.onlistselect() {
+	timeFormat = e.value + 1;
+	timeFormatPopup.text = timeFormats[e.value];
+}
+
+handler dateFormatPopup.onlistselect() {
+	dateFormat = e.value + 1;
+	dateFormatPopup.text = dateFormats[e.value];
+}
+
+
+// set time period selected
+handler firstDayPopup.onlistselect() {
+	firstDaySelected = e.value;
+	
+	if (firstDaySelected == 0) {
+		startOnSunday = true;
+	}
+	else
+	{
+		startOnSunday = false;
+	}
+	
+	firstDayPopup.text = firstDays[e.value];
+}
+
+
+// soft button handlers
+handler saveTimeDateButton.onselect() {
+	SetNewTimeDatePrefs();
+	preferencesForm.load();
+}
+
+handler cancelTimeDateButton.onselect() {
+	preferencesForm.load();
+}

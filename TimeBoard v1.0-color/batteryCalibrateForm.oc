@@ -1,0 +1,318 @@
+// Battery Remaining Time Form
+
+int sleepTime;
+string lastCalibration, newCalibrationDate;
+float prevDischargeRate, dischargeRate;
+
+// Set new calibration data
+bool SetNewCalibrationData() {
+	
+	preferences[0].dischargeRate = dischargeRate;
+	preferences[0].lastCalibration = newCalibrationDate;
+	
+  	return prefs.set("KS10", true, preferences, typeof(AppPreferences), 1);
+}
+
+
+void RemainingChargeEst() {
+	float initialVoltage, currentVoltage;
+	int initialCharge, currentCharge;
+	int estHours, estMinutes;
+	int remainingTimeMin;
+	int scrollEnd, sandClockMiddle;
+	string stEstHours, stEstMinutes;
+	Date today;
+	
+	// blank background to hide previous text
+	scrollEnd = battInfoScroll.y+battInfoScroll.h;
+	sandClockMiddle = calibrateButton.y - 47;
+	
+	draw.begin();
+	draw.rect(clrBG, batteryCalibrateForm.x+5, scrollEnd+2,
+				batteryCalibrateForm.w-5, calibrateButton.y-2, 0);
+				
+	draw.bitmap(sandClockBMP, (batteryCalibrateForm.w/2)-17.5, sandClockMiddle);
+	draw.end();
+	
+	// new button text
+	calibrateButton.text = "Testing...";
+	
+	// Get initial values
+	initialCharge = battery(false);  // Charge in %
+	initialVoltage = battery(true);  // Voltage in V
+	
+	// Wait 5 minutes (300000 ms) or 10 minutes (600000 ms)
+	if (sleepTime == 1) {
+		sleep(300000);
+	}
+	else if (sleepTime == 2) {
+		sleep(600000);
+	}
+	else
+	{
+		alert("Error setting measurement period time. Try to set it again in the in the 'Preferences > More' menu.");
+		
+		draw.begin();
+		draw.rect(clrBG, batteryCalibrateForm.x+5, scrollEnd+2,
+				batteryCalibrateForm.w-5, calibrateButton.y-2, 0);
+		draw.end();
+		
+		calibrateButton.text = "Start";
+
+		return;
+	}
+	//sleep(1000); // 1 sec for debug
+	
+	// Get values after 5 minutes
+	currentCharge = battery(false);
+	currentVoltage = battery(true);
+	
+	// Calculate discharge rate
+	dischargeRate = (float)(initialCharge - currentCharge) / 5.0;  // % per minute
+	
+	// Save discharge rate and date of calibration on preferences
+	today.now();
+	
+	newCalibrationDate = today.day + "-" + today.month + "-" + today.year;
+	
+	SetNewCalibrationData();
+	
+	draw.begin();
+	draw.font(fntStandard);
+	draw.textAlign(11);
+	draw.textRGB(0, 0, 0);
+	draw.text(clrText, (batteryCalibrateForm.w/2), batteryCalibrateForm.h-35, 
+						"Last calibration: " + preferences[0].lastCalibration);
+	draw.textAlign(00);
+	draw.end();
+	
+	// Avoid division by zero or errors
+	if (dischargeRate > 0) {
+    	remainingTimeMin = (float)currentCharge / dischargeRate;  // Remaining minutes
+    	estHours = remainingTimeMin / 60;
+    	estMinutes = remainingTimeMin % 60;
+    	
+    	if (strlen(estHours) == 1)
+			stEstHours = ("0" + (estHours));
+		else
+			stEstHours = ("" + (estHours));
+			
+		if (strlen(estMinutes) == 1)
+			stEstMinutes = ("0" + (estMinutes));
+		else
+			stEstMinutes = ("" + (estMinutes));
+    	
+    	draw.begin();
+		draw.textRGB(50, 160, 50);
+		draw.textAlign(11);
+		draw.font(fntStandard);
+    	draw.text(clrText, (batteryCalibrateForm.w/2), batteryCalibrateForm.h-68,
+    				"Estimated remaining time:");
+    	draw.font(fntBold);
+    	draw.text(clrText, (batteryCalibrateForm.w/2), batteryCalibrateForm.h-57,
+    				"~ " + stEstHours + "h " + stEstMinutes + "m");
+    	draw.textAlign(00);
+    	draw.end();
+	} else {
+		draw.begin();
+		draw.textRGB(255, 153, 51);
+		draw.textAlign(11);
+		draw.font(fntStandard);
+	    draw.text(clrText, (batteryCalibrateForm.w/2), batteryCalibrateForm.h-68,
+	    			"Battery stable");
+	    draw.text(clrText, (batteryCalibrateForm.w/2), batteryCalibrateForm.h-57,
+	    			"or measurement error.");
+	    draw.textAlign(00);   
+	    draw.end();
+	}
+	
+	if (dischargeRate == 0) {
+		draw.begin();
+		draw.font(fntStandard);
+		draw.textAlign(11);
+		draw.textRGB(0, 0, 0);
+		draw.text(clrText, (batteryCalibrateForm.w/2), batteryCalibrateForm.h-46,
+					"Discharge rate: Unknown");
+		draw.textAlign(00);
+	    draw.end();
+	}
+	else
+	{
+		draw.begin();
+		draw.font(fntStandard);
+		draw.textAlign(11);
+		draw.textRGB(0, 0, 0);
+		draw.text(clrText, (batteryCalibrateForm.w/2), batteryCalibrateForm.h-46,
+					"Discharge rate: " + dischargeRate);
+		draw.textAlign(00);
+		draw.end();
+	}
+	
+	// Reset auto-off timer
+	resetaot();
+	
+	calibrateButton.text = "Start";
+}
+
+
+// Event handlers
+handler batteryCalibrateForm.onopen() {
+	draw.attachForm(this);
+	
+	// Get preferences
+	GetPrefs();
+	
+	lastCalibration = preferences[0].lastCalibration;
+	prevDischargeRate = preferences[0].dischargeRate;
+	sleepTime = preferences[0].sleepTime;
+}
+
+handler batteryCalibrateForm.ondraw() {
+	draw.begin();
+	
+	if (colorDepth > 4) {
+		draw.fgRGB(48, 154, 48);
+		draw.frame(clrFG, 3, 3, batteryCalibrateForm.w-3,
+					batteryCalibrateForm.h-3, 6, 3);
+		
+		draw.fgRGB(101, 255, 48);
+		draw.frame(clrFG, 3, 3, batteryCalibrateForm.w-4,
+					batteryCalibrateForm.h-4, 6, 3);
+	}
+	else
+	{
+		draw.fgRGB(shadowR, shadowG, shadowB);
+		draw.frame(clrFG, 3, 3, batteryCalibrateForm.w-3,
+					batteryCalibrateForm.h-3, 6, 3);
+		
+		draw.fgRGB(themeR, themeG, themeB);
+		draw.frame(clrFG, 3, 3, batteryCalibrateForm.w-4,
+					batteryCalibrateForm.h-4, 6, 3);
+	}
+	
+	draw.font(fntLargeBold );
+	draw.textRGB(48, 154, 48);
+	draw.text(clrFG, 10, 8, "Remaining battery time");
+	
+	// Show help test
+	if (sleepTime == 1) {
+		battCalInfoField.text = battCal5String.text;
+	}
+	else if (sleepTime == 2) {
+		battCalInfoField.text = battCal10String.text;
+	}
+	
+	// Page up to show scrollbar
+	battCalInfoField.scroll(-3);
+	battInfoScroll.update(battCalInfoField);
+	
+	draw.textRGB(0, 0, 0);
+	draw.textAlign(11);
+	
+	if (prevDischargeRate == 0) {
+		draw.font(fntStandard);
+		draw.text(clrText, (batteryCalibrateForm.w/2), batteryCalibrateForm.h-46,
+					"Discharge rate: Unknown");
+		draw.textAlign(00);
+	}
+	else
+	{
+		draw.font(fntStandard);
+		draw.text(clrText, (batteryCalibrateForm.w/2), batteryCalibrateForm.h-46,
+					"Discharge rate: " + prevDischargeRate);
+		draw.textAlign(00);
+	}
+	
+	draw.textAlign(11);
+	
+	if (lastCalibration == "00-00-0000") {
+		draw.font(fntStandard);
+		draw.text(clrText, (batteryCalibrateForm.w/2), batteryCalibrateForm.h-35,
+					"Last calibration: Never");
+		draw.textAlign(00);
+	}
+	else
+	{
+		draw.font(fntStandard);
+		draw.text(clrText, (batteryCalibrateForm.w/2), batteryCalibrateForm.h-35,
+					"Last calibration: " + lastCalibration);
+		draw.textAlign(00);
+	}
+	
+	draw.end();
+}
+
+handler batteryCalibrateForm.onresize() {
+	// UIform attach this form for drawind methods
+	draw.attachForm(this);
+}
+
+
+// Soft button handlers
+handler calibrateButton.onselect() {
+	RemainingChargeEst();
+}
+
+handler batteryCalBackButton.onselect() {
+	bigBatteryForm.load();
+}
+
+handler resetBatteryData.onselect() {
+	int buttonID;
+	int scrollEnd;
+	buttonID = batteryResetForm.dodialog();
+	
+	if (buttonID == yesButton.id) {
+		dischargeRate = 0;
+		newCalibrationDate = "00-00-0000";
+  		SetNewCalibrationData();
+  		
+		scrollEnd = battInfoScroll.y+battInfoScroll.h;
+		
+  		draw.begin();
+  		
+  		// blank background to hide previous text
+		draw.rect(clrBG, batteryCalibrateForm.x+5, scrollEnd+2,
+					batteryCalibrateForm.w-5, calibrateButton.y-2, 0);
+					
+		batteryCalibrateForm.redraw(e.value);
+		
+		draw.textAlign(11);
+		draw.font(fntStandard);
+		draw.text(clrText, (batteryCalibrateForm.w/2), batteryCalibrateForm.h-46,
+					"Discharge rate: Unknown");
+		
+		draw.text(clrText, (batteryCalibrateForm.w/2), batteryCalibrateForm.h-35,
+					"Last calibration: Never");
+		draw.textAlign(00);
+		
+		draw.end();
+		
+		
+	} else if (buttonID == noButton.id) {
+  		// nothing
+	}
+}
+
+
+// Field and scroll handlers
+handler battCalInfoField.onchange() {
+	battInfoScroll.update(this);
+}
+
+handler battInfoScroll.onmove() {
+	battCalInfoField.scroll(e.value - e.prev);
+	update(battCalInfoField);
+}
+
+
+// Hard buttons handler
+handler batteryCalibrateForm.onhkey() {
+	if (e.key == evUp) {
+		battCalInfoField.scroll(-3);
+		battInfoScroll.update(battCalInfoField);
+	} else if (e.key == evDown) {
+		battCalInfoField.scroll(3);
+		battInfoScroll.update(battCalInfoField);
+	}
+}

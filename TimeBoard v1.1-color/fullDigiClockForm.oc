@@ -1,0 +1,116 @@
+// Fullscreen Digital Clock
+
+
+// event handlers
+handler fullDigiClockForm.onopen() {
+	// UIform attach this form for drawind methods;
+	draw.attachForm(this);
+	fullDigiClockMenuButton.visible = false;
+	
+	timeFormat = preferences[0].timeFormat;
+	dateFormat = preferences[0].dateFormat;
+	
+	setClock(timeFormat);
+	
+	// Passing buttons to gadgets by reference
+	fullDigiClockGadget.SetDigiClockPrefs(true, false, hours, minutes, seconds, dateFormat, timeFormat, amPm);
+	fullDigiClockGadget.GetDigiClockButton(true, fullDigiClockMenuButton);
+	
+	timer(1);
+}
+
+
+handler fullDigiClockForm.ondraw() {
+	// Set main theme
+	setTheme(preferences[0].selectedTheme, false);
+}
+
+
+handler fullDigiClockForm.onresize() {
+	// UIform attach this form for drawing methods;
+	draw.attachForm(this);
+}
+
+
+handler fullDigiClockForm.ontimer() {
+	dayB = today.day;
+	
+	setClock(timeFormat);
+	
+	if (seconds != lastSec) {
+		if (mainForm.obscured == false) {		
+			if (dayB != dayA) {
+				// Draw date
+				fullDigiClockGadget.ShowDate();
+				
+				dayA = today.day;
+			}
+			
+			fullDigiClockGadget.DrawDigiClock(hours, minutes, seconds, amPm);
+		}
+	}
+	
+	updateClockOnSleep();
+	
+	lastSec = seconds;
+	
+	timer(timerTicks);
+}
+
+
+// Soft button handlers
+handler fullDigiClockMenuButton.onselect() {
+	mainForm.load();
+}
+
+
+// Hard button handlers
+handler fullDigiClockForm.onhkey() {
+	if (keystate() == 4) { // down key
+		mainForm.load();
+	}
+}
+
+
+// menuBar handlers
+handler fdMenuGeneral.onselect() {
+	actionSet = 1;
+	mainForm.load();
+}
+
+handler fdMenuBigClock.onselect() {
+	actionSet = 1;
+	fullClockForm.load();
+}
+
+handler fdMenuBigDigiClock.onselect() {
+	actionSet = 2;
+	fullDigiClockForm.load();
+}
+
+handler fdMenuCalendar.onselect() {
+	actionSet = 3;
+	bigCalendarForm.load();
+}
+
+handler fdMenuBattery.onselect() {
+	actionSet = 4;
+	bigBatteryForm.load();
+}
+
+handler fdMenuPreferences.onselect() {
+	preferencesForm.load();
+}
+
+handler fdMenuHelp.onselect() {
+	helpForm.load();
+}
+
+handler fdMenuAbout.onselect() {
+	aboutForm.load();
+}
+
+handler fdMenuExit.onselect() {
+	SavePrefsOnClose();
+	clock.abort();
+}

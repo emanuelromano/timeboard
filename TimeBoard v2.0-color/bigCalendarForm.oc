@@ -1,0 +1,105 @@
+// Big Calendar
+
+
+bool moreCalendarInfo;
+
+void drawMoreInfo() {
+	if (moreCalendarInfo == false) {
+		moreCalendarInfo = true;
+		
+		bigCalendarGadget.DrawMoreInfo(calendarMode);
+	}
+	else
+	{
+		moreCalendarInfo = false;
+		
+		bigCalendarGadget.DrawCalendarGrid(startOnSunday);
+	}
+}
+
+
+// Event handlers
+handler bigCalendarForm.onopen() {
+	// UIform attach this form for drawind methods;
+	mainBuffer.attachForm(this);
+	draw.attachForm(this);
+	
+	bigCalendarGadget.SetCalendarObjects(calendarBMP, moreCalendarButton);
+	bigCalendarGadget.SetCalendarButtons(bigCalendarBackButton, moreCalendarButton);
+	
+	bigCalendarBackButton.visible = false;
+	moreCalendarButton.visible = false;
+	
+	moreCalendarInfo = false;
+	
+	calendarMode = 2;
+	
+	// Date
+	today.now();
+	
+	timer(1);
+}
+
+handler bigCalendarForm.ondraw() {
+	// Draw main background from saved preferences
+	mainBuffer.begin();
+	setMainBg(preferences[0].selectedBackground);
+	mainBuffer.end();
+	
+	drawBuffer();
+	
+	// Draw big calendar
+	bigCalendarGadget.DrawCalendar(true);
+	bigCalendarGadget.SetCalendar(true, startOnSunday);
+}
+
+handler bigCalendarForm.onresize() {
+	// UIform attach this form for drawind methods;
+	draw.attachForm(this);
+	
+	if (bigCalendarGadget.gadget.h == bigCalendarGadget.gadget.w) {
+		moreCalendarButton.visible = true;
+		moreCalendarInfo = false;
+	}
+	else
+	{
+		moreCalendarButton.visible = false;
+		moreCalendarInfo = true;
+	}
+}
+
+handler bigCalendarForm.ontimer() {
+	today.now();
+	dayB = today.day;
+	
+	if (bigCalendarForm.obscured == false) {
+		if (dayB != dayA) {
+			drawMoreInfo();
+			
+			// Draw date in calendar
+			bigCalendarGadget.SetCalendar(true, startOnSunday);
+			dayA = today.day;
+		}
+	}
+	
+	timer(timerTicks);
+}
+
+
+// Button handlers
+handler bigCalendarBackButton.onselect() {
+	mainForm.load();
+}
+
+
+handler moreCalendarButton.onselect() {
+	drawMoreInfo();
+}
+
+
+// Hard button handlers
+handler bigCalendarForm.onhkey() {
+	if (keystate() == 4) { // down key
+		mainForm.load();
+	}
+}

@@ -1,0 +1,28 @@
+// mainform.oc
+// Created for mainForm
+
+
+handler mainForm.onopen() {
+	timer(20);
+}
+
+
+handler mainForm.ontimer() {
+	if(!mainForm.obscured) {
+		gadClock.DrawClockHands();
+	}
+	
+	timer(20);
+}
+
+
+handler netTimeButton.onselect() {
+	netTimeForm.domodal();
+}
+
+
+handler mainOptionsAbout.onselect() {
+	alert("NetClock test app\n" +
+			"by @coloraturip\n" +
+			"(c)2025");
+}

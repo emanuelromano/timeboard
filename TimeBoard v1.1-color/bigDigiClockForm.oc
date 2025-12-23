@@ -1,0 +1,65 @@
+// Big Digital Clock
+
+
+// event handlers
+handler bigDigiClockForm.onopen() {
+	// UIform attach this form for drawind methods
+	draw.attachForm(this);
+	
+	digiClockMaxButton.visible = false;
+	bigDigiClockBackButton.visible = false;
+	
+	// passing buttons to gadgets by reference
+	bigDigiClockGadget.SetDigiClockPrefs(true, true, false, false);
+	bigDigiClockGadget.GetDigiClockButton(true, bigDigiClockBackButton);
+	bigDigiClockGadget.GetDigiClockButton2(true, digiClockMaxButton);
+	
+	timer(100);
+}
+
+
+handler bigDigiClockForm.ondraw() {
+	// draw main theme from saved preferences
+	drawMainTheme();
+}
+
+
+handler bigDigiClockForm.onresize() {
+	// UIform attach this form for drawind methods
+	draw.attachForm(this);
+}
+
+
+handler bigDigiClockForm.ontimer() {
+	digiClockHourGadget.SetDigiClockHour();
+	
+	// sound every second
+	if (soundsEnabled) {
+		tone(180, 5, sysPrefSysSoundVolume);
+	}
+	
+	timer(100);
+}
+
+
+// soft button handlers
+handler digiClockMaxButton.onselect() {
+	fullDigiClockForm.load();
+}
+
+
+handler bigDigiClockBackButton.onselect() {
+	mainForm.load();
+}
+
+
+// hard button handlers
+handler bigDigiClockForm.onhkey() {
+	if (keystate() == 2) { // up key
+		fullDigiClockForm.load();
+	}
+	
+	if (keystate() == 4) { // down key
+		mainForm.load();
+	}
+}

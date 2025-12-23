@@ -1,0 +1,554 @@
+struct BatteryGadget {
+	// A UIGadget must always be the first member of a gadget
+	UIGadget gadget;
+
+	// default event handlers
+	void onopen();
+	void ondraw();
+
+	// internal methods
+	void DrawBatteryFrame();
+	void DrawBatteryPerc();
+	void DrawBatteryIcon(bool drawBg);
+	void DrawBigBatteryIcon();
+	void DrawBatteryInfo();
+	void SetBatteryTheme(int frmR, int frmG, int frmB,
+							int bgR, int bgG, int bgB,
+							int shdR, int shdG, int shdB,
+							int txtR, int txtG, int txtB);
+	void RemainingChargeEst(float dischargeRate, string lastCalibration);
+	void UpTime();
+	void GetBatteryParms(int colorDepth);
+
+	// internal data
+	Draw 	draw;
+	int 	border;
+	int		charge, chargeFill, fill,
+			upHr, upMin, upSec,
+			colorDp;
+	string	stUpMin, stUpSec;
+	
+	int initialCharge, currentCharge;
+	float initialVoltage, currentVoltage;
+	float dischargeRate;
+	int remainingTimeMin;
+	int estHours, estMinutes;
+	string stEstHours, stEstMinutes;
+	UIButton batteryButton;
+};
+
+
+// color theme variables
+int battBorderR, battBorderG, battBorderB,
+	battBackgroundR, battBackgroundG, battBackgroundB,
+	battShadowR, battShadowG, battShadowB,
+	battTextR, battTextG, battTextB,
+	battClr1R, battClr1G, battClr1B,
+	battClr2R, battClr2G, battClr2B,
+	battClr3R, battClr3G, battClr3B;
+
+void BatteryGadget.SetBatteryTheme(int frmR, int frmG, int frmB,
+									int bgR, int bgG, int bgB,
+									int shdR, int shdG, int shdB,
+									int txtR, int txtG, int txtB) {
+	battBorderR = frmR;
+	battBorderG = frmG;
+	battBorderB = frmB;
+	
+	battBackgroundR = bgR;
+	battBackgroundG = bgG;
+	battBackgroundB = bgB;
+	
+	battShadowR = shdR;
+	battShadowG = shdG;
+	battShadowB = shdB;
+	
+	battTextR = txtR;
+	battTextG = txtG;
+	battTextB = txtB;
+	
+	if (colorDp > 4) {
+		battClr1R = 51;
+		battClr1G = 255;
+		battClr1B = 0;
+		
+		battClr2R = 204;
+		battClr2G = 255;
+		battClr2B = 204;
+		
+		battClr3R = 51;
+		battClr3G = 153;
+		battClr3B = 51;
+	}
+	else
+	{
+		if (colorDp == 1) {
+			battClr1R = 0;
+			battClr1G = 0;
+			battClr1B = 0;
+			
+			battClr2R = 255;
+			battClr2G = 255;
+			battClr2B = 255;
+			
+			battClr3R = 0;
+			battClr3G = 0;
+			battClr3B = 0;
+		}
+		
+		if (colorDp == 2 || colorDp == 4) {
+			battClr1R = 128;
+			battClr1G = 128;
+			battClr1B = 128;
+			
+			battClr2R = 255;
+			battClr2G = 255;
+			battClr2B = 255;
+			
+			battClr3R = 0;
+			battClr3G = 0;
+			battClr3B = 0;
+		}
+	}
+}
+
+
+void BatteryGadget.RemainingChargeEst(float dischargeRate, string lastCalibration) {
+	int remainingTimeMin;
+	int currentCharge;
+	int estHours, estMinutes;
+	float currentVoltage;
+
+	currentCharge = battery(false);
+	currentVoltage = battery(true);
+	
+	remainingTimeMin = (float)currentCharge / dischargeRate;  // Remaining minutes
+    estHours = remainingTimeMin / 60;
+    estMinutes = remainingTimeMin % 60;
+	
+	if (dischargeRate == 0) {
+		stEstHours = "--";
+		stEstMinutes = "--";
+	}
+	else if (estHours > 100) {
+		stEstHours = "--";
+		stEstMinutes = "--";
+	}
+	else
+	{
+    	if (strlen(estHours) == 1)
+			stEstHours = ("0" + (estHours));
+		else
+			stEstHours = ("" + (estHours));
+			
+		if (strlen(estMinutes) == 1)
+			stEstMinutes = ("0" + (estMinutes));
+		else
+			stEstMinutes = ("" + (estMinutes));
+	}
+}
+
+
+void BatteryGadget.UpTime() {
+	int t = ticks(); // get total ticks since last reset
+	int tps = tickspersec(); // get ticks per second
+	
+	int totalSeconds = t / tps; // gonvert ticks to seconds
+	
+	upHr = totalSeconds / 3600;
+	upMin = ((totalSeconds % 3600) / 60);
+	upSec = (totalSeconds % 60);
+	
+	if (strlen(upMin) == 1)
+		stUpMin = ("0" + (upMin));
+	else
+		stUpMin = ("" + (upMin));
+		
+	if (strlen(upSec) == 1)
+		stUpSec = ("0" + (upSec));
+	else
+		stUpSec = ("" + (upSec));
+}
+
+
+void BatteryGadget.DrawBatteryPerc() {
+	draw.begin();
+	
+	draw.bgRGB(battBackgroundR, battBackgroundG, battBackgroundB); // background color
+	draw.textRGB(battTextR, battTextG, battTextB); // font color
+	draw.font(fntStandard);
+	draw.textAlign(11);
+	draw.text(clrText, 19, 24, " " + battery(false) + "% ");
+	
+	draw.end();
+}
+
+
+void BatteryGadget.DrawBatteryIcon(bool drawBg) {	
+	
+	int battX, battY, battEndX, battEndY, battFill;
+	
+	battX = 8;
+	battY = 8;
+	battEndX = battX + 21;
+	battEndY = battY + 9;
+	
+	draw.begin();
+		
+	// battery charge
+	charge = battery(false);
+	
+	if (charge <= 100 && charge >= 91) {
+		chargeFill = 1;
+	}
+	
+	if (charge <= 90 && charge >= 81) {
+		chargeFill = 2;
+	}
+	
+	if (charge <= 80 && charge >= 71) {
+		chargeFill = 3;
+	}
+	
+	if (charge <= 70 && charge >= 61) {
+		chargeFill = 4;
+	}
+	
+	if (charge <= 60 && charge >= 51) {
+		chargeFill = 5;
+	}
+	
+	if (charge <= 50 && charge >= 41) {
+		chargeFill = 6;
+	}
+	
+	if (charge <= 40 && charge >= 31) {
+		chargeFill = 7;
+	}
+	
+	if (charge <= 30 && charge >= 21) {
+		chargeFill = 8;
+	}
+	
+	if (charge <= 20 && charge >= 11) {
+		chargeFill = 9;
+	}
+	
+	if (charge <= 10 && charge >= 1) {
+		chargeFill = 10;
+	}
+	
+	if (charge = 0) {
+		chargeFill = 11;
+	}
+	
+	switch (chargeFill) {
+		case 1:
+			fill = battEndX-1;
+			break;
+		case 2:
+			fill = battEndX-3;
+			break;
+		case 3:
+			fill = battEndX-5;
+			break;
+		case 4:
+			fill = battEndX-7;
+			break;
+		case 5:
+			fill = battEndX-9;
+			break;
+		case 6:
+			fill = battEndX-11;
+			break;
+		case 7:
+			fill = battEndX-13;
+			break;
+		case 8:
+			fill = battEndX-15;
+			break;
+		case 9:
+			fill = battEndX-17;
+			break;
+		case 10:
+			fill = battEndX-19;
+			break;
+		case 11:
+			fill = battEndX-20;
+			break;
+		default:
+			fill = battEndX-20;
+	}
+	
+	// charge fill gradient
+	draw.fgRGB(battBackgroundR, battBackgroundG, battBackgroundB);
+	if (drawBg)draw.rect(clrFG, battX+1, battY+1, battEndX-1, battEndY-1, 0);
+	draw.fgRGB(battClr1R, battClr1G, battClr1B); // charge color 1 - base
+	draw.rect(clrFG, battX+1, battY+1, fill, battEndY-1, 0);
+	draw.fgRGB(battClr2R, battClr2G, battClr2B); // charge color 2
+	draw.rect(clrFG, battX+1, battY+2, fill, battEndY-6, 0);
+	draw.fgRGB(battClr3R, battClr3G, battClr3B); // charge color 3
+	draw.rect(clrFG, battX+1, battY+6, fill, battEndY-1, 0);
+	
+	draw.end();
+}
+
+
+void BatteryGadget.DrawBigBatteryIcon() {	
+	
+	int battX, battY, battEndX, battEndY, battFill;
+	
+	battX = (gadget.w / 2) - 32;
+	battY = (gadget.h/2) - ((gadget.h/3)+3);
+	battEndX = battX + 64;
+	battEndY = battY + 32;
+	
+	draw.begin();
+	
+	// battery icon
+	if (battBackgroundR == 255) {
+		draw.fgRGB(119, 119, 119); // front color
+	}
+	else
+	{
+		draw.fgRGB(255, 255, 255); // front color
+	}
+
+	draw.rect(clrFG, battEndX, battY+8, battEndX+5, battEndY-8, 0);
+	draw.frame(clrFG, battX, battY, battEndX, battEndY, 2, 2);
+	
+	// battery charge
+	charge = battery(false);
+	
+	if (charge <= 100 && charge >= 91) {
+		chargeFill = 1;
+	}
+	
+	if (charge <= 90 && charge >= 81) {
+		chargeFill = 2;
+	}
+	
+	if (charge <= 80 && charge >= 71) {
+		chargeFill = 3;
+	}
+	
+	if (charge <= 70 && charge >= 61) {
+		chargeFill = 4;
+	}
+	
+	if (charge <= 60 && charge >= 51) {
+		chargeFill = 5;
+	}
+	
+	if (charge <= 50 && charge >= 41) {
+		chargeFill = 6;
+	}
+	
+	if (charge <= 40 && charge >= 31) {
+		chargeFill = 7;
+	}
+	
+	if (charge <= 30 && charge >= 21) {
+		chargeFill = 8;
+	}
+	
+	if (charge <= 20 && charge >= 11) {
+		chargeFill = 9;
+	}
+	
+	if (charge <= 10 && charge >= 1) {
+		chargeFill = 10;
+	}
+	
+	if (charge = 0) {
+		chargeFill = 11;
+	}
+	
+	switch (chargeFill) {
+		case 1:
+			fill = battEndX-1;
+			break;
+		case 2:
+			fill = battEndX-6;
+			break;
+		case 3:
+			fill = battEndX-12;
+			break;
+		case 4:
+			fill = battEndX-18;
+			break;
+		case 5:
+			fill = battEndX-24;
+			break;
+		case 6:
+			fill = battEndX-30;
+			break;
+		case 7:
+			fill = battEndX-36;
+			break;
+		case 8:
+			fill = battEndX-42;
+			break;
+		case 9:
+			fill = battEndX-48;
+			break;
+		case 10:
+			fill = battEndX-54;
+			break;
+		case 11:
+			fill = battEndX-60;
+			break;
+		default:
+			fill = battEndX-60;
+	}
+	
+	// charge fill gradient
+	draw.fgRGB(battBackgroundR, battBackgroundG, battBackgroundB);
+	draw.rect(clrFG, battX+1, battY+1, battEndX-1, battEndY-1, 2);
+	draw.fgRGB(battClr1R, battClr1G, battClr1B); // charge color 1 - base
+	draw.rect(clrFG, battX+1, battY+1, fill, battEndY-1, 2);
+	draw.fgRGB(battClr2R, battClr2G, battClr2B); // charge color 2
+	draw.rect(clrFG, battX+1, battY+4, fill, battEndY-25, 0);
+	draw.line(clrFG, battX+1, battY+9, fill-1, battY+9);
+	draw.fgRGB(battClr3R, battClr3G, battClr3B); // charge color 3
+	draw.line(clrFG, battX+1, battY+23, fill-1, battY+23);
+	draw.rect(clrFG, battX+1, battY+26, fill, battEndY-2, 0);
+	
+	draw.end();
+}
+
+
+void BatteryGadget.DrawBatteryInfo() {
+	int textLeftX, textRightX, textY;
+	
+	textLeftX = (gadget.w/2) - 57;
+	textY = (gadget.h/2) - 7;
+	textRightX = (gadget.w/2) + 58;
+
+	draw.begin();
+	
+	draw.bgRGB(battBackgroundR, battBackgroundG, battBackgroundB); // background color
+	draw.textRGB(battTextR, battTextG, battTextB); // font color
+	
+	draw.textAlign(00);
+	draw.font(fntStandard);
+	draw.text(clrText, textLeftX, textY, "Charge:");
+	
+	draw.textRGB(battClr1R, battClr1G, battClr1B);
+	draw.textAlign(02);
+	draw.font(fntBold);
+	draw.text(clrText, textRightX, textY, battery(false) + "%");
+	
+	draw.textRGB(battTextR, battTextG, battTextB);
+	draw.textAlign(00);
+	draw.font(fntStandard);
+	draw.text(clrText, textLeftX, textY+11, "Voltage:");
+	
+	draw.textRGB(battClr1R, battClr1G, battClr1B);
+	draw.textAlign(02);
+	draw.font(fntBold);
+	draw.text(clrText, textRightX, textY+11, strleft(battery(true), 1) + "," + strright(battery(true), 2) + "V");
+	
+	draw.textRGB(battTextR, battTextG, battTextB);
+	draw.textAlign(00);
+	draw.font(fntStandard);
+	draw.text(clrText, textLeftX, textY+22, "Remaining:");
+	
+	draw.textRGB(battClr1R, battClr1G, battClr1B);
+	draw.textAlign(02);
+	draw.font(fntBold);
+	draw.text(clrText, textRightX, textY+22, "~ " + stEstHours + "h " + stEstMinutes + "m");
+	
+	draw.textRGB(battTextR, battTextG, battTextB);
+	draw.textAlign(00);
+	draw.font(fntStandard);
+	draw.text(clrText, textLeftX, textY+33, "Up-time:");
+	
+	draw.textRGB(battClr1R, battClr1G, battClr1B);
+	draw.textAlign(02);
+	draw.font(fntBold);
+	draw.text(clrText, textRightX, textY+33, upHr + "h " + stUpMin + "m " + stUpSec + "s");
+	
+	draw.end();
+}
+
+
+void BatteryGadget.DrawBatteryFrame() {
+	border = 3;
+	
+	if (gadget.w == 144) {
+		draw.begin();
+		// shadow
+		draw.fgRGB(battShadowR, battShadowG, battShadowB);
+		draw.frame(clrFG, border+1, border+1,
+					gadget.w-border, gadget.h-border, 5, border);
+		
+		// background
+		draw.fgRGB(battBackgroundR, battBackgroundG, battBackgroundB);
+		draw.rect(clrFG, 1, 1,
+					gadget.w-(border+1), gadget.h-(border+1), 5);
+					
+		// details around button
+		draw.fgRGB(battBorderR, battBorderG, battBorderB);
+		
+		draw.rect(clrFG, gadget.w-37, gadget.h-24,
+					gadget.w-4, gadget.h-4, 8);
+		draw.rect(clrFG, gadget.w-19, gadget.h-24,
+					gadget.w-1, gadget.h-1, 6);
+		
+		draw.line(clrFG, gadget.w-37, gadget.h-10,
+						gadget.w-32, gadget.h-10);
+		draw.line(clrFG, gadget.w-37, gadget.h-9,
+						gadget.w-32, gadget.h-9);
+		draw.line(clrFG, gadget.w-37, gadget.h-8,
+						gadget.w-32, gadget.h-8);
+		draw.line(clrFG, gadget.w-38, gadget.h-7,
+						gadget.w-32, gadget.h-7);
+		draw.line(clrFG, gadget.w-39, gadget.h-6,
+						gadget.w-32, gadget.h-6);
+		draw.line(clrFG, gadget.w-40, gadget.h-5,
+						gadget.w-32, gadget.h-5);
+	
+		draw.fgRGB(battBackgroundR, battBackgroundG, battBackgroundB);
+		draw.rect(clrFG, 3, gadget.h-28,
+					20, gadget.h-4, 6);
+					
+		draw.line(clrFG, 20, gadget.h-24, 20, gadget.h-24);
+		draw.line(clrFG, 20, gadget.h-23, 21, gadget.h-24);
+		draw.line(clrFG, 20, gadget.h-22, 22, gadget.h-24);
+	
+		// border
+		draw.fgRGB(battBorderR, battBorderG, battBorderB);
+		draw.frame(clrFG, border, border,
+					gadget.w-(border+1), gadget.h-(border+1), 5, border);
+		
+		draw.line(clrFG, gadget.w-5, gadget.h-27,
+						gadget.w-5, gadget.h-27);
+		draw.line(clrFG, gadget.w-6, gadget.h-26,
+						gadget.w-5, gadget.h-26);
+		draw.line(clrFG, gadget.w-7, gadget.h-25,
+						gadget.w-5, gadget.h-25);
+		draw.line(clrFG, gadget.w-8, gadget.h-24,
+						gadget.w-5, gadget.h-24);
+		draw.line(clrFG, gadget.w-9, gadget.h-23,
+						gadget.w-5, gadget.h-23);
+		draw.end();
+	}
+}
+
+
+void BatteryGadget.GetBatteryParms(int colorDepth) {
+	colorDp = colorDepth;
+}
+
+
+void BatteryGadget.onopen() {
+	draw.attachGadget(gadget);
+}
+
+
+void BatteryGadget.ondraw() {
+	DrawBatteryFrame();
+	DrawBatteryIcon(false);
+	DrawBatteryPerc();
+}

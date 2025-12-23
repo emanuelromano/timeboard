@@ -1,0 +1,116 @@
+// Fullscreen Clock
+
+
+// Event handlers
+handler fullClockForm.onopen() {
+	// UIform attach this form for drawing methods
+	draw.attachForm(this);
+	fullClockBackButton.visible = false;
+	
+	timeFormat = preferences[0].timeFormat;
+	dateFormat = preferences[0].dateFormat;
+	
+	setClock(timeFormat);
+	
+	// Passing buttons to gadgets by reference
+	fullClockGadget.SetClockPrefs(false, fntLargeBold, hours, minutes, seconds, timeFormat, amPm, dateFormat);
+	fullClockGadget.GetClockButton(true, fullClockBackButton);
+	
+	timer(1);
+}
+
+
+handler fullClockForm.ondraw() {
+	// Set main theme
+	setTheme(preferences[0].selectedTheme);
+}
+
+
+handler fullClockForm.onresize() {
+	// UIform attach this form for drawing methods
+	draw.attachForm(this);
+}
+
+
+handler fullClockForm.ontimer() {
+	dayB = today.day;
+	
+	setClock(timeFormat);
+	
+	if (seconds != lastSec) {
+		if (mainForm.obscured == false) {
+			if (dayB != dayA) {
+				// Draw date
+				fullClockGadget.ShowDate();
+				
+				dayA = today.day;
+			}
+			
+			fullClockGadget.DrawClockHands(true, hours, minutes, seconds, amPm, dateFormat);
+		}
+	}
+	
+	updateClockOnSleep();
+	
+	lastSec = seconds;
+	
+	timer(timerTicks);
+}
+
+
+// Soft button handlers
+handler fullClockBackButton.onselect() {
+	mainForm.load();
+}
+
+
+// Hard button handlers
+handler fullClockForm.onhkey() {
+	if (keystate() == 4) { // down key
+		mainForm.load();
+	}
+}
+
+
+// menuBar handlers
+handler fcMenuGeneral.onselect() {
+	actionSet = 1;
+	mainForm.load();
+}
+
+handler fcMenuBigClock.onselect() {
+	actionSet = 1;
+	fullClockForm.load();
+}
+
+handler fcMenuBigDigiClock.onselect() {
+	actionSet = 2;
+	fullDigiClockForm.load();
+}
+
+handler fcMenuCalendar.onselect() {
+	actionSet = 3;
+	bigCalendarForm.load();
+}
+
+handler fcMenuBattery.onselect() {
+	actionSet = 4;
+	bigBatteryForm.load();
+}
+
+handler fcMenuPreferences.onselect() {
+	preferencesForm.load();
+}
+
+handler fcMenuHelp.onselect() {
+	helpForm.load();
+}
+
+handler fcMenuAbout.onselect() {
+	aboutForm.load();
+}
+
+handler fcMenuExit.onselect() {
+	SavePrefsOnClose();
+	clock.abort();
+}

@@ -1,0 +1,101 @@
+// Buttons Preferences Form
+
+// Set new preferences
+bool SetNewButtonsPrefs() {
+	preferences[0].buttonsMode = buttonsMode;
+	
+  	return prefs.set("KS10", true, preferences, typeof(AppPreferences), 1);
+}
+
+
+// Event handlers
+handler prefsButtonsForm.onopen() {
+	// UIform attach this form for drawind methods
+	draw.attachForm(this);
+			
+	// get preferences
+	GetPrefs();
+	
+	buttonsMode = preferences[0].buttonsMode;
+	
+	if (buttonsMode == 1) {
+		twoKeysPush.checked = true;
+		
+		infoLabel1.text = "Up key: Enter view";
+		infoLabel2.text = "Down key: Scroll throug views";
+		
+		navTwoBMP.visible = true;
+		navThreeBMP.visible = false;
+	}
+	else
+	{
+		threeKeysPush.checked = true;
+		
+		infoLabel1.text = "Up/Down keys: Scroll throug views";
+		infoLabel2.text = "Center key: Enter view";
+		
+		navTwoBMP.visible = false;
+		navThreeBMP.visible = true;
+	}
+		
+	draw.attachForm(this);
+}
+
+handler prefsButtonsForm.ondraw() {
+	draw.begin();
+	
+	draw.fgRGB(shadowR, shadowG, shadowB);
+	draw.frame(clrFG, 3, 3, prefsButtonsForm.w-3, prefsButtonsForm.h-3, 6, 3);
+	
+	draw.fgRGB(themeR, themeG, themeB);
+	draw.frame(clrFG, 3, 3, prefsButtonsForm.w-4, prefsButtonsForm.h-4, 6, 3);
+	
+	draw.font(fntLargeBold);
+	draw.textRGB(shadowR, shadowG, shadowB);
+	draw.text(clrFG, 10, 8, "Buttons");
+	
+	draw.end();
+}
+
+handler prefsButtonsForm.onresize() {
+	// UIform attach this form for drawind methods
+	draw.attachForm(this);
+}
+
+
+// Push buttons handlers
+handler twoKeysPush.onselect() {
+	buttonsMode = 1;
+	twoKeysPush.checked = true;
+	threeKeysPush.checked = false;
+	
+	infoLabel1.text = "Up key: Enter view";
+	infoLabel2.text = "Down key: Scroll throug views";
+	
+	navThreeBMP.visible = false;
+	navTwoBMP.visible = true;
+}
+
+
+handler threeKeysPush.onselect() {
+	buttonsMode = 2;
+	twoKeysPush.checked = false;
+	threeKeysPush.checked = true;
+	
+	infoLabel1.text = "Up/Down keys: Scroll throug views";
+	infoLabel2.text = "Center key: Enter view";
+	
+	navTwoBMP.visible = false;
+	navThreeBMP.visible = true;
+}
+
+
+// Soft button handlers
+handler saveButtonsButton.onselect() {
+	SetNewButtonsPrefs();
+	preferencesForm.load();
+}
+
+handler cancelButtonsButton.onselect() {
+	preferencesForm.load();
+}
