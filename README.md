@@ -47,6 +47,14 @@ Provides detailed battery and system information:
 - Designed to run on both **grayscale and color** Palm OS devices
 - Optimized for older hardware while remaining functional on newer Palm OS versions
 
+## Downloads
+
+TimeBoard can be downloaded from the following locations:
+
+- 📦 **GitHub Releases**: download the latest `.prc` files from the  
+  [`/releases`](./releases) folder in this repository
+- 🌴 **PalmDB**: https://palmdb.net/app/timeboard
+
 ## Technology
 
 - Developed using **[OrbForms Designer](https://github.com/OrbWorks/orbworks-archive)**
