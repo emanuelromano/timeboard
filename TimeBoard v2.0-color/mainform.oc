@@ -258,7 +258,7 @@ void setTheme(int theme, bool mainForm) {
 				digiTxtB = 255;
 				
 				// Draw main background BMP
-				if (mainForm) mainBuffer.bitmap(theme1BMP, 0, 0);
+				//if (mainForm) mainBuffer.bitmap(theme1BMP, 0, 0);
 				
 				clockGadget.SetClockTheme(themeR, themeG, themeB,
 											clockBgR, clockBgG, clockBgB,
@@ -341,7 +341,7 @@ void setTheme(int theme, bool mainForm) {
 				digiTxtB = 255;
 				
 				// Draw main background BMP
-				if (mainForm) mainBuffer.bitmap(theme2BMP, 0, 0);
+				//if (mainForm) mainBuffer.bitmap(theme2BMP, 0, 0);
 				
 				clockGadget.SetClockTheme(152, 204, 0,
 											clockBgR, clockBgG, clockBgB,
@@ -424,7 +424,7 @@ void setTheme(int theme, bool mainForm) {
 				digiTxtB = 255;
 				
 				// Draw main background BMP
-				if (mainForm) mainBuffer.bitmap(theme3BMP, 0, 0);
+				//if (mainForm) mainBuffer.bitmap(theme3BMP, 0, 0);
 				
 				clockGadget.SetClockTheme(themeR, themeG, themeB,
 											clockBgR, clockBgG, clockBgB,
@@ -507,7 +507,7 @@ void setTheme(int theme, bool mainForm) {
 				digiTxtB = 255;
 				
 				// Draw main background BMP
-				if (mainForm) mainBuffer.bitmap(theme4BMP, 0, 0);
+				//if (mainForm) mainBuffer.bitmap(theme4BMP, 0, 0);
 				
 				clockGadget.SetClockTheme(themeR, themeG, themeB,
 											clockBgR, clockBgG, clockBgB,
@@ -590,7 +590,7 @@ void setTheme(int theme, bool mainForm) {
 				digiTxtB = 255;
 				
 				// Draw main background BMP
-				if (mainForm) mainBuffer.bitmap(theme5BMP, 0, 0);
+				//if (mainForm) mainBuffer.bitmap(theme5BMP, 0, 0);
 				
 				clockGadget.SetClockTheme(clockSecR, clockSecG, clockSecB,
 											clockBgR, clockBgG, clockBgB,
@@ -673,7 +673,7 @@ void setTheme(int theme, bool mainForm) {
 				digiTxtB = 255;
 				
 				// Draw main background BMP
-				if (mainForm) mainBuffer.bitmap(theme6BMP, 0, 0);
+				//if (mainForm) mainBuffer.bitmap(theme6BMP, 0, 0);
 				
 				clockGadget.SetClockTheme(themeR, themeG, themeB,
 											clockBgR, clockBgG, clockBgB,
@@ -756,7 +756,7 @@ void setTheme(int theme, bool mainForm) {
 				digiTxtB = 255;
 				
 				// Draw main background BMP
-				if (mainForm) mainBuffer.bitmap(theme7BMP, 0, 0);
+				//if (mainForm) mainBuffer.bitmap(theme7BMP, 0, 0);
 				
 				clockGadget.SetClockTheme(clockSecR, clockSecG, clockSecB,
 											clockBgR, clockBgG, clockBgB,
@@ -839,7 +839,7 @@ void setTheme(int theme, bool mainForm) {
 				digiTxtB = 255;
 				
 				// Draw main background BMP
-				if (mainForm) mainBuffer.bitmap(theme8BMP, 0, 0);
+				//if (mainForm) mainBuffer.bitmap(theme8BMP, 0, 0);
 				
 				clockGadget.SetClockTheme(clockSecR, clockSecG, clockSecB,
 											clockBgR, clockBgG, clockBgB,
