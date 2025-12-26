@@ -84,7 +84,7 @@ If you enjoy Palm OS software, clocks, or system utilities, I hope you enjoy usi
 
 ---
 
-## Network Notes
+## NetClock prototype: Network Notes
 
 This application retrieves the current date and time from a public HTTP API.
 
