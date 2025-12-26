@@ -1,5 +1,4 @@
 Draw draw;
-int bitmapStatus = 0;
 
 handler netTimeForm.onopen() {
 	draw.attachForm(this);
@@ -13,70 +12,6 @@ handler netTimeForm.onopen() {
 	offset = "";
 	
 	setFlag = false;
-}
-
-
-void retryConnection(/*int err*/) {
-	int count = 0;
-	int retryNumber = 9;
-	int errorCode = 9999;
-	string response;
-	
-	while (count <= retryNumber && errorCode != 0) {
-		errorCode = getTime();
-		retryLabel.text = count;
-		count++;
-		
-		if (errorCode == 0) {
-			response = jsonGet(globalResponse, "datetime");
-		
-			parseDateTime(response);
-			
-    		NDateLabel.text = day + "/" + month + "/" + year;
-    		NTimeLabel.text = hour + ":" + minute /* + ":" + second */;
-    		NGMTLabel.text = offset;
-    		
-    		setFlag = true;
-    		bitmapStatus = 0; // success
-		}
-		
-		sleep(500);
-	}
-
-	if (count > retryNumber) {
-		alert("Unable to get time from the internet.\nError code: " + errorCode);
-		bitmapStatus = 1; // error
-	}
-}
-
-
-void showResponse(int err) {
-	string response;
-	
-	if (err == 0) {
-		response = jsonGet(globalResponse, "datetime");
-		
-		parseDateTime(response);
-		
-    	NDateLabel.text = day + "/" + month + "/" + year;
-    	NTimeLabel.text = hour + ":" + minute /* + ":" + second */;
-    	NGMTLabel.text = offset;
-    	
-    	setFlag = true;
-    	bitmapStatus = 0; // success
-	}
-	else if (err == 4628) {
-    	NDateLabel.text = "-";
-    	NTimeLabel.text = "-";
-    	NGMTLabel.text = "-";
-    	
-    	retryConnection();
-	}
-	else
-	{
-		alert("Unable to get time from the internet.\nError: " + err);
-		bitmapStatus = 1; // error
-	}
 }
 
 
