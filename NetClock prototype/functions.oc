@@ -295,7 +295,7 @@ void retryConnection() {
 	}
 
 	if (count > retryNumber) {
-		alert("Unable to get time from the internet.\nError code: " + errorCode);
+		alertc("Error", "Unable to get time from the Internet.\nError code: " + errorCode, "OK", alertError);
 		bitmapStatus = 1; // error
 	}
 }
@@ -325,7 +325,7 @@ void showResponse(int err) {
 	}
 	else
 	{
-		alert("Unable to get time from the internet.\nError: " + err);
+		alertc("Error", "Unable to get time from the Internet.\nError code: " + err, "OK", alertError);
 		bitmapStatus = 1; // error
 	}
 }

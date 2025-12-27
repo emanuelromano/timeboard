@@ -39,7 +39,7 @@ struct ClockGadget {
 	int radius;
 	int border;
 
-	// manos
+	// agujas
 	ClockHand chHour, chMin, chSec;
 
 	// optimización
@@ -114,12 +114,13 @@ void ClockGadget.DrawClockFace() {
 	int i;
 
 	draw.begin();
-
+	draw.fgRGB(0, 0, 153);
 	draw.frame(clrFG, border, border,
 	           gadget.w - border, gadget.h - border,
 	           5, border);
 
 	draw.textAlign(11);
+	draw.textRGB(0, 102, 204);
 	draw.text(clrFG, face[0].x, face[0].y, "12");
 
 	for (i = 1; i < 12; i++) {
@@ -132,14 +133,14 @@ void ClockGadget.DrawClockFace() {
 
 
 // --------------------
-// DIBUJAR MANOS
+// DIBUJAR AGUJAS
 // --------------------
 void ClockGadget.DrawHand(ClockHand hand, int color) {
 	int x, y;
-
+	
 	x = cosTable[hand.index] * hand.length + ptCenter.x;
 	y = sinTable[hand.index] * hand.length + ptCenter.y;
-
+	
 	draw.line(color, ptCenter.x, ptCenter.y, x, y);
 }
 
@@ -168,9 +169,11 @@ void ClockGadget.DrawClockHands() {
 	hIndex = (now.hour % 12) * 5 + now.min / 12;
 	chHour.index = hIndex;
 
-	// dibujar manos actuales
+	// dibujar agujas actuales
 	DrawHand(chHour, clrFG);
 	DrawHand(chMin,  clrFG);
+	
+	draw.fgRGB(255, 0, 0);
 	DrawHand(chSec,  clrFG);
 
 	draw.end();

@@ -91,6 +91,13 @@
       x = 8, y = 21, w = 145, h = 100
       hresize = 0, vresize = 0
     }
+    label UILabel timeLabel {
+      id = 1022
+      x = 9, y = 125
+      fontid = 1
+      text = "12:00                                                          "
+      hresize = 0, vresize = 0
+    }
   }
   form UIForm netTimeForm {
     id = 1006

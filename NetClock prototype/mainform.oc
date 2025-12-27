@@ -1,6 +1,8 @@
 // mainform.oc
 // Created for mainForm
 
+Date date;
+
 
 handler mainForm.onopen() {
 	timer(20);
@@ -8,6 +10,10 @@ handler mainForm.onopen() {
 
 
 handler mainForm.ontimer() {
+	date.now();
+	
+	timeLabel.text = date.time() + " · " + date.ldate();
+	
 	if(!mainForm.obscured) {
 		gadClock.DrawClockHands();
 	}
