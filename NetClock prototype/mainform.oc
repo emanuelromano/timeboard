@@ -3,6 +3,7 @@
 
 Date date;
 int lastSec;
+string lastTime;
 
 
 handler mainForm.onopen() {
@@ -22,13 +23,16 @@ handler mainForm.ontimer() {
 	
 	if (date.sec != lastSec) {
 		if(!mainForm.obscured) {
-			timeLabel.text = date.time() + " · " + date.ldate();
-			
 			gadClock.DrawClockHands();
 		}
 	}
 	
+	if (date.time() != lastTime) {
+		timeLabel.text = date.time() + " · " + date.ldate();
+	}
+	
 	lastSec = date.sec;
+	lastTime = date.time();
 	
 	timer(20);
 }
