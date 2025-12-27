@@ -5,6 +5,10 @@ Date date;
 
 
 handler mainForm.onopen() {
+	date.now();
+	
+	timeLabel.text = date.time() + " · " + date.ldate();
+	
 	timer(20);
 }
 
@@ -12,9 +16,9 @@ handler mainForm.onopen() {
 handler mainForm.ontimer() {
 	date.now();
 	
-	timeLabel.text = date.time() + " · " + date.ldate();
-	
 	if(!mainForm.obscured) {
+		timeLabel.text = date.time() + " · " + date.ldate();
+		
 		gadClock.DrawClockHands();
 	}
 	
