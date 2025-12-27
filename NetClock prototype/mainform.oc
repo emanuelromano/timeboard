@@ -2,6 +2,7 @@
 // Created for mainForm
 
 Date date;
+int lastSec;
 
 
 handler mainForm.onopen() {
@@ -16,11 +17,18 @@ handler mainForm.onopen() {
 handler mainForm.ontimer() {
 	date.now();
 	
-	if(!mainForm.obscured) {
-		timeLabel.text = date.time() + " · " + date.ldate();
-		
-		gadClock.DrawClockHands();
+	// si no cambió el segundo, no redibujar
+	//if (date.sec == lastSec) return;
+	
+	if (date.sec != lastSec) {
+		if(!mainForm.obscured) {
+			timeLabel.text = date.time() + " · " + date.ldate();
+			
+			gadClock.DrawClockHands();
+		}
 	}
+	
+	lastSec = date.sec;
 	
 	timer(20);
 }
