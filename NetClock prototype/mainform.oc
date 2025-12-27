@@ -21,18 +21,19 @@ handler mainForm.ontimer() {
 	// si no cambió el segundo, no redibujar
 	//if (date.sec == lastSec) return;
 	
-	if (date.sec != lastSec) {
-		if(!mainForm.obscured) {
+	if(!mainForm.obscured) {
+		if (date.sec != lastSec) {
 			gadClock.DrawClockHands();
+			
+			lastSec = date.sec;
+		}
+		
+		if (date.time() != lastTime) {
+			timeLabel.text = date.time() + " · " + date.ldate();
+			
+			lastTime = date.time();
 		}
 	}
-	
-	if (date.time() != lastTime) {
-		timeLabel.text = date.time() + " · " + date.ldate();
-	}
-	
-	lastSec = date.sec;
-	lastTime = date.time();
 	
 	timer(20);
 }
