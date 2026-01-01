@@ -1,0 +1,28 @@
+
+void drawClockTest() {
+	int xAxis, yAxis;
+	
+	xAxis = 160/2;
+	yAxis = (160/2) - 5;
+	
+	draw.begin();
+	
+	draw.fgRGB(0, 0, 153);
+	draw.frame(clrFG, xAxis-40, yAxis-40, xAxis+40, yAxis+40, 40, 2);
+	
+	draw.end();
+}
+
+handler testForm.onopen() {
+	draw.attachForm(this);
+}
+
+
+handler testForm.ondraw() {
+	drawClockTest();
+}
+
+
+handler backTestButton.onselect() {
+	mainForm.load();
+}

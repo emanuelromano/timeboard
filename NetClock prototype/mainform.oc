@@ -49,3 +49,8 @@ handler mainOptionsAbout.onselect() {
 			"by @coloraturip\n" +
 			"(c)2025");
 }
+
+
+handler testButton.onselect() {
+	testForm.load();
+}
