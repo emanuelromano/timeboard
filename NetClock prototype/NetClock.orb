@@ -210,6 +210,14 @@
       frame = 1
       hresize = 0, vresize = 0
     }
+    button UIButton plusButton {
+      id = 1026
+      x = 93, y = 141, w = 12, h = 12
+      text = "+"
+      leftanchor = true, group = 0, fontid = 0
+      frame = 1
+      hresize = 0, vresize = 0
+    }
   }
 }
 
