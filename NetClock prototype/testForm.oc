@@ -1,36 +1,11 @@
 
-/*void drawClockTest(int minute) {
-	int centerX, centerY;
-	
-	centerX = 160/2;
-	centerY = (160/2) - 5;
-	
-	draw.begin();
-	
-	// color
-	draw.fgRGB(0, 0, 153);
-	
-	// outter clock circle
-	draw.frame(clrFG, centerX-40, centerY-40, centerX+40, centerY+40, 40, 2);
-	
-	// minute hand pinting to 3 (15 minutes mark)
-	draw.line(clrFG, centerX, centerY-1, centerX+34, centerY-1);
-	draw.line(clrFG, centerX-1, centerY, centerX+35, centerY);
-	draw.line(clrFG, centerX, centerY+1, centerX+34, centerY+1);
-	
-	// center pixel
-	draw.fgRGB(255, 255, 255);
-	draw.pixel(clrFG, centerX, centerY);
-	draw.end();
-}*/
-
-
 int globalMinute = 0;
 int lastMinute = -1;
+int realWidth;
 const float PI = 3.141592;
 
 
-void drawSolidMinuteHand(int minute, int color) {
+void drawSolidMinuteHand(int minute, int color, int screenW) {
 	int cx, cy;
 	int radius;
 	float angle;
@@ -38,146 +13,71 @@ void drawSolidMinuteHand(int minute, int color) {
 	float adx, ady;
 	int i;
 	int x, y;
+	int density;
 
-	// centro del reloj
-	cx = 160 / 2;
-	cy = (160 / 2) - 5;
+	cx = screenW / 2;
+	cy = (screenW / 2) - 5;
+	radius = screenW / 5;
 
-	// largo de la aguja
-	radius = 34;
+	// densidad según resolución
+	if (screenW >= 300)
+		density = 2;
+	else
+		density = 1;
 
-	// convertir minuto (0-59) a ángulo
 	angle = (minute * 6 - 90) * PI / 180;
 
 	dx = cos(angle);
 	dy = sin(angle);
 
-	// valor absoluto manual (OrbC no tiene abs)
-	if (dx < 0)
-		adx = -dx;
-	else
-		adx = dx;
+	// abs manual
+	if (dx < 0) adx = -dx; else adx = dx;
+	if (dy < 0) ady = -dy; else ady = dy;
 
-	if (dy < 0)
-		ady = -dy;
-	else
-		ady = dy;
-
-	// dibujar aguja como segmentos sólidos
-	for (i = 0; i < radius; i++) {
-		x = cx + dx * i;
-		y = cy + dy * i;
+	for (i = 0; i < radius * density; i++) {
+		x = cx + dx * i / density;
+		y = cy + dy * i / density;
 
 		if (adx > ady) {
-			// aguja más horizontal ? rectángulo vertical (3 px ancho)
 			draw.rect(color, x, y - 1, x + 1, y + 1, 0);
 		} else {
-			// aguja más vertical ? rectángulo horizontal (3 px ancho)
 			draw.rect(color, x - 1, y, x + 1, y + 1, 0);
 		}
 	}
 }
 
 
-void drawMinuteHand(int minute, int color) {
-	int centerX, centerY;
-	int radius;
-	float angle;
-	float dx, dy;
-	float px, py;
-	int i;
-
-	centerX = 160 / 2;
-	centerY = (160 / 2) - 5;
-	radius  = 34;
-
-	angle = (minute * 6 - 90) * PI / 180;
-
-	dx = cos(angle);
-	dy = sin(angle);
-
-	// vector perpendicular
-	px = -dy;
-	py = dx;
-
-	for (i = -1; i <= 1; i++) {
-		draw.line(
-			color,
-			centerX + px * i,
-			centerY + py * i,
-			centerX + dx * radius + px * i,
-			centerY + dy * radius + py * i
-		);
-	}
-}
-
-
-/*void drawClockTest(int minute) {
-	int centerX, centerY;
-
-	centerX = 160 / 2;
-	centerY = (160 / 2) - 5;
-
-	draw.begin();
-
-	// dibujar el reloj SOLO una vez o siempre, como prefieras
-	draw.fgRGB(0, 0, 153);
-	draw.frame(
-		clrFG,
-		centerX - 40, centerY - 40,
-		centerX + 40, centerY + 40,
-		40, 2
-	);
-
-	// borrar aguja anterior
-	if (lastMinute >= 0) {
-		drawMinuteHand(lastMinute, clrBG);
-	}
-
-	// dibujar nueva aguja
-	drawMinuteHand(minute, clrFG);
-
-	// punto central (eje)
-	draw.fgRGB(255, 0, 0);
-	draw.pixel(clrFG, centerX, centerY);
-
-	draw.end();
-
-	lastMinute = minute;
-}*/
-
-
-void drawClockTest(int minute) {
+void drawClockTest(int minute, int screenW) {
 	int cx, cy;
-
-	cx = 160 / 2;
-	cy = (160 / 2) - 5;
+	
+	if (screenW > 300) {
+		cx = screenW / 4;
+		cy = (screenW / 4) - 10;
+	}
+	else
+	{
+		cx = screenW / 2;
+		cy = (screenW / 2) - 5;
+	}
 
 	draw.begin();
 
-	// color del reloj
-	draw.fgRGB(0, 0, 153);
-
-	// círculo exterior
+	// reloj
 	draw.frame(
 		clrFG,
-		cx - 40, cy - 40,
-		cx + 40, cy + 40,
-		40, 2
+		cx - screenW/4, cy - screenW/4,
+		cx + screenW/4, cy + screenW/4,
+		screenW/4, 2
 	);
 
-	// borrar aguja anterior
-	if (lastMinute >= 0) {
-		drawSolidMinuteHand(lastMinute, clrBG);
-	}
+	// borrar anterior
+	if (lastMinute >= 0)
+		drawSolidMinuteHand(lastMinute, clrBG, screenW);
 
-	// dibujar nueva aguja
-	drawSolidMinuteHand(minute, clrFG);
+	// dibujar nueva
+	drawSolidMinuteHand(minute, clrFG, screenW);
 
-	// punto central (eje mecánico)
-	draw.fgRGB(255, 255, 255);
 	draw.pixel(clrFG, cx, cy);
-
 	draw.end();
 
 	lastMinute = minute;
@@ -190,7 +90,15 @@ handler testForm.onopen() {
 
 
 handler testForm.ondraw() {
-	drawClockTest(globalMinute);
+	draw.nbegin(); // gets native resolution
+	realWidth = this.w;
+	draw.end();
+	
+	draw.begin();
+	draw.text(clrFG, 10, 140, realWidth);
+	draw.end();
+	
+	drawClockTest(globalMinute, realWidth);
 }
 
 
@@ -204,5 +112,5 @@ handler plusButton.onselect() {
 	
 	if (globalMinute == 60) globalMinute = 0;
 	
-	drawClockTest(globalMinute);
+	drawClockTest(globalMinute, realWidth);
 }
