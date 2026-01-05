@@ -47,12 +47,14 @@ void drawSolidMinuteHand(int minute, int color, int screenW) {
 }
 
 
-void drawClockTest(int minute, int screenW) {
-	int cx, cy;
+void drawClockTest(int minute, int screen) {
+	int cx, cy, screenW;
+	
+	screenW = screen;
 	
 	if (screenW > 300) {
-		cx = screenW / 4;
-		cy = (screenW / 4) - 10;
+		cx = screenW / 8;
+		cy = (screenW / 8) - 10;
 	}
 	else
 	{
@@ -72,10 +74,10 @@ void drawClockTest(int minute, int screenW) {
 
 	// borrar anterior
 	if (lastMinute >= 0)
-		drawSolidMinuteHand(lastMinute, clrBG, screenW);
+		drawSolidMinuteHand(lastMinute, clrBG, screen);
 
 	// dibujar nueva
-	drawSolidMinuteHand(minute, clrFG, screenW);
+	drawSolidMinuteHand(minute, clrFG, screen);
 
 	draw.pixel(clrFG, cx, cy);
 	draw.end();
