@@ -1,11 +1,11 @@
 
 int globalMinute = 0;
 int lastMinute = -1;
-int realWidth;
+int appScreenWidth, realScreenWidth;
 const float PI = 3.141592;
 
 
-void drawSolidMinuteHand(int minute, int color, int screenW) {
+void drawSolidMinuteHand(int minute, int color,  int appScreenWidth, int realScreenWidth) {
 	int cx, cy;
 	int radius;
 	float angle;
@@ -15,12 +15,12 @@ void drawSolidMinuteHand(int minute, int color, int screenW) {
 	int x, y;
 	int density;
 
-	cx = screenW / 2;
-	cy = (screenW / 2) - 5;
-	radius = screenW / 5;
+	cx = appScreenWidth / 2;
+	cy = (appScreenWidth / 2) - 5;
+	radius = appScreenWidth / 5;
 
 	// densidad según resolución
-	if (screenW >= 300)
+	if (realScreenWidth >= 300)
 		density = 2;
 	else
 		density = 1;
@@ -47,37 +47,28 @@ void drawSolidMinuteHand(int minute, int color, int screenW) {
 }
 
 
-void drawClockTest(int minute, int screen) {
-	int cx, cy, screenW;
+void drawClockTest(int minute, int appScreenWidth, int realScreenWidth) {
+	int cx, cy;
 	
-	screenW = screen;
-	
-	if (screenW > 300) {
-		cx = screenW / 8;
-		cy = (screenW / 8) - 10;
-	}
-	else
-	{
-		cx = screenW / 2;
-		cy = (screenW / 2) - 5;
-	}
+	cx = appScreenWidth / 2;
+	cy = (appScreenWidth / 2) - 5;
 
 	draw.begin();
 
 	// reloj
 	draw.frame(
 		clrFG,
-		cx - screenW/4, cy - screenW/4,
-		cx + screenW/4, cy + screenW/4,
-		screenW/4, 2
+		cx - appScreenWidth/4, cy - appScreenWidth/4,
+		cx + appScreenWidth/4, cy + appScreenWidth/4,
+		appScreenWidth/4, 2
 	);
 
 	// borrar anterior
 	if (lastMinute >= 0)
-		drawSolidMinuteHand(lastMinute, clrBG, screen);
+		drawSolidMinuteHand(lastMinute, clrBG, appScreenWidth, realScreenWidth);
 
 	// dibujar nueva
-	drawSolidMinuteHand(minute, clrFG, screen);
+	drawSolidMinuteHand(minute, clrFG, appScreenWidth, realScreenWidth);
 
 	draw.pixel(clrFG, cx, cy);
 	draw.end();
@@ -93,14 +84,15 @@ handler testForm.onopen() {
 
 handler testForm.ondraw() {
 	draw.nbegin(); // gets native resolution
-	realWidth = this.w;
+	realScreenWidth = this.w;
 	draw.end();
 	
 	draw.begin();
-	draw.text(clrFG, 10, 140, realWidth);
+	appScreenWidth = this.w;
+	draw.text(clrFG, 10, 140, realScreenWidth);
 	draw.end();
 	
-	drawClockTest(globalMinute, realWidth);
+	drawClockTest(globalMinute, appScreenWidth, realScreenWidth);
 }
 
 
@@ -114,5 +106,5 @@ handler plusButton.onselect() {
 	
 	if (globalMinute == 60) globalMinute = 0;
 	
-	drawClockTest(globalMinute, realWidth);
+	drawClockTest(globalMinute, appScreenWidth, realScreenWidth);
 }
