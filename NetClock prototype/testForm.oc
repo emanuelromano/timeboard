@@ -1,4 +1,4 @@
-
+/*
 int globalMinute = 0;
 int lastMinute = -1;
 int appScreenWidth, realScreenWidth;
@@ -66,8 +66,9 @@ void drawClockTest(int minute, int appScreenWidth, int realScreenWidth) {
 	// borrar anterior
 	if (lastMinute >= 0)
 		drawSolidMinuteHand(lastMinute, clrBG, appScreenWidth, realScreenWidth);
-
+	
 	// dibujar nueva
+	draw.fgRGB(255, 0, 0);
 	drawSolidMinuteHand(minute, clrFG, appScreenWidth, realScreenWidth);
 
 	draw.pixel(clrFG, cx, cy);
@@ -107,4 +108,325 @@ handler plusButton.onselect() {
 	if (globalMinute == 60) globalMinute = 0;
 	
 	drawClockTest(globalMinute, appScreenWidth, realScreenWidth);
+}
+*/
+
+
+/*
+// ======================================================
+//  Reloj analógico simple – Aguja de minutos (1 píxel)
+//  Geométricamente uniforme (redondeo correcto)
+//  OrbForms / OrbC
+// ======================================================
+
+const float PI = 3.141592;
+
+// Estado global
+int globalMinute = 0;
+int lastMinute   = -1;
+int realScreenWidth;
+
+
+// ------------------------------------------------------
+// Dibuja SOLO el píxel final de la aguja de minutos
+// minute : 0..59
+// color  : clrFG para dibujar, clrBG para borrar
+// size   : ancho del form
+// ------------------------------------------------------
+void drawMinuteHand(int minute, int color, int size) {
+    int cx, cy;
+    int radius;
+    float angle;
+    float fx, fy;
+    int x, y;
+
+    // Centro del reloj
+    cx = size / 2;
+    cy = (size / 2) - 5;
+
+    // Largo de la aguja
+    radius = size / 5;
+
+    // Minutos -> ángulo (0 = arriba)
+    angle = (minute * 6 - 90) * PI / 180;
+
+    // Coordenadas en float
+    // ?? Truco: radius + 0.5 mejora uniformidad
+    fx = cx + cos(angle) * (radius + 0.5);
+    fy = cy + sin(angle) * (radius + 0.5);
+
+    // ?? Redondeo correcto (NO truncar)
+    x = fx + 0.5;
+    y = fy + 0.5;
+
+    draw.pixel(color, x, y);
+}
+
+
+// ------------------------------------------------------
+// Dibuja el reloj completo y anima la aguja
+// ------------------------------------------------------
+void drawClock(int minute, int size) {
+    int cx, cy;
+    int r;
+
+    cx = size / 2;
+    cy = (size / 2) - 5;
+    r  = size / 4;
+
+    draw.begin();
+
+    // Marco del reloj
+    draw.frame(
+        clrFG,
+        cx - r, cy - r,
+        cx + r, cy + r,
+        r, 2
+    );
+
+    // Borrar aguja anterior
+    if (lastMinute >= 0) {
+        //drawMinuteHand(lastMinute, clrBG, size);
+    }
+
+    // Dibujar aguja nueva
+    drawMinuteHand(minute, clrFG, size);
+
+    // Pivote central
+    draw.pixel(clrFG, cx, cy);
+
+    draw.end();
+
+    lastMinute = minute;
+}
+
+
+// ======================================================
+//  Handlers del Form
+// ======================================================
+
+handler testForm.onopen() {
+    draw.attachForm(this);
+}
+
+handler testForm.ondraw() {
+    // Obtener resolución real
+    draw.begin();
+    realScreenWidth = this.w;
+    draw.end();
+
+    drawClock(globalMinute, realScreenWidth);
+}
+
+handler plusButton.onselect() {
+    globalMinute++;
+    if (globalMinute == 60)
+        globalMinute = 0;
+
+    drawClock(globalMinute, realScreenWidth);
+}
+
+handler backTestButton.onselect() {
+    mainForm.load();
+}
+*/
+
+
+// ======================================================
+//  Reloj analógico – Aguja de minutos + aguja de horas
+//  Cálculos corregidos (sin saltos)
+//  OrbForms / OrbC
+// ======================================================
+
+const float PI = 3.141592;
+
+// estado global
+int globalMinute = 0;
+int lastMinute   = -1;
+int screenW;
+
+
+// ------------------------------------------------------
+// Línea Bresenham engrosada (3 px) con punta redondeada
+// ------------------------------------------------------
+void drawThickLineBresenham(
+    int x0, int y0,
+    int x1, int y1,
+    int color
+) {
+    int dx, dy;
+    int adx, ady;
+    int sx, sy;
+    int err, e2;
+
+    dx = x1 - x0;
+    if (dx < 0) adx = -dx; else adx = dx;
+
+    dy = y1 - y0;
+    if (dy < 0) ady = -dy; else ady = dy;
+
+    if (x0 < x1) sx = 1; else sx = -1;
+    if (y0 < y1) sy = 1; else sy = -1;
+
+    err = adx - ady;
+
+    while (true) {
+
+        // píxel central
+        draw.pixel(color, x0, y0);
+
+        // engrosar salvo en la punta
+        if (x0 != x1 || y0 != y1) {
+            if (adx > ady) {
+                draw.pixel(color, x0, y0 - 1);
+                draw.pixel(color, x0, y0 + 1);
+            } else {
+                draw.pixel(color, x0 - 1, y0);
+                draw.pixel(color, x0 + 1, y0);
+            }
+        }
+
+        if (x0 == x1 && y0 == y1)
+            break;
+
+        e2 = err * 2;
+
+        if (e2 > -ady) {
+            err -= ady;
+            x0 += sx;
+        }
+
+        if (e2 < adx) {
+            err += adx;
+            y0 += sy;
+        }
+    }
+}
+
+
+// ------------------------------------------------------
+// Aguja de minutos (roja)
+// ------------------------------------------------------
+void drawMinuteHand(int minute, int color, int size) {
+    int cx, cy;
+    int radius;
+    float angle;
+    int x1, y1;
+
+    cx = size / 2;
+    cy = (size / 2) - 5;
+
+    radius = (size / 4) - 6;
+
+    angle = (minute * 6 - 90) * PI / 180;
+
+    x1 = cx + cos(angle) * radius;
+    y1 = cy + sin(angle) * radius;
+
+    drawThickLineBresenham(cx, cy, x1, y1, color);
+}
+
+
+// ------------------------------------------------------
+// Aguja de horas (más corta, rojo oscuro) — CORREGIDA
+// ------------------------------------------------------
+void drawHourHand(int globalMinute, int color, int size) {
+    int cx, cy;
+    int radius;
+    int hour;
+    int minuteInHour;
+    float angle;
+    int x1, y1;
+
+    cx = size / 2;
+    cy = (size / 2) - 5;
+
+    radius = (size / 4) - 14;
+
+    hour = (globalMinute / 60) % 12;
+    minuteInHour = globalMinute % 60;
+
+    // ángulo REAL de reloj
+    angle = ((hour * 30) + (minuteInHour * 0.5) - 90) * PI / 180;
+
+    x1 = cx + cos(angle) * radius;
+    y1 = cy + sin(angle) * radius;
+
+    drawThickLineBresenham(cx, cy, x1, y1, color);
+}
+
+
+// ------------------------------------------------------
+// Dibujo completo del reloj
+// ------------------------------------------------------
+void drawClock(int globalMinute, int size) {
+    int cx, cy;
+    int r;
+
+    cx = size / 2;
+    cy = (size / 2) - 5;
+    r  = size / 4;
+
+    draw.begin();
+
+    // marco del reloj
+    draw.frame(
+        clrFG,
+        cx - r, cy - r,
+        cx + r, cy + r,
+        r, 2
+    );
+
+    // borrar agujas anteriores
+    if (lastMinute >= 0) {
+        drawHourHand(lastMinute, clrBG, size);
+        drawMinuteHand(lastMinute % 60, clrBG, size);
+    }
+
+    // aguja de horas
+    draw.fgRGB(153, 0, 0);
+    drawHourHand(globalMinute, clrFG, size);
+
+    // aguja de minutos
+    draw.fgRGB(255, 0, 0);
+    drawMinuteHand(globalMinute % 60, clrFG, size);
+
+    // eje central
+    draw.rect(
+        clrFG,
+        cx - 2, cy - 2,
+        cx + 3, cy + 3,
+        3
+    );
+
+    draw.end();
+
+    lastMinute = globalMinute;
+}
+
+
+// ======================================================
+// Handlers
+// ======================================================
+
+handler testForm.onopen() {
+    draw.attachForm(this);
+}
+
+handler testForm.ondraw() {
+    screenW = this.w;
+    drawClock(globalMinute, screenW);
+}
+
+handler plusButton.onselect() {
+    globalMinute++;
+
+    if (globalMinute >= 720)   // 12 horas
+        globalMinute = 0;
+
+    drawClock(globalMinute, screenW);
+}
+
+handler backTestButton.onselect() {
+    mainForm.load();
 }
