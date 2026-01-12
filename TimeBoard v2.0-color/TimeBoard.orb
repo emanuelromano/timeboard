@@ -245,49 +245,6 @@
     image8 = "graphics\\cat1.bmp"
     image16 = "graphics\\cat1.bmp"
   }
-  bitmap Bitmap theme1BMP {
-    id = 1075
-    image1 = "graphics\\th-bw.bmp"
-    image2 = "graphics\\th-gray.bmp"
-    image4 = "graphics\\th-gray.bmp"
-    image8 = "graphics\\th1.bmp"
-    image16 = "graphics\\th1.bmp"
-  }
-  bitmap Bitmap theme2BMP {
-    id = 1173
-    image8 = "graphics\\th2.bmp"
-    image16 = "graphics\\th2.bmp"
-  }
-  bitmap Bitmap theme3BMP {
-    id = 1174
-    image8 = "graphics\\th3.bmp"
-    image16 = "graphics\\th3.bmp"
-  }
-  bitmap Bitmap theme4BMP {
-    id = 1175
-    image8 = "graphics\\th4.bmp"
-    image16 = "graphics\\th4.bmp"
-  }
-  bitmap Bitmap theme5BMP {
-    id = 1176
-    image8 = "graphics\\th5.bmp"
-    image16 = "graphics\\th5.bmp"
-  }
-  bitmap Bitmap theme6BMP {
-    id = 1177
-    image8 = "graphics\\th6.bmp"
-    image16 = "graphics\\th6.bmp"
-  }
-  bitmap Bitmap theme7BMP {
-    id = 1178
-    image8 = "graphics\\th7.bmp"
-    image16 = "graphics\\th7.bmp"
-  }
-  bitmap Bitmap theme8BMP {
-    id = 1179
-    image8 = "graphics\\th8.bmp"
-    image16 = "graphics\\th8.bmp"
-  }
   bitmap Bitmap themeGray {
     id = 1180
     image1 = "graphics\\th-bw.bmp"

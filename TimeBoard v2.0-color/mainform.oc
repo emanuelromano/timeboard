@@ -332,9 +332,9 @@ void setTheme(int theme, bool mainForm) {
 				battTxtB = 255;
 				
 				// digiclock background and text	
-				digiBgR = 255;
-				digiBgG = 255;
-				digiBgB = 255;
+				digiBgR = 102;
+				digiBgG = 0;
+				digiBgB = 153;
 				
 				digiTxtR = 255;
 				digiTxtG = 255;
@@ -1124,7 +1124,7 @@ void setTheme(int theme, bool mainForm) {
 }
 
 
-// DRAW ON SCREEN ELEMENTS from BUFFER
+// DRAW ON-SCREEN ELEMENTS from BUFFER
 void drawBuffer() {
 	draw.begin();
 	draw.draw(mainBuffer, 0, 0); // draw buffer
@@ -1146,12 +1146,51 @@ void drawClockHandBuffer(ClockHand hand, int color) {
 }
 
 
+// Mainform Overview buffer (for 2.0)
 void drawClockBuffer() {
 	int hr, min;
 	float hrAngle, minAngle, secAngle;
 	
 	ptCenter.x = 58;
 	ptCenter.y = 58;
+	
+	// Clock background (for 2.0)
+	mainBuffer.bgRGB(clockBgR, clockBgG, clockBgB);
+	mainBuffer.rect(clrBG, 11, 11, 105, 105, 47);
+	
+	mainBuffer.fgRGB(shadowR, shadowG, shadowB);
+	mainBuffer.frame(clrFG, 12, 12, 106, 106, 47, 3);
+	
+	mainBuffer.fgRGB(themeR, themeG, themeB);
+	mainBuffer.frame(clrFG, 11, 11, 105, 105, 47, 3);
+	
+	// Calendar background (for 2.0)
+	mainBuffer.bgRGB(highlightR, highlightG, highlightB);
+	mainBuffer.rect(clrBG, 11, 116, 106, 148, 5);
+	
+	mainBuffer.fgRGB(shadowR, shadowG, shadowB);
+	mainBuffer.frame(clrFG, 12, 117, 106, 149, 5, 3);
+	
+	mainBuffer.fgRGB(themeR, themeG, themeB);
+	mainBuffer.frame(clrFG, 11, 116, 105, 148, 5, 3);
+	
+	// Digital Clock background (for 2.0)
+	mainBuffer.bgRGB(digiBgR, digiBgG, digiBgB);
+	mainBuffer.rect(clrBG, 114, 11, 152, 47, 5);
+		
+	mainBuffer.fgRGB(themeR, themeG, themeB);
+	mainBuffer.frame(clrFG, 116, 11, 148, 43, 5, 3);
+	
+	// Battery background (for 2.0)
+	mainBuffer.bgRGB(digiBgR, digiBgG, digiBgB);
+	mainBuffer.rect(clrBG, 114, 52, 152, 109, 5);
+		
+	mainBuffer.fgRGB(themeR, themeG, themeB);
+	mainBuffer.frame(clrFG, 116, 54, 148, 105, 5, 3);
+	
+	
+	
+	
 		
 	// Calculate new angles
 	hrAngle = ((float)(hours % 12) * 30 + minutes / 2 - 90) / 180 * pi;
