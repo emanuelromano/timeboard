@@ -282,10 +282,10 @@ void setTheme(int theme, bool mainForm) {
 									shadowR, shadowG, shadowB,
 									digiTxtR, digiTxtG, digiTxtB);
 	
-				actionGadget.SetActionTheme(themeR, themeG, themeB,
+				/*actionGadget.SetActionTheme(themeR, themeG, themeB,
 									batteryBgR, batteryBgG, batteryBgB,
 									shadowR, shadowG, shadowB,
-									textR, textG, textB);
+									textR, textG, textB);*/
 				break;
 				
 			case 2: // Purple Eva-01				
@@ -365,10 +365,10 @@ void setTheme(int theme, bool mainForm) {
 									shadowR, shadowG, shadowB,
 									digiTxtR, digiTxtG, digiTxtB);
 	
-				actionGadget.SetActionTheme(themeR, themeG, themeB,
+				/*actionGadget.SetActionTheme(themeR, themeG, themeB,
 									batteryBgR, batteryBgG, batteryBgB,
 									shadowR, shadowG, shadowB,
-									textR, textG, textB);
+									textR, textG, textB);*/
 				break;
 				
 			case 3: // PokéRed
@@ -448,10 +448,10 @@ void setTheme(int theme, bool mainForm) {
 									shadowR, shadowG, shadowB,
 									digiTxtR, digiTxtG, digiTxtB);
 	
-				actionGadget.SetActionTheme(themeR, themeG, themeB,
+				/*actionGadget.SetActionTheme(themeR, themeG, themeB,
 									batteryBgR, batteryBgG, batteryBgB,
 									shadowR, shadowG, shadowB,
-									textR, textG, textB);
+									textR, textG, textB);*/
 				break;
 				
 			case 4: // Juicy Orange
@@ -531,10 +531,10 @@ void setTheme(int theme, bool mainForm) {
 									shadowR, shadowG, shadowB,
 									digiTxtR, digiTxtG, digiTxtB);
 	
-				actionGadget.SetActionTheme(themeR, themeG, themeB,
+				/*actionGadget.SetActionTheme(themeR, themeG, themeB,
 									batteryBgR, batteryBgG, batteryBgB,
 									shadowR, shadowG, shadowB,
-									textR, textG, textB);
+									textR, textG, textB);*/
 				break;
 				
 			case 5: // Peach Yellow
@@ -614,10 +614,10 @@ void setTheme(int theme, bool mainForm) {
 									shadowR, shadowG, shadowB,
 									digiTxtR, digiTxtG, digiTxtB);
 	
-				actionGadget.SetActionTheme(themeR, themeG, themeB,
+				/*actionGadget.SetActionTheme(themeR, themeG, themeB,
 									batteryBgR, batteryBgG, batteryBgB,
 									shadowR, shadowG, shadowB,
-									textR, textG, textB);
+									textR, textG, textB);*/
 				break;
 				
 			case 6: // Lime Green
@@ -697,10 +697,10 @@ void setTheme(int theme, bool mainForm) {
 									shadowR, shadowG, shadowB,
 									digiTxtR, digiTxtG, digiTxtB);
 	
-				actionGadget.SetActionTheme(themeR, themeG, themeB,
+				/*actionGadget.SetActionTheme(themeR, themeG, themeB,
 									batteryBgR, batteryBgG, batteryBgB,
 									shadowR, shadowG, shadowB,
-									textR, textG, textB);
+									textR, textG, textB);*/
 				break;
 				
 			case 7: // Gray Cloud
@@ -780,10 +780,10 @@ void setTheme(int theme, bool mainForm) {
 									shadowR, shadowG, shadowB,
 									digiTxtR, digiTxtG, digiTxtB);
 	
-				actionGadget.SetActionTheme(themeR, themeG, themeB,
+				/*actionGadget.SetActionTheme(themeR, themeG, themeB,
 									batteryBgR, batteryBgG, batteryBgB,
 									shadowR, shadowG, shadowB,
-									textR, textG, textB);
+									textR, textG, textB);*/
 				break;
 				
 			case 8: // Dark Cloud
@@ -863,10 +863,10 @@ void setTheme(int theme, bool mainForm) {
 									shadowR, shadowG, shadowB,
 									digiTxtR, digiTxtG, digiTxtB);
 	
-				actionGadget.SetActionTheme(themeR, themeG, themeB,
+				/*actionGadget.SetActionTheme(themeR, themeG, themeB,
 									batteryBgR, batteryBgG, batteryBgB,
 									shadowR, shadowG, shadowB,
-									textR, textG, textB);
+									textR, textG, textB);*/
 				break;
 		}
 	}
@@ -949,10 +949,10 @@ void setTheme(int theme, bool mainForm) {
 								shadowR, shadowG, shadowB,
 								digiTxtR, digiTxtG, digiTxtB);
 	
-			actionGadget.SetActionTheme(themeR, themeG, themeB,
+			/*actionGadget.SetActionTheme(themeR, themeG, themeB,
 								batteryBgR, batteryBgG, batteryBgB,
 								shadowR, shadowG, shadowB,
-								textR, textG, textB);
+								textR, textG, textB);*/
 		}
 		
 		if (colorDepth == 2) {		
@@ -1032,10 +1032,10 @@ void setTheme(int theme, bool mainForm) {
 								shadowR, shadowG, shadowB,
 								digiTxtR, digiTxtG, digiTxtB);
 	
-			actionGadget.SetActionTheme(themeR, themeG, themeB,
+			/*actionGadget.SetActionTheme(themeR, themeG, themeB,
 								batteryBgR, batteryBgG, batteryBgB,
 								shadowR, shadowG, shadowB,
-								textR, textG, textB);
+								textR, textG, textB);*/
 		}
 		
 		if (colorDepth == 4) {		
@@ -1115,10 +1115,10 @@ void setTheme(int theme, bool mainForm) {
 								shadowR, shadowG, shadowB,
 								digiTxtR, digiTxtG, digiTxtB);
 	
-			actionGadget.SetActionTheme(themeR, themeG, themeB,
+			/*actionGadget.SetActionTheme(themeR, themeG, themeB,
 								batteryBgR, batteryBgG, batteryBgB,
 								shadowR, shadowG, shadowB,
-								textR, textG, textB);
+								textR, textG, textB);*/
 		}
 	}
 }
@@ -1540,7 +1540,7 @@ void setCalendarBuffer() {
 }
 
 
-void drawActionBuffer() {
+/*void drawActionBuffer() {
 	int x, y;
 	
 	x = 118;
@@ -1553,7 +1553,7 @@ void drawActionBuffer() {
 	}
 	
 	mainBuffer.bitmap(actionSetBMP, x-2, y-2);
-}
+}*/
 
 
 // Set main theme from saved preferences and draw buffer
@@ -1585,15 +1585,15 @@ void drawMainTheme() {
 	drawBatteryIconBuffer();
 	drawBatteryPercBuffer();
 	setCalendarBuffer();
-	drawActionBuffer();
+	//drawActionBuffer();
 	
 	// Hide DOWN arrow on Actions widget if two-key navigation is enabled
-	if (colorDepth > 4) {
+	/*if (colorDepth > 4) {
 		if (buttonsMode == 1) {
 			mainBuffer.fgRGB(themeR, themeG, themeB);
 			mainBuffer.rect(clrFG, 133, 145, 140, 149, 0);
 		}
-	}
+	}*/
 	
 	mainBuffer.end();
 	
@@ -1739,7 +1739,7 @@ handler mainForm.onopen() {
 	batteryGadget.GetBatteryParms(colorDepth);
 	calendarGadget.SetCalendarObjects(calendarBMP, bigCalendarButton);
 	setActionBMP(actionSet);
-	actionGadget.SetAction(actionSet, actionSetBMP, colorDepth);
+	/*actionGadget.SetAction(actionSet, actionSetBMP, colorDepth);*/
 	
 	// Show small calendar widget without grid
 	calendarMode = 1;
@@ -1868,7 +1868,7 @@ handler mainForm.onhkey() {
 			}
 
 			setActionBMP(actionSet);
-			actionGadget.DrawAction(actionSetBMP, true);
+			/*actionGadget.DrawAction(actionSetBMP, true);*/
 		}
 	}
 
@@ -1881,7 +1881,7 @@ handler mainForm.onhkey() {
 			}
 			
 			setActionBMP(actionSet);
-			actionGadget.DrawAction(actionSetBMP, true);
+			/*actionGadget.DrawAction(actionSetBMP, true);*/
 		}
 		
 		if (keystate() == 4) { // down button pressed
@@ -1892,7 +1892,7 @@ handler mainForm.onhkey() {
 			}
 			
 			setActionBMP(actionSet);
-			actionGadget.DrawAction(actionSetBMP, true);
+			/*actionGadget.DrawAction(actionSetBMP, true);*/
 		}
 		
 		if (keystate() == 0) { // center button pressed

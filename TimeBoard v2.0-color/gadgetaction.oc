@@ -62,9 +62,9 @@ void ActionGadget.DrawAction(Bitmap actionBMP, bool drawBg) {
 
 	// BMP background
 	if (drawBg && clrDepth > 4) {
-		draw.fgRGB(actBackgroundR, actBackgroundG, actBackgroundB);
+		/*draw.fgRGB(actBackgroundR, actBackgroundG, actBackgroundB);
 		draw.rect(clrFG, 5, 5, 9, gadget.h-10, 0);
-		draw.rect(clrFG, 14, 9, gadget.w-6, gadget.h-11, 0);
+		draw.rect(clrFG, 14, 9, gadget.w-6, gadget.h-11, 0);*/
 	}
 	
 	draw.bitmap(actionBMP, 3, 3);
@@ -74,10 +74,10 @@ void ActionGadget.DrawAction(Bitmap actionBMP, bool drawBg) {
 
 
 void ActionGadget.onopen() {
-	draw.attachGadget(gadget); 
+	//draw.attachGadget(gadget); 
 }
 
 
 void ActionGadget.ondraw() {
-	DrawAction(actBMP, false);
+	//DrawAction(actBMP, false);
 }
