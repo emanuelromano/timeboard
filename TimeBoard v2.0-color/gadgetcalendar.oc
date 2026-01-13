@@ -281,7 +281,7 @@ void CalendarGadget.SetCalendar(bool expandedView, bool gridFlag) {
 	}
 	else
 	{
-		draw.text(clrText, 32, 9, dayStr);
+		draw.text(clrText, 32, 8, dayStr);
 	}
 	
 	// Draw month and year
@@ -529,7 +529,7 @@ void CalendarGadget.ondraw() {
 	
 	if (gadget.w < 160) {
 		SetCalendar(false, true);
-		mainCalButton.visible = true;
+		/*mainCalButton.visible = true;*/
 	}
 	else
 	{
