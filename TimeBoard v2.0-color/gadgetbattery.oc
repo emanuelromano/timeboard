@@ -314,7 +314,7 @@ void BatteryGadget.DrawBigBatteryIcon() {
 		draw.fgRGB(255, 255, 255); // front color
 	}
 
-	draw.rect(clrFG, battEndX, battY+8, battEndX+5, battEndY-8, 0);
+	draw.rect(clrFG, battEndX+3, battY+8, battEndX+5, battEndY-8, 0);
 	draw.frame(clrFG, battX, battY, battEndX, battEndY, 2, 2);
 	
 	// battery charge

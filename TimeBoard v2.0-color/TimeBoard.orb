@@ -370,7 +370,7 @@
     }
     button UIButton prefsButton {
       id = 1011
-      x = 137, y = 89, w = 10, h = 15
+      x = 135, y = 125, w = 10, h = 15
       text = ""
       leftanchor = true, group = 0, fontid = 0
       graphic = true, bitmapid = 1006, sbitmapid = 1023
