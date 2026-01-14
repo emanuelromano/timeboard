@@ -13,7 +13,7 @@ struct CalendarGadget {
 							int shdR, int shdG, int shdB,
 							int txtR, int txtG, int txtB);
 	void SetCalendar(bool expandedView, bool gridFlag);
-	void SetCalendarObjects(Bitmap calendarBMP, UIButton calendarBtn);
+	/*void SetCalendarObjects(Bitmap calendarBMP, UIButton calendarBtn);*/
 	void SetCalendarButtons(UIButton calendarBtn, UIButton moreBtn);
 	void DrawCalendarGrid(bool startOnSunday);
 	void DrawMoreInfo(int mode);
@@ -289,7 +289,7 @@ void CalendarGadget.SetCalendar(bool expandedView, bool gridFlag) {
 	draw.textAlign(00);
 	
 	if (gadget.w == 160) {
-		draw.text(clrText, 40, 26, monthYear);
+		draw.text(clrText, 40, 27, monthYear);
 	}
 	else
 	{
@@ -487,10 +487,10 @@ void CalendarGadget.DrawMoreInfo(int mode) {
 }
 
 
-void CalendarGadget.SetCalendarObjects(Bitmap calendarBMP, UIButton calendarBtn) {
+/*void CalendarGadget.SetCalendarObjects(Bitmap calendarBMP, UIButton calendarBtn) {
 	calBMP = calendarBMP;
 	mainCalButton = calendarBtn;
-}
+}*/
 
 
 void CalendarGadget.SetCalendarButtons(UIButton calendarBtn, UIButton moreBtn) {

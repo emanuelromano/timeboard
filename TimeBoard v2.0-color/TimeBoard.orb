@@ -39,7 +39,7 @@
   dbname = "TimeBoard"
   file = "TimeBoard.prc"
   creator = "KS10"
-  version = "1.1-color"
+  version = "2.0-color"
   locked = false, hidden = false
   icon {
     large1 = "icon_l1.bmp"
@@ -267,14 +267,6 @@
     image8 = "graphics\\connector2.bmp"
     image16 = "graphics\\connector2.bmp"
   }
-  bitmap Bitmap calendarBMP {
-    id = 1093
-    image1 = "graphics\\calendar-icon-bw-lr.bmp"
-    image2 = "graphics\\calendar-icon-gray-lr.bmp"
-    image4 = "graphics\\calendar-icon-gray-lr.bmp"
-    image8 = "graphics\\calendar-icon-lr.bmp"
-    image16 = "graphics\\calendar-icon-lr.bmp"
-  }
   bitmap Bitmap action1BMP {
     id = 1094
     image1 = "graphics\\action1-bw.bmp"
@@ -375,42 +367,6 @@
           id = 1003, sysid = 0, text = "About...", shortcut = "A"
         }
       }
-    }
-    button UIButton bigClockButton {
-      id = 1013
-      x = 91, y = 91, w = 11, h = 11
-      text = ""
-      leftanchor = true, group = 0, fontid = 0
-      graphic = true, bitmapid = 1007, sbitmapid = 1107
-      frame = 1
-      hresize = 1, vresize = 0
-    }
-    button UIButton digiClockButton {
-      id = 1048
-      x = 119, y = 29, w = 11, h = 11
-      text = ""
-      leftanchor = true, group = 0, fontid = 0
-      graphic = true, bitmapid = 1007, sbitmapid = 1107
-      frame = 1
-      hresize = 1, vresize = 0
-    }
-    button UIButton bigBatteryButton {
-      id = 1043
-      x = 119, y = 91, w = 11, h = 11
-      text = ""
-      leftanchor = true, group = 0, fontid = 0
-      graphic = true, bitmapid = 1007, sbitmapid = 1107
-      frame = 1
-      hresize = 1, vresize = 0
-    }
-    button UIButton bigCalendarButton {
-      id = 1010
-      x = 91, y = 119, w = 11, h = 11
-      text = ""
-      leftanchor = true, group = 0, fontid = 0
-      graphic = true, bitmapid = 1007, sbitmapid = 1107
-      frame = 1
-      hresize = 1, vresize = 0
     }
     button UIButton prefsButton {
       id = 1011

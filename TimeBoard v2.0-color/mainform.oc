@@ -2,9 +2,8 @@
 
 
 // Imported bitmats
-
-// Themed buttons
-@bitmap Bitmap btnNormalTheme1 {
+// Themed buttons (deprecated)
+/* @bitmap Bitmap btnNormalTheme1 {
 	id = 8071
 	image8 = "graphics/more-normal-lr-th1.bmp"
 	image16 = "graphics/more-normal-lr-th1.bmp"
@@ -110,7 +109,7 @@
 	id = 8089
 	image8 = "graphics/more-pressed-lr-th9.bmp"
 	image16 = "graphics/more-pressed-lr-th9.bmp"
-}
+} */
 
 
 // Global variables
@@ -1174,16 +1173,33 @@ void drawClockBuffer() {
 	mainBuffer.fgRGB(themeR, themeG, themeB);
 	mainBuffer.frame(clrFG, 11, 116, 105, 148, 5, 3);
 	
+	// Calendar icon (for 2.0)
+	mainBuffer.bgRGB(0, 0, 0);
+	mainBuffer.rect(clrBG, 16, 121, 37, 145, 3);
+	
+	mainBuffer.bgRGB(255, 255, 255);
+	mainBuffer.rect(clrBG, 15, 120, 36, 144, 3);
+	
+	mainBuffer.bgRGB(255, 0, 0);
+	mainBuffer.rect(clrBG, 15, 120, 36, 126, 3);
+	mainBuffer.rect(clrBG, 15, 123, 36, 126, 0);
+	
 	// Digital Clock background (for 2.0)
 	mainBuffer.bgRGB(batteryBgR, batteryBgG, batteryBgB);
 	mainBuffer.rect(clrBG, 114, 11, 152, 47, 6);
 		
+	mainBuffer.fgRGB(shadowR, shadowG, shadowB);
+	mainBuffer.frame(clrFG, 117, 12, 149, 44, 5, 3);
+	
 	mainBuffer.fgRGB(themeR, themeG, themeB);
 	mainBuffer.frame(clrFG, 116, 11, 148, 43, 5, 3);
 	
 	// Battery background (for 2.0)
 	mainBuffer.bgRGB(batteryBgR, batteryBgG, batteryBgB);
 	mainBuffer.rect(clrBG, 114, 53, 152, 109, 6);
+	
+	mainBuffer.fgRGB(shadowR, shadowG, shadowB);
+	mainBuffer.frame(clrFG, 117, 55, 149, 106, 5, 3);
 		
 	mainBuffer.fgRGB(themeR, themeG, themeB);
 	mainBuffer.frame(clrFG, 116, 54, 148, 105, 5, 3);
@@ -1531,7 +1547,7 @@ void setCalendarBuffer() {
 	mainBuffer.textRGB(textR, textG, textB);
 	mainBuffer.font(fntStandard);
 	mainBuffer.textAlign(00);
-	mainBuffer.text(clrText, 40, 119, dayStr);
+	mainBuffer.text(clrText, 40, 121, dayStr);
 	
 	// draw month and year
 	mainBuffer.font(fntBold);
@@ -1598,7 +1614,7 @@ void drawMainTheme() {
 	mainBuffer.end();
 	
 	// Buttons BMPs if color depth is more than 4bpp
-	if (colorDepth > 4) {
+	/*if (colorDepth > 4) {
 		switch (selectedTheme) {
 			case 1:
 				bmpID = 8071;
@@ -1642,14 +1658,14 @@ void drawMainTheme() {
 		bigBatteryButton.sbmpid = sbmpID;
 		bigCalendarButton.bmpid = bmpID;
 		bigCalendarButton.sbmpid =sbmpID;
-	}
+	}*/
 	
 	// DRAW ON SCREEN ELEMENTS from buffer
 	drawBuffer();
 }
 
 
-void setActionBMP(int action) {
+/*void setActionBMP(int action) {
 	switch (action) {
 		case 1:
 			actionSetBMP.id = action1BMP.id;
@@ -1667,7 +1683,7 @@ void setActionBMP(int action) {
 			actionSetBMP.id = action5BMP.id;
 			break;
 	}
-}
+}*/
 
 
 void updateClockOnSleep() {
@@ -1727,18 +1743,18 @@ handler mainForm.onopen() {
 	setClock(timeFormat);
 
 	// Hide buttons initially
-	bigClockButton.visible = false;
+	/*bigClockButton.visible = false;
 	digiClockButton.visible = false;
 	bigBatteryButton.visible = false;
 	bigCalendarButton.visible = false;
-	prefsButton.visible = false;
+	prefsButton.visible = false;*/
 	
 	// Passing buttons and prefs to gadgets by reference
 	clockGadget.SetClockPrefs(false, fntStandard, hours, minutes, seconds, timeFormat, amPm, dateFormat);
 	digiClockGadget.SetDigiClockPrefs(false, true, hours, minutes, seconds, dateFormat, timeFormat, amPm);
 	batteryGadget.GetBatteryParms(colorDepth);
-	calendarGadget.SetCalendarObjects(calendarBMP, bigCalendarButton);
-	setActionBMP(actionSet);
+	/*calendarGadget.SetCalendarObjects(calendarBMP, bigCalendarButton);*/
+	/*setActionBMP(actionSet);*/
 	/*actionGadget.SetAction(actionSet, actionSetBMP, colorDepth);*/
 	
 	// Show small calendar widget without grid
@@ -1796,7 +1812,7 @@ handler mainForm.ontimer() {
 			if (dayB != dayA) {
 				// Draw date in calendar
 				calendarGadget.SetCalendar(false, startOnSunday);
-				bigCalendarButton.visible = true;
+				/*bigCalendarButton.visible = true;*/
 				
 				dayA = today.day;
 			}
@@ -1867,7 +1883,7 @@ handler mainForm.onhkey() {
 				actionSet = 1;
 			}
 
-			setActionBMP(actionSet);
+			/*setActionBMP(actionSet);*/
 			/*actionGadget.DrawAction(actionSetBMP, true);*/
 		}
 	}
@@ -1880,7 +1896,7 @@ handler mainForm.onhkey() {
 				actionSet = 5;
 			}
 			
-			setActionBMP(actionSet);
+			/*setActionBMP(actionSet);*/
 			/*actionGadget.DrawAction(actionSetBMP, true);*/
 		}
 		
@@ -1891,7 +1907,7 @@ handler mainForm.onhkey() {
 				actionSet = 1;
 			}
 			
-			setActionBMP(actionSet);
+			/*setActionBMP(actionSet);*/
 			/*actionGadget.DrawAction(actionSetBMP, true);*/
 		}
 		
@@ -1924,7 +1940,7 @@ handler mainForm.onhkey() {
 
 
 // Soft button handlers
-handler bigClockButton.onselect() {
+/*handler bigClockButton.onselect() {
 	fullClockForm.load();
 }
 
@@ -1942,7 +1958,7 @@ handler bigCalendarButton.onselect() {
 
 handler prefsButton.onselect() {
 	preferencesForm.load();
-}
+}*/
 
 
 // MenuBar handlers
@@ -1989,21 +2005,18 @@ handler menuExit.onselect() {
 }
 
 
-// Gadgets can now open on pen-up event (for 2.0)
+// Gadgets can now open forms on pen-up event (for 2.0)
 handler clockGadget.onpenup() {
 	fullClockForm.load();
 }
-
 
 handler calendarGadget.onpenup() {
 	bigCalendarForm.load();
 }
 
-
 handler digiClockGadget.onpenup() {
 	fullDigiClockForm.load();
 }
-
 
 handler batteryGadget.onpenup() {
 	bigBatteryForm.load();

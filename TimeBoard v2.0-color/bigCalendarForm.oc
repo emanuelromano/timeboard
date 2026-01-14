@@ -24,7 +24,7 @@ handler bigCalendarForm.onopen() {
 	mainBuffer.attachForm(this);
 	draw.attachForm(this);
 	
-	bigCalendarGadget.SetCalendarObjects(calendarBMP, moreCalendarButton);
+	/*bigCalendarGadget.SetCalendarObjects(calendarBMP, moreCalendarButton);*/
 	bigCalendarGadget.SetCalendarButtons(bigCalendarBackButton, moreCalendarButton);
 	
 	bigCalendarBackButton.visible = false;
