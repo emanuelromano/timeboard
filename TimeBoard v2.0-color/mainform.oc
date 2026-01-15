@@ -1325,7 +1325,7 @@ void drawMiniDigiClockBuffer() {
 	mainBuffer.text(clrText, 146, 21, sthr + ":" + stmin);
 	mainBuffer.textAlign(11);
 	mainBuffer.font(fntStandard);
-	mainBuffer.text(clrText, 125, 32, stsec);
+	mainBuffer.text(clrText, 125, 33, stsec);
 }
 
 
@@ -1791,6 +1791,7 @@ handler mainForm.onopen() {
 	bigBatteryButton.visible = false;
 	bigCalendarButton.visible = false;
 	prefsButton.visible = false;*/
+	functionsButton.visible = false;
 	
 	// Passing buttons and prefs to gadgets by reference
 	clockGadget.SetClockPrefs(false, fntStandard, hours, minutes, seconds, timeFormat, amPm, dateFormat);
@@ -1825,6 +1826,7 @@ handler mainForm.ondraw() {
 	bigBatteryButton.visible = true;
 	bigCalendarButton.visible = true;
 	prefsButton.visible = true;*/
+	functionsButton.visible = true;
 }
 
 
@@ -2063,4 +2065,9 @@ handler digiClockGadget.onpenup() {
 
 handler batteryGadget.onpenup() {
 	bigBatteryForm.load();
+}
+
+
+handler functionsButton.onselect() {
+	functionsForm.domodal();
 }

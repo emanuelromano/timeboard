@@ -30,7 +30,8 @@
   "FILE></FORM><FORM><NAME>prefsMoreForm</NAME><FILE>prefsMoreForm."
   "oc</FILE></FORM><FORM><NAME>helpForm</NAME><FILE>helpForm.oc</FI"
   "LE></FORM><FORM><NAME>aboutForm</NAME><FILE>aboutForm.oc</FILE><"
-  "/FORM></FORMS></PROJECT>"
+  "/FORM><FORM><NAME>functionsForm</NAME><FILE>functionsForm.oc</FI"
+  "LE></FORM></FORMS></PROJECT>"
 }
 
 // app definition
@@ -368,12 +369,11 @@
         }
       }
     }
-    button UIButton prefsButton {
+    button UIButton functionsButton {
       id = 1011
-      x = 135, y = 125, w = 10, h = 15
+      x = 120, y = 120, w = 25, h = 25
       text = ""
       leftanchor = true, group = 0, fontid = 0
-      graphic = true, bitmapid = 1006, sbitmapid = 1023
       frame = 1
       hresize = 0, vresize = 0
     }
@@ -396,11 +396,6 @@
       id = 1015
       x = 8, y = 113, w = 101, h = 39
       hresize = 1, vresize = 2
-    }
-    gadget ActionGadget actionGadget {
-      id = 1047
-      x = 113, y = 113, w = 39, h = 39
-      hresize = 1, vresize = 0
     }
     bitmap UIFBitmap easterEggBMP {
       id = 1171
@@ -1205,6 +1200,23 @@
       hresize = 0, vresize = 0
     }
   }
+  form UIForm functionsForm {
+    id = 1010
+    text = ""
+    x = 2, y = 60, w = 156, h = 98
+    menuid = 0, helpid = 0, defbuttonid = 0
+    modal = true, resizable = false
+    hresize = 0, vresize = 0
+    button UIButton functionsBackButton {
+      id = 1013
+      x = 126, y = 81, w = 25, h = 12
+      text = ""
+      leftanchor = true, group = 0, fontid = 0
+      graphic = true, bitmapid = 1053, sbitmapid = 1054
+      frame = 1
+      hresize = 0, vresize = 0
+    }
+  }
 }
 
 // source files
@@ -1224,3 +1236,4 @@
 #include "prefsMoreForm.oc"
 #include "helpForm.oc"
 #include "aboutForm.oc"
+#include "functionsForm.oc"
