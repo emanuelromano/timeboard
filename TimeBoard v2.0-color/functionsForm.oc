@@ -14,8 +14,6 @@ handler functionsForm.onopen() {
 	funAboutBtn.visible = false;
 	
 	functionsBackButton.visible = false;
-	
-	functionSelected = 0;
 }
 
 
@@ -25,7 +23,8 @@ handler functionsForm.ondraw() {
 	draw.bgRGB(highlightR, highlightG, highlightB);
 	draw.rect(clrBG, 0, 0, 160, 100, 0);
 	draw.fgRGB(themeR, themeG, themeB);
-	draw.frame(clrFG, 3, 3, 153, 95, 2, 3);
+	draw.frame(clrFG, 3, 3, 153, 95, 0, 3);
+	draw.frame(clrFG, 3, 3, 153, 95, 5, 3);
 	
 	draw.end();
 	
@@ -44,42 +43,50 @@ handler functionsForm.ondraw() {
 
 // Button handlers
 handler funAnalogClockBtn.onselect() {
-	functionSelected = 1; // Analog clock
+	pendingAction = 1; // Analog clock
+	actionPending = true;
 	functionsForm.close();
 }
 
 handler funDigitalClockBtn.onselect() {
-	functionSelected = 2; // Digital clock
+	pendingAction = 2; // Digital clock
+	actionPending = true;
 	functionsForm.close();
 }
 
 handler funCalendarBtn.onselect() {
-	functionSelected = 3; // Calendar
+	pendingAction = 3; // Calendar
+	actionPending = true;
 	functionsForm.close();
 }
 
 handler funBatteryBtn.onselect() {
-	functionSelected = 4; // Battery
+	pendingAction = 4; // Battery
+	actionPending = true;
 	functionsForm.close();
 }
 
 handler funTimeSyncBtn.onselect() {
-	functionSelected = 5; // Time sync
+	pendingAction = 5; // Time sync
+	actionPending = true;
 	functionsForm.close();
 }
 
 handler funPreferencesBtn.onselect() {
-	functionSelected = 6; // Preferences
+	pendingAction = 6; // Preferences
+	actionPending = true;
 	functionsForm.close();
 }
 
 handler funHelpBtn.onselect() {
-	functionSelected = 7; // Help
+	pendingAction = 7; // Help
+	actionPending = true;
 	functionsForm.close();
 }
 
 handler funAboutBtn.onselect() {
-	functionSelected = 8; // About
+	pendingAction = 8; // About
+	actionPending = true;
 	functionsForm.close();
 }
 

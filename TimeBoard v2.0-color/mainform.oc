@@ -128,10 +128,11 @@ int hr, min, charge, chargeFill, fill,
 	lastSecs,
 	updateTimer = 0,
 	buttonsMode,
-	functionSelected;
+	pendingAction = 0;
 string hoursStr, minutesStr, secondsStr,
 	sthr, stmin;
 bool soundsEnabled, showConnectors, startOnSunday, easterEgg;
+bool actionPending = false;
 
 
 // Main form background
@@ -1835,6 +1836,8 @@ handler mainForm.ondraw() {
 	bigCalendarButton.visible = true;
 	prefsButton.visible = true;*/
 	functionsButton.visible = true;
+	
+	funcBMP.visible = true;
 }
 
 
@@ -1846,6 +1849,38 @@ handler mainForm.onresize() {
 
 // Timer handler
 handler mainForm.ontimer() {
+	// Opens form if it was selected in functions modal form
+	if (actionPending) {
+		actionPending = false;
+		
+		switch (pendingAction) {
+			case 1:
+				fullClockForm.load();
+				break;
+			case 2:
+				fullDigiClockForm.load();
+				break;
+			case 3:
+				bigCalendarForm.load();
+				break;
+			case 4:
+				bigBatteryForm.load();
+				break;
+			case 5:
+				alert("Time sync coming soon...");
+				break;
+			case 6:
+				preferencesForm.load();
+				break;
+			case 7:
+				helpForm.load();
+				break;
+			case 8:
+				aboutForm.load();
+				break;
+		}
+	}
+	
 	setClock(timeFormat);
 	
 	dayB = today.day;
@@ -2077,31 +2112,4 @@ handler batteryGadget.onpenup() {
 
 handler functionsButton.onselect() {
 	functionsForm.domodal();
-	
-	switch (functionSelected) {
-		case 1:
-			fullClockForm.load();
-			break;
-		case 2:
-			fullDigiClockForm.load();
-			break;
-		case 3:
-			bigCalendarForm.load();
-			break;
-		case 4:
-			bigBatteryForm.load();
-			break;
-		case 5:
-			alert("Time sync coming soon...");
-			break;
-		case 6:
-			preferencesForm.load();
-			break;
-		case 7:
-			helpForm.load();
-			break;
-		case 8:
-			aboutForm.load();
-			break;
-	}
 }

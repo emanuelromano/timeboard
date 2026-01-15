@@ -6,6 +6,8 @@ handler preferencesForm.onopen() {
 	// set main theme
 	setTheme(preferences[0].selectedTheme, false);
 	
+	draw.attachForm(this);
+	
 	// Sounds button and icon hidden - WIP
 	soundPrefsButton.visible = false;
 	bitmap1134.visible = false;

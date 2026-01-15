@@ -268,45 +268,17 @@
     image8 = "graphics\\connector2.bmp"
     image16 = "graphics\\connector2.bmp"
   }
-  bitmap Bitmap action1BMP {
+  bitmap Bitmap functionsNormalBMP {
     id = 1094
-    image1 = "graphics\\action1-bw.bmp"
-    image2 = "graphics\\action1-gray.bmp"
-    image4 = "graphics\\action1-gray.bmp"
-    image8 = "graphics\\action1.bmp"
-    image16 = "graphics\\action1.bmp"
+    image4 = "graphics\\functions-normal-lr.bmp"
+    image8 = "graphics\\functions-normal-lr.bmp"
+    image16 = "graphics\\functions-normal-lr.bmp"
   }
-  bitmap Bitmap action2BMP {
-    id = 1183
-    image1 = "graphics\\action2-bw.bmp"
-    image2 = "graphics\\action2-gray.bmp"
-    image4 = "graphics\\action2-gray.bmp"
-    image8 = "graphics\\action2.bmp"
-    image16 = "graphics\\action2.bmp"
-  }
-  bitmap Bitmap action3BMP {
-    id = 1184
-    image1 = "graphics\\action3-bw.bmp"
-    image2 = "graphics\\action3-gray.bmp"
-    image4 = "graphics\\action3-gray.bmp"
-    image8 = "graphics\\action3.bmp"
-    image16 = "graphics\\action3.bmp"
-  }
-  bitmap Bitmap action4BMP {
-    id = 1185
-    image1 = "graphics\\action4-bw.bmp"
-    image2 = "graphics\\action4-gray.bmp"
-    image4 = "graphics\\action4-gray.bmp"
-    image8 = "graphics\\action4.bmp"
-    image16 = "graphics\\action4.bmp"
-  }
-  bitmap Bitmap action5BMP {
-    id = 1186
-    image1 = "graphics\\action5-bw.bmp"
-    image2 = "graphics\\action5-gray.bmp"
-    image4 = "graphics\\action5-gray.bmp"
-    image8 = "graphics\\action5.bmp"
-    image16 = "graphics\\action5.bmp"
+  bitmap Bitmap functionsPressedBMP {
+    id = 1177
+    image4 = "graphics\\functions-pressed-lr.bmp"
+    image8 = "graphics\\functions-pressed-lr.bmp"
+    image16 = "graphics\\functions-pressed-lr.bmp"
   }
   resstring UIString battCal5String {
     id = 1125, text = " · To calculate the remaining battery time, the device will measure power consumption over the next 5 minutes. During the test period, it will remain inactive and unresponsive. To interrupt this process, reset the device.\n\n · Once completed, the remaining usage time will be estimated based on the discharge rate.\n\n ·  You can adjust the duration of the testing period in the 'Preferences > More' menu.\n\n · DISCLAIMER: This function might be inacurate and may vary dependind on brightness, battery health and CPU clock speed."
@@ -401,6 +373,12 @@
       id = 1171
       x = 12, y = 97
       bitmapid = 1074
+      hresize = 0, vresize = 0
+    }
+    bitmap UIFBitmap funcBMP {
+      id = 1176
+      x = 120, y = 120
+      bitmapid = 1094
       hresize = 0, vresize = 0
     }
   }
@@ -1154,9 +1132,10 @@
     }
     button UIButton backHelpButton {
       id = 1102
-      x = 117, y = 140, w = 35, h = 12
-      text = "Back"
+      x = 127, y = 140, w = 25, h = 12
+      text = ""
       leftanchor = true, group = 0, fontid = 0
+      graphic = true, bitmapid = 1053, sbitmapid = 1054
       frame = 1
       hresize = 1, vresize = 1
     }
@@ -1178,9 +1157,10 @@
     }
     button UIButton okButton {
       id = 1008
-      x = 128, y = 140, w = 24, h = 12
-      text = "Nice!"
+      x = 127, y = 140, w = 25, h = 12
+      text = ""
       leftanchor = true, group = 0, fontid = 0
+      graphic = true, bitmapid = 1053, sbitmapid = 1054
       frame = 1
       hresize = 1, vresize = 1
     }
