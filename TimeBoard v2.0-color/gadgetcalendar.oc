@@ -195,40 +195,40 @@ void CalendarGadget.SetCalendar(bool expandedView, bool gridFlag) {
 	{
 		switch (monthNum) {
 			case 1:
-				monthStr = "Jan";
+				monthStr = "Jan.";
 				break;
 			case 2:
-				monthStr = "Feb";
+				monthStr = "Feb.";
 				break;
 			case 3:
-				monthStr = "Mar";
+				monthStr = "Mar.";
 				break;
 			case 4:
-				monthStr = "Apr";
+				monthStr = "Apr.";
 				break;
 			case 5:
-				monthStr = "May";
+				monthStr = "May.";
 				break;
 			case 6:
-				monthStr = "Jun";
+				monthStr = "Jun.";
 				break;
 			case 7:
-				monthStr = "Jul";
+				monthStr = "Jul.";
 				break;
 			case 8:
-				monthStr = "Aug";
+				monthStr = "Aug.";
 				break;
 			case 9:
-				monthStr = "Sep";
+				monthStr = "Sep.";
 				break;
 			case 10:
-				monthStr = "Oct";
+				monthStr = "Oct.";
 				break;
 			case 11:
-				monthStr = "Nov";
+				monthStr = "Nov.";
 				break;
 			case 12:
-				monthStr = "Dec";
+				monthStr = "Dec.";
 				break;
 			default:
 				monthStr = "---";

@@ -1,4 +1,87 @@
+// Functions form
 
+
+handler functionsForm.onopen() {
+	draw.attachForm(this);
+	
+	funAnalogClockBtn.visible = false;
+	funDigitalClockBtn.visible = false;
+	funCalendarBtn.visible = false;
+	funBatteryBtn.visible = false;
+	funTimeSyncBtn.visible = false;
+	funPreferencesBtn.visible = false;
+	funHelpBtn.visible = false;
+	funAboutBtn.visible = false;
+	
+	functionsBackButton.visible = false;
+	
+	functionSelected = 0;
+}
+
+
+handler functionsForm.ondraw() {
+	draw.begin();
+	
+	draw.bgRGB(highlightR, highlightG, highlightB);
+	draw.rect(clrBG, 0, 0, 160, 100, 0);
+	draw.fgRGB(themeR, themeG, themeB);
+	draw.frame(clrFG, 3, 3, 153, 95, 2, 3);
+	
+	draw.end();
+	
+	funAnalogClockBtn.visible = true;
+	funDigitalClockBtn.visible = true;
+	funCalendarBtn.visible = true;
+	funBatteryBtn.visible = true;
+	funTimeSyncBtn.visible = true;
+	funPreferencesBtn.visible = true;
+	funHelpBtn.visible = true;
+	funAboutBtn.visible = true;
+	
+	functionsBackButton.visible = true;
+}
+
+
+// Button handlers
+handler funAnalogClockBtn.onselect() {
+	functionSelected = 1; // Analog clock
+	functionsForm.close();
+}
+
+handler funDigitalClockBtn.onselect() {
+	functionSelected = 2; // Digital clock
+	functionsForm.close();
+}
+
+handler funCalendarBtn.onselect() {
+	functionSelected = 3; // Calendar
+	functionsForm.close();
+}
+
+handler funBatteryBtn.onselect() {
+	functionSelected = 4; // Battery
+	functionsForm.close();
+}
+
+handler funTimeSyncBtn.onselect() {
+	functionSelected = 5; // Time sync
+	functionsForm.close();
+}
+
+handler funPreferencesBtn.onselect() {
+	functionSelected = 6; // Preferences
+	functionsForm.close();
+}
+
+handler funHelpBtn.onselect() {
+	functionSelected = 7; // Help
+	functionsForm.close();
+}
+
+handler funAboutBtn.onselect() {
+	functionSelected = 8; // About
+	functionsForm.close();
+}
 
 handler functionsBackButton.onselect() {
 	functionsForm.close();
