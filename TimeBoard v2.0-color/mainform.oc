@@ -2,114 +2,114 @@
 
 
 // Imported bitmats
-// Themed buttons (deprecated)
-/* @bitmap Bitmap btnNormalTheme1 {
+// Themed fuction button
+@bitmap Bitmap btnNormalTheme1 {
 	id = 8071
-	image8 = "graphics/more-normal-lr-th1.bmp"
-	image16 = "graphics/more-normal-lr-th1.bmp"
+	image8 = "graphics/functions-normal-lr-th1.bmp"
+	image16 = "graphics/functions-normal-lr-th1.bmp"
 }
 
 @bitmap Bitmap btnNormalTheme2 {
 	id = 8072
-	image8 = "graphics/more-normal-lr-th2.bmp"
-	image16 = "graphics/more-normal-lr-th2.bmp"
+	image8 = "graphics/functions-normal-lr-th2.bmp"
+	image16 = "graphics/functions-normal-lr-th2.bmp"
 }
 
 @bitmap Bitmap btnNormalTheme3 {
 	id = 8073
-	image8 = "graphics/more-normal-lr-th3.bmp"
-	image16 = "graphics/more-normal-lr-th3.bmp"
+	image8 = "graphics/functions-normal-lr-th3.bmp"
+	image16 = "graphics/functions-normal-lr-th3.bmp"
 }
 
 @bitmap Bitmap btnNormalTheme4 {
 	id = 8074
-	image8 = "graphics/more-normal-lr-th4.bmp"
-	image16 = "graphics/more-normal-lr-th4.bmp"
+	image8 = "graphics/functions-normal-lr-th4.bmp"
+	image16 = "graphics/functions-normal-lr-th4.bmp"
 }
 
 @bitmap Bitmap btnNormalTheme5 {
 	id = 8075
-	image8 = "graphics/more-normal-lr-th5.bmp"
-	image16 = "graphics/more-normal-lr-th5.bmp"
+	image8 = "graphics/functions-normal-lr-th5.bmp"
+	image16 = "graphics/functions-normal-lr-th5.bmp"
 }
 
 @bitmap Bitmap btnNormalTheme6 {
 	id = 8076
-	image8 = "graphics/more-normal-lr-th6.bmp"
-	image16 = "graphics/more-normal-lr-th6.bmp"
+	image8 = "graphics/functions-normal-lr-th6.bmp"
+	image16 = "graphics/functions-normal-lr-th6.bmp"
 }
 
 @bitmap Bitmap btnNormalTheme7 {
 	id = 8077
-	image8 = "graphics/more-normal-lr-th7.bmp"
-	image16 = "graphics/more-normal-lr-th7.bmp"
+	image8 = "graphics/functions-normal-lr-th7.bmp"
+	image16 = "graphics/functions-normal-lr-th7.bmp"
 }
 
 @bitmap Bitmap btnNormalTheme8 {
 	id = 8078
-	image8 = "graphics/more-normal-lr-th8.bmp"
-	image16 = "graphics/more-normal-lr-th8.bmp"
+	image8 = "graphics/functions-normal-lr-th8.bmp"
+	image16 = "graphics/functions-normal-lr-th8.bmp"
 }
 
-@bitmap Bitmap btnNormalTheme9 {
+/*@bitmap Bitmap btnNormalTheme9 {
 	id = 8079
-	image8 = "graphics/more-normal-lr-th9.bmp"
-	image16 = "graphics/more-normal-lr-th9.bmp"
-}
+	image8 = "graphics/functions-pressed-lr-th9.bmp"
+	image16 = "graphics/functions-pressed-lr-th9.bmp"
+}*/
 
 @bitmap Bitmap btnPressedTheme1 {
 	id = 8081
-	image8 = "graphics/more-pressed-lr-th1.bmp"
-	image16 = "graphics/more-pressed-lr-th1.bmp"
+	image8 = "graphics/functions-pressed-lr-th1.bmp"
+	image16 = "graphics/functions-pressed-lr-th1.bmp"
 }
 
 @bitmap Bitmap btnPressedTheme2 {
 	id = 8082
-	image8 = "graphics/more-pressed-lr-th2.bmp"
-	image16 = "graphics/more-pressed-lr-th2.bmp"
+	image8 = "graphics/functions-pressed-lr-th2.bmp"
+	image16 = "graphics/functions-pressed-lr-th2.bmp"
 }
 
 @bitmap Bitmap btnPressedTheme3 {
 	id = 8083
-	image8 = "graphics/more-pressed-lr-th3.bmp"
-	image16 = "graphics/more-pressed-lr-th3.bmp"
+	image8 = "graphics/functions-pressed-lr-th3.bmp"
+	image16 = "graphics/functions-pressed-lr-th3.bmp"
 }
 
 @bitmap Bitmap btnPressedTheme4 {
 	id = 8084
-	image8 = "graphics/more-pressed-lr-th4.bmp"
-	image16 = "graphics/more-pressed-lr-th4.bmp"
+	image8 = "graphics/functions-pressed-lr-th4.bmp"
+	image16 = "graphics/functions-pressed-lr-th4.bmp"
 }
 
 @bitmap Bitmap btnPressedTheme5 {
 	id = 8085
-	image8 = "graphics/more-pressed-lr-th5.bmp"
-	image16 = "graphics/more-pressed-lr-th5.bmp"
+	image8 = "graphics/functions-pressed-lr-th5.bmp"
+	image16 = "graphics/functions-pressed-lr-th5.bmp"
 }
 
 @bitmap Bitmap btnPressedTheme6 {
 	id = 8086
-	image8 = "graphics/more-pressed-lr-th6.bmp"
-	image16 = "graphics/more-pressed-lr-th6.bmp"
+	image8 = "graphics/functions-pressed-lr-th6.bmp"
+	image16 = "graphics/functions-pressed-lr-th6.bmp"
 }
 
 @bitmap Bitmap btnPressedTheme7 {
 	id = 8087
-	image8 = "graphics/more-pressed-lr-th7.bmp"
-	image16 = "graphics/more-pressed-lr-th7.bmp"
+	image8 = "graphics/functions-pressed-lr-th7.bmp"
+	image16 = "graphics/functions-pressed-lr-th7.bmp"
 }
 
 @bitmap Bitmap btnPressedTheme8 {
 	id = 8088
-	image8 = "graphics/more-pressed-lr-th8.bmp"
-	image16 = "graphics/more-pressed-lr-th8.bmp"
+	image8 = "graphics/functions-pressed-lr-th8.bmp"
+	image16 = "graphics/functions-pressed-lr-th8.bmp"
 }
 
-@bitmap Bitmap btnPressedTheme9 {
+/*@bitmap Bitmap btnPressedTheme9 {
 	id = 8089
-	image8 = "graphics/more-pressed-lr-th9.bmp"
-	image16 = "graphics/more-pressed-lr-th9.bmp"
-} */
+	image8 = "graphics/functions-pressed-lr-th9.bmp"
+	image16 = "graphics/functions-pressed-lr-th9.bmp"
+}*/
 
 
 // Global variables
@@ -1130,10 +1130,6 @@ void drawBuffer() {
 	draw.begin();
 	draw.draw(mainBuffer, 0, 0); // draw buffer
 	draw.end();
-	
-	/*mainBuffer.begin();
-	mainBuffer.release();
-	mainBuffer.end();*/
 }
 
 
@@ -1666,7 +1662,7 @@ void drawMainTheme() {
 	mainBuffer.end();
 	
 	// Buttons BMPs if color depth is more than 4bpp
-	/*if (colorDepth > 4) {
+	if (colorDepth > 4) {
 		switch (selectedTheme) {
 			case 1:
 				bmpID = 8071;
@@ -1693,24 +1689,18 @@ void drawMainTheme() {
 				sbmpID = 8086;
 				break;
 			case 7:
+				bmpID = 8077;
+				sbmpID = 8087;
+				break;
+			case 8:
 				bmpID = 8078;
 				sbmpID = 8088;
 				break;
-			case 8:
-				bmpID = 8079;
-				sbmpID = 8089;
-				break;
 		}
 		
-		bigClockButton.bmpid = bmpID;
-		bigClockButton.sbmpid = sbmpID;
-		digiClockButton.bmpid = bmpID;
-		digiClockButton.sbmpid = sbmpID;
-		bigBatteryButton.bmpid = bmpID;
-		bigBatteryButton.sbmpid = sbmpID;
-		bigCalendarButton.bmpid = bmpID;
-		bigCalendarButton.sbmpid =sbmpID;
-	}*/
+		functionsButton.bmpid = bmpID;
+		functionsButton.sbmpid = sbmpID;
+	}
 	
 	// DRAW ON SCREEN ELEMENTS from buffer
 	drawBuffer();
@@ -1836,8 +1826,6 @@ handler mainForm.ondraw() {
 	bigCalendarButton.visible = true;
 	prefsButton.visible = true;*/
 	functionsButton.visible = true;
-	
-	funcBMP.visible = true;
 }
 
 

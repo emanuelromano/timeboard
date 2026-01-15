@@ -346,7 +346,8 @@
       x = 120, y = 120, w = 25, h = 25
       text = ""
       leftanchor = true, group = 0, fontid = 0
-      frame = 1
+      graphic = true, bitmapid = 1094, sbitmapid = 1177
+      frame = 0
       hresize = 0, vresize = 0
     }
     gadget ClockGadget clockGadget {
@@ -373,12 +374,6 @@
       id = 1171
       x = 12, y = 97
       bitmapid = 1074
-      hresize = 0, vresize = 0
-    }
-    bitmap UIFBitmap funcBMP {
-      id = 1176
-      x = 120, y = 120
-      bitmapid = 1094
       hresize = 0, vresize = 0
     }
   }
