@@ -270,15 +270,103 @@
   }
   bitmap Bitmap functionsNormalBMP {
     id = 1094
-    image4 = "graphics\\functions-normal-lr.bmp"
     image8 = "graphics\\functions-normal-lr.bmp"
     image16 = "graphics\\functions-normal-lr.bmp"
   }
   bitmap Bitmap functionsPressedBMP {
     id = 1177
-    image4 = "graphics\\functions-pressed-lr.bmp"
     image8 = "graphics\\functions-pressed-lr.bmp"
     image16 = "graphics\\functions-pressed-lr.bmp"
+  }
+  bitmap Bitmap funcAnalogClockBMP {
+    id = 1176
+    image8 = "graphics\\functions-analogclock-lr.bmp"
+    image16 = "graphics\\functions-analogclock-lr.bmp"
+  }
+  bitmap Bitmap funcAnalogClockPressedBMP {
+    id = 1178
+    image8 = "graphics\\functions-analogclock-pressed-lr.bmp"
+    image16 = "graphics\\functions-analogclock-pressed-lr.bmp"
+  }
+  bitmap Bitmap funcDigiClockBMP {
+    id = 1183
+    image8 = "graphics\\functions-digiclock-lr.bmp"
+    image16 = "graphics\\functions-digiclock-lr.bmp"
+  }
+  bitmap Bitmap funcDigiClockPressedBMP {
+    id = 1184
+    image8 = "graphics\\functions-digiclock-pressed-lr.bmp"
+    image16 = "graphics\\functions-digiclock-pressed-lr.bmp"
+  }
+  bitmap Bitmap funcCalendarBMP {
+    id = 1185
+    image8 = "graphics\\functions-calendar-lr.bmp"
+    image16 = "graphics\\functions-calendar-lr.bmp"
+  }
+  bitmap Bitmap funcCalendarPressedBMP {
+    id = 1186
+    image8 = "graphics\\functions-calendar-pressed-lr.bmp"
+    image16 = "graphics\\functions-calendar-pressed-lr.bmp"
+  }
+  bitmap Bitmap funcBatteryBMP {
+    id = 1188
+    image8 = "graphics\\functions-battery-lr.bmp"
+    image16 = "graphics\\functions-battery-lr.bmp"
+  }
+  bitmap Bitmap funcBatteryPressedBMP {
+    id = 1189
+    image8 = "graphics\\functions-battery-pressed-lr.bmp"
+    image16 = "graphics\\functions-battery-pressed-lr.bmp"
+  }
+  bitmap Bitmap funcTimeSyncBMP {
+    id = 1190
+    image8 = "graphics\\functions-timesync-lr.bmp"
+    image16 = "graphics\\functions-timesync-lr.bmp"
+  }
+  bitmap Bitmap funcTimeSyncPressedBMP {
+    id = 1191
+    image8 = "graphics\\functions-timesync-pressed-lr.bmp"
+    image16 = "graphics\\functions-timesync-pressed-lr.bmp"
+  }
+  bitmap Bitmap funcPrefsBMP {
+    id = 1192
+    image8 = "graphics\\functions-prefs-lr.bmp"
+    image16 = "graphics\\functions-prefs-lr.bmp"
+  }
+  bitmap Bitmap funcPrefsPressedBMP {
+    id = 1193
+    image8 = "graphics\\functions-prefs-pressed-lr.bmp"
+    image16 = "graphics\\functions-prefs-pressed-lr.bmp"
+  }
+  bitmap Bitmap funcHelpBMP {
+    id = 1194
+    image8 = "graphics\\functions-help-lr.bmp"
+    image16 = "graphics\\functions-help-lr.bmp"
+  }
+  bitmap Bitmap funcHelpPressedBMP {
+    id = 1195
+    image8 = "graphics\\functions-help-pressed-lr.bmp"
+    image16 = "graphics\\functions-help-pressed-lr.bmp"
+  }
+  bitmap Bitmap funcAboutBMP {
+    id = 1196
+    image8 = "graphics\\functions-about-lr.bmp"
+    image16 = "graphics\\functions-about-lr.bmp"
+  }
+  bitmap Bitmap funcAboutPressedBMP {
+    id = 1197
+    image8 = "graphics\\functions-about-pressed-lr.bmp"
+    image16 = "graphics\\functions-about-pressed-lr.bmp"
+  }
+  bitmap Bitmap funcExitBMP {
+    id = 1198
+    image8 = "graphics\\functions-exit-lr.bmp"
+    image16 = "graphics\\functions-exit-lr.bmp"
+  }
+  bitmap Bitmap funcExitPressedBMP {
+    id = 1199
+    image8 = "graphics\\functions-exit-pressed-lr.bmp"
+    image16 = "graphics\\functions-exit-pressed-lr.bmp"
   }
   resstring UIString battCal5String {
     id = 1125, text = " · To calculate the remaining battery time, the device will measure power consumption over the next 5 minutes. During the test period, it will remain inactive and unresponsive. To interrupt this process, reset the device.\n\n · Once completed, the remaining usage time will be estimated based on the discharge rate.\n\n ·  You can adjust the duration of the testing period in the 'Preferences > More' menu.\n\n · DISCLAIMER: This function might be inacurate and may vary dependind on brightness, battery health and CPU clock speed."
@@ -1194,64 +1282,81 @@
     button UIButton funAnalogClockBtn {
       id = 1043
       x = 14, y = 12, w = 25, h = 25
-      text = "AC"
+      text = ""
       leftanchor = true, group = 0, fontid = 0
+      graphic = true, bitmapid = 1176, sbitmapid = 1178
       frame = 1
       hresize = 0, vresize = 0
     }
     button UIButton funDigitalClockBtn {
       id = 1047
       x = 49, y = 12, w = 25, h = 25
-      text = "DC"
+      text = ""
       leftanchor = true, group = 0, fontid = 0
+      graphic = true, bitmapid = 1183, sbitmapid = 1184
       frame = 1
       hresize = 0, vresize = 0
     }
     button UIButton funCalendarBtn {
       id = 1048
       x = 83, y = 12, w = 25, h = 25
-      text = "C"
+      text = ""
       leftanchor = true, group = 0, fontid = 0
+      graphic = true, bitmapid = 1185, sbitmapid = 1186
       frame = 1
       hresize = 0, vresize = 0
     }
     button UIButton funBatteryBtn {
       id = 1075
       x = 118, y = 12, w = 25, h = 25
-      text = "B"
+      text = ""
       leftanchor = true, group = 0, fontid = 0
+      graphic = true, bitmapid = 1188, sbitmapid = 1189
       frame = 1
       hresize = 0, vresize = 0
     }
     button UIButton funTimeSyncBtn {
       id = 1093
       x = 14, y = 46, w = 25, h = 25
-      text = "TS"
+      text = ""
       leftanchor = true, group = 0, fontid = 0
+      graphic = true, bitmapid = 1190, sbitmapid = 1191
       frame = 1
       hresize = 0, vresize = 0
     }
     button UIButton funPreferencesBtn {
       id = 1173
       x = 49, y = 46, w = 25, h = 25
-      text = "P"
+      text = ""
       leftanchor = true, group = 0, fontid = 0
+      graphic = true, bitmapid = 1192, sbitmapid = 1193
       frame = 1
       hresize = 0, vresize = 0
     }
     button UIButton funHelpBtn {
       id = 1174
       x = 83, y = 46, w = 25, h = 25
-      text = "H"
+      text = ""
       leftanchor = true, group = 0, fontid = 0
+      graphic = true, bitmapid = 1194, sbitmapid = 1195
       frame = 1
       hresize = 0, vresize = 0
     }
     button UIButton funAboutBtn {
       id = 1175
       x = 118, y = 46, w = 25, h = 25
-      text = "A"
+      text = ""
       leftanchor = true, group = 0, fontid = 0
+      graphic = true, bitmapid = 1196, sbitmapid = 1197
+      frame = 1
+      hresize = 0, vresize = 0
+    }
+    button UIButton funcExitButton {
+      id = 1179
+      x = 7, y = 79, w = 12, h = 12
+      text = ""
+      leftanchor = true, group = 0, fontid = 0
+      graphic = true, bitmapid = 1198, sbitmapid = 1199
       frame = 1
       hresize = 0, vresize = 0
     }

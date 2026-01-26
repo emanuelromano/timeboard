@@ -17,7 +17,7 @@ struct CalendarGadget {
 	void SetCalendarButtons(UIButton calendarBtn, UIButton moreBtn);
 	void DrawCalendarGrid(bool startOnSunday);
 	void DrawMoreInfo(int mode);
-	//void DrawBuffer();
+	void DrawBuffer();
 
 	// Internal data
 	Bitmap calBMP;
@@ -63,50 +63,65 @@ void CalendarGadget.DrawCalendar(bool calendarFlag) {
 	border = 8;
 	
 	if (calendarFlag) {
-		draw.begin();
+		calBuffer.begin();
 		
 		// Shadow
-		draw.fgRGB(caShadowR, caShadowG, caShadowB);
-		draw.frame(clrFG, border+3, border+3,
+		calBuffer.fgRGB(caShadowR, caShadowG, caShadowB);
+		calBuffer.frame(clrFG, border+3, border+3,
 					gadget.w-(border+2), gadget.h-(border+2), 5, 2);
 		
 		// Background
-		draw.fgRGB(caBackgroundR, caBackgroundG, caBackgroundB);
-		draw.rect(clrFG, border+3, border+3,
+		calBuffer.fgRGB(caBackgroundR, caBackgroundG, caBackgroundB);
+		calBuffer.rect(clrFG, border+3, border+3,
 					gadget.w-(border+2), gadget.h-(border+2), 5);
 		
 		// Border
-		draw.fgRGB(caBorderR, caBorderG, caBorderB);
-		draw.frame(clrFG, border+3, border+3,
+		calBuffer.fgRGB(caBorderR, caBorderG, caBorderB);
+		calBuffer.frame(clrFG, border+3, border+3,
 					gadget.w-(border+4), gadget.h-(border+4), 5, 3);
 		
-		// Calendar rectangle
-		draw.bitmap(calBMP, border+6, border+6);
+		// Calendar icon behind date
+		calBuffer.bgRGB(0, 0, 0);
+		calBuffer.rect(clrBG, 16, 16, 37, 40, 3);
+		
+		calBuffer.bgRGB(255, 255, 255);
+		calBuffer.rect(clrBG, 15, 15, 36, 39, 3);
+		
+		calBuffer.bgRGB(255, 0, 0);
+		calBuffer.rect(clrBG, 15, 15, 36, 21, 3);
+		calBuffer.rect(clrBG, 15, 18, 36, 21, 0);
+		calBuffer.bgRGB(153, 0, 0);
+		calBuffer.rect(clrBG, 17, 17, 19, 19, 1);
+		calBuffer.rect(clrBG, 20, 17, 22, 19, 1);
+		calBuffer.rect(clrBG, 23, 17, 25, 19, 1);
+		calBuffer.rect(clrBG, 26, 17, 28, 19, 1);
+		calBuffer.rect(clrBG, 29, 17, 31, 19, 1);
+		calBuffer.rect(clrBG, 32, 17, 34, 19, 1);
 		
 		
 		// Details around button
-		draw.rect(clrFG, gadget.w-45, gadget.h-32,
+		calBuffer.rect(clrFG, gadget.w-45, gadget.h-32,
 					gadget.w-9, gadget.h-9, 8);
 		
-		draw.fgRGB(caBorderR, caBorderG, caBorderB);
+		calBuffer.fgRGB(caBorderR, caBorderG, caBorderB);
 		
-		draw.line(clrFG, gadget.w-16, gadget.h-32,
+		calBuffer.line(clrFG, gadget.w-16, gadget.h-32,
 						gadget.w-13, gadget.h-32);
-		draw.line(clrFG, gadget.w-15, gadget.h-33,
+		calBuffer.line(clrFG, gadget.w-15, gadget.h-33,
 						gadget.w-13, gadget.h-33);
-		draw.line(clrFG, gadget.w-14, gadget.h-34,
+		calBuffer.line(clrFG, gadget.w-14, gadget.h-34,
 						gadget.w-13, gadget.h-34);
-		draw.line(clrFG, gadget.w-13, gadget.h-35,
+		calBuffer.line(clrFG, gadget.w-13, gadget.h-35,
 						gadget.w-13, gadget.h-35);
 		
-		draw.line(clrFG, gadget.w-48, gadget.h-13,
+		calBuffer.line(clrFG, gadget.w-48, gadget.h-13,
 						gadget.w-45, gadget.h-13);
-		draw.line(clrFG, gadget.w-47, gadget.h-14,
+		calBuffer.line(clrFG, gadget.w-47, gadget.h-14,
 						gadget.w-45, gadget.h-14);
-		draw.line(clrFG, gadget.w-46, gadget.h-15,
+		calBuffer.line(clrFG, gadget.w-46, gadget.h-15,
 						gadget.w-45, gadget.h-15);
 		
-		draw.end();
+		calBuffer.end();
 	}
 }
 
@@ -240,60 +255,61 @@ void CalendarGadget.SetCalendar(bool expandedView, bool gridFlag) {
 	monthYear = monthStr + ", " + today.year + "   ";
 	
 	// Draw date on calendar
-	draw.begin();
-	draw.bgRGB(255, 255, 255);
-	draw.textRGB(0, 51, 102);
-	draw.font(fntLargeBold);
-	draw.textAlign(11);
+	calBuffer.begin();
+	calBuffer.bgRGB(255, 255, 255);
+	calBuffer.textRGB(0, 51, 102);
+	calBuffer.font(fntLargeBold);
+	calBuffer.textAlign(11);
+	
 	dateOnCalendar = today.day;
 	
 	if (strlen(dateOnCalendar) == 1) {
 		if (gadget.w == 160) {
-			draw.text(clrText, 25, 29, "  " + dateOnCalendar + "  ");
+			calBuffer.text(clrText, 25, 29, "  " + dateOnCalendar + "  ");
 		}
 		else
 		{
-			draw.text(clrText, 17, 21, "  " + dateOnCalendar + "  ");
+			calBuffer.text(clrText, 17, 21, "  " + dateOnCalendar + "  ");
 		}
 	}
 	else
 	{
 		if (gadget.w == 160) {
-			draw.text(clrText, 23, 29, strleft(dateOnCalendar, 1) + " ");
-			draw.text(clrText, 29, 29, strright(dateOnCalendar, 1));
+			calBuffer.text(clrText, 23, 29, strleft(dateOnCalendar, 1) + " ");
+			calBuffer.text(clrText, 29, 29, strright(dateOnCalendar, 1));
 		}
 		else
 		{
-			draw.text(clrText, 15, 21, strleft(dateOnCalendar, 1)  + " ");
-			draw.text(clrText, 21, 21, strright(dateOnCalendar, 1));
+			calBuffer.text(clrText, 15, 21, strleft(dateOnCalendar, 1)  + " ");
+			calBuffer.text(clrText, 21, 21, strright(dateOnCalendar, 1));
 		}
 	}
 
 	// Draw weekday
-	draw.bgRGB(caBackgroundR, caBackgroundG, caBackgroundB);
-	//draw.bgRGB(0, 0, 0);
-	draw.textRGB(caTextR, caTextG, caTextB);
-	draw.font(fntStandard);
-	draw.textAlign(00);
+	calBuffer.bgRGB(caBackgroundR, caBackgroundG, caBackgroundB);
+	//calBuffer.bgRGB(0, 0, 0);
+	calBuffer.textRGB(caTextR, caTextG, caTextB);
+	calBuffer.font(fntStandard);
+	calBuffer.textAlign(00);
 	
 	if (gadget.w == 160) {
-		draw.text(clrText, 40, 16, dayStr);
+		calBuffer.text(clrText, 40, 16, dayStr);
 	}
 	else
 	{
-		draw.text(clrText, 32, 8, dayStr);
+		calBuffer.text(clrText, 32, 8, dayStr);
 	}
 	
 	// Draw month and year
-	draw.font(fntBold);
-	draw.textAlign(00);
+	calBuffer.font(fntBold);
+	calBuffer.textAlign(00);
 	
 	if (gadget.w == 160) {
-		draw.text(clrText, 40, 27, monthYear);
+		calBuffer.text(clrText, 40, 27, monthYear);
 	}
 	else
 	{
-		draw.text(clrText, 32, 19, monthYear);
+		calBuffer.text(clrText, 32, 19, monthYear);
 	}
 	
 	// Draw calendar drid
@@ -303,7 +319,7 @@ void CalendarGadget.SetCalendar(bool expandedView, bool gridFlag) {
 	
 	drawBGRectangle = true;
 
-	draw.end();
+	calBuffer.end();
 }
 
 
@@ -350,46 +366,46 @@ void CalendarGadget.DrawCalendarGrid(bool startOnSunday) {
     startX = (calendarW/2) - 45;
     startY = (calendarH/2) - 20;
 
-    draw.begin();
-    draw.textAlign(11);
-    draw.font(fntBold);
-    draw.bgRGB(caBackgroundR, caBackgroundG, caBackgroundB);
-    draw.textRGB(caTextR, caTextG, caTextB);
+    calBuffer.begin();
+    calBuffer.textAlign(11);
+    calBuffer.font(fntBold);
+    calBuffer.bgRGB(caBackgroundR, caBackgroundG, caBackgroundB);
+    calBuffer.textRGB(caTextR, caTextG, caTextB);
     
     // Background rectangle
-    draw.fgRGB(caBackgroundR, caBackgroundG, caBackgroundB);
-    draw.rect(clrFG, 26, 45, 134, 122, 0);
+    calBuffer.fgRGB(caBackgroundR, caBackgroundG, caBackgroundB);
+    calBuffer.rect(clrFG, 26, 45, 134, 122, 0);
 
     // Draw weekday headers based on startOnSunday flag
     if (startOnSunday) {
-    	draw.textRGB(255, 51, 51);
-        draw.text(clrText, (calendarW/2)-45, (calendarH/2)-30, "S");
-        draw.textRGB(caTextR, caTextG, caTextB);
-        draw.text(clrText, (calendarW/2)-30, (calendarH/2)-30, "M");
-        draw.text(clrText, (calendarW/2)-15, (calendarH/2)-30, "T");
-        draw.text(clrText, (calendarW/2),    (calendarH/2)-30, "W");
-        draw.text(clrText, (calendarW/2)+15, (calendarH/2)-30, "T");
-        draw.text(clrText, (calendarW/2)+30, (calendarH/2)-30, "F");
-        draw.textRGB(255, 51, 51);
-        draw.text(clrText, (calendarW/2)+45, (calendarH/2)-30, "S");
-        draw.textRGB(caTextR, caTextG, caTextB);
+    	calBuffer.textRGB(255, 51, 51);
+        calBuffer.text(clrText, (calendarW/2)-45, (calendarH/2)-30, "S");
+        calBuffer.textRGB(caTextR, caTextG, caTextB);
+        calBuffer.text(clrText, (calendarW/2)-30, (calendarH/2)-30, "M");
+        calBuffer.text(clrText, (calendarW/2)-15, (calendarH/2)-30, "T");
+        calBuffer.text(clrText, (calendarW/2),    (calendarH/2)-30, "W");
+        calBuffer.text(clrText, (calendarW/2)+15, (calendarH/2)-30, "T");
+        calBuffer.text(clrText, (calendarW/2)+30, (calendarH/2)-30, "F");
+        calBuffer.textRGB(255, 51, 51);
+        calBuffer.text(clrText, (calendarW/2)+45, (calendarH/2)-30, "S");
+        calBuffer.textRGB(caTextR, caTextG, caTextB);
     } else {
-        draw.text(clrText, (calendarW/2)-45, (calendarH/2)-30, "M");
-        draw.text(clrText, (calendarW/2)-30, (calendarH/2)-30, "T");
-        draw.text(clrText, (calendarW/2)-15, (calendarH/2)-30, "W");
-        draw.text(clrText, (calendarW/2),    (calendarH/2)-30, "T");
-        draw.text(clrText, (calendarW/2)+15, (calendarH/2)-30, "F");
-        draw.textRGB(255, 51, 51);
-        draw.text(clrText, (calendarW/2)+30, (calendarH/2)-30, "S");
-        draw.text(clrText, (calendarW/2)+45, (calendarH/2)-30, "S");
-        draw.textRGB(caTextR, caTextG, caTextB);
+        calBuffer.text(clrText, (calendarW/2)-45, (calendarH/2)-30, "M");
+        calBuffer.text(clrText, (calendarW/2)-30, (calendarH/2)-30, "T");
+        calBuffer.text(clrText, (calendarW/2)-15, (calendarH/2)-30, "W");
+        calBuffer.text(clrText, (calendarW/2),    (calendarH/2)-30, "T");
+        calBuffer.text(clrText, (calendarW/2)+15, (calendarH/2)-30, "F");
+        calBuffer.textRGB(255, 51, 51);
+        calBuffer.text(clrText, (calendarW/2)+30, (calendarH/2)-30, "S");
+        calBuffer.text(clrText, (calendarW/2)+45, (calendarH/2)-30, "S");
+        calBuffer.textRGB(caTextR, caTextG, caTextB);
     }
 
     // Start drawing day numbers
     col = firstWeekday;
     row = 0;
 
-    draw.font(fntStandard);
+    calBuffer.font(fntStandard);
 
     for (day = 1; day <= daysInMonth; day++) {
         x = startX + (col * 15);
@@ -397,18 +413,18 @@ void CalendarGadget.DrawCalendarGrid(bool startOnSunday) {
 		
         // Highlight today in red background and white bold text
         if (day == todayDay) {
-            draw.bgRGB(255, 0, 0);
-            draw.textRGB(255, 255, 255);
-            draw.font(fntBold);
+            calBuffer.bgRGB(255, 0, 0);
+            calBuffer.textRGB(255, 255, 255);
+            calBuffer.font(fntBold);
             
-            draw.rect(clrBG, x-8, y-4, x+7, y+7, 3);
-            draw.text(clrText, x, y, day);
+            calBuffer.rect(clrBG, x-8, y-4, x+7, y+7, 3);
+            calBuffer.text(clrText, x, y, day);
             
-            draw.font(fntStandard);  // Reset font for following days
-            draw.bgRGB(caBackgroundR, caBackgroundG, caBackgroundB);
-            draw.textRGB(caTextR, caTextG, caTextB);
+            calBuffer.font(fntStandard);  // Reset font for following days
+            calBuffer.bgRGB(caBackgroundR, caBackgroundG, caBackgroundB);
+            calBuffer.textRGB(caTextR, caTextG, caTextB);
         } else {
-            draw.text(clrText, x, y, day);
+            calBuffer.text(clrText, x, y, day);
         }
 
         // Move to next column/row
@@ -419,7 +435,7 @@ void CalendarGadget.DrawCalendarGrid(bool startOnSunday) {
         }
     }
     
-	draw.end();
+	calBuffer.end();
 }
 
 
@@ -442,48 +458,48 @@ void CalendarGadget.DrawMoreInfo(int mode) {
 	x2 = 101;
 	y = 60;
 
-	draw.begin();
+	calBuffer.begin();
 	
     // Background rectangle
-    draw.fgRGB(caBackgroundR, caBackgroundG, caBackgroundB);
-    if (drawBGRectangle) draw.rect(clrFG, 26, 45, 134, 122, 0);
+    calBuffer.fgRGB(caBackgroundR, caBackgroundG, caBackgroundB);
+    if (drawBGRectangle) calBuffer.rect(clrFG, 26, 45, 134, 122, 0);
     
-    draw.bgRGB(caBackgroundR, caBackgroundG, caBackgroundB);
-    draw.textRGB(caTextR, caTextG, caTextB);
+    calBuffer.bgRGB(caBackgroundR, caBackgroundG, caBackgroundB);
+    calBuffer.textRGB(caTextR, caTextG, caTextB);
     
-    draw.font(fntStandard);
-    draw.textAlign(00);
+    calBuffer.font(fntStandard);
+    calBuffer.textAlign(00);
 	infoText = "Day number: ";
-	draw.text(clrText, x, y, infoText);
+	calBuffer.text(clrText, x, y, infoText);
 	
-	draw.font(fntBold);
-	draw.textAlign(02);
-	draw.textRGB(255, 0, 0);
-	draw.text(clrText, x+x2, y, dayOfYear);
+	calBuffer.font(fntBold);
+	calBuffer.textAlign(02);
+	calBuffer.textRGB(255, 0, 0);
+	calBuffer.text(clrText, x+x2, y, dayOfYear);
 	
-	draw.textRGB(caTextR, caTextG, caTextB);
-	draw.font(fntStandard);
-	draw.textAlign(00);
+	calBuffer.textRGB(caTextR, caTextG, caTextB);
+	calBuffer.font(fntStandard);
+	calBuffer.textAlign(00);
 	infoText = "Week number:";
-	draw.text(clrText, x, y+12, infoText);
+	calBuffer.text(clrText, x, y+12, infoText);
 	
-	draw.font(fntBold);
-	draw.textAlign(02);
-	draw.textRGB(255, 0, 0);
-	draw.text(clrText, x+x2, y+12, weekNumber);
+	calBuffer.font(fntBold);
+	calBuffer.textAlign(02);
+	calBuffer.textRGB(255, 0, 0);
+	calBuffer.text(clrText, x+x2, y+12, weekNumber);
 	
-	draw.textRGB(caTextR, caTextG, caTextB);
-	draw.font(fntStandard);
-	draw.textAlign(00);
+	calBuffer.textRGB(caTextR, caTextG, caTextB);
+	calBuffer.font(fntStandard);
+	calBuffer.textAlign(00);
 	infoText =  "Days left: ";
-	draw.text(clrText, x, y+24, infoText);
+	calBuffer.text(clrText, x, y+24, infoText);
 	
-	draw.font(fntBold);
-	draw.textAlign(02);
-	draw.textRGB(255, 0, 0);
-	draw.text(clrText, x+x2, y+24, daysLeft);
+	calBuffer.font(fntBold);
+	calBuffer.textAlign(02);
+	calBuffer.textRGB(255, 0, 0);
+	calBuffer.text(clrText, x+x2, y+24, daysLeft);
     
-    draw.end();
+    calBuffer.end();
 }
 
 
@@ -500,14 +516,16 @@ void CalendarGadget.SetCalendarButtons(UIButton calendarBtn, UIButton moreBtn) {
 
 
 // Draw the buffer on screen
-/*void CalendarGadget.DrawBuffer() {
+void CalendarGadget.DrawBuffer() {
 	draw.begin();
-	draw.draw(buffer, gadget.x, gadget.y);
+	draw.draw(calBuffer, gadget.x, gadget.y);
 	draw.end();
-}*/
+}
 
 
 void CalendarGadget.onopen() {
+	calBuffer.create(160, 160);
+	
 	draw.attachGadget(gadget); 
 }
 
@@ -526,6 +544,8 @@ void CalendarGadget.ondraw() {
 	}*/
 	
 	DrawCalendar(false);
+	
+	DrawBuffer();
 	
 	if (gadget.w < 160) {
 		SetCalendar(false, true);

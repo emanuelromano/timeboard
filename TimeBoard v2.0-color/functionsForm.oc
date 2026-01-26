@@ -14,6 +14,7 @@ handler functionsForm.onopen() {
 	funAboutBtn.visible = false;
 	
 	functionsBackButton.visible = false;
+	funcExitButton.visible = false;
 }
 
 
@@ -38,6 +39,7 @@ handler functionsForm.ondraw() {
 	funAboutBtn.visible = true;
 	
 	functionsBackButton.visible = true;
+	funcExitButton.visible = true;
 }
 
 
@@ -92,4 +94,9 @@ handler funAboutBtn.onselect() {
 
 handler functionsBackButton.onselect() {
 	functionsForm.close();
+}
+
+handler funcExitButton.onselect() {
+	SavePrefsOnClose();
+	clock.abort();
 }

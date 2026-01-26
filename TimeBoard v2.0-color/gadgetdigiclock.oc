@@ -509,7 +509,7 @@ void DigiClockGadget.DrawMiniDigiClock(int hour, int minute, int second) {
 	draw.text(clrText, 33, 13, sthr + ":" + stmin);
 	draw.textAlign(11);
 	draw.font(fntStandard);
-	draw.text(clrText, 12, 25, stsec);
+	draw.text(clrText, 27, 25, stsec);
 	
 	draw.end();
 }
