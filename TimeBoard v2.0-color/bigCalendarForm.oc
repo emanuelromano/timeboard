@@ -7,7 +7,7 @@ void drawMoreInfo() {
 	if (moreCalendarInfo == false) {
 		moreCalendarInfo = true;
 		
-		bigCalendarGadget.DrawMoreInfo(calendarMode);
+		bigCalendarGadget.DrawMoreInfo();
 	}
 	else
 	{
@@ -23,12 +23,11 @@ handler bigCalendarForm.onopen() {
 	// UIform attach this form for drawind methods;
 	mainBuffer.attachForm(this);
 	draw.attachForm(this);
-	
-	/*bigCalendarGadget.SetCalendarObjects(calendarBMP, moreCalendarButton);*/
-	bigCalendarGadget.SetCalendarButtons(bigCalendarBackButton, moreCalendarButton);
+		
+	bigCalendarGadget.SetCalendarBackground(colorDepth, preferences[0].selectedBackground, backgroundColorIndex);
+	bigCalendarGadget.SetCalendarButtons(bigCalendarBackButton);
 	
 	bigCalendarBackButton.visible = false;
-	moreCalendarButton.visible = false;
 	
 	moreCalendarInfo = false;
 	
@@ -58,12 +57,10 @@ handler bigCalendarForm.onresize() {
 	draw.attachForm(this);
 	
 	if (bigCalendarGadget.gadget.h == bigCalendarGadget.gadget.w) {
-		moreCalendarButton.visible = true;
 		moreCalendarInfo = false;
 	}
 	else
 	{
-		moreCalendarButton.visible = false;
 		moreCalendarInfo = true;
 	}
 }
@@ -92,9 +89,9 @@ handler bigCalendarBackButton.onselect() {
 }
 
 
-handler moreCalendarButton.onselect() {
+/*handler moreCalendarButton.onselect() {
 	drawMoreInfo();
-}
+}*/
 
 
 // Hard button handlers

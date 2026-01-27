@@ -13,10 +13,11 @@ struct CalendarGadget {
 							int shdR, int shdG, int shdB,
 							int txtR, int txtG, int txtB);
 	void SetCalendar(bool expandedView, bool gridFlag);
-	/*void SetCalendarObjects(Bitmap calendarBMP, UIButton calendarBtn);*/
-	void SetCalendarButtons(UIButton calendarBtn, UIButton moreBtn);
+	void SetCalendarBackground(int colorDepth, int background, int backgroundColorIndex);
+	void SetCalendarButtons(UIButton calendarBtn);
 	void DrawCalendarGrid(bool startOnSunday);
-	void DrawMoreInfo(int mode);
+	void DrawMoreInfo();
+	void DrawBackground();
 	void DrawBuffer();
 
 	// Internal data
@@ -36,6 +37,7 @@ int caBorderR, caBorderG, caBorderB,
 	caBackgroundR, caBackgroundG, caBackgroundB,
 	caShadowR, caShadowG, caShadowB,
 	caTextR, caTextG, caTextB;
+int caColorDepth, caBackground, caBackgroundColorIndex;
 
 void CalendarGadget.SetCalendarTheme(int frmR, int frmG, int frmB,
 									int bgR, int bgG, int bgB,
@@ -59,12 +61,80 @@ void CalendarGadget.SetCalendarTheme(int frmR, int frmG, int frmB,
 }
 
 
+// Set background variables
+void CalendarGadget.SetCalendarBackground(int colorDepth, int background, int backgroundColorIndex) {
+	caColorDepth = colorDepth;
+	caBackground = background;
+	caBackgroundColorIndex = backgroundColorIndex;
+}
+
+
+void CalendarGadget.DrawBackground() {
+	if (caColorDepth > 4) {
+		switch (caBackground) {
+			case 1:
+				// form background: Day
+				calBuffer.begin();
+				calBuffer.bgRGB(204, 255, 153);
+				calBuffer.rect(clrBG, 0, 0, gadget.w, gadget.h, 0);
+				calBuffer.bgRGB(153, 204, 255);
+				calBuffer.rect(clrBG, 0, 0, gadget.w, 60, 0);
+				calBuffer.bgRGB(255, 255, 153);
+				calBuffer.rect(clrBG, -47, -50, 57, 50, 50);
+				calBuffer.end();
+				break;			
+			case 2:
+				// form background: Sunrise
+				calBuffer.begin();
+				calBuffer.bgRGB(255, 153, 0);
+				calBuffer.rect(clrBG, 0, 0, gadget.w, gadget.h, 0);
+				calBuffer.bgRGB(255, 255, 0);
+				calBuffer.rect(clrBG, 90, 20, 190, 120, 50);
+				calBuffer.bgRGB(153, 0, 0);
+				calBuffer.rect(clrBG, 0, 60, gadget.w, gadget.h, 0);
+				calBuffer.end();
+				break;
+			case 3:
+				// form background: Sunset
+				calBuffer.begin();
+				calBuffer.bgRGB(255, 153, 204);
+				calBuffer.rect(clrBG, 0, 0, gadget.w, gadget.h, 0);
+				calBuffer.bgRGB(255, 255, 0);
+				calBuffer.rect(clrBG, -50, 20, 50, 120, 50);
+				calBuffer.bgRGB(50, 50, 102);
+				calBuffer.rect(clrBG, 0, 60, gadget.w, gadget.h, 0);
+				calBuffer.end();
+				break;
+			case 4:
+				// form background: Night
+				calBuffer.begin();
+				calBuffer.bgRGB(51, 51, 102);
+				calBuffer.rect(clrBG, 0, 0, gadget.w, gadget.h, 0);
+				calBuffer.bgRGB(51, 102, 153);
+				calBuffer.rect(clrBG, 0, 0, gadget.w, 60, 0);
+				calBuffer.bgRGB(255, 255, 204);
+				calBuffer.rect(clrBG, 40, -40, 120, 40, 40);
+				calBuffer.end();
+				break;
+			case 5:
+				// form background: Custom...
+				calBuffer.begin();
+				calBuffer.fg(caBackgroundColorIndex);
+				calBuffer.rect(clrFG, 0, 0, gadget.w, gadget.h, 0);
+				calBuffer.end();
+				break;
+		}
+	}
+}
+
+
 void CalendarGadget.DrawCalendar(bool calendarFlag) {
 	border = 8;
 	
+	DrawBackground();
+	
 	if (calendarFlag) {
-		calBuffer.begin();
-		
+		calBuffer.begin();		
 		// Shadow
 		calBuffer.fgRGB(caShadowR, caShadowG, caShadowB);
 		calBuffer.frame(clrFG, border+3, border+3,
@@ -436,10 +506,12 @@ void CalendarGadget.DrawCalendarGrid(bool startOnSunday) {
     }
     
 	calBuffer.end();
+	
+	DrawMoreInfo();
 }
 
 
-void CalendarGadget.DrawMoreInfo(int mode) {
+void CalendarGadget.DrawMoreInfo() {
     string infoText;
     int dayOfYear, daysLeft, weekNumber, x, x2, y;
 
@@ -454,50 +526,50 @@ void CalendarGadget.DrawMoreInfo(int mode) {
 	// Week number
 	weekNumber = (dayOfYear - 1) / 7 + 1;
 	
-	x = 30;
-	x2 = 101;
-	y = 60;
+	x = 21;
+	x2 = 86;
+	y = 121;
 
 	calBuffer.begin();
 	
     // Background rectangle
-    calBuffer.fgRGB(caBackgroundR, caBackgroundG, caBackgroundB);
-    if (drawBGRectangle) calBuffer.rect(clrFG, 26, 45, 134, 122, 0);
+    //calBuffer.fgRGB(caBackgroundR, caBackgroundG, caBackgroundB);
+    //if (drawBGRectangle) calBuffer.rect(clrFG, 26, 45, 134, 122, 0);
     
     calBuffer.bgRGB(caBackgroundR, caBackgroundG, caBackgroundB);
     calBuffer.textRGB(caTextR, caTextG, caTextB);
     
     calBuffer.font(fntStandard);
     calBuffer.textAlign(00);
-	infoText = "Day number: ";
+	infoText = "Day/Week: ";
 	calBuffer.text(clrText, x, y, infoText);
 	
 	calBuffer.font(fntBold);
 	calBuffer.textAlign(02);
 	calBuffer.textRGB(255, 0, 0);
-	calBuffer.text(clrText, x+x2, y, dayOfYear);
+	calBuffer.text(clrText, x+x2, y, dayOfYear + "/" + weekNumber);
 	
-	calBuffer.textRGB(caTextR, caTextG, caTextB);
+	/*calBuffer.textRGB(caTextR, caTextG, caTextB);
 	calBuffer.font(fntStandard);
 	calBuffer.textAlign(00);
 	infoText = "Week number:";
-	calBuffer.text(clrText, x, y+12, infoText);
+	calBuffer.text(clrText, x, y+10, infoText);*/
 	
-	calBuffer.font(fntBold);
+	/*calBuffer.font(fntBold);
 	calBuffer.textAlign(02);
 	calBuffer.textRGB(255, 0, 0);
-	calBuffer.text(clrText, x+x2, y+12, weekNumber);
+	calBuffer.text(clrText, x+x2, y+10, weekNumber);*/
 	
 	calBuffer.textRGB(caTextR, caTextG, caTextB);
 	calBuffer.font(fntStandard);
 	calBuffer.textAlign(00);
 	infoText =  "Days left: ";
-	calBuffer.text(clrText, x, y+24, infoText);
+	calBuffer.text(clrText, x, y+10, infoText);
 	
 	calBuffer.font(fntBold);
 	calBuffer.textAlign(02);
 	calBuffer.textRGB(255, 0, 0);
-	calBuffer.text(clrText, x+x2, y+24, daysLeft);
+	calBuffer.text(clrText, x+x2, y+10, daysLeft);
     
     calBuffer.end();
 }
@@ -509,9 +581,8 @@ void CalendarGadget.DrawMoreInfo(int mode) {
 }*/
 
 
-void CalendarGadget.SetCalendarButtons(UIButton calendarBtn, UIButton moreBtn) {
+void CalendarGadget.SetCalendarButtons(UIButton calendarBtn) {
 	calendarButton = calendarBtn;
-	moreButton = moreBtn;
 }
 
 
@@ -543,7 +614,7 @@ void CalendarGadget.ondraw() {
 		buffer.release();
 	}*/
 	
-	DrawCalendar(false);
+	//DrawCalendar(false);
 	
 	DrawBuffer();
 	
@@ -554,6 +625,5 @@ void CalendarGadget.ondraw() {
 	else
 	{
 		calendarButton.visible = true;
-		moreButton.visible = true;
 	}
 }

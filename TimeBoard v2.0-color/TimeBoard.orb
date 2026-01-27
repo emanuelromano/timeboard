@@ -609,15 +609,6 @@
       frame = 1
       hresize = 1, vresize = 1
     }
-    button UIButton moreCalendarButton {
-      id = 1170
-      x = 98, y = 132, w = 11, h = 11
-      text = ""
-      leftanchor = true, group = 0, fontid = 0
-      graphic = true, bitmapid = 1007, sbitmapid = 1107
-      frame = 1
-      hresize = 1, vresize = 1
-    }
     gadget CalendarGadget bigCalendarGadget {
       id = 1022
       x = 0, y = 0, w = 160, h = 160
