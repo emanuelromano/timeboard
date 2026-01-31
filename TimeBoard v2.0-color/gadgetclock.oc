@@ -265,12 +265,12 @@ void ClockGadget.DrawDigitalClock(int hours, int minutes, int amPm) {
 	if (timeF == 2) {
 		if (amPm == 1) {
 			clockBuffer.font(fntStandard);
-			clockBuffer.text(clrText, gadget.w-4, 17, "AM");
+			clockBuffer.text(clrText, gadget.w-4, 16, "am");
 		}
 		else
 		{
 			clockBuffer.font(fntStandard);
-			clockBuffer.text(clrText, gadget.w-4, 17, "PM");
+			clockBuffer.text(clrText, gadget.w-4, 16, "pm");
 		}
 	}
 }
@@ -369,11 +369,11 @@ void ClockGadget.DrawClockHands(bool showDigital, int hours, int minutes, int se
 	
 	clockBuffer.fgRGB(cSecondsR, cSecondsG, cSecondsB);
 	DrawClockHand(chSec, clrFG); // seconds hand with new color
-	clockBuffer.rect(clrFG, ptCenter.x-1, ptCenter.y-1, ptCenter.x+2, ptCenter.y+2, 2);
+	clockBuffer.rect(clrFG, ptCenter.x-2, ptCenter.y-2, ptCenter.x+3, ptCenter.y+3, 3);
 	clockBuffer.fgRGB(cHandsR, cHandsG, cHandsB);
 	
 	// Show AM/PM on Overview
-	if (!showDigital) {
+	/*if (!showDigital) {
 		clockBuffer.bgRGB(cBackgroundR, cBackgroundG, cBackgroundB);
 		clockBuffer.textRGB(cSecondsR, cSecondsG, cSecondsB);
 		clockBuffer.textAlign(12);
@@ -385,7 +385,7 @@ void ClockGadget.DrawClockHands(bool showDigital, int hours, int minutes, int se
 			else
 				clockBuffer.text(clrText, gadget.w, 18, "PM");
 		}
-	}
+	}*/
 	
 	if (showDigital) DrawDigitalClock(hours, minutes, amPm);
 	
