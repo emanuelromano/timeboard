@@ -1130,6 +1130,8 @@ void drawBuffer() {
 	draw.begin();
 	draw.draw(mainBuffer, 0, 0); // draw buffer
 	draw.end();
+	
+	mainBuffer.release();
 }
 
 

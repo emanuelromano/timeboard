@@ -5,6 +5,7 @@ struct CalendarGadget {
 	// Default event handlers
 	void onopen();
 	void ondraw();
+	void onclose();
 
 	// Internal methods
 	void DrawCalendar(bool calendarFlag);
@@ -13,11 +14,9 @@ struct CalendarGadget {
 							int shdR, int shdG, int shdB,
 							int txtR, int txtG, int txtB);
 	void SetCalendar(bool expandedView, bool gridFlag);
-	void SetCalendarBackground(int colorDepth, int background, int backgroundColorIndex);
 	void SetCalendarButtons(UIButton calendarBtn);
 	void DrawCalendarGrid(bool startOnSunday);
 	void DrawMoreInfo();
-	void DrawBackground();
 	void DrawBuffer();
 
 	// Internal data
@@ -61,77 +60,8 @@ void CalendarGadget.SetCalendarTheme(int frmR, int frmG, int frmB,
 }
 
 
-// Set background variables
-void CalendarGadget.SetCalendarBackground(int colorDepth, int background, int backgroundColorIndex) {
-	caColorDepth = colorDepth;
-	caBackground = background;
-	caBackgroundColorIndex = backgroundColorIndex;
-}
-
-
-void CalendarGadget.DrawBackground() {
-	if (caColorDepth > 4) {
-		switch (caBackground) {
-			case 1:
-				// form background: Day
-				calBuffer.begin();
-				calBuffer.bgRGB(204, 255, 153);
-				calBuffer.rect(clrBG, 0, 0, gadget.w, gadget.h, 0);
-				calBuffer.bgRGB(153, 204, 255);
-				calBuffer.rect(clrBG, 0, 0, gadget.w, 60, 0);
-				calBuffer.bgRGB(255, 255, 153);
-				calBuffer.rect(clrBG, -47, -50, 57, 50, 50);
-				calBuffer.end();
-				break;			
-			case 2:
-				// form background: Sunrise
-				calBuffer.begin();
-				calBuffer.bgRGB(255, 153, 0);
-				calBuffer.rect(clrBG, 0, 0, gadget.w, gadget.h, 0);
-				calBuffer.bgRGB(255, 255, 0);
-				calBuffer.rect(clrBG, 90, 20, 190, 120, 50);
-				calBuffer.bgRGB(153, 0, 0);
-				calBuffer.rect(clrBG, 0, 60, gadget.w, gadget.h, 0);
-				calBuffer.end();
-				break;
-			case 3:
-				// form background: Sunset
-				calBuffer.begin();
-				calBuffer.bgRGB(255, 153, 204);
-				calBuffer.rect(clrBG, 0, 0, gadget.w, gadget.h, 0);
-				calBuffer.bgRGB(255, 255, 0);
-				calBuffer.rect(clrBG, -50, 20, 50, 120, 50);
-				calBuffer.bgRGB(50, 50, 102);
-				calBuffer.rect(clrBG, 0, 60, gadget.w, gadget.h, 0);
-				calBuffer.end();
-				break;
-			case 4:
-				// form background: Night
-				calBuffer.begin();
-				calBuffer.bgRGB(51, 51, 102);
-				calBuffer.rect(clrBG, 0, 0, gadget.w, gadget.h, 0);
-				calBuffer.bgRGB(51, 102, 153);
-				calBuffer.rect(clrBG, 0, 0, gadget.w, 60, 0);
-				calBuffer.bgRGB(255, 255, 204);
-				calBuffer.rect(clrBG, 40, -40, 120, 40, 40);
-				calBuffer.end();
-				break;
-			case 5:
-				// form background: Custom...
-				calBuffer.begin();
-				calBuffer.fg(caBackgroundColorIndex);
-				calBuffer.rect(clrFG, 0, 0, gadget.w, gadget.h, 0);
-				calBuffer.end();
-				break;
-		}
-	}
-}
-
-
 void CalendarGadget.DrawCalendar(bool calendarFlag) {
-	border = 8;
-	
-	DrawBackground();
+	border = 0;
 	
 	if (calendarFlag) {
 		calBuffer.begin();		
@@ -170,26 +100,8 @@ void CalendarGadget.DrawCalendar(bool calendarFlag) {
 		
 		
 		// Details around button
-		calBuffer.rect(clrFG, gadget.w-45, gadget.h-32,
-					gadget.w-9, gadget.h-9, 8);
-		
-		calBuffer.fgRGB(caBorderR, caBorderG, caBorderB);
-		
-		calBuffer.line(clrFG, gadget.w-16, gadget.h-32,
-						gadget.w-13, gadget.h-32);
-		calBuffer.line(clrFG, gadget.w-15, gadget.h-33,
-						gadget.w-13, gadget.h-33);
-		calBuffer.line(clrFG, gadget.w-14, gadget.h-34,
-						gadget.w-13, gadget.h-34);
-		calBuffer.line(clrFG, gadget.w-13, gadget.h-35,
-						gadget.w-13, gadget.h-35);
-		
-		calBuffer.line(clrFG, gadget.w-48, gadget.h-13,
-						gadget.w-45, gadget.h-13);
-		calBuffer.line(clrFG, gadget.w-47, gadget.h-14,
-						gadget.w-45, gadget.h-14);
-		calBuffer.line(clrFG, gadget.w-46, gadget.h-15,
-						gadget.w-45, gadget.h-15);
+		calBuffer.rect(clrFG, gadget.w-38, gadget.h-25,
+					gadget.w-1, gadget.h-1, 6);
 		
 		calBuffer.end();
 	}
@@ -411,7 +323,7 @@ void CalendarGadget.DrawCalendarGrid(bool startOnSunday) {
 
     // Get calendar gadget dimensions
     calendarW = gadget.w;
-    calendarH = gadget.h;
+    calendarH = gadget.h-4;
 
     // Get the first day of the month
     temp = today;
@@ -626,4 +538,8 @@ void CalendarGadget.ondraw() {
 	{
 		calendarButton.visible = true;
 	}
+}
+
+void CalendarGadget.onclose() {
+	calBuffer.release();
 }

@@ -20,9 +20,6 @@ handler bigBatteryForm.onopen() {
 }
 
 handler bigBatteryForm.ondraw() {
-	// Draw main background from saved preferences
-	setMainBg(preferences[0].selectedBackground);
-	
 	// draw big battery
 	bigBatteryGadget.DrawBatteryFrame();
 	bigBatteryGadget.DrawBigBatteryIcon();

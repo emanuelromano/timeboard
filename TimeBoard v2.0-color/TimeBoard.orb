@@ -602,7 +602,7 @@
     hresize = 2, vresize = 2
     button UIButton bigCalendarBackButton {
       id = 1037
-      x = 119, y = 132, w = 25, h = 12
+      x = 127, y = 140, w = 25, h = 12
       text = "Back"
       leftanchor = true, group = 0, fontid = 0
       graphic = true, bitmapid = 1053, sbitmapid = 1054
@@ -624,7 +624,7 @@
     hresize = 2, vresize = 2
     button UIButton bigBatteryBackButton {
       id = 1045
-      x = 119, y = 132, w = 25, h = 12
+      x = 127, y = 140, w = 25, h = 12
       text = "Back"
       leftanchor = true, group = 0, fontid = 0
       graphic = true, bitmapid = 1053, sbitmapid = 1054
@@ -633,7 +633,7 @@
     }
     button UIButton batteryCalButton {
       id = 1120
-      x = 16, y = 132, w = 25, h = 12
+      x = 8, y = 140, w = 25, h = 12
       text = "button1120"
       leftanchor = true, group = 0, fontid = 0
       graphic = true, bitmapid = 1118, sbitmapid = 1119
@@ -642,7 +642,7 @@
     }
     gadget BatteryGadget bigBatteryGadget {
       id = 1044
-      x = 8, y = 8, w = 144, h = 144
+      x = 0, y = 0, w = 160, h = 160
       hresize = 2, vresize = 2
     }
   }

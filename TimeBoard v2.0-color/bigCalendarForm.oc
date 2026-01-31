@@ -24,7 +24,6 @@ handler bigCalendarForm.onopen() {
 	mainBuffer.attachForm(this);
 	draw.attachForm(this);
 		
-	bigCalendarGadget.SetCalendarBackground(colorDepth, preferences[0].selectedBackground, backgroundColorIndex);
 	bigCalendarGadget.SetCalendarButtons(bigCalendarBackButton);
 	
 	bigCalendarBackButton.visible = false;

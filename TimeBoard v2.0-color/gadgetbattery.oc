@@ -476,7 +476,7 @@ void BatteryGadget.DrawBatteryInfo() {
 void BatteryGadget.DrawBatteryFrame() {
 	border = 3;
 	
-	if (gadget.w == 144) {
+	if (gadget.w == 160) {
 		draw.begin();
 		// shadow
 		draw.fgRGB(battShadowR, battShadowG, battShadowB);
