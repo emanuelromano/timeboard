@@ -160,7 +160,7 @@ struct DigiClockGadget {
 							int bgR, int bgG, int bgB,
 							int shdR, int shdG, int shdB,
 							int txtR, int txtG, int txtB);
-	void DrawMiniDigiClock(int hour, int minute, int second);
+	void DrawMiniDigiClock(int hour, int minute, int second, int amPm);
 	void ShowDate();
 	void SetDigiClockPrefs(bool pref1, bool pref2, int hours, int minutes, int seconds, int dateFormat, int timeFormat, int amPm);
 	void GetDigiClockButton(bool hasButton, UIButton button);
@@ -467,15 +467,14 @@ void DigiClockGadget.DrawDigiClock(int hours, int minutes, int seconds, int amPm
 	draw.bitmap(sec1, (gadget.w / 2)+43, (gadget.h / 2)+20);
 	draw.bitmap(sec2, (gadget.w / 2)+56, (gadget.h / 2)+20);
 	
-	if (timeF == 2) {
-		draw.bitmap(amPmBMP, (gadget.w / 2)-69, (gadget.h / 2)+20);
-	}
+	// Draw AM/PM
+	if (timeF == 2) draw.bitmap(amPmBMP, (gadget.w / 2)-69, (gadget.h / 2)+20);
 
 	draw.end();
 }
 
 
-void DigiClockGadget.DrawMiniDigiClock(int hour, int minute, int second) {
+void DigiClockGadget.DrawMiniDigiClock(int hour, int minute, int second, int amPm) {
 	if (timeF == 1) {
 		if (strlen(hour) == 1)
 			sthr = "0" + hour;
@@ -510,6 +509,16 @@ void DigiClockGadget.DrawMiniDigiClock(int hour, int minute, int second) {
 	draw.textAlign(11);
 	draw.font(fntStandard);
 	draw.text(clrText, 27, 25, stsec);
+	
+	if (timeF == 2) {
+		if (amPm == 1) {
+			draw.text(clrText, 12, 25, "am");
+		}
+		else
+		{
+			draw.text(clrText, 12, 25, "pm");
+		}
+	}
 	
 	draw.end();
 }
@@ -617,7 +626,7 @@ void DigiClockGadget.ondraw() {
 	}
 	
 	if (preference2) {
-		DrawMiniDigiClock(hr, min, sec);
+		DrawMiniDigiClock(hr, min, sec, amOrPm);
 	}
 	
 	if (hasButton1) {

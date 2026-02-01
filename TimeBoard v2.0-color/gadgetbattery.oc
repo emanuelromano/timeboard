@@ -489,7 +489,7 @@ void BatteryGadget.DrawBatteryFrame() {
 					gadget.w-(border+1), gadget.h-(border+1), 5);
 					
 		// details around button
-		draw.fgRGB(battBorderR, battBorderG, battBorderB);
+		/*draw.fgRGB(battBorderR, battBorderG, battBorderB);
 		
 		draw.rect(clrFG, gadget.w-37, gadget.h-24,
 					gadget.w-4, gadget.h-4, 8);
@@ -515,14 +515,9 @@ void BatteryGadget.DrawBatteryFrame() {
 					
 		draw.line(clrFG, 20, gadget.h-24, 20, gadget.h-24);
 		draw.line(clrFG, 20, gadget.h-23, 21, gadget.h-24);
-		draw.line(clrFG, 20, gadget.h-22, 22, gadget.h-24);
-	
-		// border
-		draw.fgRGB(battBorderR, battBorderG, battBorderB);
-		draw.frame(clrFG, border, border,
-					gadget.w-(border+1), gadget.h-(border+1), 5, border);
-		
-		draw.line(clrFG, gadget.w-5, gadget.h-27,
+		draw.line(clrFG, 20, gadget.h-22, 22, gadget.h-24);*/
+
+		/*draw.line(clrFG, gadget.w-5, gadget.h-27,
 						gadget.w-5, gadget.h-27);
 		draw.line(clrFG, gadget.w-6, gadget.h-26,
 						gadget.w-5, gadget.h-26);
@@ -531,7 +526,13 @@ void BatteryGadget.DrawBatteryFrame() {
 		draw.line(clrFG, gadget.w-8, gadget.h-24,
 						gadget.w-5, gadget.h-24);
 		draw.line(clrFG, gadget.w-9, gadget.h-23,
-						gadget.w-5, gadget.h-23);
+						gadget.w-5, gadget.h-23);*/
+						
+		// border
+		draw.fgRGB(battBorderR, battBorderG, battBorderB);
+		draw.frame(clrFG, border, border,
+					gadget.w-(border+1), gadget.h-(border+1), 5, border);
+		
 		draw.end();
 	}
 }

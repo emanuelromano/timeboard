@@ -1284,7 +1284,7 @@ void drawClockBuffer() {
 	mainBuffer.fgRGB(clockHndR, clockHndG, clockHndB);
 	
 	// Show AM/PM on Overview
-	if (timeFormat == 2) {
+	/*if (timeFormat == 2) {
 		mainBuffer.bgRGB(clockBgR, clockBgG, clockBgB);
 		mainBuffer.textRGB(clockSecR, clockSecG, clockSecB);
 		mainBuffer.textAlign(12);
@@ -1294,7 +1294,7 @@ void drawClockBuffer() {
 			mainBuffer.text(clrText, 101, 18, "AM");
 		else
 			mainBuffer.text(clrText, 101, 18, "PM");
-	}
+	}*/
 }
 
 
@@ -1334,6 +1334,16 @@ void drawMiniDigiClockBuffer() {
 	mainBuffer.textAlign(11);
 	mainBuffer.font(fntStandard);
 	mainBuffer.text(clrText, 140, 33, stsec);
+	
+	if (timeFormat == 2) {
+		if (amPm == 1) {
+			mainBuffer.text(clrText, 125, 33, "am");
+		}
+		else
+		{
+			mainBuffer.text(clrText, 125, 33, "pm");
+		}
+	}
 }
 
 
@@ -1900,7 +1910,7 @@ handler mainForm.ontimer() {
 			clockGadget.DrawClockHands(false, hours, minutes, seconds, amPm, dateFormat);
 			
 			// Digital clock
-			digiClockGadget.DrawMiniDigiClock(hours, minutes, seconds);
+			digiClockGadget.DrawMiniDigiClock(hours, minutes, seconds, amPm);
 		}
 	}
 	

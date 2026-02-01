@@ -82,26 +82,26 @@ void CalendarGadget.DrawCalendar(bool calendarFlag) {
 		
 		// Calendar icon behind date
 		calBuffer.bgRGB(0, 0, 0);
-		calBuffer.rect(clrBG, 16, 16, 37, 40, 3);
+		calBuffer.rect(clrBG, 9, 9, 30, 33, 3);
 		
 		calBuffer.bgRGB(255, 255, 255);
-		calBuffer.rect(clrBG, 15, 15, 36, 39, 3);
+		calBuffer.rect(clrBG, 8, 8, 29, 32, 3);
 		
 		calBuffer.bgRGB(255, 0, 0);
-		calBuffer.rect(clrBG, 15, 15, 36, 21, 3);
-		calBuffer.rect(clrBG, 15, 18, 36, 21, 0);
+		calBuffer.rect(clrBG, 8, 8, 29, 14, 3);
+		calBuffer.rect(clrBG, 8, 11, 29, 14, 0);
 		calBuffer.bgRGB(153, 0, 0);
-		calBuffer.rect(clrBG, 17, 17, 19, 19, 1);
-		calBuffer.rect(clrBG, 20, 17, 22, 19, 1);
-		calBuffer.rect(clrBG, 23, 17, 25, 19, 1);
-		calBuffer.rect(clrBG, 26, 17, 28, 19, 1);
-		calBuffer.rect(clrBG, 29, 17, 31, 19, 1);
-		calBuffer.rect(clrBG, 32, 17, 34, 19, 1);
+		calBuffer.rect(clrBG, 10, 10, 12, 12, 1);
+		calBuffer.rect(clrBG, 13, 10, 15, 12, 1);
+		calBuffer.rect(clrBG, 16, 10, 18, 12, 1);
+		calBuffer.rect(clrBG, 19, 10, 21, 12, 1);
+		calBuffer.rect(clrBG, 22, 10, 24, 12, 1);
+		calBuffer.rect(clrBG, 25, 10, 27, 12, 1);
 		
 		
 		// Details around button
-		calBuffer.rect(clrFG, gadget.w-38, gadget.h-25,
-					gadget.w-1, gadget.h-1, 6);
+		/*calBuffer.rect(clrFG, gadget.w-37, gadget.h-24,
+					gadget.w-1, gadget.h-1, 6);*/
 		
 		calBuffer.end();
 	}
@@ -247,7 +247,7 @@ void CalendarGadget.SetCalendar(bool expandedView, bool gridFlag) {
 	
 	if (strlen(dateOnCalendar) == 1) {
 		if (gadget.w == 160) {
-			calBuffer.text(clrText, 25, 29, "  " + dateOnCalendar + "  ");
+			calBuffer.text(clrText, 19, 22, "  " + strright(dateOnCalendar, 1) + "  ");
 		}
 		else
 		{
@@ -257,8 +257,8 @@ void CalendarGadget.SetCalendar(bool expandedView, bool gridFlag) {
 	else
 	{
 		if (gadget.w == 160) {
-			calBuffer.text(clrText, 23, 29, strleft(dateOnCalendar, 1) + " ");
-			calBuffer.text(clrText, 29, 29, strright(dateOnCalendar, 1));
+			calBuffer.text(clrText, 16, 22, strleft(dateOnCalendar, 1) + " ");
+			calBuffer.text(clrText, 22, 22, strright(dateOnCalendar, 1));
 		}
 		else
 		{
@@ -275,7 +275,7 @@ void CalendarGadget.SetCalendar(bool expandedView, bool gridFlag) {
 	calBuffer.textAlign(00);
 	
 	if (gadget.w == 160) {
-		calBuffer.text(clrText, 40, 16, dayStr);
+		calBuffer.text(clrText, 36, 10, dayStr);
 	}
 	else
 	{
@@ -287,14 +287,14 @@ void CalendarGadget.SetCalendar(bool expandedView, bool gridFlag) {
 	calBuffer.textAlign(00);
 	
 	if (gadget.w == 160) {
-		calBuffer.text(clrText, 40, 27, monthYear);
+		calBuffer.text(clrText, 36, 21, monthYear);
 	}
 	else
 	{
 		calBuffer.text(clrText, 32, 19, monthYear);
 	}
 	
-	// Draw calendar drid
+	// Draw calendar grid
 	if (expandedView) {
 		DrawCalendarGrid(gridFlag);
 	}
@@ -323,7 +323,7 @@ void CalendarGadget.DrawCalendarGrid(bool startOnSunday) {
 
     // Get calendar gadget dimensions
     calendarW = gadget.w;
-    calendarH = gadget.h-4;
+    calendarH = gadget.h-6;
 
     // Get the first day of the month
     temp = today;
@@ -438,9 +438,9 @@ void CalendarGadget.DrawMoreInfo() {
 	// Week number
 	weekNumber = (dayOfYear - 1) / 7 + 1;
 	
-	x = 21;
-	x2 = 86;
-	y = 121;
+	x = 15;
+	x2 = 98;
+	y = 128;
 
 	calBuffer.begin();
 	
@@ -453,24 +453,13 @@ void CalendarGadget.DrawMoreInfo() {
     
     calBuffer.font(fntStandard);
     calBuffer.textAlign(00);
-	infoText = "Day/Week: ";
+	infoText = "Day / Week: ";
 	calBuffer.text(clrText, x, y, infoText);
 	
 	calBuffer.font(fntBold);
 	calBuffer.textAlign(02);
 	calBuffer.textRGB(255, 0, 0);
-	calBuffer.text(clrText, x+x2, y, dayOfYear + "/" + weekNumber);
-	
-	/*calBuffer.textRGB(caTextR, caTextG, caTextB);
-	calBuffer.font(fntStandard);
-	calBuffer.textAlign(00);
-	infoText = "Week number:";
-	calBuffer.text(clrText, x, y+10, infoText);*/
-	
-	/*calBuffer.font(fntBold);
-	calBuffer.textAlign(02);
-	calBuffer.textRGB(255, 0, 0);
-	calBuffer.text(clrText, x+x2, y+10, weekNumber);*/
+	calBuffer.text(clrText, x+x2, y, dayOfYear + " / " + weekNumber);
 	
 	calBuffer.textRGB(caTextR, caTextG, caTextB);
 	calBuffer.font(fntStandard);
@@ -485,12 +474,6 @@ void CalendarGadget.DrawMoreInfo() {
     
     calBuffer.end();
 }
-
-
-/*void CalendarGadget.SetCalendarObjects(Bitmap calendarBMP, UIButton calendarBtn) {
-	calBMP = calendarBMP;
-	mainCalButton = calendarBtn;
-}*/
 
 
 void CalendarGadget.SetCalendarButtons(UIButton calendarBtn) {
