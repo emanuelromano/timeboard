@@ -1,34 +1,13 @@
 // Big Calendar
 
 
-bool moreCalendarInfo;
-
-void drawMoreInfo() {
-	if (moreCalendarInfo == false) {
-		moreCalendarInfo = true;
-		
-		bigCalendarGadget.DrawMoreInfo();
-	}
-	else
-	{
-		moreCalendarInfo = false;
-		
-		bigCalendarGadget.DrawCalendarGrid(startOnSunday);
-	}
-}
-
-
 // Event handlers
 handler bigCalendarForm.onopen() {
-	// UIform attach this form for drawind methods;
-	mainBuffer.attachForm(this);
+	// UIform attach this form for drawing methods;
 	draw.attachForm(this);
 		
 	bigCalendarGadget.SetCalendarButtons(bigCalendarBackButton);
-	
 	bigCalendarBackButton.visible = false;
-	
-	moreCalendarInfo = false;
 	
 	calendarMode = 2;
 	
@@ -39,29 +18,14 @@ handler bigCalendarForm.onopen() {
 }
 
 handler bigCalendarForm.ondraw() {
-	// Draw main background from saved preferences
-	mainBuffer.begin();
-	setMainBg(preferences[0].selectedBackground);
-	mainBuffer.end();
-	
-	drawBuffer();
-	
 	// Draw big calendar
-	bigCalendarGadget.DrawCalendar(true);
+	bigCalendarGadget.DrawCalendarFrame(true);
 	bigCalendarGadget.SetCalendar(true, startOnSunday);
 }
 
 handler bigCalendarForm.onresize() {
-	// UIform attach this form for drawind methods;
+	// UIform attach this form for drawing methods;
 	draw.attachForm(this);
-	
-	if (bigCalendarGadget.gadget.h == bigCalendarGadget.gadget.w) {
-		moreCalendarInfo = false;
-	}
-	else
-	{
-		moreCalendarInfo = true;
-	}
 }
 
 handler bigCalendarForm.ontimer() {
@@ -70,10 +34,11 @@ handler bigCalendarForm.ontimer() {
 	
 	if (bigCalendarForm.obscured == false) {
 		if (dayB != dayA) {
-			drawMoreInfo();
-			
 			// Draw date in calendar
-			bigCalendarGadget.SetCalendar(true, startOnSunday);
+			bigCalendarGadget.SetCalendar2(true, startOnSunday);
+			bigCalendarGadget.DrawMoreInfo();
+			bigCalendarGadget.DrawBuffer();
+			
 			dayA = today.day;
 		}
 	}
@@ -86,11 +51,6 @@ handler bigCalendarForm.ontimer() {
 handler bigCalendarBackButton.onselect() {
 	mainForm.load();
 }
-
-
-/*handler moreCalendarButton.onselect() {
-	drawMoreInfo();
-}*/
 
 
 // Hard button handlers

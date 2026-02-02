@@ -159,7 +159,8 @@ struct DigiClockGadget {
 	void SetDigiClockTheme(int frmR, int frmG, int frmB,
 							int bgR, int bgG, int bgB,
 							int shdR, int shdG, int shdB,
-							int txtR, int txtG, int txtB);
+							int txtR, int txtG, int txtB,
+							int secR, int secG, int secB);
 	void DrawMiniDigiClock(int hour, int minute, int second, int amPm);
 	void ShowDate();
 	void SetDigiClockPrefs(bool pref1, bool pref2, int hours, int minutes, int seconds, int dateFormat, int timeFormat, int amPm);
@@ -183,12 +184,14 @@ struct DigiClockGadget {
 int digiMiniBackgroundR, digiMiniBackgroundG, digiMiniBackgroundB,
 	digiBackgroundR, digiBackgroundG, digiBackgroundB,
 	digiShadowR, digiShadowG, digiShadowB,
-	digiTextR, digiTextG, digiTextB;
+	digiTextR, digiTextG, digiTextB,
+	secondsR, secondsG, secondsB;
 
 void DigiClockGadget.SetDigiClockTheme(int mBgR, int mBgG, int mGbB,
 									int bgR, int bgG, int bgB,
 									int shdR, int shdG, int shdB,
-									int txtR, int txtG, int txtB) {
+									int txtR, int txtG, int txtB,
+									int secR, int secG, int secB) {
 	digiMiniBackgroundR = mBgR;
 	digiMiniBackgroundG = mBgG;
 	digiMiniBackgroundB = mGbB;
@@ -204,6 +207,10 @@ void DigiClockGadget.SetDigiClockTheme(int mBgR, int mBgG, int mGbB,
 	digiTextR = txtR;
 	digiTextG = txtG;
 	digiTextB = txtB;
+	
+	secondsR = secR;
+	secondsG = secG;
+	secondsB = secB;
 }
 
 
@@ -512,11 +519,13 @@ void DigiClockGadget.DrawMiniDigiClock(int hour, int minute, int second, int amP
 	
 	if (timeF == 2) {
 		if (amPm == 1) {
-			draw.text(clrText, 12, 25, "am");
+			draw.textRGB(secondsR, secondsG, secondsB);
+			draw.text(clrText, 13, 25, "am");
 		}
 		else
 		{
-			draw.text(clrText, 12, 25, "pm");
+			draw.textRGB(secondsR, secondsG, secondsB);
+			draw.text(clrText, 13, 25, "pm");
 		}
 	}
 	

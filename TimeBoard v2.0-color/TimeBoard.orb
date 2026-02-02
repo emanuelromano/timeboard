@@ -429,15 +429,6 @@
         }
       }
     }
-    button UIButton functionsButton {
-      id = 1011
-      x = 120, y = 120, w = 25, h = 25
-      text = ""
-      leftanchor = true, group = 0, fontid = 0
-      graphic = true, bitmapid = 1094, sbitmapid = 1177
-      frame = 0
-      hresize = 0, vresize = 0
-    }
     gadget ClockGadget clockGadget {
       id = 101
       x = 8, y = 8, w = 101, h = 101
@@ -450,8 +441,8 @@
     }
     gadget BatteryGadget batteryGadget {
       id = 1042
-      x = 113, y = 51, w = 39, h = 58
-      hresize = 1, vresize = 0
+      x = 113, y = 70, w = 39, h = 39
+      hresize = 0, vresize = 0
     }
     gadget CalendarGadget calendarGadget {
       id = 1015
@@ -462,6 +453,15 @@
       id = 1171
       x = 12, y = 97
       bitmapid = 1074
+      hresize = 0, vresize = 0
+    }
+    button UIButton functionsButton {
+      id = 1011
+      x = 120, y = 120, w = 25, h = 25
+      text = ""
+      leftanchor = true, group = 0, fontid = 0
+      graphic = true, bitmapid = 1094, sbitmapid = 1177
+      frame = 0
       hresize = 0, vresize = 0
     }
   }

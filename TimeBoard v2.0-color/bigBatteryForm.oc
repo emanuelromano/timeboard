@@ -3,12 +3,10 @@
 
 // event handlers
 handler bigBatteryForm.onopen() {
-	// UIform attach this form for drawind methods;
+	// UIform attach this form for drawing methods;
 	draw.attachForm(this);
 	
-	// get preferences
-	GetPrefs();
-	
+	bigBatteryGadget.SetBatteryButtons(bigBatteryBackButton, batteryCalButton);
 	bigBatteryBackButton.visible = false;
 	batteryCalButton.visible = false;
 	
@@ -26,11 +24,10 @@ handler bigBatteryForm.ondraw() {
 	bigBatteryGadget.RemainingChargeEst(preferences[0].dischargeRate, preferences[0].lastCalibration);
 	bigBatteryGadget.UpTime();
 	bigBatteryGadget.DrawBatteryInfo();
-	
 }
 
 handler bigBatteryForm.onresize() {
-	// UIform attach this form for drawind methods;
+	// UIform attach this form for drawing methods;
 	draw.attachForm(this);
 }
 
@@ -41,23 +38,18 @@ handler bigBatteryForm.ontimer() {
 		if (charB != charA) {
 			// battery icon
 			bigBatteryGadget.DrawBigBatteryIcon();
+			bigBatteryGadget.RemainingChargeEst(preferences[0].dischargeRate, preferences[0].lastCalibration);
+			bigBatteryGadget.DrawBatteryInfo();
+			bigBatteryGadget.DrawBuffer();
 			
 			charA = battery(false);
 		}
 		
-		bigBatteryGadget.RemainingChargeEst(preferences[0].dischargeRate, preferences[0].lastCalibration);
 		bigBatteryGadget.UpTime();
-		bigBatteryGadget.DrawBatteryInfo();
+		bigBatteryGadget.DrawBatteryInfo2();
 	}
 	
-	timer(100);
-}
-
-
-// gadget handlers
-handler bigBatteryGadget.ondraw() {
-	bigBatteryBackButton.visible = true;
-	batteryCalButton.visible = true;
+	timer(90);
 }
 
 
