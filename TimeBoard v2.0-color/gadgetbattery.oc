@@ -193,8 +193,8 @@ void BatteryGadget.DrawBatteryIcon(bool drawBg) {
 	
 	int battX, battY, battEndX, battEndY, battFill;
 	
-	battX = 8;
-	battY = 9;
+	battX = 23;
+	battY = 1;
 	battEndX = battX + 21;
 	battEndY = battY + 9;
 	

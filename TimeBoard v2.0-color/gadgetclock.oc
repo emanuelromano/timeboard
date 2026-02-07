@@ -73,9 +73,9 @@ void ClockGadget.CalculateFace() {
 	}
 		
 	// Center
-	if (gadget.h == 101) {
-		ptCenter.x = (gadget.w / 2)+8;
-		ptCenter.y = (gadget.h / 2)+8;
+	if (gadget.h == 98) {
+		ptCenter.x = gadget.x + (gadget.w / 2);
+		ptCenter.y = gadget.y + (gadget.h / 2);
 	}
 	else
 	{
@@ -89,9 +89,19 @@ void ClockGadget.CalculateFace() {
 	}
 	
 	// Clock hands lenght
-	chSec.length = radius - 7;
-	chMin.length = radius - 7;
-	chHour.length = (radius - 6) * 0.7;
+	if (gadget.h == 98) {
+		chHour.length = 24;
+		chMin.length = 32;
+		chSec.length = 32;
+	}
+	else
+	{
+		chHour.length = (radius - 6) * 0.7;
+		chMin.length = radius - 7;
+		chSec.length = radius - 7;
+	}
+	
+	//alert(chHour.length + " " + chMin.length + " " + chSec.length);
 }
 
 
@@ -337,15 +347,18 @@ void ClockGadget.DrawClockHands(bool showDigital, int hours, int minutes, int se
 	
 	// BUFFER:
 	// Create offscreen buffer
-	if (showDigital) {
+	clockBuffer.create(160, 160);
+	clockBuffer.release();
+	
+	/*if (showDigital) {
 		clockBuffer.create(160, 160);
 		clockBuffer.release();
 	}
 	else
 	{
-		clockBuffer.create(101, 101);
+		clockBuffer.create(160, 160);
 		clockBuffer.release();
-	}
+	}*/
 	
 	// Erase previouly drawn hands
 	clockBuffer.begin();
@@ -371,22 +384,7 @@ void ClockGadget.DrawClockHands(bool showDigital, int hours, int minutes, int se
 	DrawClockHand(chSec, clrFG); // seconds hand with new color
 	clockBuffer.rect(clrFG, ptCenter.x-2, ptCenter.y-2, ptCenter.x+3, ptCenter.y+3, 3);
 	clockBuffer.fgRGB(cHandsR, cHandsG, cHandsB);
-	
-	// Show AM/PM on Overview
-	/*if (!showDigital) {
-		clockBuffer.bgRGB(cBackgroundR, cBackgroundG, cBackgroundB);
-		clockBuffer.textRGB(cSecondsR, cSecondsG, cSecondsB);
-		clockBuffer.textAlign(12);
-		clockBuffer.font(fntStandard);
-
-		if (timeF == 2) {
-			if (amPm == 1)
-				clockBuffer.text(clrText, gadget.w, 18, "AM");
-			else
-				clockBuffer.text(clrText, gadget.w, 18, "PM");
-		}
-	}*/
-	
+		
 	if (showDigital) DrawDigitalClock(hours, minutes, amPm);
 	
 	clockBuffer.end();
@@ -426,7 +424,6 @@ void ClockGadget.DrawBuffer() {
 void ClockGadget.onopen() {
 	// Create offscreen buffer
 	clockBuffer.create(160, 160);
-	
 	draw.attachGadget(gadget);
 }
 

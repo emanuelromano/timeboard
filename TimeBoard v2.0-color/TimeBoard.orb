@@ -9,6 +9,7 @@
 #include "gadgetbattery.oc"
 #include "gadgetcalendar.oc"
 #include "gadgetaction.oc"
+#include "gadgetstatusbar.oc"
 
 // IDE data
 @project {
@@ -431,33 +432,33 @@
     }
     gadget ClockGadget clockGadget {
       id = 101
-      x = 8, y = 8, w = 101, h = 101
+      x = 31, y = 15, w = 98, h = 98
       hresize = 2, vresize = 0
     }
     gadget DigiClockGadget digiClockGadget {
       id = 1036
-      x = 113, y = 8, w = 39, h = 39
+      x = 4, y = 117, w = 39, h = 39
       hresize = 1, vresize = 0
     }
     gadget BatteryGadget batteryGadget {
       id = 1042
-      x = 113, y = 70, w = 39, h = 39
+      x = 111, y = 0, w = 49, h = 12
       hresize = 0, vresize = 0
     }
     gadget CalendarGadget calendarGadget {
       id = 1015
-      x = 8, y = 113, w = 101, h = 39
+      x = 46, y = 117, w = 101, h = 39
       hresize = 1, vresize = 2
     }
     bitmap UIFBitmap easterEggBMP {
       id = 1171
-      x = 12, y = 97
+      x = 16, y = 101
       bitmapid = 1074
       hresize = 0, vresize = 0
     }
     button UIButton functionsButton {
       id = 1011
-      x = 120, y = 120, w = 25, h = 25
+      x = 134, y = 26, w = 25, h = 25
       text = ""
       leftanchor = true, group = 0, fontid = 0
       graphic = true, bitmapid = 1094, sbitmapid = 1177

@@ -247,7 +247,7 @@ void CalendarGadget.SetCalendar(bool expandedView, bool gridFlag) {
 		}
 		else
 		{
-			calBuffer.text(clrText, 17, 21, "  " + dateOnCalendar + "  ");
+			calBuffer.text(clrText, 20, 21, "  " + dateOnCalendar + "  ");
 		}
 	}
 	else
@@ -443,7 +443,7 @@ void CalendarGadget.SetCalendar2(bool expandedView, bool gridFlag) {
 		}
 		else
 		{
-			draw.text(clrText, 17, 21, "  " + dateOnCalendar + "  ");
+			draw.text(clrText, 18, 21, "  " + dateOnCalendar + "  ");
 		}
 	}
 	else

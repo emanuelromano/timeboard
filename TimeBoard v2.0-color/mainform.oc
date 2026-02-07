@@ -1152,6 +1152,20 @@ void drawBuffer() {
 ClockHand chHour, chMin, chSec;
 Point ptCenter;
 
+// Gadget background variables & coordinates
+int clockGdtX = 31,
+	clockGdtY = 15,
+	
+	calendarGdtX = 46,
+	calendarGdtY = 117,
+	
+	digiClockGdtX = 4,
+	digiClockGdtY = 117,
+	
+	batteryGdtX = 116,
+	batteryGdtY = 0;
+
+
 void drawClockHandBuffer(ClockHand hand, int color) {
 	int x, y;
 	
@@ -1163,28 +1177,40 @@ void drawClockHandBuffer(ClockHand hand, int color) {
 
 
 // Mainform Overview buffer (for 2.0) -------------------------------------------------------------
-void drawClockBuffer() {
+void drawMainFormBuffer() {
 	int hr, min;
 	float hrAngle, minAngle, secAngle;
 	
-	// dot variables
+	// Dot variables
 	int i, x, y;
 	int centerX, centerY;
 	int radius;
 	float theta;
 	
-	ptCenter.x = 58;
-	ptCenter.y = 58;
+	// Clock hand coordinates
+	ptCenter.x = clockGdtX+49;
+	ptCenter.y = clockGdtY+49;
+	
+	// Status bar (for 2.0) -----------------------------------------------------------------------
+	mainBuffer.fgRGB(themeR, themeG, themeB);
+	mainBuffer.rect(clrFG, mainForm.x, mainForm.y, mainForm.w, 11, 0);
+	mainBuffer.fgRGB(shadowR, shadowG, shadowB);
+	mainBuffer.line(clrFG, mainForm.x, 11, mainForm.w, 11);
+	mainBuffer.line(clrFG, mainForm.w-1, 0, mainForm.w-1, 11);
+
+	
+	
+	
 	
 	// Clock background (for 2.0) -----------------------------------------------------------------
 	mainBuffer.bgRGB(clockBgR, clockBgG, clockBgB);
-	mainBuffer.rect(clrBG, 11, 11, 105, 105, 47);
+	mainBuffer.rect(clrBG, clockGdtX+3, clockGdtY+3, clockGdtX+95, clockGdtY+95, 46);
 	
 	mainBuffer.fgRGB(shadowR, shadowG, shadowB);
-	mainBuffer.frame(clrFG, 12, 12, 106, 106, 47, 3);
+	mainBuffer.frame(clrFG, clockGdtX+4, clockGdtY+4, clockGdtX+96, clockGdtY+96, 46, 3);
 	
 	mainBuffer.fgRGB(themeR, themeG, themeB);
-	mainBuffer.frame(clrFG, 11, 11, 105, 105, 47, 3);
+	mainBuffer.frame(clrFG, clockGdtX+3, clockGdtY+3, clockGdtX+95, clockGdtY+95, 46, 3);
 	
 	// Draw dots inside clock face
 	centerX = ptCenter.x; // gadget.w / 2;
@@ -1208,69 +1234,63 @@ void drawClockBuffer() {
 	
 	// Calendar background (for 2.0) --------------------------------------------------------------
 	mainBuffer.bgRGB(highlightR, highlightG, highlightB);
-	mainBuffer.rect(clrBG, 11, 116, 116, 148, 5);
+	mainBuffer.rect(clrBG, calendarGdtX+3, calendarGdtY+3, calendarGdtX+97, calendarGdtY+35, 5);
 	
 	mainBuffer.fgRGB(shadowR, shadowG, shadowB);
-	mainBuffer.frame(clrFG, 12, 117, 120, 149, 5, 3);
-	
-	mainBuffer.bgRGB(themeR, themeG, themeB);
-	mainBuffer.rect(clrBG, 104, 113, 117, 116, 0);
-	
-	mainBuffer.bgRGB(themeR, themeG, themeB);
-	mainBuffer.rect(clrBG, 104, 149, 117, 151, 0);
+	mainBuffer.frame(clrFG, calendarGdtX+4, calendarGdtY+4, calendarGdtX+98, calendarGdtY+36, 5, 3);
 	
 	mainBuffer.fgRGB(themeR, themeG, themeB);
-	mainBuffer.frame(clrFG, 11, 116, 113, 148, 5, 3);
+	mainBuffer.frame(clrFG, calendarGdtX+3, calendarGdtY+3, calendarGdtX+97, calendarGdtY+35, 5, 3);
 	
-	// Calendar icon (for 2.0) --------------------------------------------------------------------
+	// Calendar icon (for 2.0) --------------------------------------------------------------------	
 	mainBuffer.bgRGB(0, 0, 0);
-	mainBuffer.rect(clrBG, 16, 121, 37, 145, 3);
+	mainBuffer.rect(clrBG, calendarGdtX+8, calendarGdtY+8, calendarGdtX+29, calendarGdtY+32, 3);
 	
 	mainBuffer.bgRGB(255, 255, 255);
-	mainBuffer.rect(clrBG, 15, 120, 36, 144, 3);
+	mainBuffer.rect(clrBG, calendarGdtX+7, calendarGdtY+7, calendarGdtX+28, calendarGdtY+31, 3);
 	
 	mainBuffer.bgRGB(255, 0, 0);
-	mainBuffer.rect(clrBG, 15, 120, 36, 126, 3);
-	mainBuffer.rect(clrBG, 15, 123, 36, 126, 0);
+	mainBuffer.rect(clrBG, calendarGdtX+7, calendarGdtY+7, calendarGdtX+28, calendarGdtY+13, 3);
+	mainBuffer.rect(clrBG, calendarGdtX+7, calendarGdtY+10, calendarGdtX+28, calendarGdtY+13, 0);
 	mainBuffer.bgRGB(153, 0, 0);
-	mainBuffer.rect(clrBG, 17, 122, 19, 124, 1);
-	mainBuffer.rect(clrBG, 20, 122, 22, 124, 1);
-	mainBuffer.rect(clrBG, 23, 122, 25, 124, 1);
-	mainBuffer.rect(clrBG, 26, 122, 28, 124, 1);
-	mainBuffer.rect(clrBG, 29, 122, 31, 124, 1);
-	mainBuffer.rect(clrBG, 32, 122, 34, 124, 1);
+	mainBuffer.rect(clrBG, calendarGdtX+9, calendarGdtY+9, calendarGdtX+11, calendarGdtY+11, 1);
+	mainBuffer.rect(clrBG, calendarGdtX+12, calendarGdtY+9, calendarGdtX+14, calendarGdtY+11, 1);
+	mainBuffer.rect(clrBG, calendarGdtX+15, calendarGdtY+9, calendarGdtX+17, calendarGdtY+11, 1);
+	mainBuffer.rect(clrBG, calendarGdtX+18, calendarGdtY+9, calendarGdtX+20, calendarGdtY+11, 1);
+	mainBuffer.rect(clrBG, calendarGdtX+21, calendarGdtY+9, calendarGdtX+23, calendarGdtY+11, 1);
+	mainBuffer.rect(clrBG, calendarGdtX+24, calendarGdtY+9, calendarGdtX+26, calendarGdtY+11, 1);
 	
 	// Digital Clock background (for 2.0) ---------------------------------------------------------
 	mainBuffer.bgRGB(batteryBgR, batteryBgG, batteryBgB);
-	mainBuffer.rect(clrBG, 114, 11, 151, 46, 5);
+	mainBuffer.rect(clrBG, digiClockGdtX+3, digiClockGdtY+3, digiClockGdtX+38, digiClockGdtY+38, 5);
 		
 	mainBuffer.fgRGB(shadowR, shadowG, shadowB);
-	mainBuffer.frame(clrFG, 117, 12, 149, 44, 5, 3);
+	mainBuffer.frame(clrFG, digiClockGdtX+4, digiClockGdtY+4, digiClockGdtX+36, digiClockGdtY+36, 5, 3);
 	
 	mainBuffer.fgRGB(themeR, themeG, themeB);
-	mainBuffer.frame(clrFG, 116, 11, 148, 43, 5, 3);
+	mainBuffer.frame(clrFG, digiClockGdtX+3, digiClockGdtY+3, digiClockGdtX+35, digiClockGdtY+35, 5, 3);
 	
 	// Battery background (for 2.0) ---------------------------------------------------------------
-	mainBuffer.bgRGB(batteryBgR, batteryBgG, batteryBgB);
-	mainBuffer.rect(clrBG, 114, 71, 151, 108, 5);
+	/*mainBuffer.bgRGB(batteryBgR, batteryBgG, batteryBgB);
+	mainBuffer.rect(clrBG, batteryGdtX+1, batteryGdtY+1, batteryGdtX+38, batteryGdtY+38, 5);
 	
 	mainBuffer.fgRGB(shadowR, shadowG, shadowB);
-	mainBuffer.frame(clrFG, 117, 74, 149, 106, 5, 3);
-		
+	mainBuffer.frame(clrFG, batteryGdtX+4, batteryGdtY+4, batteryGdtX+36, batteryGdtY+36, 5, 3);
+	
 	mainBuffer.fgRGB(themeR, themeG, themeB);
-	mainBuffer.frame(clrFG, 116, 73, 148, 105, 5, 3);
+	mainBuffer.frame(clrFG, batteryGdtX+3, batteryGdtY+3, batteryGdtX+35, batteryGdtY+35, 5, 3);*/
 	
 	// Battery icon frame (for 2.0) ---------------------------------------------------------------
 	mainBuffer.fgRGB(255, 255, 255);
-	mainBuffer.frame(clrFG, 121, 79, 142, 88, 2, 1);
-	mainBuffer.line(clrFG, 144, 81, 144, 85);
+	mainBuffer.frame(clrFG, batteryGdtX+19, batteryGdtY+2, batteryGdtX+38, batteryGdtY+9, 2, 1);
+	mainBuffer.line(clrFG, batteryGdtX+40, batteryGdtY+3, batteryGdtX+40, batteryGdtY+7);
 	
-	// Actions background (for 2.0) ---------------------------------------------------------------
-	mainBuffer.fgRGB(shadowR, shadowG, shadowB);
+	// Functions background (for 2.0) ---------------------------------------------------------------
+	/*mainBuffer.fgRGB(shadowR, shadowG, shadowB);
 	mainBuffer.frame(clrFG, 117, 117, 149, 149, 5, 3);
 	
 	mainBuffer.fgRGB(themeR, themeG, themeB);
-	mainBuffer.rect(clrFG, 113, 113, 151, 151, 5);
+	mainBuffer.rect(clrFG, 113, 113, 151, 151, 5);*/
 	
 	// Calculate new angles
 	hrAngle = ((float)(hours % 12) * 30 + minutes / 2 - 90) / 180 * pi;
@@ -1278,22 +1298,22 @@ void drawClockBuffer() {
 	secAngle = ((float)seconds * 6 - 90) / 180 * pi;
 	
 	//Clock hands lenght
-	chSec.length = 31;
-	chMin.length = 31;
-	chHour.length = 22;
+	chHour.length = 24;
+	chMin.length = 32;
+	chSec.length = 32;
 	
 	chHour.angle = hrAngle;
 	chMin.angle = minAngle;
 	chSec.angle = secAngle;
 	
-	// Draw the current time
+	// Draw the current time in Clock
 	mainBuffer.fgRGB(clockHndR, clockHndG, clockHndB);
 	drawClockHandBuffer(chHour, clrFG); // hours hand
 	drawClockHandBuffer(chMin, clrFG); // minutes hand
 	
 	mainBuffer.fgRGB(clockSecR, clockSecG, clockSecB);
 	drawClockHandBuffer(chSec, clrFG); // seconds hand with new color
-	mainBuffer.rect(clrFG, ptCenter.x-2, ptCenter.y-2, ptCenter.x+3, ptCenter.y+3, 3);
+	mainBuffer.rect(clrFG, ptCenter.x-2, ptCenter.y-2, ptCenter.x+3, ptCenter.y+3, 3); // middle circle
 	mainBuffer.fgRGB(clockHndR, clockHndG, clockHndB);
 }
 
@@ -1330,20 +1350,20 @@ void drawMiniDigiClockBuffer() {
 	mainBuffer.textRGB(digiTextR, digiTextG, digiTextB);
 	mainBuffer.textAlign(12);
 	mainBuffer.font(fntLargeBold );
-	mainBuffer.text(clrText, 146, 21, sthr + ":" + stmin);
+	mainBuffer.text(clrText, digiClockGdtX+33, digiClockGdtY+92, sthr + ":" + stmin);
 	mainBuffer.textAlign(11);
 	mainBuffer.font(fntStandard);
-	mainBuffer.text(clrText, 140, 33, stsec);
+	mainBuffer.text(clrText, digiClockGdtX+27, digiClockGdtY+80, stsec);
 	
 	if (timeFormat == 2) {
 		if (amPm == 1) {
 			mainBuffer.textRGB(clockSecR, clockSecG, clockSecB);
-			mainBuffer.text(clrText, 126, 33, "am");
+			mainBuffer.text(clrText, digiClockGdtX+13, digiClockGdtY+80, "am");
 		}
 		else
 		{
 			mainBuffer.textRGB(clockSecR, clockSecG, clockSecB);
-			mainBuffer.text(clrText, 126, 33, "pm");
+			mainBuffer.text(clrText, digiClockGdtX+13, digiClockGdtY+80, "pm");
 		}
 	}
 }
@@ -1400,8 +1420,8 @@ void drawBatteryIconBuffer() {
 		}
 	}
 	
-	battX = 121;
-	battY = 79;
+	battX = batteryGdtX+18;
+	battY = batteryGdtY+1;
 	battEndX = battX + 21;
 	battEndY = battY + 9;
 			
@@ -1502,12 +1522,12 @@ void drawBatteryIconBuffer() {
 }
 
 
-// Battery %
-void drawBatteryPercBuffer() {
-	mainBuffer.bgRGB(batteryBgR, batteryBgG, batteryBgB); // background color
-	mainBuffer.textRGB(battTxtR, battTxtG, battTxtB); // font color
-	mainBuffer.textAlign(11);
-	mainBuffer.text(clrText, 132, 95, " " + battery(false) + "% ");
+// Battery percentage
+void drawBatteryPercBuffer() {	
+	mainBuffer.bgRGB(themeR, themeG, themeB); // background color
+	mainBuffer.textRGB(batteryBgR, batteryBgG, batteryBgB); // font color
+	mainBuffer.textAlign(12);
+	mainBuffer.text(clrText, batteryGdtX+18, batteryGdtY+4, " " + battery(false) + "% ");
 }
 
 
@@ -1597,12 +1617,12 @@ void setCalendarBuffer() {
 	dateOnCalendar = today.day;
 	
 	if (strlen(dateOnCalendar) == 1) {
-		mainBuffer.text(clrText, 25, 134, "  " + dateOnCalendar + "  ");
+		mainBuffer.text(clrText, calendarGdtX+18, calendarGdtY+21, "  " + dateOnCalendar + "  ");
 	}
 	else
 	{
-		mainBuffer.text(clrText, 23, 134, strleft(dateOnCalendar, 1)  + " ");
-		mainBuffer.text(clrText, 29, 134, strright(dateOnCalendar, 1));
+		mainBuffer.text(clrText, calendarGdtX+15, calendarGdtY+21, strleft(dateOnCalendar, 1)  + " ");
+		mainBuffer.text(clrText, calendarGdtX+21, calendarGdtY+21, strright(dateOnCalendar, 1));
 	}
 	
 	// draw weekday
@@ -1610,29 +1630,13 @@ void setCalendarBuffer() {
 	mainBuffer.textRGB(textR, textG, textB);
 	mainBuffer.font(fntStandard);
 	mainBuffer.textAlign(00);
-	mainBuffer.text(clrText, 40, 121, dayStr);
+	mainBuffer.text(clrText, calendarGdtX+32, calendarGdtY+8, dayStr);
 	
 	// draw month and year
 	mainBuffer.font(fntBold);
 	mainBuffer.textAlign(00);
-	mainBuffer.text(clrText, 40, 132, monthYear);
+	mainBuffer.text(clrText, calendarGdtX+32, calendarGdtY+19, monthYear);
 }
-
-
-/*void drawActionBuffer() {
-	int x, y;
-	
-	x = 118;
-	y = 118;
-
-	if (colorDepth > 4) {
-		mainBuffer.fgRGB(batteryBgR, batteryBgG, batteryBgB);
-		mainBuffer.rect(clrFG, x, y, x+4, y+24, 0);
-		mainBuffer.rect(clrFG, x+9, y+4, x+28, y+23, 0);
-	}
-	
-	mainBuffer.bitmap(actionSetBMP, x-2, y-2);
-}*/
 
 
 // Set main theme from saved preferences and draw buffer
@@ -1659,7 +1663,7 @@ void drawMainTheme() {
 	}
 	
 	// Widget buffers
-	drawClockBuffer();
+	drawMainFormBuffer(); // Includes Clock buffer
 	drawMiniDigiClockBuffer();
 	drawBatteryIconBuffer();
 	drawBatteryPercBuffer();
@@ -1797,7 +1801,7 @@ handler mainForm.ondraw() {
 	easterEggBMP.visible = easterEgg;
 	
 	// Show buttons
-	functionsButton.visible = true;
+	//functionsButton.visible = true;
 }
 
 
@@ -1809,7 +1813,7 @@ handler mainForm.onresize() {
 
 // Timer handler
 handler mainForm.ontimer() {
-	// Opens form if it was selected in functions modal form
+	// Opens form if it was selected in functions modal form (for 2.0)
 	if (actionPending) {
 		actionPending = false;
 		
