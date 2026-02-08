@@ -267,7 +267,7 @@ void CalendarGadget.SetCalendar(bool expandedView, bool gridFlag) {
 	calBuffer.bgRGB(caBackgroundR, caBackgroundG, caBackgroundB);
 	//calBuffer.bgRGB(0, 0, 0);
 	calBuffer.textRGB(caTextR, caTextG, caTextB);
-	calBuffer.font(fntStandard);
+	calBuffer.font(fntBold);
 	calBuffer.textAlign(00);
 	
 	if (gadget.w == 160) {
@@ -279,7 +279,7 @@ void CalendarGadget.SetCalendar(bool expandedView, bool gridFlag) {
 	}
 	
 	// Draw month and year
-	calBuffer.font(fntBold);
+	calBuffer.font(fntStandard);
 	calBuffer.textAlign(00);
 	
 	if (gadget.w == 160) {
@@ -463,7 +463,7 @@ void CalendarGadget.SetCalendar2(bool expandedView, bool gridFlag) {
 	draw.bgRGB(caBackgroundR, caBackgroundG, caBackgroundB);
 	//calBuffer.bgRGB(0, 0, 0);
 	draw.textRGB(caTextR, caTextG, caTextB);
-	draw.font(fntStandard);
+	draw.font(fntBold);
 	draw.textAlign(00);
 	
 	if (gadget.w == 160) {
@@ -475,7 +475,7 @@ void CalendarGadget.SetCalendar2(bool expandedView, bool gridFlag) {
 	}
 	
 	// Draw month and year
-	draw.font(fntBold);
+	draw.font(fntStandard);
 	draw.textAlign(00);
 	
 	if (gadget.w == 160) {

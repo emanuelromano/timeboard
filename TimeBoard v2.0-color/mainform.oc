@@ -1234,13 +1234,13 @@ void drawMainFormBuffer() {
 	
 	// Calendar background (for 2.0) --------------------------------------------------------------
 	mainBuffer.bgRGB(highlightR, highlightG, highlightB);
-	mainBuffer.rect(clrBG, calendarGdtX+3, calendarGdtY+3, calendarGdtX+97, calendarGdtY+35, 5);
+	mainBuffer.rect(clrBG, calendarGdtX+3, calendarGdtY+3, calendarGdtX+106, calendarGdtY+35, 5);
 	
 	mainBuffer.fgRGB(shadowR, shadowG, shadowB);
-	mainBuffer.frame(clrFG, calendarGdtX+4, calendarGdtY+4, calendarGdtX+98, calendarGdtY+36, 5, 3);
+	mainBuffer.frame(clrFG, calendarGdtX+4, calendarGdtY+4, calendarGdtX+107, calendarGdtY+36, 5, 3);
 	
 	mainBuffer.fgRGB(themeR, themeG, themeB);
-	mainBuffer.frame(clrFG, calendarGdtX+3, calendarGdtY+3, calendarGdtX+97, calendarGdtY+35, 5, 3);
+	mainBuffer.frame(clrFG, calendarGdtX+3, calendarGdtY+3, calendarGdtX+106, calendarGdtY+35, 5, 3);
 	
 	// Calendar icon (for 2.0) --------------------------------------------------------------------	
 	mainBuffer.bgRGB(0, 0, 0);
@@ -1525,8 +1525,9 @@ void drawBatteryIconBuffer() {
 // Battery percentage
 void drawBatteryPercBuffer() {	
 	mainBuffer.bgRGB(themeR, themeG, themeB); // background color
-	mainBuffer.textRGB(batteryBgR, batteryBgG, batteryBgB); // font color
+	mainBuffer.textRGB(battTxtR, battTxtG, battTxtB); // font color
 	mainBuffer.textAlign(12);
+	mainBuffer.font(fntStandard);
 	mainBuffer.text(clrText, batteryGdtX+18, batteryGdtY+4, " " + battery(false) + "% ");
 }
 
@@ -1628,12 +1629,12 @@ void setCalendarBuffer() {
 	// draw weekday
 	mainBuffer.bgRGB(highlightR, highlightG, highlightB);
 	mainBuffer.textRGB(textR, textG, textB);
-	mainBuffer.font(fntStandard);
+	mainBuffer.font(fntBold);
 	mainBuffer.textAlign(00);
 	mainBuffer.text(clrText, calendarGdtX+32, calendarGdtY+8, dayStr);
 	
 	// draw month and year
-	mainBuffer.font(fntBold);
+	mainBuffer.font(fntStandard);
 	mainBuffer.textAlign(00);
 	mainBuffer.text(clrText, calendarGdtX+32, calendarGdtY+19, monthYear);
 }
@@ -1665,9 +1666,9 @@ void drawMainTheme() {
 	// Widget buffers
 	drawMainFormBuffer(); // Includes Clock buffer
 	drawMiniDigiClockBuffer();
+	setCalendarBuffer();
 	drawBatteryIconBuffer();
 	drawBatteryPercBuffer();
-	setCalendarBuffer();
 	
 	mainBuffer.end();
 	

@@ -447,7 +447,7 @@
     }
     gadget CalendarGadget calendarGadget {
       id = 1015
-      x = 46, y = 117, w = 101, h = 39
+      x = 46, y = 117, w = 110, h = 39
       hresize = 1, vresize = 2
     }
     bitmap UIFBitmap easterEggBMP {

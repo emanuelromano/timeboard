@@ -511,7 +511,7 @@ void DigiClockGadget.DrawMiniDigiClock(int hour, int minute, int second, int amP
 	draw.bgRGB(digiMiniBackgroundR, digiMiniBackgroundG, digiMiniBackgroundB);
 	draw.textRGB(digiTextR, digiTextG, digiTextB);
 	draw.textAlign(12);
-	draw.font(fntLargeBold );
+	draw.font(fntLargeBold);
 	draw.text(clrText, 33, 13, sthr + ":" + stmin);
 	draw.textAlign(11);
 	draw.font(fntStandard);
