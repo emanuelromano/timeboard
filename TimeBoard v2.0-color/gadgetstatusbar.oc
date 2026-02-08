@@ -1,0 +1,36 @@
+struct StatusBarGadget {
+	// A UIGadget must always be the first member of a gadget
+	UIGadget gadget;
+
+	// default event handlers
+	void onopen();
+	void ondraw();
+
+	// internal methods
+	void SetStatusBarTheme(int frmR, int frmG, int frmB,
+							int bgR, int bgG, int bgB,
+							int shdR, int shdG, int shdB,
+							int txtR, int txtG, int txtB);
+	void DrawStatusBar();
+	
+	// internal data
+	Draw 	draw;
+};
+
+
+void StatusBarGadget.DrawStatusBar() {
+	draw.begin();
+	draw.bgRGB(255, 0, 0);
+	draw.rect(clrBG, gadget.x, gadget.y, gadget.w, gadget.h, 0);
+	draw.end();
+}
+
+
+void StatusBarGadget.onopen() {
+	draw.attachGadget(gadget); 
+}
+
+
+void StatusBarGadget.ondraw() {
+	DrawStatusBar();
+}
