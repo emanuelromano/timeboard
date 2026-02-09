@@ -8,8 +8,6 @@
 #include "gadgetdigiclock.oc"
 #include "gadgetbattery.oc"
 #include "gadgetcalendar.oc"
-#include "gadgetaction.oc"
-#include "gadgetstatusbar.oc"
 
 // IDE data
 @project {
@@ -407,12 +405,6 @@
         menuitem UIMenuItem menuBattery {
           id = 1004, sysid = 0, text = "Battery", shortcut = "B"
         }
-        menuitem UIMenuItem menu1088 {
-          id = 1088, sysid = 0, text = "-"
-        }
-        menuitem UIMenuItem menuExit {
-          id = 1077, sysid = 0, text = "Exit", shortcut = "E"
-        }
       }
       menu UIMenu optionsMenu {
         text = "Options"
@@ -422,11 +414,14 @@
         menuitem UIMenuItem menuHelp {
           id = 1146, sysid = 0, text = "Help", shortcut = "H"
         }
+        menuitem UIMenuItem menuAbout {
+          id = 1003, sysid = 0, text = "About...", shortcut = "A"
+        }
         menuitem UIMenuItem menu1005 {
           id = 1005, sysid = 0, text = "-"
         }
-        menuitem UIMenuItem menuAbout {
-          id = 1003, sysid = 0, text = "About...", shortcut = "A"
+        menuitem UIMenuItem menuExit {
+          id = 1077, sysid = 0, text = "Exit", shortcut = "E"
         }
       }
     }
@@ -440,15 +435,15 @@
       x = 4, y = 117, w = 39, h = 39
       hresize = 1, vresize = 0
     }
-    gadget BatteryGadget batteryGadget {
-      id = 1042
-      x = 111, y = 0, w = 49, h = 12
-      hresize = 0, vresize = 0
-    }
     gadget CalendarGadget calendarGadget {
       id = 1015
       x = 46, y = 117, w = 110, h = 39
       hresize = 1, vresize = 2
+    }
+    gadget BatteryGadget batteryGadget {
+      id = 1042
+      x = 111, y = 0, w = 49, h = 12
+      hresize = 0, vresize = 0
     }
     bitmap UIFBitmap easterEggBMP {
       id = 1171
@@ -458,10 +453,9 @@
     }
     button UIButton functionsButton {
       id = 1011
-      x = 134, y = 26, w = 25, h = 25
-      text = ""
+      x = 0, y = 0, w = 25, h = 12
+      text = "F"
       leftanchor = true, group = 0, fontid = 0
-      graphic = true, bitmapid = 1094, sbitmapid = 1177
       frame = 0
       hresize = 0, vresize = 0
     }
@@ -492,12 +486,6 @@
         menuitem UIMenuItem fcMenuBattery {
           id = 1082, sysid = 0, text = "Battery", shortcut = "B"
         }
-        menuitem UIMenuItem menu1083 {
-          id = 1083, sysid = 0, text = "-"
-        }
-        menuitem UIMenuItem fcMenuExit {
-          id = 1084, sysid = 0, text = "Exit", shortcut = "E"
-        }
       }
       menu UIMenu fcOptionsMenu {
         text = "Options"
@@ -507,11 +495,14 @@
         menuitem UIMenuItem fcMenuHelp {
           id = 1086, sysid = 0, text = "Help", shortcut = "H"
         }
+        menuitem UIMenuItem fcMenuAbout {
+          id = 1085, sysid = 0, text = "About...", shortcut = "A"
+        }
         menuitem UIMenuItem menu1148 {
           id = 1148, sysid = 0, text = "-"
         }
-        menuitem UIMenuItem fcMenuAbout {
-          id = 1085, sysid = 0, text = "About...", shortcut = "A"
+        menuitem UIMenuItem fcMenuExit {
+          id = 1084, sysid = 0, text = "Exit", shortcut = "E"
         }
       }
     }
@@ -556,12 +547,6 @@
         menuitem UIMenuItem fdMenuBattery {
           id = 1152, sysid = 0, text = "Battery", shortcut = "B"
         }
-        menuitem UIMenuItem menu1156 {
-          id = 1156, sysid = 0, text = "-"
-        }
-        menuitem UIMenuItem fdMenuExit {
-          id = 1150, sysid = 0, text = "Exit", shortcut = "E"
-        }
       }
       menu UIMenu fdOptionsMenu {
         text = "Options"
@@ -571,11 +556,14 @@
         menuitem UIMenuItem fdMenuHelp {
           id = 1158, sysid = 0, text = "Help", shortcut = "H"
         }
+        menuitem UIMenuItem fdMenuAbout {
+          id = 1159, sysid = 0, text = "About...", shortcut = "A"
+        }
         menuitem UIMenuItem menu1160 {
           id = 1160, sysid = 0, text = "-"
         }
-        menuitem UIMenuItem fdMenuAbout {
-          id = 1159, sysid = 0, text = "About...", shortcut = "A"
+        menuitem UIMenuItem fdMenuExit {
+          id = 1150, sysid = 0, text = "Exit", shortcut = "E"
         }
       }
     }
@@ -1258,7 +1246,7 @@
   form UIForm functionsForm {
     id = 1010
     text = ""
-    x = 2, y = 60, w = 156, h = 98
+    x = 2, y = 14, w = 156, h = 98
     menuid = 0, helpid = 0, defbuttonid = 0
     modal = true, resizable = false
     hresize = 0, vresize = 0

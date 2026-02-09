@@ -260,9 +260,6 @@ void setTheme(int theme, bool mainForm) {
 				digiTxtG = 255;
 				digiTxtB = 255;
 				
-				// Draw main background BMP
-				//if (mainForm) mainBuffer.bitmap(theme1BMP, 0, 0);
-				
 				clockGadget.SetClockTheme(themeR, themeG, themeB,
 											clockBgR, clockBgG, clockBgB,
 											shadowR, shadowG, shadowB,
@@ -285,11 +282,6 @@ void setTheme(int theme, bool mainForm) {
 									shadowR, shadowG, shadowB,
 									digiTxtR, digiTxtG, digiTxtB,
 									clockSecR, clockSecG, clockSecB);
-	
-				/*actionGadget.SetActionTheme(themeR, themeG, themeB,
-									batteryBgR, batteryBgG, batteryBgB,
-									shadowR, shadowG, shadowB,
-									textR, textG, textB);*/
 				break;
 				
 			case 2: // Purple Eva-01				
@@ -344,9 +336,6 @@ void setTheme(int theme, bool mainForm) {
 				digiTxtG = 255;
 				digiTxtB = 255;
 				
-				// Draw main background BMP
-				//if (mainForm) mainBuffer.bitmap(theme2BMP, 0, 0);
-				
 				clockGadget.SetClockTheme(152, 204, 0,
 											clockBgR, clockBgG, clockBgB,
 											shadowR, shadowG, shadowB,
@@ -369,11 +358,6 @@ void setTheme(int theme, bool mainForm) {
 									shadowR, shadowG, shadowB,
 									digiTxtR, digiTxtG, digiTxtB,
 									clockSecR, clockSecG, clockSecB);
-	
-				/*actionGadget.SetActionTheme(themeR, themeG, themeB,
-									batteryBgR, batteryBgG, batteryBgB,
-									shadowR, shadowG, shadowB,
-									textR, textG, textB);*/
 				break;
 				
 			case 3: // PokéRed
@@ -428,9 +412,6 @@ void setTheme(int theme, bool mainForm) {
 				digiTxtG = 255;
 				digiTxtB = 255;
 				
-				// Draw main background BMP
-				//if (mainForm) mainBuffer.bitmap(theme3BMP, 0, 0);
-				
 				clockGadget.SetClockTheme(themeR, themeG, themeB,
 											clockBgR, clockBgG, clockBgB,
 											shadowR, shadowG, shadowB,
@@ -453,11 +434,6 @@ void setTheme(int theme, bool mainForm) {
 									shadowR, shadowG, shadowB,
 									digiTxtR, digiTxtG, digiTxtB,
 									clockSecR, clockSecG, clockSecB);
-	
-				/*actionGadget.SetActionTheme(themeR, themeG, themeB,
-									batteryBgR, batteryBgG, batteryBgB,
-									shadowR, shadowG, shadowB,
-									textR, textG, textB);*/
 				break;
 				
 			case 4: // Juicy Orange
@@ -512,9 +488,6 @@ void setTheme(int theme, bool mainForm) {
 				digiTxtG = 255;
 				digiTxtB = 255;
 				
-				// Draw main background BMP
-				//if (mainForm) mainBuffer.bitmap(theme4BMP, 0, 0);
-				
 				clockGadget.SetClockTheme(themeR, themeG, themeB,
 											clockBgR, clockBgG, clockBgB,
 											shadowR, shadowG, shadowB,
@@ -537,11 +510,6 @@ void setTheme(int theme, bool mainForm) {
 									shadowR, shadowG, shadowB,
 									digiTxtR, digiTxtG, digiTxtB,
 									clockSecR, clockSecG, clockSecB);
-	
-				/*actionGadget.SetActionTheme(themeR, themeG, themeB,
-									batteryBgR, batteryBgG, batteryBgB,
-									shadowR, shadowG, shadowB,
-									textR, textG, textB);*/
 				break;
 				
 			case 5: // Peach Yellow
@@ -583,9 +551,9 @@ void setTheme(int theme, bool mainForm) {
 				clockSecB = 0;
 				
 				// battery text
-				battTxtR = 255;
-				battTxtG = 255;
-				battTxtB = 255;
+				battTxtR = 102;
+				battTxtG = 51;
+				battTxtB = 0;
 				
 				// digiclock background and text	
 				digiBgR = 255;
@@ -595,9 +563,6 @@ void setTheme(int theme, bool mainForm) {
 				digiTxtR = 255;
 				digiTxtG = 255;
 				digiTxtB = 255;
-				
-				// Draw main background BMP
-				//if (mainForm) mainBuffer.bitmap(theme5BMP, 0, 0);
 				
 				clockGadget.SetClockTheme(clockSecR, clockSecG, clockSecB,
 											clockBgR, clockBgG, clockBgB,
@@ -621,11 +586,6 @@ void setTheme(int theme, bool mainForm) {
 									shadowR, shadowG, shadowB,
 									digiTxtR, digiTxtG, digiTxtB,
 									clockSecR, clockSecG, clockSecB);
-	
-				/*actionGadget.SetActionTheme(themeR, themeG, themeB,
-									batteryBgR, batteryBgG, batteryBgB,
-									shadowR, shadowG, shadowB,
-									textR, textG, textB);*/
 				break;
 				
 			case 6: // Lime Green
@@ -680,9 +640,6 @@ void setTheme(int theme, bool mainForm) {
 				digiTxtG = 255;
 				digiTxtB = 255;
 				
-				// Draw main background BMP
-				//if (mainForm) mainBuffer.bitmap(theme6BMP, 0, 0);
-				
 				clockGadget.SetClockTheme(themeR, themeG, themeB,
 											clockBgR, clockBgG, clockBgB,
 											shadowR, shadowG, shadowB,
@@ -705,11 +662,6 @@ void setTheme(int theme, bool mainForm) {
 									shadowR, shadowG, shadowB,
 									digiTxtR, digiTxtG, digiTxtB,
 									clockSecR, clockSecG, clockSecB);
-	
-				/*actionGadget.SetActionTheme(themeR, themeG, themeB,
-									batteryBgR, batteryBgG, batteryBgB,
-									shadowR, shadowG, shadowB,
-									textR, textG, textB);*/
 				break;
 				
 			case 7: // Gray Cloud
@@ -751,9 +703,9 @@ void setTheme(int theme, bool mainForm) {
 				clockSecB = 51;
 				
 				// battery text
-				battTxtR = 255;
-				battTxtG = 255;
-				battTxtB = 255;
+				battTxtR = 68;
+				battTxtG = 68;
+				battTxtB = 68;
 				
 				// digiclock background and text	
 				digiBgR = 255;
@@ -763,9 +715,6 @@ void setTheme(int theme, bool mainForm) {
 				digiTxtR = 255;
 				digiTxtG = 255;
 				digiTxtB = 255;
-				
-				// Draw main background BMP
-				//if (mainForm) mainBuffer.bitmap(theme7BMP, 0, 0);
 				
 				clockGadget.SetClockTheme(clockSecR, clockSecG, clockSecB,
 											clockBgR, clockBgG, clockBgB,
@@ -789,11 +738,6 @@ void setTheme(int theme, bool mainForm) {
 									shadowR, shadowG, shadowB,
 									digiTxtR, digiTxtG, digiTxtB,
 									clockSecR, clockSecG, clockSecB);
-	
-				/*actionGadget.SetActionTheme(themeR, themeG, themeB,
-									batteryBgR, batteryBgG, batteryBgB,
-									shadowR, shadowG, shadowB,
-									textR, textG, textB);*/
 				break;
 				
 			case 8: // Dark Cloud
@@ -848,9 +792,6 @@ void setTheme(int theme, bool mainForm) {
 				digiTxtG = 255;
 				digiTxtB = 255;
 				
-				// Draw main background BMP
-				//if (mainForm) mainBuffer.bitmap(theme8BMP, 0, 0);
-				
 				clockGadget.SetClockTheme(clockSecR, clockSecG, clockSecB,
 											clockBgR, clockBgG, clockBgB,
 											shadowR, shadowG, shadowB,
@@ -873,11 +814,6 @@ void setTheme(int theme, bool mainForm) {
 									shadowR, shadowG, shadowB,
 									digiTxtR, digiTxtG, digiTxtB,
 									clockSecR, clockSecG, clockSecB);
-	
-				/*actionGadget.SetActionTheme(themeR, themeG, themeB,
-									batteryBgR, batteryBgG, batteryBgB,
-									shadowR, shadowG, shadowB,
-									textR, textG, textB);*/
 				break;
 		}
 	}
@@ -960,11 +896,6 @@ void setTheme(int theme, bool mainForm) {
 								shadowR, shadowG, shadowB,
 								digiTxtR, digiTxtG, digiTxtB,
 								clockSecR, clockSecG, clockSecB);
-	
-			/*actionGadget.SetActionTheme(themeR, themeG, themeB,
-								batteryBgR, batteryBgG, batteryBgB,
-								shadowR, shadowG, shadowB,
-								textR, textG, textB);*/
 		}
 		
 		if (colorDepth == 2) {		
@@ -1044,11 +975,6 @@ void setTheme(int theme, bool mainForm) {
 								shadowR, shadowG, shadowB,
 								digiTxtR, digiTxtG, digiTxtB,
 								clockSecR, clockSecG, clockSecB);
-	
-			/*actionGadget.SetActionTheme(themeR, themeG, themeB,
-								batteryBgR, batteryBgG, batteryBgB,
-								shadowR, shadowG, shadowB,
-								textR, textG, textB);*/
 		}
 		
 		if (colorDepth == 4) {		
@@ -1128,11 +1054,6 @@ void setTheme(int theme, bool mainForm) {
 								shadowR, shadowG, shadowB,
 								digiTxtR, digiTxtG, digiTxtB,
 								clockSecR, clockSecG, clockSecB);
-	
-			/*actionGadget.SetActionTheme(themeR, themeG, themeB,
-								batteryBgR, batteryBgG, batteryBgB,
-								shadowR, shadowG, shadowB,
-								textR, textG, textB);*/
 		}
 	}
 }
@@ -1148,7 +1069,7 @@ void drawBuffer() {
 }
 
 
-// BUFFER functions
+// BUFFER structures
 ClockHand chHour, chMin, chSec;
 Point ptCenter;
 
@@ -1197,10 +1118,6 @@ void drawMainFormBuffer() {
 	mainBuffer.fgRGB(shadowR, shadowG, shadowB);
 	mainBuffer.line(clrFG, mainForm.x, 11, mainForm.w, 11);
 	mainBuffer.line(clrFG, mainForm.w-1, 0, mainForm.w-1, 11);
-
-	
-	
-	
 	
 	// Clock background (for 2.0) -----------------------------------------------------------------
 	mainBuffer.bgRGB(clockBgR, clockBgG, clockBgB);
@@ -1229,7 +1146,7 @@ void drawMainFormBuffer() {
     		i == 3 ||
     		i == 6 ) mainBuffer.rect(clrFG, x-1, y-1, x+1, y+1, 2);
     	
-    	if (i == 9) mainBuffer.rect(clrFG, x, y-1, x+2, y+1, 2); // corrected 12 dot possition
+    	if (i == 9) mainBuffer.rect(clrFG, x, y-1, x+2, y+1, 2); // corrected 12th dot possition
 	}
 	
 	// Calendar background (for 2.0) --------------------------------------------------------------
@@ -1281,7 +1198,7 @@ void drawMainFormBuffer() {
 	mainBuffer.frame(clrFG, batteryGdtX+3, batteryGdtY+3, batteryGdtX+35, batteryGdtY+35, 5, 3);*/
 	
 	// Battery icon frame (for 2.0) ---------------------------------------------------------------
-	mainBuffer.fgRGB(255, 255, 255);
+	mainBuffer.fgRGB(battTxtR, battTxtG, battTxtB);
 	mainBuffer.frame(clrFG, batteryGdtX+19, batteryGdtY+2, batteryGdtX+38, batteryGdtY+9, 2, 1);
 	mainBuffer.line(clrFG, batteryGdtX+40, batteryGdtY+3, batteryGdtX+40, batteryGdtY+7);
 	
@@ -1350,20 +1267,20 @@ void drawMiniDigiClockBuffer() {
 	mainBuffer.textRGB(digiTextR, digiTextG, digiTextB);
 	mainBuffer.textAlign(12);
 	mainBuffer.font(fntLargeBold );
-	mainBuffer.text(clrText, digiClockGdtX+33, digiClockGdtY+92, sthr + ":" + stmin);
+	mainBuffer.text(clrText, digiClockGdtX+33, digiClockGdtY+13, sthr + ":" + stmin);
 	mainBuffer.textAlign(11);
 	mainBuffer.font(fntStandard);
-	mainBuffer.text(clrText, digiClockGdtX+27, digiClockGdtY+80, stsec);
+	mainBuffer.text(clrText, digiClockGdtX+27, digiClockGdtY+25, stsec);
 	
 	if (timeFormat == 2) {
 		if (amPm == 1) {
 			mainBuffer.textRGB(clockSecR, clockSecG, clockSecB);
-			mainBuffer.text(clrText, digiClockGdtX+13, digiClockGdtY+80, "am");
+			mainBuffer.text(clrText, digiClockGdtX+13, digiClockGdtY+25, "am");
 		}
 		else
 		{
 			mainBuffer.textRGB(clockSecR, clockSecG, clockSecB);
-			mainBuffer.text(clrText, digiClockGdtX+13, digiClockGdtY+80, "pm");
+			mainBuffer.text(clrText, digiClockGdtX+13, digiClockGdtY+25, "pm");
 		}
 	}
 }
@@ -1533,7 +1450,7 @@ void drawBatteryPercBuffer() {
 
 
 // Draw date in calendar
-void setCalendarBuffer() {
+void drawCalendarBuffer() {
 	int dateOnCalendar;
 	string dayStr, monthStr, monthYear;
 	today.now();
@@ -1566,7 +1483,7 @@ void setCalendarBuffer() {
 	}
 	
 	// Month
-	switch (today.month) {
+	/*switch (today.month) {
 		case 1:
 			monthStr = "Jan.";
 			break;
@@ -1580,7 +1497,7 @@ void setCalendarBuffer() {
 			monthStr = "Apr.";
 			break;
 		case 5:
-			monthStr = "May.";
+			monthStr = "May";
 			break;
 		case 6:
 			monthStr = "Jun.";
@@ -1602,6 +1519,47 @@ void setCalendarBuffer() {
 			break;
 		case 12:
 			monthStr = "Dec.";
+			break;
+		default:
+			monthStr = "---";
+	}*/
+	
+	switch (today.month) {
+		case 1:
+			monthStr = "January";
+			break;
+		case 2:
+			monthStr = "February";
+			break;
+		case 3:
+			monthStr = "March";
+			break;
+		case 4:
+			monthStr = "April";
+			break;
+		case 5:
+			monthStr = "May";
+			break;
+		case 6:
+			monthStr = "June";
+			break;
+		case 7:
+			monthStr = "July";
+			break;
+		case 8:
+			monthStr = "August";
+			break;
+		case 9:
+			monthStr = "September";
+			break;
+		case 10:
+			monthStr = "October";
+			break;
+		case 11:
+			monthStr = "November";
+			break;
+		case 12:
+			monthStr = "December";
 			break;
 		default:
 			monthStr = "---";
@@ -1666,7 +1624,7 @@ void drawMainTheme() {
 	// Widget buffers
 	drawMainFormBuffer(); // Includes Clock buffer
 	drawMiniDigiClockBuffer();
-	setCalendarBuffer();
+	drawCalendarBuffer();
 	drawBatteryIconBuffer();
 	drawBatteryPercBuffer();
 	
@@ -1802,7 +1760,7 @@ handler mainForm.ondraw() {
 	easterEggBMP.visible = easterEgg;
 	
 	// Show buttons
-	//functionsButton.visible = true;
+	functionsButton.visible = true;
 }
 
 
@@ -2046,3 +2004,13 @@ handler batteryGadget.onpenup() {
 handler functionsButton.onselect() {
 	functionsForm.domodal();
 }
+
+
+
+
+/*handler digiClockGadget.onpendown() {
+	draw.begin();
+	draw.fgRGB(255, 255, 255);
+	draw.frame(clrFG, digiClockGdtX+3, digiClockGdtY+3, digiClockGdtX+35, digiClockGdtY+35, 5, 3);
+	draw.end();
+}*/
