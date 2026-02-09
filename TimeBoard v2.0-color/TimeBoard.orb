@@ -454,8 +454,9 @@
     button UIButton functionsButton {
       id = 1011
       x = 0, y = 0, w = 25, h = 12
-      text = "F"
+      text = ""
       leftanchor = true, group = 0, fontid = 0
+      graphic = true, bitmapid = 1094, sbitmapid = 1177
       frame = 0
       hresize = 0, vresize = 0
     }
