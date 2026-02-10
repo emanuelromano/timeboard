@@ -146,7 +146,13 @@ void setMainBg(int background) {
 				mainBuffer.bgRGB(153, 204, 255);
 				mainBuffer.rect(clrBG, 0, 0, draw.nw, 60, 0);
 				mainBuffer.bgRGB(255, 255, 153);
-				mainBuffer.rect(clrBG, -47, -50, 57, 50, 50);
+				mainBuffer.rect(clrBG, 126, 16, 149, 39, 12);
+				mainBuffer.bgRGB(255, 255, 204);
+				mainBuffer.rect(clrBG, 130, 20, 145, 35, 8);
+				mainBuffer.bgRGB(255, 255, 255);
+				mainBuffer.rect(clrBG, -5, 23, 15, 43, 10);
+				mainBuffer.rect(clrBG, 6, 26, 22, 43, 8);
+				mainBuffer.rect(clrBG, 14, 30, 30, 43, 8);
 				break;
 				
 			case 2:
@@ -154,7 +160,9 @@ void setMainBg(int background) {
 				mainBuffer.bgRGB(255, 153, 0);
 				mainBuffer.rect(clrBG, 0, 0, draw.nw, draw.nh, 0);
 				mainBuffer.bgRGB(255, 255, 0);
-				mainBuffer.rect(clrBG, 90, 20, 190, 120, 50);
+				mainBuffer.rect(clrBG, 133, 35, 183, 85, 25);
+				mainBuffer.bgRGB(255, 255, 102);
+				mainBuffer.rect(clrBG, 138, 40, 178, 80, 20);
 				mainBuffer.bgRGB(153, 0, 0);
 				mainBuffer.rect(clrBG, 0, 60, draw.nw, draw.nh, 0);
 				break;
@@ -164,7 +172,11 @@ void setMainBg(int background) {
 				mainBuffer.bgRGB(255, 153, 204);
 				mainBuffer.rect(clrBG, 0, 0, draw.nw, draw.nh, 0);
 				mainBuffer.bgRGB(255, 255, 0);
-				mainBuffer.rect(clrBG, -50, 20, 50, 120, 50);
+				mainBuffer.rect(clrBG, -50, 25, 45, 115, 44);
+				mainBuffer.bgRGB(255, 204, 204);
+				mainBuffer.rect(clrBG, 139, 40, 149, 50, 5);
+				mainBuffer.bgRGB(255, 153, 204);
+				mainBuffer.rect(clrBG, 142, 40, 149, 48, 4);
 				mainBuffer.bgRGB(50, 50, 102);
 				mainBuffer.rect(clrBG, 0, 60, draw.nw, draw.nh, 0);
 				break;
@@ -176,7 +188,28 @@ void setMainBg(int background) {
 				mainBuffer.bgRGB(51, 102, 153);
 				mainBuffer.rect(clrBG, 0, 0, draw.nw, 60, 0);
 				mainBuffer.bgRGB(255, 255, 204);
-				mainBuffer.rect(clrBG, 40, -40, 120, 40, 40);
+				mainBuffer.rect(clrBG, 126, 16, 146, 36, 10);
+				mainBuffer.bgRGB(51, 102, 153);
+				mainBuffer.rect(clrBG, 130, 16, 146, 32, 8);
+				mainBuffer.bgRGB(153, 204, 255);
+				mainBuffer.pixel(clrBG, 8, 19);
+				mainBuffer.pixel(clrBG, 23, 21);
+				mainBuffer.pixel(clrBG, 46, 18);
+				mainBuffer.pixel(clrBG, 15, 30);
+				mainBuffer.pixel(clrBG, 35, 26);
+				mainBuffer.pixel(clrBG, 16, 41);
+				mainBuffer.pixel(clrBG, 5, 53);
+				mainBuffer.pixel(clrBG, 22, 50);
+				mainBuffer.pixel(clrBG, 105, 16);
+				mainBuffer.pixel(clrBG, 120, 17);
+				mainBuffer.pixel(clrBG, 116, 24);
+				mainBuffer.pixel(clrBG, 133, 52);
+				mainBuffer.pixel(clrBG, 140, 42);
+				mainBuffer.pixel(clrBG, 145, 56);
+				mainBuffer.pixel(clrBG, 152, 47);
+				mainBuffer.pixel(clrBG, 151, 33);
+				mainBuffer.pixel(clrBG, 148, 21);
+				mainBuffer.pixel(clrBG, 156, 15);
 				break;
 				
 			case 5:
@@ -1845,22 +1878,14 @@ handler mainForm.ontimer() {
 
 // Hard button handlers
 handler mainForm.onhkey() {
-	/*int key;
+	int key;
 	clock.hookhard(false);
 	
 	key = e.key; // 4: key up - 5: key down
+	//alert(key);
 	
-	if (key == 4) {
-		alert(keystate());
-		bigClockForm.load();
-	}
-	
-	if (key == 5) {
-		alert(keystate());
-		bigCalendarForm.load();
-	}*/
 
-	if (buttonsMode == 1) {
+	/*if (buttonsMode == 1) {
 		if (keystate() == 2) { // up button pressed
 			switch(actionSet) {
 				case 1:
@@ -1936,16 +1961,11 @@ handler mainForm.onhkey() {
 					break;
 			}
 		}
-	}
+	}*/
 }
 
 
 // MenuBar handlers
-handler menuGeneral.onselect() {
-	actionSet = 1;
-	mainForm.load();
-}
-
 handler menuBigClock.onselect() {
 	actionSet = 1;
 	fullClockForm.load();

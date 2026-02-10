@@ -433,7 +433,7 @@ void BatteryGadget.DrawBatteryInfo() {
 	batBuffer.begin();
 	
 	batBuffer.bgRGB(battBackgroundR, battBackgroundG, battBackgroundB); // background color
-	batBuffer.textRGB(battTextR, battTextG, battTextB); // font color
+	batBuffer.textRGB(255, 255, 255 /*battTextR, battTextG, battTextB*/); // font color
 	
 	batBuffer.textAlign(00);
 	batBuffer.font(fntStandard);
@@ -444,7 +444,7 @@ void BatteryGadget.DrawBatteryInfo() {
 	batBuffer.font(fntBold);
 	batBuffer.text(clrText, textRightX, textY, battery(false) + "%");
 	
-	batBuffer.textRGB(battTextR, battTextG, battTextB);
+	batBuffer.textRGB(255, 255, 255 /*battTextR, battTextG, battTextB*/);
 	batBuffer.textAlign(00);
 	batBuffer.font(fntStandard);
 	batBuffer.text(clrText, textLeftX, textY+11, "Voltage:");
@@ -454,7 +454,7 @@ void BatteryGadget.DrawBatteryInfo() {
 	batBuffer.font(fntBold);
 	batBuffer.text(clrText, textRightX, textY+11, strleft(battery(true), 1) + "," + strright(battery(true), 2) + "V");
 	
-	batBuffer.textRGB(battTextR, battTextG, battTextB);
+	batBuffer.textRGB(255, 255, 255 /*battTextR, battTextG, battTextB*/);
 	batBuffer.textAlign(00);
 	batBuffer.font(fntStandard);
 	batBuffer.text(clrText, textLeftX, textY+22, "Remaining:");
@@ -464,7 +464,7 @@ void BatteryGadget.DrawBatteryInfo() {
 	batBuffer.font(fntBold);
 	batBuffer.text(clrText, textRightX, textY+22, "~ " + stEstHours + "h " + stEstMinutes + "m");
 	
-	batBuffer.textRGB(battTextR, battTextG, battTextB);
+	batBuffer.textRGB(255, 255, 255 /*battTextR, battTextG, battTextB*/);
 	batBuffer.textAlign(00);
 	batBuffer.font(fntStandard);
 	batBuffer.text(clrText, textLeftX, textY+33, "Up-time:");
@@ -488,7 +488,7 @@ void BatteryGadget.DrawBatteryInfo2() {
 	draw.begin();
 	
 	draw.bgRGB(battBackgroundR, battBackgroundG, battBackgroundB); // background color
-	draw.textRGB(battTextR, battTextG, battTextB); // font color
+	draw.textRGB(255, 255, 255 /*battTextR, battTextG, battTextB*/); // font color
 	
 	draw.textAlign(00);
 	draw.font(fntStandard);
@@ -499,7 +499,7 @@ void BatteryGadget.DrawBatteryInfo2() {
 	draw.font(fntBold);
 	draw.text(clrText, textRightX, textY, battery(false) + "%");
 	
-	draw.textRGB(battTextR, battTextG, battTextB);
+	draw.textRGB(255, 255, 255 /*battTextR, battTextG, battTextB*/);
 	draw.textAlign(00);
 	draw.font(fntStandard);
 	draw.text(clrText, textLeftX, textY+11, "Voltage:");
@@ -509,7 +509,7 @@ void BatteryGadget.DrawBatteryInfo2() {
 	draw.font(fntBold);
 	draw.text(clrText, textRightX, textY+11, strleft(battery(true), 1) + "," + strright(battery(true), 2) + "V");
 	
-	draw.textRGB(battTextR, battTextG, battTextB);
+	draw.textRGB(255, 255, 255 /*battTextR, battTextG, battTextB*/);
 	draw.textAlign(00);
 	draw.font(fntStandard);
 	draw.text(clrText, textLeftX, textY+22, "Remaining:");
@@ -519,7 +519,7 @@ void BatteryGadget.DrawBatteryInfo2() {
 	draw.font(fntBold);
 	draw.text(clrText, textRightX, textY+22, "~ " + stEstHours + "h " + stEstMinutes + "m");
 	
-	draw.textRGB(battTextR, battTextG, battTextB);
+	draw.textRGB(255, 255, 255 /*battTextR, battTextG, battTextB*/);
 	draw.textAlign(00);
 	draw.font(fntStandard);
 	draw.text(clrText, textLeftX, textY+33, "Up-time:");

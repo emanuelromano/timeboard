@@ -390,9 +390,6 @@
       id = 1002
       menu UIMenu viewsMenu {
         text = "Views"
-        menuitem UIMenuItem menuGeneral {
-          id = 1147, sysid = 0, text = "Overview", shortcut = "O"
-        }
         menuitem UIMenuItem menuBigClock {
           id = 1031, sysid = 0, text = "Analog clock", shortcut = "C"
         }
@@ -408,6 +405,9 @@
       }
       menu UIMenu optionsMenu {
         text = "Options"
+        menuitem UIMenuItem menuTimeSync {
+          id = 1083, sysid = 0, text = "Time Sync", shortcut = "T"
+        }
         menuitem UIMenuItem menuPreferences {
           id = 1033, sysid = 0, text = "Preferences", shortcut = "P"
         }
@@ -465,48 +465,9 @@
     id = 1095
     text = ""
     x = 0, y = 0, w = 160, h = 160
-    menuid = 1056, helpid = 0, defbuttonid = 0
+    menuid = 0, helpid = 0, defbuttonid = 0
     modal = false, resizable = false
     hresize = 2, vresize = 2
-    menubar UIMenuBar fullClockMenuBar {
-      id = 1056
-      menu UIMenu fcViewsMenu {
-        text = "Views"
-        menuitem UIMenuItem fcMenuGeneral {
-          id = 1078, sysid = 0, text = "Overview", shortcut = "O"
-        }
-        menuitem UIMenuItem fcMenuBigClock {
-          id = 1079, sysid = 0, text = "Analog clock", shortcut = "C"
-        }
-        menuitem UIMenuItem fcMenuBigDigiClock {
-          id = 1080, sysid = 0, text = "Digital clock", shortcut = "D"
-        }
-        menuitem UIMenuItem fcMenuCalendar {
-          id = 1081, sysid = 0, text = "Calendar", shortcut = "L"
-        }
-        menuitem UIMenuItem fcMenuBattery {
-          id = 1082, sysid = 0, text = "Battery", shortcut = "B"
-        }
-      }
-      menu UIMenu fcOptionsMenu {
-        text = "Options"
-        menuitem UIMenuItem fcMenuPreferences {
-          id = 1087, sysid = 0, text = "Preferences", shortcut = "P"
-        }
-        menuitem UIMenuItem fcMenuHelp {
-          id = 1086, sysid = 0, text = "Help", shortcut = "H"
-        }
-        menuitem UIMenuItem fcMenuAbout {
-          id = 1085, sysid = 0, text = "About...", shortcut = "A"
-        }
-        menuitem UIMenuItem menu1148 {
-          id = 1148, sysid = 0, text = "-"
-        }
-        menuitem UIMenuItem fcMenuExit {
-          id = 1084, sysid = 0, text = "Exit", shortcut = "E"
-        }
-      }
-    }
     button UIButton fullClockBackButton {
       id = 1097
       x = 130, y = 148, w = 25, h = 15
@@ -526,48 +487,9 @@
     id = 1100
     text = ""
     x = 0, y = 0, w = 160, h = 160
-    menuid = 1149, helpid = 0, defbuttonid = 0
+    menuid = 0, helpid = 0, defbuttonid = 0
     modal = false, resizable = false
     hresize = 2, vresize = 2
-    menubar UIMenuBar fullDigiClockMenuBar {
-      id = 1149
-      menu UIMenu fdViewsMenu {
-        text = "Views"
-        menuitem UIMenuItem fdMenuGeneral {
-          id = 1151, sysid = 0, text = "Overview", shortcut = "O"
-        }
-        menuitem UIMenuItem fdMenuBigClock {
-          id = 1153, sysid = 0, text = "Analog clock", shortcut = "C"
-        }
-        menuitem UIMenuItem fdMenuBigDigiClock {
-          id = 1155, sysid = 0, text = "Digital clock", shortcut = "D"
-        }
-        menuitem UIMenuItem fdMenuCalendar {
-          id = 1154, sysid = 0, text = "Calendar", shortcut = "L"
-        }
-        menuitem UIMenuItem fdMenuBattery {
-          id = 1152, sysid = 0, text = "Battery", shortcut = "B"
-        }
-      }
-      menu UIMenu fdOptionsMenu {
-        text = "Options"
-        menuitem UIMenuItem fdMenuPreferences {
-          id = 1157, sysid = 0, text = "Preferences", shortcut = "P"
-        }
-        menuitem UIMenuItem fdMenuHelp {
-          id = 1158, sysid = 0, text = "Help", shortcut = "H"
-        }
-        menuitem UIMenuItem fdMenuAbout {
-          id = 1159, sysid = 0, text = "About...", shortcut = "A"
-        }
-        menuitem UIMenuItem menu1160 {
-          id = 1160, sysid = 0, text = "-"
-        }
-        menuitem UIMenuItem fdMenuExit {
-          id = 1150, sysid = 0, text = "Exit", shortcut = "E"
-        }
-      }
-    }
     button UIButton fullDigiClockMenuButton {
       id = 1103
       x = 130, y = 148, w = 25, h = 15
