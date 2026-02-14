@@ -1,5 +1,6 @@
 // Main Form
 
+// clock gadget 31 15 98 98
 
 // Imported bitmats
 // Themed fuction button
@@ -112,7 +113,7 @@
 }*/
 
 
-// Global variables
+// Global variables ---------------------------------------
 Draw mainBuffer;
 Bitmap actionSetBMP;
 int hr, min, charge, chargeFill, fill,
@@ -128,23 +129,41 @@ int hr, min, charge, chargeFill, fill,
 	lastSecs,
 	updateTimer = 0,
 	buttonsMode,
-	pendingAction = 0;
+	pendingAction = 0,
+	clockCornerRadius;
 string hoursStr, minutesStr, secondsStr,
 	sthr, stmin;
-bool soundsEnabled, showConnectors, startOnSunday, easterEgg;
+bool soundsEnabled,
+	showConnectors,
+	startOnSunday,
+	easterEgg,
+	roundedClock;
 bool actionPending = false;
+bool drawShadows = true;
 
 
 // Main form background
-void setMainBg(int background) {
+void drawMainBg(int background) {
 	if (colorDepth > 4) {
-		switch (background) {
+		switch (background) {	
 			case 1:
+				// form background: Sunrise
+				mainBuffer.bgRGB(255, 153, 0);
+				mainBuffer.rect(clrBG, 0, 0, mainBuffer.nw, mainBuffer.nh, 0);
+				mainBuffer.bgRGB(255, 255, 0);
+				mainBuffer.rect(clrBG, 133, 35, 183, 85, 25);
+				mainBuffer.bgRGB(255, 255, 102);
+				mainBuffer.rect(clrBG, 138, 40, 178, 80, 20);
+				mainBuffer.bgRGB(153, 0, 0);
+				mainBuffer.rect(clrBG, 0, 60, mainBuffer.nw, mainBuffer.nh, 0);
+				break;
+				
+			case 2:
 				// form background: Day
 				mainBuffer.bgRGB(204, 255, 153);
-				mainBuffer.rect(clrBG, 0, 0, draw.nw, draw.nh, 0);
+				mainBuffer.rect(clrBG, 0, 0, mainBuffer.nw, mainBuffer.nh, 0);
 				mainBuffer.bgRGB(153, 204, 255);
-				mainBuffer.rect(clrBG, 0, 0, draw.nw, 60, 0);
+				mainBuffer.rect(clrBG, 0, 0, mainBuffer.nw, 60, 0);
 				mainBuffer.bgRGB(255, 255, 153);
 				mainBuffer.rect(clrBG, 126, 16, 149, 39, 12);
 				mainBuffer.bgRGB(255, 255, 204);
@@ -155,22 +174,10 @@ void setMainBg(int background) {
 				mainBuffer.rect(clrBG, 14, 30, 30, 43, 8);
 				break;
 				
-			case 2:
-				// form background: Sunrise
-				mainBuffer.bgRGB(255, 153, 0);
-				mainBuffer.rect(clrBG, 0, 0, draw.nw, draw.nh, 0);
-				mainBuffer.bgRGB(255, 255, 0);
-				mainBuffer.rect(clrBG, 133, 35, 183, 85, 25);
-				mainBuffer.bgRGB(255, 255, 102);
-				mainBuffer.rect(clrBG, 138, 40, 178, 80, 20);
-				mainBuffer.bgRGB(153, 0, 0);
-				mainBuffer.rect(clrBG, 0, 60, draw.nw, draw.nh, 0);
-				break;
-				
 			case 3:
 				// form background: Sunset
 				mainBuffer.bgRGB(255, 153, 204);
-				mainBuffer.rect(clrBG, 0, 0, draw.nw, draw.nh, 0);
+				mainBuffer.rect(clrBG, 0, 0, mainBuffer.nw, mainBuffer.nh, 0);
 				mainBuffer.bgRGB(255, 255, 0);
 				mainBuffer.rect(clrBG, -50, 25, 45, 115, 44);
 				mainBuffer.bgRGB(255, 204, 204);
@@ -178,15 +185,15 @@ void setMainBg(int background) {
 				mainBuffer.bgRGB(255, 153, 204);
 				mainBuffer.rect(clrBG, 142, 40, 149, 48, 4);
 				mainBuffer.bgRGB(50, 50, 102);
-				mainBuffer.rect(clrBG, 0, 60, draw.nw, draw.nh, 0);
+				mainBuffer.rect(clrBG, 0, 60, mainBuffer.nw, mainBuffer.nh, 0);
 				break;
 				
 			case 4:
 				// form background: Night
 				mainBuffer.bgRGB(51, 51, 102);
-				mainBuffer.rect(clrBG, 0, 0, draw.nw, draw.nh, 0);
+				mainBuffer.rect(clrBG, 0, 0, mainBuffer.nw, mainBuffer.nh, 0);
 				mainBuffer.bgRGB(51, 102, 153);
-				mainBuffer.rect(clrBG, 0, 0, draw.nw, 60, 0);
+				mainBuffer.rect(clrBG, 0, 0, mainBuffer.nw, 60, 0);
 				mainBuffer.bgRGB(255, 255, 204);
 				mainBuffer.rect(clrBG, 126, 16, 146, 36, 10);
 				mainBuffer.bgRGB(51, 102, 153);
@@ -213,9 +220,175 @@ void setMainBg(int background) {
 				break;
 				
 			case 5:
+				// form background: Night
+				mainBuffer.bgRGB(51, 0, 102);
+				mainBuffer.rect(clrBG, 0, 0, mainBuffer.nw, mainBuffer.nh, 0);
+				mainBuffer.bgRGB(51, 102, 153);
+				mainBuffer.bgRGB(255, 255, 204);
+				mainBuffer.rect(clrBG, 126, 16, 146, 36, 10);
+				mainBuffer.bgRGB(102, 102, 51);
+				mainBuffer.rect(clrBG, 130, 16, 146, 32, 8);
+				
+				mainBuffer.bgRGB(153, 204, 255);
+				// Y: 0–30
+				mainBuffer.pixel(clrBG, 6, 8);
+				mainBuffer.pixel(clrBG, 14, 12);
+				mainBuffer.pixel(clrBG, 23, 5);
+				mainBuffer.pixel(clrBG, 31, 14);
+				mainBuffer.pixel(clrBG, 39, 9);
+				mainBuffer.pixel(clrBG, 47, 16);
+				mainBuffer.pixel(clrBG, 56, 7);
+				mainBuffer.pixel(clrBG, 64, 13);
+				mainBuffer.pixel(clrBG, 72, 10);
+				mainBuffer.pixel(clrBG, 81, 18);
+				mainBuffer.pixel(clrBG, 89, 6);
+				mainBuffer.pixel(clrBG, 97, 15);
+				mainBuffer.pixel(clrBG, 106, 9);
+				mainBuffer.pixel(clrBG, 114, 17);
+				mainBuffer.pixel(clrBG, 123, 11);
+				mainBuffer.pixel(clrBG, 131, 14);
+				mainBuffer.pixel(clrBG, 140, 8);
+				mainBuffer.pixel(clrBG, 148, 16);
+				mainBuffer.pixel(clrBG, 155, 10);
+				
+				// Y: 31–60
+				mainBuffer.pixel(clrBG, 9, 34);
+				mainBuffer.pixel(clrBG, 17, 41);
+				mainBuffer.pixel(clrBG, 25, 37);
+				mainBuffer.pixel(clrBG, 34, 45);
+				mainBuffer.pixel(clrBG, 42, 39);
+				mainBuffer.pixel(clrBG, 50, 48);
+				mainBuffer.pixel(clrBG, 58, 35);
+				mainBuffer.pixel(clrBG, 67, 43);
+				mainBuffer.pixel(clrBG, 75, 38);
+				mainBuffer.pixel(clrBG, 83, 49);
+				mainBuffer.pixel(clrBG, 92, 36);
+				mainBuffer.pixel(clrBG, 100, 44);
+				mainBuffer.pixel(clrBG, 108, 40);
+				mainBuffer.pixel(clrBG, 117, 47);
+				mainBuffer.pixel(clrBG, 125, 39);
+				mainBuffer.pixel(clrBG, 134, 45);
+				mainBuffer.pixel(clrBG, 142, 41);
+				mainBuffer.pixel(clrBG, 150, 48);
+				
+				// Y: 61–90
+				mainBuffer.pixel(clrBG, 7, 66);
+				mainBuffer.pixel(clrBG, 15, 74);
+				mainBuffer.pixel(clrBG, 24, 69);
+				mainBuffer.pixel(clrBG, 32, 78);
+				mainBuffer.pixel(clrBG, 40, 71);
+				mainBuffer.pixel(clrBG, 49, 82);
+				mainBuffer.pixel(clrBG, 57, 67);
+				mainBuffer.pixel(clrBG, 65, 75);
+				mainBuffer.pixel(clrBG, 74, 70);
+				mainBuffer.pixel(clrBG, 82, 84);
+				mainBuffer.pixel(clrBG, 90, 68);
+				mainBuffer.pixel(clrBG, 99, 77);
+				mainBuffer.pixel(clrBG, 107, 72);
+				mainBuffer.pixel(clrBG, 115, 81);
+				mainBuffer.pixel(clrBG, 124, 69);
+				mainBuffer.pixel(clrBG, 132, 78);
+				mainBuffer.pixel(clrBG, 141, 73);
+				mainBuffer.pixel(clrBG, 149, 85);
+				
+				// Y: 91–120
+				mainBuffer.pixel(clrBG, 10, 96);
+				mainBuffer.pixel(clrBG, 18, 104);
+				mainBuffer.pixel(clrBG, 26, 99);
+				mainBuffer.pixel(clrBG, 35, 110);
+				mainBuffer.pixel(clrBG, 43, 101);
+				mainBuffer.pixel(clrBG, 51, 114);
+				mainBuffer.pixel(clrBG, 60, 97);
+				mainBuffer.pixel(clrBG, 68, 106);
+				mainBuffer.pixel(clrBG, 76, 100);
+				mainBuffer.pixel(clrBG, 85, 118);
+				mainBuffer.pixel(clrBG, 93, 102);
+				mainBuffer.pixel(clrBG, 101, 111);
+				mainBuffer.pixel(clrBG, 110, 105);
+				mainBuffer.pixel(clrBG, 118, 116);
+				mainBuffer.pixel(clrBG, 127, 99);
+				mainBuffer.pixel(clrBG, 135, 109);
+				mainBuffer.pixel(clrBG, 143, 103);
+				mainBuffer.pixel(clrBG, 152, 115);
+				
+				// Y: 121–159
+				mainBuffer.pixel(clrBG, 8, 126);
+				mainBuffer.pixel(clrBG, 16, 135);
+				mainBuffer.pixel(clrBG, 24, 129);
+				mainBuffer.pixel(clrBG, 33, 142);
+				mainBuffer.pixel(clrBG, 41, 131);
+				mainBuffer.pixel(clrBG, 49, 146);
+				mainBuffer.pixel(clrBG, 58, 127);
+				mainBuffer.pixel(clrBG, 66, 138);
+				mainBuffer.pixel(clrBG, 74, 133);
+				mainBuffer.pixel(clrBG, 83, 150);
+				mainBuffer.pixel(clrBG, 91, 136);
+				mainBuffer.pixel(clrBG, 99, 144);
+				mainBuffer.pixel(clrBG, 108, 139);
+				mainBuffer.pixel(clrBG, 116, 153);
+				mainBuffer.pixel(clrBG, 125, 130);
+				mainBuffer.pixel(clrBG, 133, 141);
+				mainBuffer.pixel(clrBG, 142, 134);
+				mainBuffer.pixel(clrBG, 150, 148);
+				mainBuffer.pixel(clrBG, 156, 139);
+								
+				// Bright stars
+				mainBuffer.bgRGB(255, 255, 255);
+				
+				mainBuffer.pixel(clrBG, 22, 20);
+				mainBuffer.pixel(clrBG, 58, 17);
+				mainBuffer.pixel(clrBG, 91, 23);
+				mainBuffer.pixel(clrBG, 127, 19);
+				
+				mainBuffer.pixel(clrBG, 35, 54);
+				mainBuffer.pixel(clrBG, 76, 49);
+				mainBuffer.pixel(clrBG, 118, 57);
+				
+				mainBuffer.pixel(clrBG, 26, 88);
+				mainBuffer.pixel(clrBG, 69, 94);
+				mainBuffer.pixel(clrBG, 111, 90);
+				
+				mainBuffer.pixel(clrBG, 47, 130);
+				mainBuffer.pixel(clrBG, 98, 134);
+				mainBuffer.pixel(clrBG, 142, 129);
+				
+				// Constellation (stylized Orion-like)
+				mainBuffer.bgRGB(255, 255, 204);
+				
+				// Shoulder
+				mainBuffer.pixel(clrBG, 110, 32);
+				mainBuffer.pixel(clrBG, 109, 32);
+				mainBuffer.pixel(clrBG, 111, 32);
+				mainBuffer.pixel(clrBG, 110, 31);
+				mainBuffer.pixel(clrBG, 110, 33);
+				
+				// Belt stars
+				mainBuffer.pixel(clrBG, 98, 48);
+				mainBuffer.pixel(clrBG, 100, 48);
+				mainBuffer.pixel(clrBG, 102, 48);
+				
+				mainBuffer.pixel(clrBG, 110, 50);
+				mainBuffer.pixel(clrBG, 112, 50);
+				mainBuffer.pixel(clrBG, 114, 50);
+				
+				mainBuffer.pixel(clrBG, 122, 52);
+				mainBuffer.pixel(clrBG, 124, 52);
+				mainBuffer.pixel(clrBG, 126, 52);
+				
+				// Foot
+				mainBuffer.pixel(clrBG, 118, 70);
+				mainBuffer.pixel(clrBG, 117, 70);
+				mainBuffer.pixel(clrBG, 119, 70);
+				mainBuffer.pixel(clrBG, 118, 69);
+				mainBuffer.pixel(clrBG, 118, 71);
+
+
+				break;
+				
+			case 6:
 				// form background: Custom...
 				mainBuffer.fg(backgroundColorIndex);
-				mainBuffer.rect(clrFG, 0, 0, draw.nw, draw.nh, 0);
+				mainBuffer.rect(clrFG, 0, 0, mainForm.w, mainForm.h, 0);
 				break;
 		}
 	}
@@ -903,9 +1076,6 @@ void setTheme(int theme, bool mainForm) {
 			digiTxtR = 0;
 			digiTxtG = 0;
 			digiTxtB = 0;
-			
-			// Draw main background BMP
-			if (mainForm) mainBuffer.bitmap(themeGray, 0, 0);
 	
 			clockGadget.SetClockTheme(themeR, themeG, themeB,
 										clockBgR, clockBgG, clockBgB,
@@ -982,9 +1152,6 @@ void setTheme(int theme, bool mainForm) {
 			digiTxtR = 0;
 			digiTxtG = 0;
 			digiTxtB = 0;
-			
-			// Draw main background BMP
-			if (mainForm) mainBuffer.bitmap(themeGray, 0, 0);
 	
 			clockGadget.SetClockTheme(themeR, themeG, themeB,
 										clockBgR, clockBgG, clockBgB,
@@ -1061,9 +1228,6 @@ void setTheme(int theme, bool mainForm) {
 			digiTxtR = 0;
 			digiTxtG = 0;
 			digiTxtB = 0;
-			
-			// Draw main background BMP
-			if (mainForm) mainBuffer.bitmap(themeGray, 0, 0);
 	
 			clockGadget.SetClockTheme(themeR, themeG, themeB,
 										clockBgR, clockBgG, clockBgB,
@@ -1095,6 +1259,7 @@ void setTheme(int theme, bool mainForm) {
 // DRAW ON-SCREEN ELEMENTS from BUFFER
 void drawBuffer() {
 	draw.begin();
+	//draw.create(mainForm.w, mainForm.h);
 	draw.draw(mainBuffer, 0, 0); // draw buffer
 	draw.end();
 	
@@ -1141,6 +1306,14 @@ void drawMainFormBuffer() {
 	int radius;
 	float theta;
 	
+	if (roundedClock) {
+		clockCornerRadius = 46;
+	}
+	else
+	{
+		clockCornerRadius = 5;
+	}
+	
 	// Clock hand coordinates
 	ptCenter.x = clockGdtX+49;
 	ptCenter.y = clockGdtY+49;
@@ -1148,19 +1321,24 @@ void drawMainFormBuffer() {
 	// Status bar (for 2.0) -----------------------------------------------------------------------
 	mainBuffer.fgRGB(themeR, themeG, themeB);
 	mainBuffer.rect(clrFG, mainForm.x, mainForm.y, mainForm.w, 11, 0);
-	mainBuffer.fgRGB(shadowR, shadowG, shadowB);
-	mainBuffer.line(clrFG, mainForm.x, 11, mainForm.w, 11);
-	mainBuffer.line(clrFG, mainForm.w-1, 0, mainForm.w-1, 11);
 	
+	if (drawShadows) {
+		mainBuffer.fgRGB(shadowR, shadowG, shadowB);
+		mainBuffer.line(clrFG, mainForm.x, 11, mainForm.w, 11);
+		mainBuffer.line(clrFG, mainForm.w-1, 0, mainForm.w-1, 11);
+	}
+		
 	// Clock background (for 2.0) -----------------------------------------------------------------
 	mainBuffer.bgRGB(clockBgR, clockBgG, clockBgB);
-	mainBuffer.rect(clrBG, clockGdtX+3, clockGdtY+3, clockGdtX+95, clockGdtY+95, 46);
+	mainBuffer.rect(clrBG, clockGdtX+3, clockGdtY+3, clockGdtX+95, clockGdtY+95, clockCornerRadius);
 	
-	mainBuffer.fgRGB(shadowR, shadowG, shadowB);
-	mainBuffer.frame(clrFG, clockGdtX+4, clockGdtY+4, clockGdtX+96, clockGdtY+96, 46, 3);
+	if (drawShadows) {
+		mainBuffer.fgRGB(shadowR, shadowG, shadowB);
+		mainBuffer.frame(clrFG, clockGdtX+4, clockGdtY+4, clockGdtX+96, clockGdtY+96, clockCornerRadius, 3);
+	}
 	
 	mainBuffer.fgRGB(themeR, themeG, themeB);
-	mainBuffer.frame(clrFG, clockGdtX+3, clockGdtY+3, clockGdtX+95, clockGdtY+95, 46, 3);
+	mainBuffer.frame(clrFG, clockGdtX+3, clockGdtY+3, clockGdtX+95, clockGdtY+95, clockCornerRadius, 3);
 	
 	// Draw dots inside clock face
 	centerX = ptCenter.x; // gadget.w / 2;
@@ -1186,15 +1364,19 @@ void drawMainFormBuffer() {
 	mainBuffer.bgRGB(highlightR, highlightG, highlightB);
 	mainBuffer.rect(clrBG, calendarGdtX+3, calendarGdtY+3, calendarGdtX+106, calendarGdtY+35, 5);
 	
-	mainBuffer.fgRGB(shadowR, shadowG, shadowB);
-	mainBuffer.frame(clrFG, calendarGdtX+4, calendarGdtY+4, calendarGdtX+107, calendarGdtY+36, 5, 3);
+	if (drawShadows) {
+		mainBuffer.fgRGB(shadowR, shadowG, shadowB);
+		mainBuffer.frame(clrFG, calendarGdtX+4, calendarGdtY+4, calendarGdtX+107, calendarGdtY+36, 5, 3);
+	}
 	
 	mainBuffer.fgRGB(themeR, themeG, themeB);
 	mainBuffer.frame(clrFG, calendarGdtX+3, calendarGdtY+3, calendarGdtX+106, calendarGdtY+35, 5, 3);
 	
 	// Calendar icon (for 2.0) --------------------------------------------------------------------	
-	mainBuffer.bgRGB(0, 0, 0);
-	mainBuffer.rect(clrBG, calendarGdtX+8, calendarGdtY+8, calendarGdtX+29, calendarGdtY+32, 3);
+	if (drawShadows) {
+		mainBuffer.bgRGB(0, 0, 0);
+		mainBuffer.rect(clrBG, calendarGdtX+8, calendarGdtY+8, calendarGdtX+29, calendarGdtY+32, 3);
+	}
 	
 	mainBuffer.bgRGB(255, 255, 255);
 	mainBuffer.rect(clrBG, calendarGdtX+7, calendarGdtY+7, calendarGdtX+28, calendarGdtY+31, 3);
@@ -1212,36 +1394,21 @@ void drawMainFormBuffer() {
 	
 	// Digital Clock background (for 2.0) ---------------------------------------------------------
 	mainBuffer.bgRGB(batteryBgR, batteryBgG, batteryBgB);
-	mainBuffer.rect(clrBG, digiClockGdtX+3, digiClockGdtY+3, digiClockGdtX+38, digiClockGdtY+38, 5);
-		
-	mainBuffer.fgRGB(shadowR, shadowG, shadowB);
-	mainBuffer.frame(clrFG, digiClockGdtX+4, digiClockGdtY+4, digiClockGdtX+36, digiClockGdtY+36, 5, 3);
+	mainBuffer.rect(clrBG, digiClockGdtX+3, digiClockGdtY+3, digiClockGdtX+38, digiClockGdtY+37, 5);
+	
+	if (drawShadows) {
+		mainBuffer.fgRGB(shadowR, shadowG, shadowB);
+		mainBuffer.frame(clrFG, digiClockGdtX+4, digiClockGdtY+4, digiClockGdtX+36, digiClockGdtY+36, 5, 3);
+	}
 	
 	mainBuffer.fgRGB(themeR, themeG, themeB);
 	mainBuffer.frame(clrFG, digiClockGdtX+3, digiClockGdtY+3, digiClockGdtX+35, digiClockGdtY+35, 5, 3);
-	
-	// Battery background (for 2.0) ---------------------------------------------------------------
-	/*mainBuffer.bgRGB(batteryBgR, batteryBgG, batteryBgB);
-	mainBuffer.rect(clrBG, batteryGdtX+1, batteryGdtY+1, batteryGdtX+38, batteryGdtY+38, 5);
-	
-	mainBuffer.fgRGB(shadowR, shadowG, shadowB);
-	mainBuffer.frame(clrFG, batteryGdtX+4, batteryGdtY+4, batteryGdtX+36, batteryGdtY+36, 5, 3);
-	
-	mainBuffer.fgRGB(themeR, themeG, themeB);
-	mainBuffer.frame(clrFG, batteryGdtX+3, batteryGdtY+3, batteryGdtX+35, batteryGdtY+35, 5, 3);*/
-	
+		
 	// Battery icon frame (for 2.0) ---------------------------------------------------------------
 	mainBuffer.fgRGB(battTxtR, battTxtG, battTxtB);
 	mainBuffer.frame(clrFG, batteryGdtX+19, batteryGdtY+2, batteryGdtX+38, batteryGdtY+9, 2, 1);
 	mainBuffer.line(clrFG, batteryGdtX+40, batteryGdtY+3, batteryGdtX+40, batteryGdtY+7);
-	
-	// Functions background (for 2.0) ---------------------------------------------------------------
-	/*mainBuffer.fgRGB(shadowR, shadowG, shadowB);
-	mainBuffer.frame(clrFG, 117, 117, 149, 149, 5, 3);
-	
-	mainBuffer.fgRGB(themeR, themeG, themeB);
-	mainBuffer.rect(clrFG, 113, 113, 151, 151, 5);*/
-	
+		
 	// Calculate new angles
 	hrAngle = ((float)(hours % 12) * 30 + minutes / 2 - 90) / 180 * pi;
 	minAngle = ((float)minutes * 6 - 90) / 180 * pi;
@@ -1639,20 +1806,11 @@ void drawMainTheme() {
 	mainBuffer.begin();
 	
 	// Draw main form background
-	setMainBg(preferences[0].selectedBackground);
+	drawMainBg(preferences[0].selectedBackground);
 	
 	// Set main theme
 	selectedTheme = preferences[0].selectedTheme;
 	setTheme(selectedTheme, true);
-	
-	// Draw connectors BMP if true
-	if (showConnectors) {
-		mainBuffer.bitmap(connector1BMP, 109, 15);
-		mainBuffer.bitmap(connector2BMP, 121, 47);
-		mainBuffer.bitmap(connector2BMP, 121, 109);
-		mainBuffer.bitmap(connector1BMP, 109, 120);
-		mainBuffer.bitmap(connector2BMP, 15, 109);
-	}
 	
 	// Widget buffers
 	drawMainFormBuffer(); // Includes Clock buffer
@@ -1741,13 +1899,14 @@ handler mainForm.onopen() {
 	draw.attachForm(this);
 	
 	// Create offscreen buffer
-	mainBuffer.create(160, 160); 
+	mainBuffer.create(mainForm.w, mainForm.h); 
 	
 	// Getting saved preferences
 	GetPrefs();
 	
 	// Set preferences
-	showConnectors = preferences[0].showConnectors;
+	drawShadows = preferences[0].drawShadows;
+	roundedClock = preferences[0].roundedClock;
 	startOnSunday = preferences[0].startOnSunday;
 	timeFormat = preferences[0].timeFormat;
 	dateFormat = preferences[0].dateFormat;
@@ -1799,7 +1958,10 @@ handler mainForm.ondraw() {
 
 handler mainForm.onresize() {
 	// UIform attach this form for drawing methods
+	mainBuffer.attachForm(this);
 	draw.attachForm(this);
+	
+	//drawMainTheme();
 }
 
 

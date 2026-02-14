@@ -2,14 +2,15 @@
 
 // Theme preference variables
 int themeSelected, backgroundSelected;
-string themes[8], backgrounds[5];
+string themes[8], backgrounds[6];
 
 
 // Set new preferences
 bool SetNewThemePrefs() {
   	preferences[0].selectedTheme = themeSelected;
   	preferences[0].selectedBackground = backgroundSelected;
-  	preferences[0].showConnectors = connectorsCB.checked;
+  	preferences[0].drawShadows = shadowsCB.checked;
+  	preferences[0].roundedClock = roundedClockCB.checked;
   	preferences[0].bgColorIndex = backgroundColorIndex; 
 	
   	return prefs.set("KS10", true, preferences, typeof(AppPreferences), 1);
@@ -33,12 +34,13 @@ handler prefsThemeForm.onopen() {
 		themes[7] = "Dark Cloud";
 		themeList.setitems(8, themes);
 		
-		backgrounds[0] = "Day";
-		backgrounds[1] = "Sunrise";
+		backgrounds[0] = "Sunrise";
+		backgrounds[1] = "Day";
 		backgrounds[2] = "Sunset";
 		backgrounds[3] = "Night";
-		backgrounds[4] = "Custom...";
-		backgroundList.setitems(5, backgrounds);
+		backgrounds[4] = "Space";
+		backgrounds[5] = "Custom...";
+		backgroundList.setitems(6, backgrounds);
 	}
 	else
 	{
@@ -74,7 +76,7 @@ handler prefsThemeForm.onopen() {
 		backgroundList.selitem = backgroundSelected - 1;
 		
 		// If 'Custom' background is selected, make the button visible
-		if (backgroundSelected == 5) bgColorSelectorButton.visible = true;
+		if (backgroundSelected == 6) bgColorSelectorButton.visible = true;
 	}
 	else
 	{
@@ -85,7 +87,8 @@ handler prefsThemeForm.onopen() {
 		backgroundList.selitem = 0;
 	}
 	
-	connectorsCB.checked = preferences[0].showConnectors;
+	shadowsCB.checked = preferences[0].drawShadows;
+	roundedClockCB.checked = preferences[0].roundedClock;
 }
 
 handler prefsThemeForm.ondraw() {
@@ -104,7 +107,7 @@ handler prefsThemeForm.ondraw() {
 	draw.textRGB(shadowR, shadowG, shadowB);
 	draw.text(clrFG, 10, 8, "Themes");
 	
-	if (backgroundSelected == 5) {
+	if (backgroundSelected == 6) {
 		draw.fg(backgroundColorIndex);
 		draw.rect(clrFG, 127, 43, 136, 52, 0);
 	}
@@ -129,7 +132,7 @@ handler backgroundPopup.onlistselect() {
 	backgroundSelected = e.value + 1;
 	backgroundPopup.text = backgrounds[e.value];
 	
-	if ((e.value + 1) == 5) {
+	if ((e.value + 1) == 6) {
 		bgColorSelectorButton.visible = true;
 		
 		if (draw.selectIndex("Choose background color...", &backgroundColorIndex)) {

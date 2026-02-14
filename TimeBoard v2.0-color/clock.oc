@@ -30,7 +30,8 @@ struct AppPreferences {
 	int openingForm;
 	int selectedTheme;
 	int selectedBackground;
-	bool showConnectors;
+	bool roundedClock;
+	bool drawShadows;
 	int timeFormat;
 	int dateFormat;
 	bool startOnSunday;
@@ -60,9 +61,10 @@ bool GetPrefs() {
 bool SetDefaultPrefs() {	
 	preferences[0].colorDepth = clock.getdepth(); // original color depth supported by host device
 	preferences[0].openingForm = 1; // open: Overview
-	preferences[0].selectedTheme = 1; // theme: Sky Blue
-	preferences[0].selectedBackground = 1; // background: Day
-	preferences[0].showConnectors = false; // show connectors on interface
+	preferences[0].selectedTheme = 3; // theme: PokéRed
+	preferences[0].selectedBackground = 2; // background: Day
+	preferences[0].roundedClock = true;
+	preferences[0].drawShadows = true; // draw shadows on main interface
 	preferences[0].timeFormat = 1; // 24 hours
 	preferences[0].dateFormat = 1; // MM-DD-YYYY
 	preferences[0].startOnSunday = true; // Sunday first day on the week

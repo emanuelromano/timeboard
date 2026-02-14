@@ -59,7 +59,6 @@ handler prefsTimeDateForm.onopen() {
 		firstDayPopup.text = firstDays[1];
 		firstDayList.selitem = 1;
 	}
-
 }
 
 handler prefsTimeDateForm.ondraw() {

@@ -245,28 +245,6 @@
     image8 = "graphics\\cat1.bmp"
     image16 = "graphics\\cat1.bmp"
   }
-  bitmap Bitmap themeGray {
-    id = 1180
-    image1 = "graphics\\th-bw.bmp"
-    image2 = "graphics\\th-gray.bmp"
-    image4 = "graphics\\th-gray.bmp"
-  }
-  bitmap Bitmap connector1BMP {
-    id = 1181
-    image1 = "graphics\\connector1bw.bmp"
-    image2 = "graphics\\connector1gray.bmp"
-    image4 = "graphics\\connector1gray.bmp"
-    image8 = "graphics\\connector1.bmp"
-    image16 = "graphics\\connector1.bmp"
-  }
-  bitmap Bitmap connector2BMP {
-    id = 1182
-    image1 = "graphics\\connector2bw.bmp"
-    image2 = "graphics\\connector2gray.bmp"
-    image4 = "graphics\\connector2gray.bmp"
-    image8 = "graphics\\connector2.bmp"
-    image16 = "graphics\\connector2.bmp"
-  }
   bitmap Bitmap functionsNormalBMP {
     id = 1094
     image8 = "graphics\\functions-normal-lr.bmp"
@@ -384,7 +362,7 @@
     text = ""
     x = 0, y = 0, w = 160, h = 160
     menuid = 1002, helpid = 0, defbuttonid = 0
-    modal = false, resizable = false
+    modal = false, resizable = true
     hresize = 2, vresize = 2
     menubar UIMenuBar mainMenuBar {
       id = 1002
@@ -427,18 +405,18 @@
     }
     gadget ClockGadget clockGadget {
       id = 101
-      x = 31, y = 15, w = 98, h = 98
-      hresize = 2, vresize = 0
+      x = 4, y = 15, w = 152, h = 98
+      hresize = 2, vresize = 2
     }
     gadget DigiClockGadget digiClockGadget {
       id = 1036
       x = 4, y = 117, w = 39, h = 39
-      hresize = 1, vresize = 0
+      hresize = 1, vresize = 1
     }
     gadget CalendarGadget calendarGadget {
       id = 1015
       x = 46, y = 117, w = 110, h = 39
-      hresize = 1, vresize = 2
+      hresize = 0, vresize = 1
     }
     gadget BatteryGadget batteryGadget {
       id = 1042
@@ -447,13 +425,13 @@
     }
     bitmap UIFBitmap easterEggBMP {
       id = 1171
-      x = 16, y = 101
+      x = 13, y = 101
       bitmapid = 1074
       hresize = 0, vresize = 0
     }
     button UIButton functionsButton {
       id = 1011
-      x = 0, y = 0, w = 25, h = 12
+      x = 0, y = 0, w = 25, h = 11
       text = ""
       leftanchor = true, group = 0, fontid = 0
       graphic = true, bitmapid = 1094, sbitmapid = 1177
@@ -988,14 +966,14 @@
     }
     list UIList backgroundList {
       id = 1016
-      x = 68, y = 42, w = 50, h = 55
-      numvisible = 5, triggerid = 1017, fontid = 0
+      x = 68, y = 42, w = 50, h = 66
+      numvisible = 6, triggerid = 1017, fontid = 0
       hresize = 0, vresize = 0
     }
-    checkbox UICheckbox connectorsCB {
+    checkbox UICheckbox roundedClockCB {
       id = 1060
-      x = 15, y = 57, w = 87, h = 11
-      text = "Show connectors"
+      x = 15, y = 57, w = 110, h = 11
+      text = "Rounded analog clock"
       leftanchor = true, group = 0, fontid = 0
       hresize = 0, vresize = 0
     }
@@ -1021,6 +999,13 @@
       text = ""
       leftanchor = true, group = 0, fontid = 0
       frame = 3
+      hresize = 0, vresize = 0
+    }
+    checkbox UICheckbox shadowsCB {
+      id = 1056
+      x = 15, y = 72, w = 95, h = 11
+      text = "Draw shadows"
+      leftanchor = true, group = 0, fontid = 0
       hresize = 0, vresize = 0
     }
   }
@@ -1171,7 +1156,7 @@
     text = ""
     x = 2, y = 14, w = 156, h = 98
     menuid = 0, helpid = 0, defbuttonid = 0
-    modal = true, resizable = false
+    modal = true, resizable = true
     hresize = 0, vresize = 0
     button UIButton functionsBackButton {
       id = 1013
