@@ -10,7 +10,7 @@ InfoText info[2];
 
 // Set new preferences
 bool SetNewButtonsPrefs() {
-	preferences[0].buttonsMode = buttonsMode;
+	preferences[0].hookHard = hookHard;
 	
   	return prefs.set("KS10", true, preferences, typeof(AppPreferences), 1);
 }
@@ -29,9 +29,9 @@ handler prefsButtonsForm.onopen() {
 	
 	// Get preferences
 	GetPrefs();
-	buttonsMode = preferences[0].buttonsMode;
+	hookHard = preferences[0].hookHard;
 	
-	if (buttonsMode == 1) {
+	if (hookHard) {
 		twoKeysPush.checked = true;
 		
 		infoLabel1.text = info[0].infoA;
@@ -78,7 +78,7 @@ handler prefsButtonsForm.onresize() {
 
 // Push buttons handlers
 handler twoKeysPush.onselect() {
-	buttonsMode = 1;
+	hookHard = true;
 	twoKeysPush.checked = true;
 	threeKeysPush.checked = false;
 	
@@ -91,7 +91,7 @@ handler twoKeysPush.onselect() {
 
 
 handler threeKeysPush.onselect() {
-	buttonsMode = 2;
+	hookHard = false;
 	twoKeysPush.checked = false;
 	threeKeysPush.checked = true;
 	

@@ -74,7 +74,22 @@ handler fullClockBackButton.onselect() {
 
 // Hard button handlers
 handler fullClockForm.onhkey() {
-	if (keystate() == 4) { // down key
-		mainForm.load();
+	int key;
+	
+	key = e.key;
+	
+	switch (key) {
+		case 0:
+			mainForm.load();
+			break;
+		case 1:
+			fullDigiClockForm.load();
+			break;
+		case 2:
+			bigCalendarForm.load();
+			break;
+		case 3:
+			bigBatteryForm.load();
+			break;
 	}
 }

@@ -55,7 +55,22 @@ handler bigCalendarBackButton.onselect() {
 
 // Hard button handlers
 handler bigCalendarForm.onhkey() {
-	if (keystate() == 4) { // down key
-		mainForm.load();
+	int key;
+	
+	key = e.key;
+	
+	switch (key) {
+		case 0:
+			fullClockForm.load();
+			break;
+		case 1:
+			fullDigiClockForm.load();
+			break;
+		case 2:
+			mainForm.load();
+			break;
+		case 3:
+			bigBatteryForm.load();
+			break;
 	}
 }

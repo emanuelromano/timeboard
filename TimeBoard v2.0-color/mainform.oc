@@ -128,7 +128,6 @@ int hr, min, charge, chargeFill, fill,
 	lastSec,
 	lastSecs,
 	updateTimer = 0,
-	buttonsMode,
 	pendingAction = 0,
 	clockCornerRadius;
 string hoursStr, minutesStr, secondsStr,
@@ -137,7 +136,8 @@ bool soundsEnabled,
 	showConnectors,
 	startOnSunday,
 	easterEgg,
-	roundedClock;
+	roundedClock,
+	hookHard;
 bool actionPending = false;
 bool drawShadows = true;
 
@@ -1910,8 +1910,11 @@ handler mainForm.onopen() {
 	startOnSunday = preferences[0].startOnSunday;
 	timeFormat = preferences[0].timeFormat;
 	dateFormat = preferences[0].dateFormat;
-	buttonsMode = preferences[0].buttonsMode; 
+	hookHard = preferences[0].hookHard;
 	easterEgg = preferences[0].easterEgg;
+	
+	// Hardware button handle
+	clock.hookhard(hookHard);
 	
 	// Battery status
 	charA = battery(false);
@@ -2038,122 +2041,31 @@ handler mainForm.ontimer() {
 }
 
 
-// Hard button handlers
-handler mainForm.onhkey() {
-	int key;
-	clock.hookhard(false);
-	
-	key = e.key; // 4: key up - 5: key down
-	//alert(key);
-	
-
-	/*if (buttonsMode == 1) {
-		if (keystate() == 2) { // up button pressed
-			switch(actionSet) {
-				case 1:
-					actionSet = 1;
-					fullClockForm.load();
-					break;
-				case 2:
-					actionSet = 2;
-					fullDigiClockForm.load();
-					break;
-				case 3:
-					actionSet = 3;
-					bigCalendarForm.load();
-					break;
-				case 4:
-					actionSet = 4;
-					bigBatteryForm.load();
-					break;
-				case 5:
-					SavePrefsOnClose();
-					clock.abort();
-					break;
-			}
-		}
-		
-		if (keystate() == 4) { // down button pressed
-			actionSet = actionSet + 1;
-			
-			if (actionSet  == 6) {
-				actionSet = 1;
-			}
-		}
-	}
-
-	if (buttonsMode == 2) {
-		if (keystate() == 2) { // up button pressed
-			actionSet = actionSet - 1;
-			
-			if (actionSet  == 0) {
-				actionSet = 5;
-			}
-		}
-		
-		if (keystate() == 4) { // down button pressed
-			actionSet = actionSet + 1;
-			
-			if (actionSet  == 6) {
-				actionSet = 1;
-			}
-		}
-		
-		if (keystate() == 0) { // center button pressed
-			switch(actionSet) {
-				case 1:
-					actionSet = 1;
-					fullClockForm.load();
-					break;
-				case 2:
-					actionSet = 2;
-					fullDigiClockForm.load();
-					break;
-				case 3:
-					actionSet = 3;
-					bigCalendarForm.load();
-					break;
-				case 4:
-					actionSet = 4;
-					bigBatteryForm.load();
-					break;
-				case 5:
-					SavePrefsOnClose();
-					clock.abort();
-					break;
-			}
-		}
-	}*/
-}
-
-
-// Gadgets can now open forms on pen-up event (for 2.0)
-handler clockGadget.onpenup() {
-	fullClockForm.load();
-}
-
-handler calendarGadget.onpenup() {
-	bigCalendarForm.load();
-}
-
-handler digiClockGadget.onpenup() {
-	fullDigiClockForm.load();
-}
-
-handler batteryGadget.onpenup() {
-	bigBatteryForm.load();
-}
-
+// Functions button handler
 handler functionsButton.onselect() {
 	functionsForm.domodal();
 }
 
 
-
-
-/*handler digiClockGadget.onpendown() {
-	draw.begin();
-	draw.fgRGB(255, 255, 255);
-	draw.frame(clrFG, digiClockGdtX+3, digiClockGdtY+3, digiClockGdtX+35, digiClockGdtY+35, 5, 3);
-	draw.end();
-}*/
+// Hard button handlers
+handler mainForm.onhkey() {
+	int key;
+	
+	key = e.key;
+	//alert(key); // keystate()
+	
+	switch (key) {
+		case 0:
+			fullClockForm.load();
+			break;
+		case 1:
+			fullDigiClockForm.load();
+			break;
+		case 2:
+			bigCalendarForm.load();
+			break;
+		case 3:
+			bigBatteryForm.load();
+			break;
+	}
+}

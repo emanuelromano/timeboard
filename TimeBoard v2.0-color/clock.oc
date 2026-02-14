@@ -35,7 +35,7 @@ struct AppPreferences {
 	int timeFormat;
 	int dateFormat;
 	bool startOnSunday;
-	int buttonsMode;
+	bool hookHard;
 	bool enableSounds;
 	bool hourlyChime;
 	bool minuteChime;
@@ -68,7 +68,7 @@ bool SetDefaultPrefs() {
 	preferences[0].timeFormat = 1; // 24 hours
 	preferences[0].dateFormat = 1; // MM-DD-YYYY
 	preferences[0].startOnSunday = true; // Sunday first day on the week
-	preferences[0].buttonsMode = 1; // UP: enter - DOWN: select
+	preferences[0].hookHard = true; // hardware buttons handle
 	preferences[0].enableSounds = false; // all sounds disabled
 	preferences[0].hourlyChime = false;
 	preferences[0].minuteChime = false;

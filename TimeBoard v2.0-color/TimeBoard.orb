@@ -821,13 +821,13 @@
     }
     bitmap UIFBitmap navThreeBMP {
       id = 1062
-      x = 30, y = 88
+      x = 25, y = 88
       bitmapid = 1059
       hresize = 0, vresize = 0
     }
     bitmap UIFBitmap navTwoBMP {
       id = 1061
-      x = 30, y = 88
+      x = 25, y = 88
       bitmapid = 1058
       hresize = 0, vresize = 0
     }
