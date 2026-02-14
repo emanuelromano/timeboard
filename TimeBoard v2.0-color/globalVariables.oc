@@ -1,0 +1,60 @@
+/* -----------------------------------------
+// Global object and variable definitions //
+----------------------------------------- */
+
+
+Preferences prefs;
+Event e;
+//Draw buffer;
+Draw draw;
+Date today;
+int actionSet = 1;
+int hours, minutes, seconds, amPm; // 1: am / 2: pm
+int colorDepth, originalColorDepth;
+int backgroundColorIndex;
+bool grayScaleApp = false;
+
+
+// mainForm global variables ---------------
+Draw mainBuffer;
+Bitmap actionSetBMP;
+int hr, min, charge, chargeFill, fill,
+	charA, charB,
+	dayA, dayB,
+	hardKeyPressed,
+	calendarMode,
+	timeFormat,
+	dateFormat,
+	timerTicks,
+	delta,
+	lastSec,
+	lastSecs,
+	updateTimer = 0,
+	pendingAction = 0,
+	clockCornerRadius;
+string hoursStr, minutesStr, secondsStr,
+	sthr, stmin;
+bool soundsEnabled,
+	showConnectors,
+	startOnSunday,
+	easterEgg,
+	roundedClock,
+	hookHard;
+bool actionPending = false;
+bool drawShadows = true;
+bool funcModalOpen = false;
+
+
+// Global theme variables ------------------
+int themeR, themeG, themeB,
+	shadowR, shadowG, shadowB,
+	highlightR, highlightG, highlightB,
+	batteryBgR, batteryBgG, batteryBgB,
+	textR, textG, textB,
+	clockBgR, clockBgG, clockBgB,
+	clockTxtR, clockTxtG, clockTxtB,
+	clockHndR, clockHndG, clockHndB,
+	clockSecR, clockSecG, clockSecB,
+	battTxtR, battTxtG, battTxtB,
+	digiBgR, digiBgG, digiBgB,
+	digiTxtR, digiTxtG, digiTxtB;

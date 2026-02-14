@@ -1213,6 +1213,7 @@
 }
 
 // source files
+#include "globalVariables.oc"
 #include "clock.oc"
 #include "mainform.oc"
 #include "fullClockForm.oc"

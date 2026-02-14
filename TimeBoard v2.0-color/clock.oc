@@ -11,19 +11,6 @@
 ---------------------------------------------- */
 
 
-// Global object and variable definitions
-Preferences prefs;
-Event e;
-//Draw buffer;
-Draw draw;
-Date today;
-int actionSet = 1;
-int hours, minutes, seconds, amPm; // 1: am / 2: pm
-int colorDepth, originalColorDepth;
-int backgroundColorIndex;
-bool grayScaleApp = false;
-
-
 // App preferences structure
 struct AppPreferences {
 	int colorDepth;
