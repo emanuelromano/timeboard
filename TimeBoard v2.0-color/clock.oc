@@ -183,10 +183,7 @@ handler clock.onstart() {
 }
 
 handler clock.onstop() {
-	// Release memory used by buffer
-	//buffer.release();
-	
-	// Set original device color depth before exiting
+	// Set default device color depth before exiting
 	clock.setdepth(originalColorDepth);
 	
 	SavePrefsOnClose();

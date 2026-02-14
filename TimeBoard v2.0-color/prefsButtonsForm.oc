@@ -32,23 +32,23 @@ handler prefsButtonsForm.onopen() {
 	hookHard = preferences[0].hookHard;
 	
 	if (hookHard) {
-		twoKeysPush.checked = true;
+		funcKeysPush.checked = true;
 		
 		infoLabel1.text = info[0].infoA;
 		infoLabel2.text = info[0].infoB;
 		
-		navTwoBMP.visible = true;
-		navThreeBMP.visible = false;
+		navFuncBMP.visible = true;
+		navSysBMP.visible = false;
 	}
 	else
 	{
-		threeKeysPush.checked = true;
+		sysKeysPush.checked = true;
 		
 		infoLabel1.text = info[1].infoA;
 		infoLabel2.text = info[1].infoB;
 		
-		navTwoBMP.visible = false;
-		navThreeBMP.visible = true;
+		navFuncBMP.visible = false;
+		navSysBMP.visible = true;
 	}
 		
 	draw.attachForm(this);
@@ -77,29 +77,29 @@ handler prefsButtonsForm.onresize() {
 
 
 // Push buttons handlers
-handler twoKeysPush.onselect() {
+handler funcKeysPush.onselect() {
 	hookHard = true;
-	twoKeysPush.checked = true;
-	threeKeysPush.checked = false;
+	funcKeysPush.checked = true;
+	sysKeysPush.checked = false;
 	
 	infoLabel1.text = info[0].infoA;
 	infoLabel2.text = info[0].infoB;
 	
-	navThreeBMP.visible = false;
-	navTwoBMP.visible = true;
+	navSysBMP.visible = false;
+	navFuncBMP.visible = true;
 }
 
 
-handler threeKeysPush.onselect() {
+handler sysKeysPush.onselect() {
 	hookHard = false;
-	twoKeysPush.checked = false;
-	threeKeysPush.checked = true;
+	funcKeysPush.checked = false;
+	sysKeysPush.checked = true;
 	
 	infoLabel1.text = info[1].infoA;
 	infoLabel2.text = info[1].infoB;
 	
-	navTwoBMP.visible = false;
-	navThreeBMP.visible = true;
+	navFuncBMP.visible = false;
+	navSysBMP.visible = true;
 }
 
 

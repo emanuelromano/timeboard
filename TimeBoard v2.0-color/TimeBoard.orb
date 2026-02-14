@@ -213,7 +213,7 @@
     image8 = "graphics\\prefs-pressed-lr.bmp"
     image16 = "graphics\\prefs-pressed-lr.bmp"
   }
-  bitmap Bitmap navTwoKeysBMP {
+  bitmap Bitmap navFuncKeysBMP {
     id = 1058
     image1 = "graphics\\nav1.bmp"
     image2 = "graphics\\nav1.bmp"
@@ -221,7 +221,7 @@
     image8 = "graphics\\nav1.bmp"
     image16 = "graphics\\nav1.bmp"
   }
-  bitmap Bitmap navThreeKeysBMP {
+  bitmap Bitmap navSysKeysBMP {
     id = 1059
     image1 = "graphics\\nav2.bmp"
     image2 = "graphics\\nav2.bmp"
@@ -768,17 +768,17 @@
     menuid = 0, helpid = 0, defbuttonid = 0
     modal = false, resizable = false
     hresize = 0, vresize = 0
-    pushbutton UIPushButton twoKeysPush {
+    pushbutton UIPushButton funcKeysPush {
       id = 1050
       x = 29, y = 43, w = 50, h = 12
-      text = "Two keys"
+      text = "Functions"
       leftanchor = true, group = 1, fontid = 0
       hresize = 0, vresize = 0
     }
-    pushbutton UIPushButton threeKeysPush {
+    pushbutton UIPushButton sysKeysPush {
       id = 1049
       x = 80, y = 43, w = 50, h = 12
-      text = "Three keys"
+      text = "System"
       leftanchor = true, group = 1, fontid = 0
       hresize = 0, vresize = 0
     }
@@ -802,7 +802,7 @@
       id = 1057
       x = 17, y = 27
       fontid = 0
-      text = "One-handed navigation with:"
+      text = "One-handed navigation:"
       hresize = 0, vresize = 0
     }
     label UILabel infoLabel1 {
@@ -819,15 +819,15 @@
       text = "info                                                              "
       hresize = 0, vresize = 0
     }
-    bitmap UIFBitmap navThreeBMP {
+    bitmap UIFBitmap navSysBMP {
       id = 1062
-      x = 25, y = 88
+      x = 24, y = 88
       bitmapid = 1059
       hresize = 0, vresize = 0
     }
-    bitmap UIFBitmap navTwoBMP {
+    bitmap UIFBitmap navFuncBMP {
       id = 1061
-      x = 25, y = 88
+      x = 24, y = 88
       bitmapid = 1058
       hresize = 0, vresize = 0
     }

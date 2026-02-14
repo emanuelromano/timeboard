@@ -1961,7 +1961,7 @@ handler mainForm.ondraw() {
 
 handler mainForm.onresize() {
 	// UIform attach this form for drawing methods
-	mainBuffer.attachForm(this);
+	//mainBuffer.attachForm(this);
 	draw.attachForm(this);
 	
 	//drawMainTheme();
