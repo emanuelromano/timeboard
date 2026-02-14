@@ -361,48 +361,9 @@
     id = 100
     text = ""
     x = 0, y = 0, w = 160, h = 160
-    menuid = 1002, helpid = 0, defbuttonid = 0
+    menuid = 0, helpid = 0, defbuttonid = 0
     modal = false, resizable = true
     hresize = 2, vresize = 2
-    menubar UIMenuBar mainMenuBar {
-      id = 1002
-      menu UIMenu viewsMenu {
-        text = "Views"
-        menuitem UIMenuItem menuBigClock {
-          id = 1031, sysid = 0, text = "Analog clock", shortcut = "C"
-        }
-        menuitem UIMenuItem menuBigDigiClock {
-          id = 1055, sysid = 0, text = "Digital clock", shortcut = "D"
-        }
-        menuitem UIMenuItem menuCalendar {
-          id = 1035, sysid = 0, text = "Calendar", shortcut = "L"
-        }
-        menuitem UIMenuItem menuBattery {
-          id = 1004, sysid = 0, text = "Battery", shortcut = "B"
-        }
-      }
-      menu UIMenu optionsMenu {
-        text = "Options"
-        menuitem UIMenuItem menuTimeSync {
-          id = 1083, sysid = 0, text = "Time Sync", shortcut = "T"
-        }
-        menuitem UIMenuItem menuPreferences {
-          id = 1033, sysid = 0, text = "Preferences", shortcut = "P"
-        }
-        menuitem UIMenuItem menuHelp {
-          id = 1146, sysid = 0, text = "Help", shortcut = "H"
-        }
-        menuitem UIMenuItem menuAbout {
-          id = 1003, sysid = 0, text = "About...", shortcut = "A"
-        }
-        menuitem UIMenuItem menu1005 {
-          id = 1005, sysid = 0, text = "-"
-        }
-        menuitem UIMenuItem menuExit {
-          id = 1077, sysid = 0, text = "Exit", shortcut = "E"
-        }
-      }
-    }
     gadget ClockGadget clockGadget {
       id = 101
       x = 4, y = 15, w = 152, h = 98

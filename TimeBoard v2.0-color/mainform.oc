@@ -2127,45 +2127,6 @@ handler mainForm.onhkey() {
 }
 
 
-// MenuBar handlers
-handler menuBigClock.onselect() {
-	actionSet = 1;
-	fullClockForm.load();
-}
-
-handler menuBigDigiClock.onselect() {
-	actionSet = 2;
-	fullDigiClockForm.load();
-}
-
-handler menuCalendar.onselect() {
-	actionSet = 3;
-	bigCalendarForm.load();
-}
-
-handler menuBattery.onselect() {
-	actionSet = 4;
-	bigBatteryForm.load();
-}
-
-handler menuPreferences.onselect() {
-	preferencesForm.load();
-}
-
-handler menuHelp.onselect() {
-	helpForm.load();
-}
-
-handler menuAbout.onselect() {
-	aboutForm.load();
-}
-
-handler menuExit.onselect() {
-	SavePrefsOnClose();
-	clock.abort();
-}
-
-
 // Gadgets can now open forms on pen-up event (for 2.0)
 handler clockGadget.onpenup() {
 	fullClockForm.load();
