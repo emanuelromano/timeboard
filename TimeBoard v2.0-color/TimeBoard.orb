@@ -42,16 +42,16 @@
   version = "2.0-color"
   locked = false, hidden = false
   icon {
-    large1 = "icon_l1.bmp"
-    small1 = "icon_s1.bmp"
-    large2 = "icon_l2.bmp"
-    small2 = "icon_s2.bmp"
-    large4 = "icon_l4.bmp"
-    small4 = "icon_s4.bmp"
-    large8 = "icon_l8.bmp"
-    small8 = "icon_s8.bmp"
-    largeh8 = "icon_lh8.bmp"
-    smallh8 = "icon_sh8.bmp"
+    large1 = "graphics/icon_l1.bmp"
+    small1 = "graphics/icon_s1.bmp"
+    large2 = "graphics/icon_l2.bmp"
+    small2 = "graphics/icon_s2.bmp"
+    large4 = "graphics/icon_l4.bmp"
+    small4 = "graphics/icon_s4.bmp"
+    large8 = "graphics/icon_l8.bmp"
+    small8 = "graphics/icon_s8.bmp"
+    largeh8 = "graphics/icon_lh8.bmp"
+    smallh8 = "graphics/icon_sh8.bmp"
   }
   bitmap Bitmap menuNormalBMP {
     id = 1098
