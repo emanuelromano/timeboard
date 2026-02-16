@@ -1,6 +1,8 @@
 // Functions form
 
 
+//Draw modalDraw;
+
 handler functionsForm.onopen() {
 	draw.attachForm(this);
 	
@@ -98,5 +100,5 @@ handler functionsBackButton.onselect() {
 
 handler funcExitButton.onselect() {
 	SavePrefsOnClose();
-	clock.abort();
+	TimeBoard.abort();
 }

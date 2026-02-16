@@ -5,7 +5,6 @@
 
 Preferences prefs;
 Event e;
-//Draw buffer;
 Draw draw;
 Date today;
 int actionSet = 1;

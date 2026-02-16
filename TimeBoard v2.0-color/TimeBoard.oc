@@ -46,7 +46,7 @@ bool GetPrefs() {
 
 // Set default preferences in case they don't exist
 bool SetDefaultPrefs() {	
-	preferences[0].colorDepth = clock.getdepth(); // original color depth supported by host device
+	preferences[0].colorDepth = TimeBoard.getdepth(); // original color depth supported by host device
 	preferences[0].openingForm = 1; // open: Overview
 	preferences[0].selectedTheme = 3; // theme: PokéRed
 	preferences[0].selectedBackground = 2; // background: Day
@@ -118,30 +118,30 @@ void SavePrefsOnClose() {
 
 
 // Form event handlers
-handler clock.onstart() {
+handler TimeBoard.onstart() {
 	int version = osver();
 	
 	// VALIDATIONS
 	// Minimun OS version warning
 	if (version < 50462720) {
     	alert("TimeBoard requires Palm OS 3.5 or higher.\nApp will exit.");
-    	clock.abort();
+    	TimeBoard.abort();
 	}
 	
 	// Get color depth supported by device at the moment
-	colorDepth = clock.getdepth();
-	originalColorDepth = clock.getdepth();
+	colorDepth = TimeBoard.getdepth();
+	originalColorDepth = TimeBoard.getdepth();
 	
 	if (grayScaleApp) {
 		if (colorDepth > 4) {
 			alert("This version of TimeBoard does not support Palm devices with color screens.\nPlease install the color version instead.\nApp will exit.");
-			clock.abort();
+			TimeBoard.abort();
 		}
 	}
 	
 	if (colorDepth >= 16) {
-		clock.setdepth(8); // sets 8bpp mode
-		colorDepth = clock.getdepth();
+		TimeBoard.setdepth(8); // sets 8bpp mode
+		colorDepth = TimeBoard.getdepth();
 	}
 	
 	// If there is no default prefs, set default prefs
@@ -169,9 +169,9 @@ handler clock.onstart() {
 	}
 }
 
-handler clock.onstop() {
+handler TimeBoard.onstop() {
 	// Set default device color depth before exiting
-	clock.setdepth(originalColorDepth);
+	TimeBoard.setdepth(originalColorDepth);
 	
 	SavePrefsOnClose();
 }

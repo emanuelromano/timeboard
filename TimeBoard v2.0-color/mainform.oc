@@ -2,8 +2,8 @@
 
 // clock gadget 31 15 98 98
 
-// Imported bitmats
-// Themed fuction button
+
+// Imported themed fuction buttons
 @bitmap Bitmap btnNormalTheme1 {
 	id = 8071
 	image8 = "graphics/functions-normal-lr-th1.bmp"
@@ -1220,23 +1220,20 @@ void setTheme(int theme, bool mainForm) {
 }
 
 
-// BUFFER structures
-ClockHand chHour, chMin, chSec;
-Point ptCenter;
-
 // Gadget background variables & coordinates
 int clockGdtX = 31,
 	clockGdtY = 15,
 	
-	calendarGdtX = 46,
-	calendarGdtY = 117,
-	
 	digiClockGdtX = 4,
 	digiClockGdtY = 117,
+	
+	calendarGdtX = 46,
+	calendarGdtY = 117,
 	
 	batteryGdtX = 116,
 	batteryGdtY = 0;
 
+	Point ptCenter;
 
 void drawClockHandBuffer(ClockHand hand, int color) {
 	int x, y;
@@ -1249,23 +1246,17 @@ void drawClockHandBuffer(ClockHand hand, int color) {
 
 
 // Mainform Overview buffer (for 2.0) -------------------------------------------------------------
-void drawMainFormBuffer() {
-	int hr, min;
-	float hrAngle, minAngle, secAngle;
-	
+void drawMainUIBuffer() {
 	// Dot variables
 	int i, x, y;
 	int centerX, centerY;
 	int radius;
 	float theta;
 	
-	if (roundedClock) {
+	if (roundedClock)
 		clockCornerRadius = 46;
-	}
 	else
-	{
 		clockCornerRadius = 5;
-	}
 	
 	// Clock hand coordinates
 	ptCenter.x = clockGdtX+49;
@@ -1361,12 +1352,22 @@ void drawMainFormBuffer() {
 	mainBuffer.fgRGB(battTxtR, battTxtG, battTxtB);
 	mainBuffer.frame(clrFG, batteryGdtX+19, batteryGdtY+2, batteryGdtX+38, batteryGdtY+9, 2, 1);
 	mainBuffer.line(clrFG, batteryGdtX+40, batteryGdtY+3, batteryGdtX+40, batteryGdtY+7);
-		
+}
+
+
+// Clock hand structures
+ClockHand chHour, chMin, chSec;
+
+// Draw clock hands
+void drawClockHandsBuffer() {
+	int hr, min;
+	float hrAngle, minAngle, secAngle;
+	
 	// Calculate new angles
 	hrAngle = ((float)(hours % 12) * 30 + minutes / 2 - 90) / 180 * pi;
 	minAngle = ((float)minutes * 6 - 90) / 180 * pi;
 	secAngle = ((float)seconds * 6 - 90) / 180 * pi;
-	
+
 	//Clock hands lenght
 	chHour.length = 24;
 	chMin.length = 32;
@@ -1752,7 +1753,7 @@ void drawCalendarBuffer() {
 
 
 // Set main theme from saved preferences and draw buffer
-void drawMainTheme() {
+void drawMainBuffer() {
 	int selectedTheme, bmpID, sbmpID;
 	
 	// BUFFER:
@@ -1766,7 +1767,8 @@ void drawMainTheme() {
 	setTheme(selectedTheme, true);
 	
 	// Widget background buffers
-	drawMainFormBuffer(); // Includes Clock buffer
+	drawMainUIBuffer(); // Includes Clock buffer
+	drawClockHandsBuffer();
 	drawMiniDigiClockBuffer();
 	drawCalendarBuffer();
 	drawBatteryIconBuffer();
@@ -1849,10 +1851,11 @@ void updateClockOnSleep() {
 // Event handlers
 handler mainForm.onopen() {
 	// UIform attach this form for drawing methods
+	//mainBuffer.attachForm(this);
 	draw.attachForm(this);
 	
 	// Create offscreen buffer
-	mainBuffer.create(mainForm.w, mainForm.h); 
+	mainBuffer.create(mainForm.w, mainForm.h);
 	
 	// Getting saved preferences
 	GetPrefs();
@@ -1866,8 +1869,8 @@ handler mainForm.onopen() {
 	hookHard = preferences[0].hookHard;
 	easterEgg = preferences[0].easterEgg;
 	
-	// Hardware button handle
-	clock.hookhard(hookHard);
+	// Hardware buttons handling
+	TimeBoard.hookhard(hookHard);
 	
 	// Battery status
 	charA = battery(false);
@@ -1879,9 +1882,6 @@ handler mainForm.onopen() {
 	
 	lastSecs = today.secs;
 	setClock(timeFormat);
-
-	// Hide buttons initially
-	functionsButton.visible = false;
 	
 	// Passing prefs to gadgets by reference
 	clockGadget.SetClockPrefs(false, fntStandard, hours, minutes, seconds, timeFormat, amPm, dateFormat);
@@ -1891,6 +1891,9 @@ handler mainForm.onopen() {
 	// Show small calendar widget without grid
 	calendarMode = 1;
 	
+	// Hide buttons initially
+	functionsButton.visible = false;
+		
 	// Set cat bitmap to not be visible
 	easterEggBMP.visible = false;
 	
@@ -1902,24 +1905,16 @@ handler mainForm.onopen() {
 
 
 handler mainForm.ondraw() {
-	// Draw main theme from saved preferences
-	if (!funcModalOpen) {
-		drawMainTheme();
-	}
-	else
-	{
-		draw.begin();
-		draw.draw(mainBuffer, 0, 0);
-		draw.end();
+	if (!actionPending) {
+		// Draw main theme from saved preferences
+		drawMainBuffer();
 		
-		mainBuffer.release();
+		funcModalOpen = false;
+		
+		// Show button & easter egg
+		functionsButton.visible = true;
+		easterEggBMP.visible = easterEgg;
 	}
-	
-	funcModalOpen = false;
-	
-	// Show button & easter egg
-	functionsButton.visible = true;
-	easterEggBMP.visible = easterEgg;
 }
 
 
@@ -1964,6 +1959,8 @@ handler mainForm.ontimer() {
 				aboutForm.load();
 				break;
 		}
+		
+		return; // Exits and stops
 	}
 	
 	setClock(timeFormat);
@@ -1989,7 +1986,7 @@ handler mainForm.ontimer() {
 				dayA = today.day;
 			}
 			
-			// Main clock
+			// Analog clock
 			clockGadget.DrawClockHands(false, hours, minutes, seconds, amPm, dateFormat);
 			
 			// Digital clock
@@ -2007,8 +2004,6 @@ handler mainForm.ontimer() {
 
 // Functions button handler
 handler functionsButton.onselect() {
-	mainBuffer.copyForm(mainForm);
-	
 	funcModalOpen = true;
 	functionsForm.domodal();
 }

@@ -11,30 +11,31 @@
 
 // IDE data
 @project {
-  "<PROJECT><FILE>clock.oc</FILE><STANDALONE>1</STANDALONE><LANGUAG"
-  "EFILE></LANGUAGEFILE><DEBUG>0</DEBUG><FORMS><FORM><NAME>mainForm"
-  "</NAME><FILE>mainform.oc</FILE></FORM><FORM><NAME>fullClockForm<"
-  "/NAME><FILE>fullClockForm.oc</FILE></FORM><FORM><NAME>fullDigiCl"
-  "ockForm</NAME><FILE>fullDigiClockForm.oc</FILE></FORM><FORM><NAM"
-  "E>bigCalendarForm</NAME><FILE>bigCalendarForm.oc</FILE></FORM><F"
-  "ORM><NAME>bigBatteryForm</NAME><FILE>bigBatteryForm.oc</FILE></F"
-  "ORM><FORM><NAME>batteryCalibrateForm</NAME><FILE>batteryCalibrat"
-  "eForm.oc</FILE></FORM><FORM><NAME>batteryResetForm</NAME><FILE>b"
-  "atteryResetForm.oc</FILE></FORM><FORM><NAME>preferencesForm</NAM"
-  "E><FILE>preferencesForm.oc</FILE></FORM><FORM><NAME>prefsTimeDat"
-  "eForm</NAME><FILE>prefsTimeDateForm.oc</FILE></FORM><FORM><NAME>"
-  "prefsButtonsForm</NAME><FILE>prefsButtonsForm.oc</FILE></FORM><F"
-  "ORM><NAME>prefsSoundsForm</NAME><FILE>prefsSoundsForm.oc</FILE><"
-  "/FORM><FORM><NAME>prefsThemeForm</NAME><FILE>prefsThemeForm.oc</"
-  "FILE></FORM><FORM><NAME>prefsMoreForm</NAME><FILE>prefsMoreForm."
-  "oc</FILE></FORM><FORM><NAME>helpForm</NAME><FILE>helpForm.oc</FI"
-  "LE></FORM><FORM><NAME>aboutForm</NAME><FILE>aboutForm.oc</FILE><"
-  "/FORM><FORM><NAME>functionsForm</NAME><FILE>functionsForm.oc</FI"
-  "LE></FORM></FORMS></PROJECT>"
+  "<PROJECT><FILE>TimeBoard.oc</FILE><STANDALONE>1</STANDALONE><LAN"
+  "GUAGEFILE></LANGUAGEFILE><DEBUG>0</DEBUG><FORMS><FORM><NAME>main"
+  "Form</NAME><FILE>mainForm.oc</FILE></FORM><FORM><NAME>fullClockF"
+  "orm</NAME><FILE>fullClockForm.oc</FILE></FORM><FORM><NAME>fullDi"
+  "giClockForm</NAME><FILE>fullDigiClockForm.oc</FILE></FORM><FORM>"
+  "<NAME>bigCalendarForm</NAME><FILE>bigCalendarForm.oc</FILE></FOR"
+  "M><FORM><NAME>bigBatteryForm</NAME><FILE>bigBatteryForm.oc</FILE"
+  "></FORM><FORM><NAME>batteryCalibrateForm</NAME><FILE>batteryCali"
+  "brateForm.oc</FILE></FORM><FORM><NAME>batteryResetForm</NAME><FI"
+  "LE>batteryResetForm.oc</FILE></FORM><FORM><NAME>preferencesForm<"
+  "/NAME><FILE>preferencesForm.oc</FILE></FORM><FORM><NAME>prefsTim"
+  "eDateForm</NAME><FILE>prefsTimeDateForm.oc</FILE></FORM><FORM><N"
+  "AME>prefsButtonsForm</NAME><FILE>prefsButtonsForm.oc</FILE></FOR"
+  "M><FORM><NAME>prefsSoundsForm</NAME><FILE>prefsSoundsForm.oc</FI"
+  "LE></FORM><FORM><NAME>prefsThemeForm</NAME><FILE>prefsThemeForm."
+  "oc</FILE></FORM><FORM><NAME>prefsMoreForm</NAME><FILE>prefsMoreF"
+  "orm.oc</FILE></FORM><FORM><NAME>helpForm</NAME><FILE>helpForm.oc"
+  "</FILE></FORM><FORM><NAME>aboutForm</NAME><FILE>aboutForm.oc</FI"
+  "LE></FORM><FORM><NAME>functionsForm</NAME><FILE>functionsForm.oc"
+  "</FILE></FORM><FORM><NAME>timeSyncForm</NAME><FILE>timeSyncForm."
+  "oc</FILE></FORM></FORMS></PROJECT>"
 }
 
 // app definition
-@app UIApp clock {
+@app UIApp TimeBoard {
   name = "TimeBoard"
   dbname = "TimeBoard"
   file = "TimeBoard.prc"
@@ -59,7 +60,6 @@
     image2 = "graphics\\menu-normal-gray-lr.bmp"
     image4 = "graphics\\menu-normal-gray-lr.bmp"
     image8 = "graphics\\menu-normal-lr.bmp"
-    image16 = "graphics\\menu-normal-lr.bmp"
   }
   bitmap Bitmap menuPressedBMP {
     id = 1099
@@ -67,7 +67,6 @@
     image2 = "graphics\\menu-pressed-gray-lr.bmp"
     image4 = "graphics\\menu-pressed-gray-lr.bmp"
     image8 = "graphics\\menu-pressed-lr.bmp"
-    image16 = "graphics\\menu-pressed-lr.bmp"
   }
   bitmap Bitmap menuDigiNormalBMP {
     id = 1104
@@ -75,7 +74,6 @@
     image2 = "graphics\\menu-digi-normal-gray-lr.bmp"
     image4 = "graphics\\menu-digi-normal-gray-lr.bmp"
     image8 = "graphics\\menu-digi-normal-lr.bmp"
-    image16 = "graphics\\menu-digi-normal-lr.bmp"
   }
   bitmap Bitmap menuDigiPressedBMP {
     id = 1105
@@ -83,7 +81,6 @@
     image2 = "graphics\\menu-digi-pressed-gray-lr.bmp"
     image4 = "graphics\\menu-digi-pressed-gray-lr.bmp"
     image8 = "graphics\\menu-digi-pressed-lr.bmp"
-    image16 = "graphics\\menu-digi-pressed-lr.bmp"
   }
   bitmap Bitmap backNormalBMP {
     id = 1053
@@ -91,7 +88,6 @@
     image2 = "graphics\\back-normal-gray-lr.bmp"
     image4 = "graphics\\back-normal-gray-lr.bmp"
     image8 = "graphics\\back-normal-lr.bmp"
-    image16 = "graphics\\back-normal-lr.bmp"
   }
   bitmap Bitmap backPressedBMP {
     id = 1054
@@ -99,7 +95,6 @@
     image2 = "graphics\\back-pressed-gray-lr.bmp"
     image4 = "graphics\\back-pressed-gray-lr.bmp"
     image8 = "graphics\\back-pressed-lr.bmp"
-    image16 = "graphics\\back-pressed-lr.bmp"
   }
   bitmap Bitmap moreNormalBMP {
     id = 1007
@@ -107,7 +102,6 @@
     image2 = "graphics\\more-normal-gray-lr.bmp"
     image4 = "graphics\\more-normal-gray-lr.bmp"
     image8 = "graphics\\more-normal-lr.bmp"
-    image16 = "graphics\\more-normal-lr.bmp"
   }
   bitmap Bitmap morePressedBMP {
     id = 1107
@@ -115,7 +109,6 @@
     image2 = "graphics\\more-pressed-gray-lr.bmp"
     image4 = "graphics\\more-pressed-gray-lr.bmp"
     image8 = "graphics\\more-pressed-lr.bmp"
-    image16 = "graphics\\more-pressed-lr.bmp"
   }
   bitmap Bitmap batteryCalNormalBMP {
     id = 1118
@@ -123,7 +116,6 @@
     image2 = "graphics\\battery-calibrate-normal-gray-lr.bmp"
     image4 = "graphics\\battery-calibrate-normal-gray-lr.bmp"
     image8 = "graphics\\battery-calibrate-normal-lr.bmp"
-    image16 = "graphics\\battery-calibrate-normal-lr.bmp"
   }
   bitmap Bitmap batteryCalPressedBMP {
     id = 1119
@@ -131,7 +123,6 @@
     image2 = "graphics\\battery-calibrate-pressed-gray-lr.bmp"
     image4 = "graphics\\battery-calibrate-pressed-gray-lr.bmp"
     image8 = "graphics\\battery-calibrate-pressed-lr.bmp"
-    image16 = "graphics\\battery-calibrate-pressed-lr.bmp"
   }
   bitmap Bitmap prefsClockBMP {
     id = 1076
@@ -139,7 +130,6 @@
     image2 = "graphics\\prefs-clock-icon-gray-lr.bmp"
     image4 = "graphics\\prefs-clock-icon-gray-lr.bmp"
     image8 = "graphics\\prefs-clock-icon-lr.bmp"
-    image16 = "graphics\\prefs-clock-icon-lr.bmp"
   }
   bitmap Bitmap prefsButtonBMP {
     id = 1128
@@ -147,7 +137,6 @@
     image2 = "graphics\\prefs-button-icon-gray-lr.bmp"
     image4 = "graphics\\prefs-button-icon-gray-lr.bmp"
     image8 = "graphics\\prefs-button-icon-lr.bmp"
-    image16 = "graphics\\prefs-button-icon-lr.bmp"
   }
   bitmap Bitmap prefsBellBMP {
     id = 1129
@@ -155,7 +144,6 @@
     image2 = "graphics\\prefs-bell-icon-gray-lr.bmp"
     image4 = "graphics\\prefs-bell-icon-gray-lr.bmp"
     image8 = "graphics\\prefs-bell-icon-lr.bmp"
-    image16 = "graphics\\prefs-bell-icon-lr.bmp"
   }
   bitmap Bitmap prefsThemeBMP {
     id = 1130
@@ -163,7 +151,6 @@
     image2 = "graphics\\prefs-theme-icon-gray-lr.bmp"
     image4 = "graphics\\prefs-theme-icon-gray-lr.bmp"
     image8 = "graphics\\prefs-theme-icon-lr.bmp"
-    image16 = "graphics\\prefs-theme-icon-lr.bmp"
   }
   bitmap Bitmap prefsMoreBMP {
     id = 1131
@@ -171,7 +158,6 @@
     image2 = "graphics\\prefs-more-icon-gray-lr.bmp"
     image4 = "graphics\\prefs-more-icon-gray-lr.bmp"
     image8 = "graphics\\prefs-more-icon-lr.bmp"
-    image16 = "graphics\\prefs-more-icon-lr.bmp"
   }
   bitmap Bitmap sandClockBMP {
     id = 1137
@@ -179,7 +165,6 @@
     image2 = "graphics\\sand-clock-gray-lr.bmp"
     image4 = "graphics\\sand-clock-gray-lr.bmp"
     image8 = "graphics\\sand-clock-lr.bmp"
-    image16 = "graphics\\sand-clock-lr.bmp"
   }
   bitmap Bitmap batteryResetNormalBMP {
     id = 1064
@@ -187,7 +172,6 @@
     image2 = "graphics\\battery-reset-normal-bw-lr.bmp"
     image4 = "graphics\\battery-reset-normal-bw-lr.bmp"
     image8 = "graphics\\battery-reset-normal-lr.bmp"
-    image16 = "graphics\\battery-reset-normal-lr.bmp"
   }
   bitmap Bitmap batteryResetPressedBMP {
     id = 1065
@@ -195,7 +179,6 @@
     image2 = "graphics\\battery-reset-pressed-gray-lr.bmp"
     image4 = "graphics\\battery-reset-pressed-gray-lr.bmp"
     image8 = "graphics\\battery-reset-pressed-lr.bmp"
-    image16 = "graphics\\battery-reset-pressed-lr.bmp"
   }
   bitmap Bitmap prefsNormalBMP {
     id = 1006
@@ -203,7 +186,6 @@
     image2 = "graphics\\prefs-normal-gray-lr.bmp"
     image4 = "graphics\\prefs-normal-gray-lr.bmp"
     image8 = "graphics\\prefs-normal-lr.bmp"
-    image16 = "graphics\\prefs-normal-lr.bmp"
   }
   bitmap Bitmap prefsPressedBMP {
     id = 1023
@@ -211,7 +193,6 @@
     image2 = "graphics\\prefs-pressed-gray-lr.bmp"
     image4 = "graphics\\prefs-pressed-gray-lr.bmp"
     image8 = "graphics\\prefs-pressed-lr.bmp"
-    image16 = "graphics\\prefs-pressed-lr.bmp"
   }
   bitmap Bitmap navFuncKeysBMP {
     id = 1058
@@ -219,7 +200,6 @@
     image2 = "graphics\\nav1.bmp"
     image4 = "graphics\\nav1.bmp"
     image8 = "graphics\\nav1.bmp"
-    image16 = "graphics\\nav1.bmp"
   }
   bitmap Bitmap navSysKeysBMP {
     id = 1059
@@ -227,7 +207,6 @@
     image2 = "graphics\\nav2.bmp"
     image4 = "graphics\\nav2.bmp"
     image8 = "graphics\\nav2.bmp"
-    image16 = "graphics\\nav2.bmp"
   }
   bitmap Bitmap TimeBoardBMP {
     id = 1127
@@ -235,7 +214,6 @@
     image2 = "graphics\\timeboard2.bmp"
     image4 = "graphics\\timeboard4.bmp"
     image8 = "graphics\\timeboard8.bmp"
-    image16 = "graphics\\timeboard8.bmp"
   }
   bitmap Bitmap catBMP {
     id = 1074
@@ -243,107 +221,86 @@
     image2 = "graphics\\cat1-4bit.bmp"
     image4 = "graphics\\cat1-4bit.bmp"
     image8 = "graphics\\cat1.bmp"
-    image16 = "graphics\\cat1.bmp"
   }
   bitmap Bitmap functionsNormalBMP {
     id = 1094
     image8 = "graphics\\functions-normal-lr.bmp"
-    image16 = "graphics\\functions-normal-lr.bmp"
   }
   bitmap Bitmap functionsPressedBMP {
     id = 1177
     image8 = "graphics\\functions-pressed-lr.bmp"
-    image16 = "graphics\\functions-pressed-lr.bmp"
   }
   bitmap Bitmap funcAnalogClockBMP {
     id = 1176
     image8 = "graphics\\functions-analogclock-lr.bmp"
-    image16 = "graphics\\functions-analogclock-lr.bmp"
   }
   bitmap Bitmap funcAnalogClockPressedBMP {
     id = 1178
     image8 = "graphics\\functions-analogclock-pressed-lr.bmp"
-    image16 = "graphics\\functions-analogclock-pressed-lr.bmp"
   }
   bitmap Bitmap funcDigiClockBMP {
     id = 1183
     image8 = "graphics\\functions-digiclock-lr.bmp"
-    image16 = "graphics\\functions-digiclock-lr.bmp"
   }
   bitmap Bitmap funcDigiClockPressedBMP {
     id = 1184
     image8 = "graphics\\functions-digiclock-pressed-lr.bmp"
-    image16 = "graphics\\functions-digiclock-pressed-lr.bmp"
   }
   bitmap Bitmap funcCalendarBMP {
     id = 1185
     image8 = "graphics\\functions-calendar-lr.bmp"
-    image16 = "graphics\\functions-calendar-lr.bmp"
   }
   bitmap Bitmap funcCalendarPressedBMP {
     id = 1186
     image8 = "graphics\\functions-calendar-pressed-lr.bmp"
-    image16 = "graphics\\functions-calendar-pressed-lr.bmp"
   }
   bitmap Bitmap funcBatteryBMP {
     id = 1188
     image8 = "graphics\\functions-battery-lr.bmp"
-    image16 = "graphics\\functions-battery-lr.bmp"
   }
   bitmap Bitmap funcBatteryPressedBMP {
     id = 1189
     image8 = "graphics\\functions-battery-pressed-lr.bmp"
-    image16 = "graphics\\functions-battery-pressed-lr.bmp"
   }
   bitmap Bitmap funcTimeSyncBMP {
     id = 1190
     image8 = "graphics\\functions-timesync-lr.bmp"
-    image16 = "graphics\\functions-timesync-lr.bmp"
   }
   bitmap Bitmap funcTimeSyncPressedBMP {
     id = 1191
     image8 = "graphics\\functions-timesync-pressed-lr.bmp"
-    image16 = "graphics\\functions-timesync-pressed-lr.bmp"
   }
   bitmap Bitmap funcPrefsBMP {
     id = 1192
     image8 = "graphics\\functions-prefs-lr.bmp"
-    image16 = "graphics\\functions-prefs-lr.bmp"
   }
   bitmap Bitmap funcPrefsPressedBMP {
     id = 1193
     image8 = "graphics\\functions-prefs-pressed-lr.bmp"
-    image16 = "graphics\\functions-prefs-pressed-lr.bmp"
   }
   bitmap Bitmap funcHelpBMP {
     id = 1194
     image8 = "graphics\\functions-help-lr.bmp"
-    image16 = "graphics\\functions-help-lr.bmp"
   }
   bitmap Bitmap funcHelpPressedBMP {
     id = 1195
     image8 = "graphics\\functions-help-pressed-lr.bmp"
-    image16 = "graphics\\functions-help-pressed-lr.bmp"
   }
   bitmap Bitmap funcAboutBMP {
     id = 1196
     image8 = "graphics\\functions-about-lr.bmp"
-    image16 = "graphics\\functions-about-lr.bmp"
   }
   bitmap Bitmap funcAboutPressedBMP {
     id = 1197
     image8 = "graphics\\functions-about-pressed-lr.bmp"
-    image16 = "graphics\\functions-about-pressed-lr.bmp"
   }
   bitmap Bitmap funcExitBMP {
     id = 1198
     image8 = "graphics\\functions-exit-lr.bmp"
-    image16 = "graphics\\functions-exit-lr.bmp"
   }
   bitmap Bitmap funcExitPressedBMP {
     id = 1199
     image8 = "graphics\\functions-exit-pressed-lr.bmp"
-    image16 = "graphics\\functions-exit-pressed-lr.bmp"
   }
   resstring UIString battCal5String {
     id = 1125, text = " � To calculate the remaining battery time, the device will measure power consumption over the next 5 minutes. During the test period, it will remain inactive and unresponsive. To interrupt this process, reset the device.\n\n � Once completed, the remaining usage time will be estimated based on the discharge rate.\n\n �  You can adjust the duration of the testing period in the 'Preferences > More' menu.\n\n � DISCLAIMER: This function might be inacurate and may vary dependind on brightness, battery health and CPU clock speed."
@@ -1116,8 +1073,8 @@
     id = 1010
     text = ""
     x = 2, y = 14, w = 156, h = 98
-    menuid = 0, helpid = 0, defbuttonid = 0
-    modal = true, resizable = true
+    menuid = 0, helpid = 0, defbuttonid = 1013
+    modal = true, resizable = false
     hresize = 0, vresize = 0
     button UIButton functionsBackButton {
       id = 1013
@@ -1210,12 +1167,20 @@
       hresize = 0, vresize = 0
     }
   }
+  form UIForm timeSyncForm {
+    id = 1002
+    text = ""
+    x = 0, y = 0, w = 160, h = 160
+    menuid = 0, helpid = 0, defbuttonid = 0
+    modal = false, resizable = false
+    hresize = 0, vresize = 0
+  }
 }
 
 // source files
 #include "globalVariables.oc"
-#include "clock.oc"
-#include "mainform.oc"
+#include "TimeBoard.oc"
+#include "mainForm.oc"
 #include "fullClockForm.oc"
 #include "fullDigiClockForm.oc"
 #include "bigCalendarForm.oc"
@@ -1231,3 +1196,4 @@
 #include "helpForm.oc"
 #include "aboutForm.oc"
 #include "functionsForm.oc"
+#include "timeSyncForm.oc"

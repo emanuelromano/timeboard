@@ -25,7 +25,7 @@ handler aboutForm.ondraw() {
 	draw.text(clrFG, 33, 8, "TimeBoard"); // app name
 	
 	draw.font(fntStandard);
-	draw.text(clrFG, 33, 18, "v" + clock.version); // app version number
+	draw.text(clrFG, 33, 18, "v" + TimeBoard.version); // app version number
 	
 	aboutField.text = aboutString.text; // info displayed
 	
