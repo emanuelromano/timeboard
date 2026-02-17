@@ -22,10 +22,11 @@ handler prefsButtonsForm.onopen() {
 	draw.attachForm(this);
 	
 	// Set info strings
-	info[0].infoA = "Up key: Enter selected view";
-	info[0].infoB = "Down key: Scroll through views";
-	info[1].infoA = "Up/Down keys: Scroll through views";
-	info[1].infoB = "Center key: Enter selected view";
+	info[0].infoA = "Use hardware buttons to cycle";
+	info[0].infoB = "through the four main functions";
+	
+	info[1].infoA = "Use hardware buttons to access";
+	info[1].infoB = "system selected applications";
 	
 	// Get preferences
 	GetPrefs();
@@ -88,7 +89,6 @@ handler funcKeysPush.onselect() {
 	navSysBMP.visible = false;
 	navFuncBMP.visible = true;
 }
-
 
 handler sysKeysPush.onselect() {
 	hookHard = false;

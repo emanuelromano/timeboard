@@ -3,7 +3,7 @@
 
 // Event handlers
 handler helpForm.onopen() {
-	setTheme(preferences[0].selectedTheme, false);
+	setTheme(preferences[0].selectedTheme);
 	
 	draw.attachForm(this);
 }

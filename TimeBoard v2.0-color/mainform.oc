@@ -114,7 +114,7 @@
 
 
 // Main form background
-void drawMainBg(int background) {
+void drawMainBackground(int background) {
 	if (colorDepth > 4) {
 		switch (background) {	
 			case 1:
@@ -135,10 +135,12 @@ void drawMainBg(int background) {
 				mainBuffer.rect(clrBG, 0, 0, mainBuffer.nw, mainBuffer.nh, 0);
 				mainBuffer.bgRGB(153, 204, 255);
 				mainBuffer.rect(clrBG, 0, 0, mainBuffer.nw, 60, 0);
+				// sun
 				mainBuffer.bgRGB(255, 255, 153);
-				mainBuffer.rect(clrBG, 126, 16, 149, 39, 12);
+				mainBuffer.rect(clrBG, 132, 16, 155, 39, 12);
 				mainBuffer.bgRGB(255, 255, 204);
-				mainBuffer.rect(clrBG, 130, 20, 145, 35, 8);
+				mainBuffer.rect(clrBG, 136, 20, 151, 35, 8);
+				// clouds
 				mainBuffer.bgRGB(255, 255, 255);
 				mainBuffer.rect(clrBG, -5, 23, 15, 43, 10);
 				mainBuffer.rect(clrBG, 6, 26, 22, 43, 8);
@@ -352,11 +354,15 @@ void drawMainBg(int background) {
 				mainBuffer.pixel(clrBG, 119, 70);
 				mainBuffer.pixel(clrBG, 118, 69);
 				mainBuffer.pixel(clrBG, 118, 71);
-
-
 				break;
 				
 			case 6:
+				// form background: Custom...
+				mainBuffer.fgRGB(themeR, themeG, themeB);
+				mainBuffer.rect(clrFG, 0, 0, mainForm.w, mainForm.h, 0);
+				break;
+			
+			case 7:
 				// form background: Custom...
 				mainBuffer.fg(backgroundColorIndex);
 				mainBuffer.rect(clrFG, 0, 0, mainForm.w, mainForm.h, 0);
@@ -367,7 +373,7 @@ void drawMainBg(int background) {
 
 
 // Themes
-void setTheme(int theme, bool mainForm) {
+void setTheme(int theme) {
 	if (colorDepth > 4) {
 		switch (theme) {
 			case 1: // Sky Blue
@@ -1258,10 +1264,6 @@ void drawMainUIBuffer() {
 	else
 		clockCornerRadius = 5;
 	
-	// Clock hand coordinates
-	ptCenter.x = clockGdtX+49;
-	ptCenter.y = clockGdtY+49;
-	
 	// Status bar (for 2.0) -----------------------------------------------------------------------
 	mainBuffer.fgRGB(themeR, themeG, themeB);
 	mainBuffer.rect(clrFG, mainForm.x, mainForm.y, mainForm.w, 11, 0);
@@ -1289,7 +1291,7 @@ void drawMainUIBuffer() {
 	centerY = ptCenter.y; // gadget.h / 2;
 	radius = 40; // distance from the center to the dots
 	
-	for (i = 0; i < 12; i++) {
+	/*for (i = 0; i < 12; i++) {
     	theta = (2 * pi / 12) * i;  // angles in radians
     	x = centerX + (radius * cos(theta));
     	y = centerY + (radius * sin(theta));
@@ -1302,7 +1304,41 @@ void drawMainUIBuffer() {
     		i == 6 ) mainBuffer.rect(clrFG, x-1, y-1, x+1, y+1, 2);
     	
     	if (i == 9) mainBuffer.rect(clrFG, x, y-1, x+2, y+1, 2); // corrected 12th dot possition
+	}*/
+	
+	// Clock hand coordinates
+	ptCenter.x = clockGdtX+49; // 80
+	ptCenter.y = clockGdtY+49; // 64
+	
+	// heavy dots
+	if (numbersOrDots) {
+		mainBuffer.textRGB(clockSecR, clockSecG, clockSecB);
+		mainBuffer.bgRGB(clockBgR, clockBgG, clockBgB);
+		mainBuffer.textAlign(11);
+		mainBuffer.text(clrFG, ptCenter.x, ptCenter.y-(radius-1), "12");
+		mainBuffer.text(clrFG, ptCenter.x+(radius-2), ptCenter.y-1, "3");
+		mainBuffer.text(clrFG, ptCenter.x, ptCenter.y+(radius-4), "6");
+		mainBuffer.text(clrFG, ptCenter.x-(radius-2), ptCenter.y-1, "9");
 	}
+	else
+	{
+	   	mainBuffer.fgRGB(clockSecR, clockSecG, clockSecB);
+		mainBuffer.rect(clrFG, ptCenter.x-1, ptCenter.y-(radius+1), ptCenter.x+1, ptCenter.y-(radius-1), 2);
+		mainBuffer.rect(clrFG, ptCenter.x+(radius-1), ptCenter.y-1, ptCenter.x+(radius+1), ptCenter.y+1, 2);
+		mainBuffer.rect(clrFG, ptCenter.x-1, ptCenter.y+(radius-1), ptCenter.x+1, ptCenter.y+(radius+1), 2);
+		mainBuffer.rect(clrFG, ptCenter.x-(radius+1), ptCenter.y-1, ptCenter.x-(radius-1), ptCenter.y+1, 2);
+	}
+	
+	// small dots
+	mainBuffer.fgRGB(clockHndR, clockHndG, clockHndB);
+	mainBuffer.pixel(clrFG, 99, 29);
+	mainBuffer.pixel(clrFG, 114, 43);
+	mainBuffer.pixel(clrFG, 114, 84);
+	mainBuffer.pixel(clrFG, 99, 98);
+	mainBuffer.pixel(clrFG, 59, 98);
+	mainBuffer.pixel(clrFG, 45, 84);
+	mainBuffer.pixel(clrFG, 45, 44);
+	mainBuffer.pixel(clrFG, 59, 29);
 	
 	// Calendar background (for 2.0) --------------------------------------------------------------
 	mainBuffer.bgRGB(highlightR, highlightG, highlightB);
@@ -1753,18 +1789,18 @@ void drawCalendarBuffer() {
 
 
 // Set main theme from saved preferences and draw buffer
-void drawMainBuffer() {
+void composeMainBuffer() {
 	int selectedTheme, bmpID, sbmpID;
 	
 	// BUFFER:
 	mainBuffer.begin();
 	
-	// Draw main form background
-	drawMainBg(preferences[0].selectedBackground);
-	
 	// Set main theme
 	selectedTheme = preferences[0].selectedTheme;
-	setTheme(selectedTheme, true);
+	setTheme(selectedTheme);
+	
+	// Draw main form background
+	drawMainBackground(preferences[0].selectedBackground);
 	
 	// Widget background buffers
 	drawMainUIBuffer(); // Includes Clock buffer
@@ -1817,8 +1853,8 @@ void drawMainBuffer() {
 		functionsButton.sbmpid = sbmpID;
 	}
 	
-	// DRAW ON SCREEN ELEMENTS from buffer
-	drawBuffer();
+	// DRAW ELEMENTS ON SCREEN
+	// now refer to drawBuffer()
 }
 
 
@@ -1851,7 +1887,7 @@ void updateClockOnSleep() {
 // Event handlers
 handler mainForm.onopen() {
 	// UIform attach this form for drawing methods
-	//mainBuffer.attachForm(this);
+	mainBuffer.attachForm(this);
 	draw.attachForm(this);
 	
 	// Create offscreen buffer
@@ -1861,11 +1897,12 @@ handler mainForm.onopen() {
 	GetPrefs();
 	
 	// Set preferences
-	drawShadows = preferences[0].drawShadows;
-	roundedClock = preferences[0].roundedClock;
-	startOnSunday = preferences[0].startOnSunday;
 	timeFormat = preferences[0].timeFormat;
 	dateFormat = preferences[0].dateFormat;
+	startOnSunday = preferences[0].startOnSunday;
+	roundedClock = preferences[0].roundedClock;
+	numbersOrDots = preferences[0].numbersOrDots;
+	drawShadows = preferences[0].drawShadows;
 	hookHard = preferences[0].hookHard;
 	easterEgg = preferences[0].easterEgg;
 	
@@ -1906,8 +1943,9 @@ handler mainForm.onopen() {
 
 handler mainForm.ondraw() {
 	if (!actionPending) {
-		// Draw main theme from saved preferences
-		drawMainBuffer();
+		// Compose background buffer and draw main buffer
+		composeMainBuffer();
+		drawBuffer();
 		
 		funcModalOpen = false;
 		
@@ -1920,10 +1958,8 @@ handler mainForm.ondraw() {
 
 handler mainForm.onresize() {
 	// UIform attach this form for drawing methods
-	//mainBuffer.attachForm(this);
+	mainBuffer.attachForm(this);
 	draw.attachForm(this);
-	
-	//drawMainTheme();
 }
 
 
@@ -1947,7 +1983,7 @@ handler mainForm.ontimer() {
 				bigBatteryForm.load();
 				break;
 			case 5:
-				alert("Time sync coming soon...");
+				timeSyncForm.load();
 				break;
 			case 6:
 				preferencesForm.load();
@@ -1960,7 +1996,7 @@ handler mainForm.ontimer() {
 				break;
 		}
 		
-		return; // Exits and stops
+		return; // Exits and stops the timer event until this form is loaded again
 	}
 	
 	setClock(timeFormat);

@@ -18,6 +18,7 @@ struct AppPreferences {
 	int selectedTheme;
 	int selectedBackground;
 	bool roundedClock;
+	bool numbersOrDots;
 	bool drawShadows;
 	int timeFormat;
 	int dateFormat;
@@ -51,6 +52,7 @@ bool SetDefaultPrefs() {
 	preferences[0].selectedTheme = 3; // theme: PokéRed
 	preferences[0].selectedBackground = 2; // background: Day
 	preferences[0].roundedClock = true;
+	preferences[0].numbersOrDots = true; // true: numbers - false: dots on clock
 	preferences[0].drawShadows = true; // draw shadows on main interface
 	preferences[0].timeFormat = 1; // 24 hours
 	preferences[0].dateFormat = 1; // MM-DD-YYYY

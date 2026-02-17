@@ -22,7 +22,7 @@ handler fullDigiClockForm.onopen() {
 
 handler fullDigiClockForm.ondraw() {
 	// Set main theme
-	setTheme(preferences[0].selectedTheme, false);
+	setTheme(preferences[0].selectedTheme);
 }
 
 

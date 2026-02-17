@@ -6,7 +6,7 @@ int eggCount = 0;
 
 // Event handlers
 handler aboutForm.onopen() {
-	setTheme(preferences[0].selectedTheme, false);
+	setTheme(preferences[0].selectedTheme);
 	
 	draw.attachForm(this);
 }

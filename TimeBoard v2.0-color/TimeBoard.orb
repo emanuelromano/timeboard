@@ -324,7 +324,7 @@
     gadget ClockGadget clockGadget {
       id = 101
       x = 4, y = 15, w = 152, h = 98
-      hresize = 2, vresize = 2
+      hresize = 2, vresize = 0
     }
     gadget DigiClockGadget digiClockGadget {
       id = 1036
@@ -764,27 +764,27 @@
     }
     label UILabel infoLabel1 {
       id = 1071
-      x = 8, y = 60
+      x = 14, y = 59
       fontid = 0
       text = "info                                                              "
       hresize = 0, vresize = 0
     }
     label UILabel infoLabel2 {
       id = 1072
-      x = 8, y = 73
+      x = 14, y = 71
       fontid = 0
       text = "info                                                              "
       hresize = 0, vresize = 0
     }
     bitmap UIFBitmap navSysBMP {
       id = 1062
-      x = 24, y = 88
+      x = 24, y = 86
       bitmapid = 1059
       hresize = 0, vresize = 0
     }
     bitmap UIFBitmap navFuncBMP {
       id = 1061
-      x = 24, y = 88
+      x = 24, y = 86
       bitmapid = 1058
       hresize = 0, vresize = 0
     }
@@ -877,15 +877,15 @@
     }
     popup UIPopup backgroundPopup {
       id = 1017
-      x = 68, y = 42, w = 43, h = 11
-      text = "Select"
+      x = 68, y = 42, w = 51, h = 11
+      text = "Select    "
       leftanchor = true, group = 0, fontid = 0
       hresize = 0, vresize = 0
     }
     list UIList backgroundList {
       id = 1016
-      x = 68, y = 42, w = 50, h = 66
-      numvisible = 6, triggerid = 1017, fontid = 0
+      x = 68, y = 42, w = 60, h = 77
+      numvisible = 7, triggerid = 1017, fontid = 0
       hresize = 0, vresize = 0
     }
     checkbox UICheckbox roundedClockCB {
@@ -921,9 +921,30 @@
     }
     checkbox UICheckbox shadowsCB {
       id = 1056
-      x = 15, y = 72, w = 95, h = 11
+      x = 15, y = 87, w = 95, h = 11
       text = "Draw shadows"
       leftanchor = true, group = 0, fontid = 0
+      hresize = 0, vresize = 0
+    }
+    label UILabel analogClockNumLabel {
+      id = 1033
+      x = 17, y = 72
+      fontid = 0
+      text = "Analog clock shows:"
+      hresize = 0, vresize = 0
+    }
+    pushbutton UIPushButton themeNumClockPush {
+      id = 1004
+      x = 98, y = 72, w = 25, h = 12
+      text = "Num."
+      leftanchor = true, group = 1, fontid = 0
+      hresize = 0, vresize = 0
+    }
+    pushbutton UIPushButton themeDotClockPush {
+      id = 1005
+      x = 124, y = 72, w = 25, h = 12
+      text = "Dots"
+      leftanchor = true, group = 1, fontid = 0
       hresize = 0, vresize = 0
     }
   }
@@ -1174,6 +1195,15 @@
     menuid = 0, helpid = 0, defbuttonid = 0
     modal = false, resizable = false
     hresize = 0, vresize = 0
+    button UIButton timeSyncBackButton {
+      id = 1003
+      x = 127, y = 140, w = 25, h = 12
+      text = ""
+      leftanchor = true, group = 0, fontid = 0
+      graphic = true, bitmapid = 1053, sbitmapid = 1054
+      frame = 1
+      hresize = 0, vresize = 0
+    }
   }
 }
 

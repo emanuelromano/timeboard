@@ -38,7 +38,8 @@ bool soundsEnabled,
 	startOnSunday,
 	easterEgg,
 	roundedClock,
-	hookHard;
+	hookHard,
+	numbersOrDots;
 bool actionPending = false;
 bool drawShadows = true;
 bool funcModalOpen = false;

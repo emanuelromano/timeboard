@@ -1,0 +1,36 @@
+// Time Sync form
+
+
+// Event handlers
+handler timeSyncForm.onopen() {
+	setTheme(preferences[0].selectedTheme);
+	
+	draw.attachForm(this);
+}
+
+handler timeSyncForm.ondraw() {
+	draw.begin();
+	
+	draw.fgRGB(shadowR, shadowG, shadowB);
+	draw.frame(clrFG, 3, 3, timeSyncForm.w-3, timeSyncForm.h-3, 6, 3);
+	
+	draw.fgRGB(themeR, themeG, themeB);
+	draw.frame(clrFG, 3, 3, timeSyncForm.w-4, timeSyncForm.h-4, 6, 3);
+	
+	draw.font(fntLargeBold);
+	draw.textRGB(shadowR, shadowG, shadowB);
+	draw.text(clrFG, 10, 8, "Time Sync");
+		
+	draw.end();
+}
+
+handler timeSyncForm.onresize() {
+	// UIform attach this form for drawing methods;
+	draw.attachForm(this);
+}
+
+
+// soft button handlers
+handler timeSyncBackButton.onselect() {
+	mainForm.load();
+}

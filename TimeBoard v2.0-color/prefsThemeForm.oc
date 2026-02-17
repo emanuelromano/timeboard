@@ -2,7 +2,7 @@
 
 // Theme preference variables
 int themeSelected, backgroundSelected;
-string themes[8], backgrounds[6];
+string themes[8], backgrounds[7];
 
 
 // Set new preferences
@@ -11,7 +11,8 @@ bool SetNewThemePrefs() {
   	preferences[0].selectedBackground = backgroundSelected;
   	preferences[0].drawShadows = shadowsCB.checked;
   	preferences[0].roundedClock = roundedClockCB.checked;
-  	preferences[0].bgColorIndex = backgroundColorIndex; 
+  	preferences[0].bgColorIndex = backgroundColorIndex;
+  	preferences[0].numbersOrDots = numbersOrDots;
 	
   	return prefs.set("KS10", true, preferences, typeof(AppPreferences), 1);
 }
@@ -39,8 +40,9 @@ handler prefsThemeForm.onopen() {
 		backgrounds[2] = "Sunset";
 		backgrounds[3] = "Night";
 		backgrounds[4] = "Space";
-		backgrounds[5] = "Custom...";
-		backgroundList.setitems(6, backgrounds);
+		backgrounds[5] = "Match theme";
+		backgrounds[6] = "Custom...";
+		backgroundList.setitems(7, backgrounds);
 	}
 	else
 	{
@@ -63,9 +65,12 @@ handler prefsThemeForm.onopen() {
 	
 	// Get preferences
 	GetPrefs();
-	
 	themeSelected = preferences[0].selectedTheme;
 	backgroundSelected = preferences[0].selectedBackground;
+	numbersOrDots = preferences[0].numbersOrDots;
+	
+	shadowsCB.checked = preferences[0].drawShadows;
+	roundedClockCB.checked = preferences[0].roundedClock;
 	
 	if (colorDepth > 4) {
 	
@@ -76,7 +81,7 @@ handler prefsThemeForm.onopen() {
 		backgroundList.selitem = backgroundSelected - 1;
 		
 		// If 'Custom' background is selected, make the button visible
-		if (backgroundSelected == 6) bgColorSelectorButton.visible = true;
+		if (backgroundSelected == 7) bgColorSelectorButton.visible = true;
 	}
 	else
 	{
@@ -87,13 +92,19 @@ handler prefsThemeForm.onopen() {
 		backgroundList.selitem = 0;
 	}
 	
-	shadowsCB.checked = preferences[0].drawShadows;
-	roundedClockCB.checked = preferences[0].roundedClock;
+	if (numbersOrDots) {
+		themeNumClockPush.checked = true;
+	}
+	else
+	{
+		themeDotClockPush.checked = true;
+	}
 }
+
 
 handler prefsThemeForm.ondraw() {
 	// Set main theme
-	setTheme(preferences[0].selectedTheme, false);
+	setTheme(preferences[0].selectedTheme);
 	
 	draw.begin();
 
@@ -107,7 +118,7 @@ handler prefsThemeForm.ondraw() {
 	draw.textRGB(shadowR, shadowG, shadowB);
 	draw.text(clrFG, 10, 8, "Themes");
 	
-	if (backgroundSelected == 6) {
+	if (backgroundSelected == 7) {
 		draw.fg(backgroundColorIndex);
 		draw.rect(clrFG, 127, 43, 136, 52, 0);
 	}
@@ -132,7 +143,7 @@ handler backgroundPopup.onlistselect() {
 	backgroundSelected = e.value + 1;
 	backgroundPopup.text = backgrounds[e.value];
 	
-	if ((e.value + 1) == 6) {
+	if ((e.value + 1) == 7) {
 		bgColorSelectorButton.visible = true;
 		
 		if (draw.selectIndex("Choose background color...", &backgroundColorIndex)) {
@@ -152,6 +163,7 @@ handler backgroundPopup.onlistselect() {
 	else
 	{
 		bgColorSelectorButton.visible = false;
+		backgroundPopup.visible = true;
 	}
 }
 
@@ -165,7 +177,6 @@ handler saveThemeButton.onselect() {
 handler cancelThemeButton.onselect() {
 	preferencesForm.load();
 }
-
 
 handler bgColorSelectorButton.onselect() {
 	if (draw.selectIndex("Choose background color...", &backgroundColorIndex)) {
@@ -181,4 +192,14 @@ handler bgColorSelectorButton.onselect() {
 		draw.rect(clrFG, 127, 43, 136, 52, 0);
 		draw.end();
 	}
+}
+
+
+// Push buttons handlers
+handler themeNumClockPush.onselect() {
+	numbersOrDots = true;
+}
+
+handler themeDotClockPush.onselect() {
+	numbersOrDots = false;
 }

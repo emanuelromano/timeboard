@@ -154,11 +154,13 @@ void ClockGadget.ShowDate() {
 	clockBuffer.bgRGB(cBackgroundR, cBackgroundG, cBackgroundB);
 	clockBuffer.font(fntStandard);
 	clockBuffer.textAlign(10);
-	clockBuffer.textRGB(cTextR, cTextG, cTextB);
+	//clockBuffer.textRGB(cTextR, cTextG, cTextB);
+	clockBuffer.textRGB(cHandsR, cHandsG, cHandsB);
 	clockBuffer.text(clrText, 6, 7, today.year);
 	
 	// Date
-	clockBuffer.textRGB(cTextR, cTextG, cTextB);
+	//clockBuffer.textRGB(cTextR, cTextG, cTextB);
+	clockBuffer.textRGB(cHandsR, cHandsG, cHandsB);
 	
 	switch (dateF) {
 		case 1:
@@ -222,7 +224,7 @@ void ClockGadget.DrawClockDots() {
     	x = centerX + (radius * cos(theta));
     	y = centerY + (radius * sin(theta));
     	
-    	clockBuffer.fgRGB(cFrameR, cFrameG, cFrameB); // text color
+    	clockBuffer.fgRGB(cSecondsR, cSecondsG, cSecondsB); // text color
     	clockBuffer.pixel(clrFG, x, y);  // draws the dots
     	
     	if (i ==  0 || // heavy dots every hour
@@ -305,7 +307,8 @@ void ClockGadget.DrawClockFace(bool frameFlag, int fontType) {
 		DrawDigitalClock(hr, min, amOrPm);
 		
 		// Draw clock numbers when clock is in fullscreen mode
-		clockBuffer.textRGB(cTextR, cTextG, cTextB); // text color
+		//clockBuffer.textRGB(cTextR, cTextG, cTextB); // text color
+		clockBuffer.textRGB(cHandsR, cHandsG, cHandsB);
 		clockBuffer.textAlign(11);
 		clockBuffer.font(fontType);
 		clockBuffer.text(clrText, face[0].x, face[0].y, "12");
