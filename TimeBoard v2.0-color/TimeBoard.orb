@@ -319,21 +319,21 @@
     text = ""
     x = 0, y = 0, w = 160, h = 160
     menuid = 0, helpid = 0, defbuttonid = 0
-    modal = false, resizable = true
+    modal = false, resizable = false
     hresize = 2, vresize = 2
     gadget ClockGadget clockGadget {
       id = 101
       x = 4, y = 15, w = 152, h = 98
-      hresize = 2, vresize = 0
+      hresize = 0, vresize = 2
     }
     gadget DigiClockGadget digiClockGadget {
       id = 1036
-      x = 4, y = 117, w = 39, h = 39
+      x = 11, y = 117, w = 39, h = 39
       hresize = 1, vresize = 1
     }
     gadget CalendarGadget calendarGadget {
       id = 1015
-      x = 46, y = 117, w = 110, h = 39
+      x = 42, y = 117, w = 110, h = 39
       hresize = 0, vresize = 1
     }
     gadget BatteryGadget batteryGadget {

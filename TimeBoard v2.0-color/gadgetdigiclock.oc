@@ -515,17 +515,17 @@ void DigiClockGadget.DrawMiniDigiClock(int hour, int minute, int second, int amP
 	draw.text(clrText, 33, 13, sthr + ":" + stmin);
 	draw.textAlign(11);
 	draw.font(fntStandard);
-	draw.text(clrText, 27, 25, stsec);
+	draw.text(clrText, 27, 24, stsec);
 	
 	if (timeF == 2) {
 		if (amPm == 1) {
 			draw.textRGB(secondsR, secondsG, secondsB);
-			draw.text(clrText, 13, 25, "am");
+			draw.text(clrText, 13, 24, "am");
 		}
 		else
 		{
 			draw.textRGB(secondsR, secondsG, secondsB);
-			draw.text(clrText, 13, 25, "pm");
+			draw.text(clrText, 13, 24, "pm");
 		}
 	}
 	

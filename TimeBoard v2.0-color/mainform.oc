@@ -125,7 +125,7 @@ void drawMainBackground(int background) {
 				mainBuffer.rect(clrBG, 133, 35, 183, 85, 25);
 				mainBuffer.bgRGB(255, 255, 102);
 				mainBuffer.rect(clrBG, 138, 40, 178, 80, 20);
-				mainBuffer.bgRGB(153, 0, 0);
+				mainBuffer.bgRGB(102, 0, 0);
 				mainBuffer.rect(clrBG, 0, 60, mainBuffer.nw, mainBuffer.nh, 0);
 				break;
 				
@@ -377,17 +377,17 @@ void setTheme(int theme) {
 	if (colorDepth > 4) {
 		switch (theme) {
 			case 1: // Sky Blue
-				themeR = 102;
+				themeR = 51;
 				themeG = 102;
-				themeB = 255;
+				themeB = 204;
 				
 				shadowR = 0;
-				shadowG = 0;
-				shadowB = 102;
+				shadowG = 51;
+				shadowB = 153;
 				
 				highlightR = 0;
-				highlightG = 51;
-				highlightB = 153;
+				highlightG = 0;
+				highlightB = 102;
 				
 				batteryBgR = 0;
 				batteryBgG = 51;
@@ -484,7 +484,7 @@ void setTheme(int theme) {
 				
 				clockHndR = 102;
 				clockHndG = 0;
-				clockHndB = 102;
+				clockHndB = 153;
 				
 				clockSecR = 255;
 				clockSecG = 100;
@@ -533,7 +533,7 @@ void setTheme(int theme) {
 				themeG = 30;
 				themeB = 20;
 				
-				shadowR = 101;
+				shadowR = 153;
 				shadowG = 0;
 				shadowB = 0;
 				
@@ -558,9 +558,9 @@ void setTheme(int theme) {
 				clockTxtG = 80;
 				clockTxtB = 80;
 				
-				clockHndR = 51;
-				clockHndG = 80;
-				clockHndB = 153;
+				clockHndR = 102;
+				clockHndG = 102;
+				clockHndB = 102;
 				
 				clockSecR = 255;
 				clockSecG = 0;
@@ -609,7 +609,7 @@ void setTheme(int theme) {
 				themeG = 109;
 				themeB = 24;
 				
-				shadowR = 102;
+				shadowR = 153;
 				shadowG = 0;
 				shadowB = 0;
 				
@@ -685,7 +685,7 @@ void setTheme(int theme) {
 				themeG = 204;
 				themeB = 51;
 				
-				shadowR = 102;
+				shadowR = 153;
 				shadowG = 51;
 				shadowB = 0;
 				
@@ -762,7 +762,7 @@ void setTheme(int theme) {
 				themeB = 20;
 				
 				shadowR = 0;
-				shadowG = 51;
+				shadowG = 102;
 				shadowB = 0;
 				
 				highlightR = 204;
@@ -1226,20 +1226,21 @@ void setTheme(int theme) {
 }
 
 
-// Gadget background variables & coordinates
+// Gadget background variables & coordinates (for 2.0) --------------------------------------------
 int clockGdtX = 31,
 	clockGdtY = 15,
 	
-	digiClockGdtX = 4,
+	digiClockGdtX = 11,
 	digiClockGdtY = 117,
 	
-	calendarGdtX = 46,
+	calendarGdtX = 42,
 	calendarGdtY = 117,
 	
 	batteryGdtX = 116,
 	batteryGdtY = 0;
 
 	Point ptCenter;
+
 
 void drawClockHandBuffer(ClockHand hand, int color) {
 	int x, y;
@@ -1280,11 +1281,11 @@ void drawMainUIBuffer() {
 	
 	if (drawShadows) {
 		mainBuffer.fgRGB(shadowR, shadowG, shadowB);
-		mainBuffer.frame(clrFG, clockGdtX+4, clockGdtY+4, clockGdtX+96, clockGdtY+96, clockCornerRadius, 3);
+		mainBuffer.frame(clrFG, clockGdtX+4, clockGdtY+4, clockGdtX+96, clockGdtY+96, clockCornerRadius+1, 3);
 	}
 	
 	mainBuffer.fgRGB(themeR, themeG, themeB);
-	mainBuffer.frame(clrFG, clockGdtX+3, clockGdtY+3, clockGdtX+95, clockGdtY+95, clockCornerRadius, 3);
+	mainBuffer.frame(clrFG, clockGdtX+3, clockGdtY+3, clockGdtX+95, clockGdtY+95, clockCornerRadius+1, 3);
 	
 	// Draw dots inside clock face
 	centerX = ptCenter.x; // gadget.w / 2;
@@ -1342,15 +1343,15 @@ void drawMainUIBuffer() {
 	
 	// Calendar background (for 2.0) --------------------------------------------------------------
 	mainBuffer.bgRGB(highlightR, highlightG, highlightB);
-	mainBuffer.rect(clrBG, calendarGdtX+3, calendarGdtY+3, calendarGdtX+106, calendarGdtY+35, 5);
+	mainBuffer.rect(clrBG, /*calendarGdtX+3, calendarGdtY+3,*/ digiClockGdtX+1, digiClockGdtY+3, calendarGdtX+106, calendarGdtY+35, 5);
 	
 	if (drawShadows) {
 		mainBuffer.fgRGB(shadowR, shadowG, shadowB);
-		mainBuffer.frame(clrFG, calendarGdtX+4, calendarGdtY+4, calendarGdtX+107, calendarGdtY+36, 5, 3);
+		mainBuffer.frame(clrFG, /*calendarGdtX+4, calendarGdtY+4,*/ digiClockGdtX+2, digiClockGdtY+4, calendarGdtX+107, calendarGdtY+36, 5, 3);
 	}
 	
 	mainBuffer.fgRGB(themeR, themeG, themeB);
-	mainBuffer.frame(clrFG, calendarGdtX+3, calendarGdtY+3, calendarGdtX+106, calendarGdtY+35, 5, 3);
+	mainBuffer.frame(clrFG, /*calendarGdtX+3, calendarGdtY+3,*/ digiClockGdtX+1, digiClockGdtY+3, calendarGdtX+106, calendarGdtY+35, 5, 3);
 	
 	// Calendar icon (for 2.0) --------------------------------------------------------------------	
 	if (drawShadows) {
@@ -1374,15 +1375,15 @@ void drawMainUIBuffer() {
 	
 	// Digital Clock background (for 2.0) ---------------------------------------------------------
 	mainBuffer.bgRGB(batteryBgR, batteryBgG, batteryBgB);
-	mainBuffer.rect(clrBG, digiClockGdtX+3, digiClockGdtY+3, digiClockGdtX+38, digiClockGdtY+37, 5);
+	mainBuffer.rect(clrBG, digiClockGdtX+4, digiClockGdtY+6, digiClockGdtX+35, digiClockGdtY+32, 4);
 	
-	if (drawShadows) {
+	/*if (drawShadows) {
 		mainBuffer.fgRGB(shadowR, shadowG, shadowB);
 		mainBuffer.frame(clrFG, digiClockGdtX+4, digiClockGdtY+4, digiClockGdtX+36, digiClockGdtY+36, 5, 3);
-	}
+	}*/
 	
 	mainBuffer.fgRGB(themeR, themeG, themeB);
-	mainBuffer.frame(clrFG, digiClockGdtX+3, digiClockGdtY+3, digiClockGdtX+35, digiClockGdtY+35, 5, 3);
+	//mainBuffer.frame(clrFG, digiClockGdtX+3, digiClockGdtY+3, digiClockGdtX+35, digiClockGdtY+35, 5, 3);
 		
 	// Battery icon frame (for 2.0) ---------------------------------------------------------------
 	mainBuffer.fgRGB(battTxtR, battTxtG, battTxtB);
@@ -1460,17 +1461,17 @@ void drawMiniDigiClockBuffer() {
 	mainBuffer.text(clrText, digiClockGdtX+33, digiClockGdtY+13, sthr + ":" + stmin);
 	mainBuffer.textAlign(11);
 	mainBuffer.font(fntStandard);
-	mainBuffer.text(clrText, digiClockGdtX+27, digiClockGdtY+25, stsec);
+	mainBuffer.text(clrText, digiClockGdtX+27, digiClockGdtY+24, stsec);
 	
 	if (timeFormat == 2) {
 		if (amPm == 1) {
 			mainBuffer.textRGB(clockSecR, clockSecG, clockSecB);
-			mainBuffer.text(clrText, digiClockGdtX+13, digiClockGdtY+25, "am");
+			mainBuffer.text(clrText, digiClockGdtX+13, digiClockGdtY+24, "am");
 		}
 		else
 		{
 			mainBuffer.textRGB(clockSecR, clockSecG, clockSecB);
-			mainBuffer.text(clrText, digiClockGdtX+13, digiClockGdtY+25, "pm");
+			mainBuffer.text(clrText, digiClockGdtX+13, digiClockGdtY+24, "pm");
 		}
 	}
 }
