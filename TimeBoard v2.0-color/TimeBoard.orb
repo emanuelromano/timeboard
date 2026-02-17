@@ -333,7 +333,7 @@
     }
     gadget CalendarGadget calendarGadget {
       id = 1015
-      x = 42, y = 117, w = 110, h = 39
+      x = 44, y = 117, w = 110, h = 39
       hresize = 0, vresize = 1
     }
     gadget BatteryGadget batteryGadget {
