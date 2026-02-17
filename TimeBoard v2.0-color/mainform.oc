@@ -1343,15 +1343,15 @@ void drawMainUIBuffer() {
 	
 	// Calendar background (for 2.0) --------------------------------------------------------------
 	mainBuffer.bgRGB(highlightR, highlightG, highlightB);
-	mainBuffer.rect(clrBG, /*calendarGdtX+3, calendarGdtY+3,*/ digiClockGdtX+1, digiClockGdtY+3, calendarGdtX+104, calendarGdtY+35, 5);
+	mainBuffer.rect(clrBG, /*calendarGdtX+3, calendarGdtY+3,*/ digiClockGdtX+1, digiClockGdtY+3, calendarGdtX+103, calendarGdtY+35, 5);
 	
 	if (drawShadows) {
 		mainBuffer.fgRGB(shadowR, shadowG, shadowB);
-		mainBuffer.frame(clrFG, /*calendarGdtX+4, calendarGdtY+4,*/ digiClockGdtX+2, digiClockGdtY+4, calendarGdtX+105, calendarGdtY+36, 5, 3);
+		mainBuffer.frame(clrFG, /*calendarGdtX+4, calendarGdtY+4,*/ digiClockGdtX+2, digiClockGdtY+4, calendarGdtX+104, calendarGdtY+36, 5, 3);
 	}
 	
 	mainBuffer.fgRGB(themeR, themeG, themeB);
-	mainBuffer.frame(clrFG, /*calendarGdtX+3, calendarGdtY+3,*/ digiClockGdtX+1, digiClockGdtY+3, calendarGdtX+104, calendarGdtY+35, 5, 3);
+	mainBuffer.frame(clrFG, /*calendarGdtX+3, calendarGdtY+3,*/ digiClockGdtX+1, digiClockGdtY+3, calendarGdtX+103, calendarGdtY+35, 5, 3);
 	
 	// Calendar icon (for 2.0) --------------------------------------------------------------------	
 	if (drawShadows) {
