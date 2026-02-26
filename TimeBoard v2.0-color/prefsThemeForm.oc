@@ -52,7 +52,7 @@ handler prefsThemeForm.onopen() {
 		}
 		
 		if (colorDepth == 2 || colorDepth == 4) {
-			themes[0] = "Monochrome";
+			themes[0] = "Grayscale";
 			backgrounds[0] = "White";
 		}
 			
