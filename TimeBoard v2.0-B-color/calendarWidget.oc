@@ -1,0 +1,102 @@
+void calendarWidget(int startX, int startY) {
+	int digitDateX1 = startX + 21,
+		digitDateX2 = digitDateX1 + 14,
+		
+		digitY = startY + 18,
+		
+		textX = startX + (widgetW / 2),
+		
+		digitW = 12,
+		digitH = 33,
+		radius = 3;
+	
+	string weekdayStr, monthStr;
+	
+	splitDateDigits(day);
+	
+	// Months
+	switch (month) {
+		case 1:
+			monthStr = "JAN";
+			break;
+		case 2:
+			monthStr = "FEB";
+			break;
+		case 3:
+			monthStr = "MAR";
+			break;
+		case 4:
+			monthStr = "APR";
+			break;
+		case 5:
+			monthStr = "MAY";
+			break;
+		case 6:
+			monthStr = "JUN";
+			break;
+		case 7:
+			monthStr = "JUL";
+			break;
+		case 8:
+			monthStr = "AUG";
+			break;
+		case 9:
+			monthStr = "SEP";
+			break;
+		case 10:
+			monthStr = "OCT";
+			break;
+		case 11:
+			monthStr = "NOV";
+			break;
+		case 12:
+			monthStr = "DEC";
+			break;
+	}
+	
+	// Weekdays
+		switch (weekday) {
+		case 0:
+			weekdayStr = "Sunday";
+			break;
+		case 1:
+			weekdayStr = "Monday";
+			break;
+		case 2:
+			weekdayStr = "Tuesday";
+			break;
+		case 3:
+			weekdayStr = "Wednesday";
+			break;
+		case 4:
+			weekdayStr = "Thursday";
+			break;
+		case 5:
+			weekdayStr = "Friday";
+			break;
+		case 6:
+			weekdayStr = "Saturday";
+			break;
+	}
+	
+	mainBuffer.begin();	
+	mainBuffer.fgRGB(mainR, mainG, mainB);
+	drawDigit(dayDigit1, digitW, digitH, digitDateX1, digitY, radius);
+	drawDigit(dayDigit2, digitW, digitH, digitDateX2, digitY, radius);
+	
+	// Day
+	mainBuffer.textAlign(21);
+	mainBuffer.textRGB(highlightR, highlightG, highlightB);
+	mainBuffer.bgRGB(fgColorR, fgColorG, fgColorB);
+	mainBuffer.font(fntLargeBold);
+	mainBuffer.text(clrText, textX, digitY-3, weekdayStr);
+	
+	// Month
+	mainBuffer.textAlign(01);
+	mainBuffer.textRGB(mainR, mainG, mainB);
+	mainBuffer.bgRGB(fgColorR, fgColorG, fgColorB);
+	mainBuffer.font(fntLargeBold);
+	mainBuffer.text(clrText, textX, digitY+digitH, monthStr);
+	
+	mainBuffer.end();
+}

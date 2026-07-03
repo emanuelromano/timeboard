@@ -1,0 +1,88 @@
+// application code
+
+// The saved state of your application is represented
+// by the members of this structure
+
+
+Preferences prefs;
+Event e;
+Date date;
+Draw mainBuffer;
+Draw draw;
+
+
+struct AppPrefs {
+	int bgColorR;
+	int bgColorG;
+	int bgColorB;
+		
+	int fgColorR;
+	int fgColorG;
+	int fgColorB;
+		
+	int highlightR;
+	int highlightG;
+	int highlightB;
+		
+	int mainR;
+	int mainG;
+	int mainB;
+	
+	bool showWidget1;
+	bool showWidget2;
+	bool showWidget3;
+	bool showWidget4;
+};
+
+AppPrefs appPrefs[1];
+
+
+// Getting saved preferences
+// Returns false if there's no stored preferences
+bool GetPrefs() {
+	return prefs.get(TimeBoard.creator, true, appPrefs, typeof(appPrefs), 1);
+}
+
+
+// Set default preferences in case they don't exist
+bool setDefaultPrefs() {
+	appPrefs[0].bgColorR = 153;
+	appPrefs[0].bgColorG = 51;
+	appPrefs[0].bgColorB = 255;
+	
+	appPrefs[0].fgColorR = 51;
+	appPrefs[0].fgColorG = 51;
+	appPrefs[0].fgColorB = 51;
+	
+	appPrefs[0].highlightR = 255;
+	appPrefs[0].highlightG = 51;
+	appPrefs[0].highlightB = 0;
+	
+	appPrefs[0].mainR = 255;
+	appPrefs[0].mainG = 255;
+	appPrefs[0].mainB = 255;
+	
+	appPrefs[0].showWidget1 = true;
+	appPrefs[0].showWidget2 = true;
+	appPrefs[0].showWidget3 = true;
+	appPrefs[0].showWidget4 = true;
+	
+	return prefs.set(TimeBoard.creator, false, appPrefs, typeof(appPrefs), 1);
+}
+
+
+handler TimeBoard.onstart() {
+	// If there is no default prefs, set default prefs
+	if (GetPrefs() == false) {
+		setDefaultPrefs();
+	}
+	
+	// load the main form
+	mainForm.load();
+}
+
+
+handler TimeBoard.onstop() {
+	// save the preferences
+	prefs.set(TimeBoard.creator, false, appPrefs, typeof(appPrefs), 1);
+}

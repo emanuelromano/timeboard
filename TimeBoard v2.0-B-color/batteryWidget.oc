@@ -1,0 +1,99 @@
+void drawBatteryDots(
+	int startX,
+	int startY,
+	int dotRadius,
+	int ringRadius,
+	int charge)
+{
+	int centerX, centerY;
+	int activeDots;
+	int i;
+	int x, y;
+	int activeR, activeG, activeB;
+	float angle;
+
+	centerX = startX + (widgetW / 2);
+	centerY = startY + (widgetH / 2) - 7;
+
+	activeDots = charge / 10;
+
+	if (activeDots > 10)
+		activeDots = 10;
+
+	if (activeDots < 0)
+		activeDots = 0;
+
+	// Battery color
+	if (charge > 40) {
+		// Green
+		activeR = 102;
+		activeG = 255;
+		activeB = 0;
+	}
+	else if (charge > 20) {
+		// Orange
+		activeR = 255;
+		activeG = 153;
+		activeB = 0;
+	}
+	else
+	{
+		// Red
+		activeR = 255;
+		activeG = 0;
+		activeB = 0;
+	}
+
+	for (i = 0; i < 10; i++) {
+
+		angle = ((i * 36) - 90) * 3.14159265 / 180;
+
+		x = centerX + (cos(angle) * ringRadius);
+		y = centerY + (sin(angle) * ringRadius);
+
+		if (i < activeDots)
+		{
+			mainBuffer.fgRGB(activeR, activeG, activeB);
+		}
+		else
+		{
+			mainBuffer.fgRGB(120, 120, 120);
+		}
+		
+		mainBuffer.rect(
+			clrFG,
+			x - dotRadius,
+			y - dotRadius,
+			x + dotRadius,
+			y + dotRadius,
+			dotRadius);
+	}
+}
+
+
+void batteryWidget(int startX, int startY) {
+	int dotRadius = 4,
+		ringRadius = 18,
+		
+		iconX = startX + 7,
+		iconY = startY + 53,
+		
+		digitY = startY + 50;
+	
+	mainBuffer.begin();
+	drawBatteryDots(startX, startY, dotRadius, ringRadius, charge);
+	
+	// Battery icon
+	mainBuffer.fgRGB(mainR, mainG, mainB);
+	mainBuffer.frame(clrFG, iconX, iconY, iconX+15, iconY+8, 2, 1);
+	mainBuffer.rect(clrFG, iconX+1, iconY+1, iconX+14, iconY+7, 1);
+	mainBuffer.line(clrFG, iconX+16, iconY+2, iconX+16, iconY+5);
+	
+	// Battery percentage
+	mainBuffer.textAlign(02);
+	mainBuffer.textRGB(mainR, mainG, mainB);
+	mainBuffer.bgRGB(fgColorR, fgColorG, fgColorB);
+	mainBuffer.font(fntLargeBold);
+	mainBuffer.text(clrText, startX+63, digitY, charge+"%");
+	mainBuffer.end();
+}

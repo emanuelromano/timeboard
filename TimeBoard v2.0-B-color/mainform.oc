@@ -1,0 +1,173 @@
+void setThemeColors() {
+	bgColorR = appPrefs[0].bgColorR;
+	bgColorG = appPrefs[0].bgColorG;
+	bgColorB = appPrefs[0].bgColorB;
+	
+	fgColorR = appPrefs[0].fgColorR;
+	fgColorG = appPrefs[0].fgColorG;
+	fgColorB = appPrefs[0].fgColorB;
+	
+	highlightR = appPrefs[0].highlightR;
+	highlightG = appPrefs[0].highlightG;
+	highlightB = appPrefs[0].highlightB;
+	
+	mainR = appPrefs[0].mainR;
+	mainG = appPrefs[0].mainG;
+	mainB = appPrefs[0].mainB;
+}
+
+
+void composeBackgroundBuffer() {
+	showWidget1 = appPrefs[0].showWidget1;
+	showWidget2 = appPrefs[0].showWidget2;
+	showWidget3 = appPrefs[0].showWidget3;
+	showWidget4 = appPrefs[0].showWidget4;
+	
+	mainBuffer.begin();
+	mainBuffer.fgRGB(bgColorR, bgColorG, bgColorB);
+	mainBuffer.rect(clrFG, mainForm.x, mainForm.y, mainForm.w, mainForm.h, 0);
+	
+	mainBuffer.fgRGB(fgColorR, fgColorG, fgColorB);
+	
+	calculateShadowColor(100);
+	calculateHighlightColor(50);
+	mainBuffer.bgRGB(bgShadowColorR, bgShadowColorG, bgShadowColorB);
+	
+	if (showWidget1) {
+		mainBuffer.rect(clrBG, startX1+1, startY1+1, startX1+widgetW+1, startY1+widgetH+1, cornerRadius);
+		mainBuffer.rect(clrFG, startX1, startY1, startX1+widgetW, startY1+widgetH, cornerRadius);
+		
+		mainBuffer.fgRGB(bgHighlightColorR, bgHighlightColorG, bgHighlightColorB);
+		mainBuffer.rect(clrFG, startX1+1, startY1+1, startX1+14, startY1+14, cornerRadius-1);
+		mainBuffer.line(clrFG, startX1+7, startY1+1, startX1+52, startY1+1);
+		mainBuffer.line(clrFG, startX1+54, startY1+1, startX1+56, startY1+1);
+		mainBuffer.line(clrFG, startX1+58, startY1+1, startX1+58, startY1+1);
+		mainBuffer.line(clrFG, startX1+1, startY1+7, startX1+1, startY1+54);
+		mainBuffer.line(clrFG, startX1+1, startY1+56, startX1+1, startY1+56);
+		
+		mainBuffer.fgRGB(fgColorR, fgColorG, fgColorB);
+		mainBuffer.rect(clrFG, startX1+2, startY1+2, startX1+16, startY1+16, cornerRadius-1);
+	}
+	
+	if (showWidget2) {
+		mainBuffer.rect(clrBG, startX2+1, startY2+1, startX2+widgetW+1, startY2+widgetH+1, cornerRadius);
+		mainBuffer.rect(clrFG, startX2, startY2, startX2+widgetW, startY2+widgetH, cornerRadius);
+		
+		mainBuffer.fgRGB(bgHighlightColorR, bgHighlightColorG, bgHighlightColorB);
+		mainBuffer.rect(clrFG, startX2+1, startY2+1, startX2+14, startY2+14, cornerRadius-1);
+		mainBuffer.line(clrFG, startX2+7, startY2+1, startX2+52, startY2+1);
+		mainBuffer.line(clrFG, startX2+54, startY2+1, startX2+56, startY2+1);
+		mainBuffer.line(clrFG, startX2+58, startY2+1, startX2+58, startY2+1);
+		mainBuffer.line(clrFG, startX2+1, startY2+7, startX2+1, startY2+54);
+		mainBuffer.line(clrFG, startX2+1, startY2+56, startX2+1, startY2+56);
+		
+		mainBuffer.fgRGB(fgColorR, fgColorG, fgColorB);
+		mainBuffer.rect(clrFG, startX2+2, startY2+2, startX2+16, startY2+16, cornerRadius-1);
+	}
+	
+	if (showWidget3) {
+		mainBuffer.rect(clrBG, startX3+1, startY3+1, startX3+widgetW+1, startY3+widgetH+1, cornerRadius);
+		mainBuffer.rect(clrFG, startX3, startY3, startX3+widgetW, startY3+widgetH, cornerRadius);
+		
+		mainBuffer.fgRGB(bgHighlightColorR, bgHighlightColorG, bgHighlightColorB);
+		mainBuffer.rect(clrFG, startX3+1, startY3+1, startX3+14, startY3+14, cornerRadius-1);
+		mainBuffer.line(clrFG, startX3+7, startY3+1, startX3+52, startY3+1);
+		mainBuffer.line(clrFG, startX3+54, startY3+1, startX3+56, startY3+1);
+		mainBuffer.line(clrFG, startX3+58, startY3+1, startX3+58, startY3+1);
+		mainBuffer.line(clrFG, startX3+1, startY3+7, startX3+1, startY3+54);
+		mainBuffer.line(clrFG, startX3+1, startY3+56, startX3+1, startY3+56);
+		
+		mainBuffer.fgRGB(fgColorR, fgColorG, fgColorB);
+		mainBuffer.rect(clrFG, startX3+2, startY3+2, startX3+16, startY3+16, cornerRadius-1);
+	}
+	
+	if (showWidget4) {
+		mainBuffer.rect(clrBG, startX4+1, startX4+1, startX4+widgetW+1, startY4+widgetH+1, cornerRadius);
+		mainBuffer.rect(clrFG, startX4, startX4, startX4+widgetW, startY4+widgetH, cornerRadius);
+		
+		mainBuffer.fgRGB(bgHighlightColorR, bgHighlightColorG, bgHighlightColorB);
+		mainBuffer.rect(clrFG, startX4+1, startY4+1, startX4+14, startY4+14, cornerRadius-1);
+		mainBuffer.line(clrFG, startX4+7, startY4+1, startX4+52, startY4+1);
+		mainBuffer.line(clrFG, startX4+54, startY4+1, startX4+56, startY4+1);
+		mainBuffer.line(clrFG, startX4+58, startY4+1, startX4+58, startY4+1);
+		mainBuffer.line(clrFG, startX4+1, startY4+7, startX4+1, startY4+54);
+		mainBuffer.line(clrFG, startX4+1, startY4+56, startX4+1, startY4+56);
+		
+		mainBuffer.fgRGB(fgColorR, fgColorG, fgColorB);
+		mainBuffer.rect(clrFG, startX4+2, startY4+2, startX4+16, startY4+16, cornerRadius-1);
+	}
+	
+	mainBuffer.end();
+}
+
+
+void composeWidgetsBuffer() {
+	if (showWidget1) analogClockWidget(startX1, startY1);
+	if (showWidget2) digitalClockWidget(startX2, startY2);
+	if (showWidget3) calendarWidget(startX3, startY3);
+	if (showWidget4) batteryWidget(startX4, startY4);
+}
+
+
+handler mainForm.onopen() {
+	// UIform attach this form for drawing methods
+	mainBuffer.attachForm(this);
+	draw.attachForm(this);
+	
+	// Create offscreen buffer
+	mainBuffer.create(mainForm.w, mainForm.h);
+	
+	date.now();
+	year = date.year;
+	month = date.month;
+	day = date.day;
+	weekday = date.weekday;
+
+	hours = date.hour;
+	minutes = date.min;
+	seconds = date.sec;
+	
+	charge = battery(false);
+	
+	timer(1);
+}
+
+
+handler mainForm.ondraw() {
+	setThemeColors();
+	composeBackgroundBuffer();
+	composeWidgetsBuffer();
+	
+	// Draw mainBuffer
+	draw.begin();
+	draw.draw(mainBuffer, 0, 0); 
+	draw.end();
+}
+
+
+handler mainForm.ontimer() {
+	date.now();
+	seconds = date.sec;
+	
+	if (seconds != lastSecond) {
+		hours = date.hour;
+		minutes = date.min;
+	
+		updateClockHands();
+		digitalClockWidget(startX2, startY2);
+		
+		// Draw mainBuffer
+		draw.begin();
+		draw.draw(mainBuffer, 0, 0); 
+		draw.end();
+	}
+	
+	lastSecond = seconds;
+	lastMinute = minutes;
+	timer(20);
+}
+
+
+handler mainOptionsAbout.onselect() {
+	alert("This is an OrbForms Designer Application");
+}
