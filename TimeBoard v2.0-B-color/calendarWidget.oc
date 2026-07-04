@@ -79,7 +79,11 @@ void calendarWidget(int startX, int startY) {
 			break;
 	}
 	
-	mainBuffer.begin();	
+	mainBuffer.begin();
+	mainBuffer.fgRGB(fgColorR, fgColorG, fgColorB);
+	mainBuffer.rect(clrFG, startX+3, startY+3, startX+widgetW-2, startY+widgetH-2, cornerRadius-3);
+		
+	//Date
 	mainBuffer.fgRGB(mainR, mainG, mainB);
 	drawDigit(dayDigit1, digitW, digitH, digitDateX1, digitY, radius);
 	drawDigit(dayDigit2, digitW, digitH, digitDateX2, digitY, radius);

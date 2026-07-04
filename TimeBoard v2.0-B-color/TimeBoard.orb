@@ -54,6 +54,7 @@
 // source files
 #include "TimeBoard.oc"
 #include "globalVariables.oc"
+#include "globalFunctions.oc"
 #include "analogClockWidget.oc"
 #include "digitalClockWidget.oc"
 #include "calendarWidget.oc"

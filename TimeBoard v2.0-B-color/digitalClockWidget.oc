@@ -5,7 +5,9 @@ void drawDigit(int number, int digitW, int digitH, int digitX, int digitY, int r
 		segment4,
 		segment5,
 		segment6,
-		segment7;
+		segment7,
+		segmentA,
+		segmentB;
 	
 	switch (number) {
 		case 0:
@@ -20,11 +22,13 @@ void drawDigit(int number, int digitW, int digitH, int digitX, int digitY, int r
 		case 1:
 			segment1 = false;
 			segment2 = false;
-			segment3 = false;
-			segment4 = true;
-			segment5 = true;
+			segment3 = true;
+			segment4 = false; //
+			segment5 = false; //
 			segment6 = false;
 			segment7 = false;
+			segmentA = true;
+			segmentB = true;
 			break;
 		case 2:
 			segment1 = true;
@@ -112,6 +116,9 @@ void drawDigit(int number, int digitW, int digitH, int digitX, int digitY, int r
 	mainBuffer.rect(clrBG, digitX, digitY, digitX+5, digitY+18, radius);
 	mainBuffer.rect(clrBG, digitX, digitY+15, digitX+5, digitY+33, radius);
 	
+	mainBuffer.rect(clrBG, digitX, digitY, digitX+9, digitY+4, radius);
+	mainBuffer.rect(clrBG, digitX+4, digitY, digitX+9, digitY+33, radius);
+	
 	// Main char
 	if (segment1) mainBuffer.rect(clrFG, digitX, digitY, digitX+digitW, digitY+4, radius);
 	if (segment2) mainBuffer.rect(clrFG, digitX, digitY+14, digitX+digitW, digitY+18, radius);
@@ -122,6 +129,9 @@ void drawDigit(int number, int digitW, int digitH, int digitX, int digitY, int r
 	
 	if (segment6) mainBuffer.rect(clrFG, digitX, digitY, digitX+5, digitY+18, radius);
 	if (segment7) mainBuffer.rect(clrFG, digitX, digitY+15, digitX+5, digitY+33, radius);
+	
+	if (segmentA) mainBuffer.rect(clrFG, digitX, digitY, digitX+9, digitY+4, radius);
+	if (segmentB) mainBuffer.rect(clrFG, digitX+4, digitY, digitX+9, digitY+33, radius);
 }
 
 

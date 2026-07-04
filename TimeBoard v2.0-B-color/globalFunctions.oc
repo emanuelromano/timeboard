@@ -1,0 +1,51 @@
+// Shadow color calculations
+void calculateShadowColor(int amount) {
+
+	bgShadowColorR = bgColorR - amount;
+	bgShadowColorG = bgColorG - amount;
+	bgShadowColorB = bgColorB - amount;
+
+	if (bgShadowColorR < 0) bgShadowColorR = 0;
+	if (bgShadowColorG < 0) bgShadowColorG = 0;
+	if (bgShadowColorB < 0) bgShadowColorB = 0;
+}
+
+
+// Highlight color calculations
+void calculateHighlightColor(int amount) {
+
+	bgHighlightColorR = fgColorR + amount;
+	bgHighlightColorG = fgColorG + amount;
+	bgHighlightColorB = fgColorB + amount;
+
+	if (bgHighlightColorR > 255) bgHighlightColorR = 255;
+	if (bgHighlightColorG > 255) bgHighlightColorG = 255;
+	if (bgHighlightColorB > 255) bgHighlightColorB = 255;
+	
+	if (fgColorR == 255 && fgColorG == 255 && fgColorB == 255 ) {
+		bgHighlightColorR = 204;
+		bgHighlightColorG = 255;
+		bgHighlightColorB = 255;
+	}
+}
+
+
+void splitDateDigits(int day) {
+	dayDigit1 = day / 10;
+	dayDigit2 = day % 10;
+}
+
+
+void splitTimeDigits() {
+	// Hours
+	hourDigit1 = hours / 10;
+	hourDigit2 = hours % 10;
+
+	// Minutes
+	minuteDigit1 = minutes / 10;
+	minuteDigit2 = minutes % 10;
+
+	// Seconds
+	secondDigit1 = seconds / 10;
+	secondDigit2 = seconds % 10;
+}
