@@ -1,14 +1,15 @@
 // ---- FUNCIONES DE RED Y PARSE ----
 
 // parámetros globales
-string apiURL = "worldtimeapi.org";
+//string apiURL = "worldtimeapi.org";
+string apiURL = "time.now";
 /*string petition = "GET /api/ip HTTP/1.1\r\n" +
 					"Host: " + apiURL + "\r\n" +
 					"User-Agent: PalmOS-OrbForms\r\n" +
 					"Accept: application/json\r\n" +
 					"Connection: close\r\n" +
 					"\r\n";*/
-string petition = "GET /api/ip HTTP/1.0\r\n" +
+string petition = "GET /developer/api/ip HTTP/1.0\r\n" +
 					"Host: " + apiURL + "\r\n" +
 					"Connection: close\r\n" +
 					"\r\n";
@@ -184,6 +185,7 @@ int getTime() {
 
     // 6- recv
     err = s.recvs(&response);
+    alert(response);
     if (err != 0 || strlen(response) <= 1) {
         s.close();
         net.close();
