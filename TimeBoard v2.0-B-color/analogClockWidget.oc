@@ -37,9 +37,9 @@ void drawClockHands(int centerX, int centerY) {
 	mainBuffer.rect(clrFG,
 		centerX - 1,
 		centerY - 1,
-		centerX + 1,
-		centerY + 1,
-		1);
+		centerX + 2,
+		centerY + 2,
+		2);
 }
 
 
@@ -140,9 +140,9 @@ void updateClockHands() {
 	mainBuffer.rect(clrFG,
 		centerX - 1,
 		centerY - 1,
-		centerX + 1,
-		centerY + 1,
-		1);
+		centerX + 2,
+		centerY + 2,
+		2);
 	mainBuffer.end();
 
 	// 5) Save for next draw in buffer

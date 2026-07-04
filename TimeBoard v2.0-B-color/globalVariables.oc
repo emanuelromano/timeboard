@@ -12,9 +12,9 @@ int year, month, day, weekday,
 
 int	centerX, centerY,
 
-	hourLength = 16,
-	minuteLength = 22,
-	secondLength = 22;
+	hourLength = 15,
+	minuteLength = 20,
+	secondLength = 20;
 
 float oldHourAngle,
 	oldMinuteAngle,
