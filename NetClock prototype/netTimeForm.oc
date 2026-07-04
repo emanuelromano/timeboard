@@ -1,4 +1,7 @@
 Draw draw;
+Date date;
+int lastSec;
+string lastTime;
 
 handler netTimeForm.onopen() {
 	draw.attachForm(this);
@@ -27,7 +30,7 @@ handler getTimeButton.onselect() {
     NGMTLabel.text = "-";
 	
 	draw.begin();
-	draw.bitmap(internetConnectingBMP, 6, 17);
+	draw.bitmap(internetConnectingBMP, 20, 41);
 	
 	getTimeButton.enabled = false;
 	
@@ -35,11 +38,11 @@ handler getTimeButton.onselect() {
 	showResponse(err);
 	
 	if (bitmapStatus == 0) {
-		draw.bitmap(internetSuccessBMP, 6, 17); // success
+		draw.bitmap(internetSuccessBMP, 20, 41); // success
 	}
 	else
 	{
-		draw.bitmap(internetErrorBMP, 6, 17); // error
+		draw.bitmap(internetErrorBMP, 20, 41); // error
 	}
 	
 	draw.end();
@@ -49,24 +52,17 @@ handler getTimeButton.onselect() {
 
 
 handler netTimeBackButton.onselect() {
-	netTimeForm.close();
+	app.abort();
 }
 
 
 handler setTimeButton.onselect() {
-	Date d;
 	string response;
 	int resp;
-	
+
 	if (setFlag) {
-		d.now();
-		
-		response = jsonGet(globalResponse, "datetime");
-		parseDateTime(response);
-		
 		resp = alertc(
 			"Set time",
-	    	/*"Old time: " + d.time() + "\n" + */
     		"New time: " + hour + ":" + minute + "\n\n" +
     		"Set new system time and date?",
     		"Yes:No",

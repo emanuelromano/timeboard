@@ -1,72 +1,63 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify
 from datetime import datetime, timezone
 
 app = Flask(__name__)
 
 
 # ---------------------------------------------------------
-# Construye una respuesta compatible con WorldTimeAPI
+# Construye la respuesta UTC
 # ---------------------------------------------------------
-def build_worldtimeapi_response(now):
+def build_utc_response(now):
 
-    now_utc = now.astimezone(timezone.utc)
-
-    # UTC offset con formato ±HH:MM
-    offset = now.strftime("%z")
-    offset = offset[:3] + ":" + offset[3:]
-
-    # Día del año
-    day_of_year = now.timetuple().tm_yday
-
-    # Lunes = 1 ... Domingo = 7
-    day_of_week = now.isoweekday()
-
-    # Semana ISO
-    week_number = now.isocalendar().week
-
-    # Offset en segundos
-    raw_offset = int(now.utcoffset().total_seconds())
-
-    # Horario de verano
-    if now.dst() is None:
-        dst = False
-        dst_offset = 0
-    else:
-        dst_offset = int(now.dst().total_seconds())
-        dst = (dst_offset != 0)
-
-    response = {
-
-        "abbreviation": str(now.tzname()),
-        "client_ip": request.remote_addr,
-        "datetime": now.isoformat(timespec="seconds"),
-        "day_of_week": day_of_week,
-        "day_of_year": day_of_year,
-        "dst": dst,
-        "dst_from": None,
-        "dst_offset": dst_offset,
-        "dst_until": None,
-        "raw_offset": raw_offset,
-        "timezone": str(now.tzinfo),
-        "unixtime": int(now.timestamp()),
-        "utc_datetime": now_utc.isoformat(timespec="seconds").replace("+00:00", "Z"),
-        "utc_offset": offset,
-        "week_number": week_number
-
+    return {
+        "utc_datetime": now.isoformat(timespec="seconds").replace("+00:00", "Z"),
+        "unixtime": int(now.timestamp())
     }
+
+
+# ---------------------------------------------------------
+# Personaliza los headers HTTP
+# ---------------------------------------------------------
+@app.after_request
+def customize_headers(response):
+
+    # Oculta la versión de Werkzeug/Python
+    response.headers["Server"] = "TimeBoard Time Service/1.0"
 
     return response
 
 
 # ---------------------------------------------------------
-# Devuelve la hora de la zona horaria local del servidor
+# Página principal
 # ---------------------------------------------------------
-@app.route("/api/ip")
-def api_ip():
+@app.route("/")
+def index():
 
-    now = datetime.now().astimezone()
+    return jsonify({
+        "service": "TimeBoard Time Service",
+        "short_name": "TBTS",
+        "version": "1.0",
+        "status": "online",
+        "description": "Lightweight HTTP time service for legacy Palm OS devices.",
+        "endpoints": {
+            "utc": "/api/utc"
+        }
+    })
 
-    return jsonify(build_worldtimeapi_response(now))
 
+# ---------------------------------------------------------
+# Devuelve la hora UTC
+# ---------------------------------------------------------
+@app.route("/api/utc")
+def api_utc():
+
+    now = datetime.now(timezone.utc)
+
+    return jsonify(build_utc_response(now))
+
+
+# ---------------------------------------------------------
+# Main
+# ---------------------------------------------------------
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=80)

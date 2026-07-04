@@ -2,14 +2,14 @@
 
 // parámetros globales
 //string apiURL = "worldtimeapi.org";
-string apiURL = "time.now";
+string apiURL = "192.168.1.119";
 /*string petition = "GET /api/ip HTTP/1.1\r\n" +
 					"Host: " + apiURL + "\r\n" +
 					"User-Agent: PalmOS-OrbForms\r\n" +
 					"Accept: application/json\r\n" +
 					"Connection: close\r\n" +
 					"\r\n";*/
-string petition = "GET /developer/api/ip HTTP/1.0\r\n" +
+string petition = "GET /api/utc HTTP/1.0\r\n" +
 					"Host: " + apiURL + "\r\n" +
 					"Connection: close\r\n" +
 					"\r\n";
@@ -18,119 +18,6 @@ int bitmapStatus = 0;
 string globalResponse;
 string year, month, day, hour, minute, second, offset;
 bool setFlag;
-
-
-/*int getTime() {
-	Network net;
-	Socket s;
-	string addr = "";        // Siempre inicializar strings antes de pasarlas por referencia
-	string response = "";    // También inicializar el buffer de respuesta
-	string prevChar, lastChar;
-	int err, pos, last;
-	
-	year = month = day = hour = minute = second = offset = "";
-	
-	error = false;
-	
-	// 1- Abrir la red
-	err = net.open();
-	if (err != 0) {
-		//alert("Unable to open network, err = " + err);
-		net.close();
-		return err;
-	}
-		
-	// 2- Resolver el nombre del host
-	err = net.getHostByName(apiURL, &addr);
-	if (err == 0 && strlen(addr) > 0) {
-	
-		// 3- Abrir socket TCP
-		err = s.open(netAfInet, netSockStream, netProtoIpTcp);
-		if (err == 0) {
-	
-    		// 4- Conectarse al servidor (puerto 80)
-    		err = s.connect(addr + ":" + port);
-    		if (err == 0) {
-	
-        		// 5- Enviar petición HTTP GET
-        		err = s.sends(petition);
-        		//alert(petition);
-        		if (err == 0) {
-	
-            		// 6- Recibir respuesta
-            		err = s.recvs(&response);
-            		//alert(err + " - " + response);
-            		if (err == 0 && strlen(response) > 1) {
-	
-                		// 7- Buscar el comienzo del cuerpo (después de los encabezados HTTP)
-                		pos = strstr(response, "\r\n\r\n", 0);
-                		if (pos >= 0) {
-                    		response = substr(response, pos + 4, strlen(response) - (pos + 4));
-                		}
-	
-						// --- NUEVO BLOQUE ---
-						// 7.5 - Corregir duplicado del último carácter si lo hay
-						if (strlen(response) > 1) {
-							last = strlen(response) - 1;
-							lastChar = substr(response, last, 1);
-							prevChar = substr(response, last - 1, 1);
-							if (lastChar == prevChar) {
-								response = strleft(response, last);
-							}
-						}
-						// --- FIN BLOQUE NUEVO ---
-	
-                		// 8- Mostrar los primeros 1024 caracteres del JSON recibido
-                		//netTimeField.text = "Bytes: " + strlen(response) + "\n" + strleft(response, 1024);
-                		//fieldHeadlines.text = strleft(response, 1024);
-                		globalResponse = strleft(response, 1024);
-                		//error = false;
-                		return err;
-            		} /*else {
-                		//alert("Unable to receive, err = " + err);
-                		//error = true;
-                		s.close();
-                		net.close();
-                		return err;
-            		}*/
-	
-        		/*} else {
-            		//alert("Unable to send, err = " + err);
-            		//error = true;
-            		s.close();
-            		net.close();
-            		return err;
-        		}*/
-	
-    		/*} else {
-        		//alert("Unable to connect, err = " + err);
-        		//error = true;
-        		s.close();
-        		net.close();
-        		return err;
-    		}*/
-			
-    		//s.close();
-    		//net.close();
-		/*} else {
-    		//alert("Unable to open socket, err = " + err);
-    		//error = true;
-    		s.close();
-    		net.close();
-    		return err;
-		}*/
-		
-	/*} else {
-		//alert("Unable to resolve host, err = " + err);
-		//error = true;
-		s.close();
-		net.close();
-		return err;
-	}
-    s.close();
-    net.close();
-	return err;
-}*/
 
 
 int getTime() {
@@ -185,7 +72,6 @@ int getTime() {
 
     // 6- recv
     err = s.recvs(&response);
-    alert(response);
     if (err != 0 || strlen(response) <= 1) {
         s.close();
         net.close();
@@ -210,6 +96,7 @@ int getTime() {
     }
 
     globalResponse = strleft(response, 1024);
+    //alert(globalResponse);
 
     s.close();
     net.close();
@@ -231,6 +118,11 @@ string jsonGet(string json, string key) {
 
     // Buscar el final exacto del valor: ", 
     end = strstr(json, "\",", start);
+    
+    if (end < 0) {
+    	end = strstr(json, "\"}", start);
+	}
+	
     if (end < 0) {
         return "";
     }
@@ -239,11 +131,10 @@ string jsonGet(string json, string key) {
 }
 
 
-void parseDateTime(string dt) {
-	int pos;
-	
-    if (strlen(dt) < 25) {
-        year = month = day = hour = minute = second = offset = "";
+void parseUTCDateTime(string dt) {
+
+    if (strlen(dt) < 20) {
+        year = month = day = hour = minute = second = "";
         return;
     }
 
@@ -254,18 +145,6 @@ void parseDateTime(string dt) {
     hour   = substr(dt, 11, 2);
     minute = substr(dt, 14, 2);
     second = substr(dt, 17, 2);
-
-    // Offset GMT: buscar '+' o '-'
-    pos = strstr(dt, "+", 0);
-    if (pos < 0) {
-        pos = strstr(dt, "-", 20);   // después de los segundos
-    }
-
-    if (pos >= 0) {
-        offset = substr(dt, pos, 6); // -03:00
-    } else {
-        offset = "";
-    }
 }
 
 
@@ -281,13 +160,13 @@ void retryConnection() {
 		count++;
 		
 		if (errorCode == 0) {
-			response = jsonGet(globalResponse, "datetime");
+			response = jsonGet(globalResponse, "utc_datetime");
 		
-			parseDateTime(response);
+			parseUTCDateTime(response);
 			
     		NDateLabel.text = day + "/" + month + "/" + year;
     		NTimeLabel.text = hour + ":" + minute /* + ":" + second */;
-    		NGMTLabel.text = offset;
+    		NGMTLabel.text = "UTC";
     		
     		setFlag = true;
     		bitmapStatus = 0; // success
@@ -307,13 +186,14 @@ void showResponse(int err) {
 	string response;
 	
 	if (err == 0) {
-		response = jsonGet(globalResponse, "datetime");
+		response = jsonGet(globalResponse, "utc_datetime");
+		//alert("[" + response + "]");
 		
-		parseDateTime(response);
+		parseUTCDateTime(response);
 		
     	NDateLabel.text = day + "/" + month + "/" + year;
     	NTimeLabel.text = hour + ":" + minute /* + ":" + second */;
-    	NGMTLabel.text = offset;
+    	NGMTLabel.text = "UTC";
     	
     	setFlag = true;
     	bitmapStatus = 0; // success

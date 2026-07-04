@@ -4,15 +4,13 @@
 // language translation files
 
 // gadget files
-#include "gadgetclock.oc"
 
 // IDE data
 @project {
   "<PROJECT><FILE>project.oc</FILE><STANDALONE>1</STANDALONE><LANGU"
-  "AGEFILE></LANGUAGEFILE><DEBUG>0</DEBUG><FORMS><FORM><NAME>mainFo"
-  "rm</NAME><FILE>mainform.oc</FILE></FORM><FORM><NAME>netTimeForm<"
-  "/NAME><FILE>netTimeForm.oc</FILE></FORM><FORM><NAME>testForm</NA"
-  "ME><FILE>testForm.oc</FILE></FORM></FORMS></PROJECT>"
+  "AGEFILE></LANGUAGEFILE><DEBUG>0</DEBUG><FORMS><FORM><NAME>netTim"
+  "eForm</NAME><FILE>netTimeForm.oc</FILE></FORM><FORM><NAME>testFo"
+  "rm</NAME><FILE>testForm.oc</FILE></FORM></FORMS></PROJECT>"
 }
 
 // app definition
@@ -63,69 +61,24 @@
     image8 = "graphics\\internet_success_c.bmp"
     image16 = "graphics\\internet_success_c.bmp"
   }
-  form UIForm mainForm {
-    id = 1000
-    text = "NetClock"
-    x = 0, y = 0, w = 160, h = 160
-    menuid = 1001, helpid = 0, defbuttonid = 0
-    modal = false, resizable = false
-    hresize = 0, vresize = 0
-    menubar UIMenuBar barMain {
-      id = 1001
-      menu UIMenu menuMainOptions {
-        text = "Options"
-        menuitem UIMenuItem mainOptionsAbout {
-          id = 1002, sysid = 0, text = "About", shortcut = "A"
-        }
-      }
-    }
-    button UIButton netTimeButton {
-      id = 1016
-      x = 7, y = 141, w = 55, h = 12
-      text = "Time Sync"
-      leftanchor = true, group = 0, fontid = 0
-      frame = 1
-      hresize = 0, vresize = 0
-    }
-    gadget ClockGadget gadClock {
-      id = 1015
-      x = 8, y = 21, w = 145, h = 100
-      hresize = 0, vresize = 0
-    }
-    label UILabel timeLabel {
-      id = 1022
-      x = 9, y = 125
-      fontid = 1
-      text = "12:00                                                          "
-      hresize = 0, vresize = 0
-    }
-    button UIButton testButton {
-      id = 1024
-      x = 113, y = 141, w = 40, h = 12
-      text = "Test"
-      leftanchor = true, group = 0, fontid = 0
-      frame = 1
-      hresize = 0, vresize = 0
-    }
-  }
   form UIForm netTimeForm {
     id = 1006
-    text = "Time Sync"
-    x = 2, y = 80, w = 156, h = 78
+    text = "NetClock"
+    x = 0, y = 0, w = 160, h = 160
     menuid = 0, helpid = 0, defbuttonid = 0
-    modal = true, resizable = false
+    modal = false, resizable = false
     hresize = 0, vresize = 0
     button UIButton netTimeBackButton {
       id = 1007
-      x = 115, y = 61, w = 36, h = 12
-      text = "Close"
+      x = 117, y = 142, w = 36, h = 12
+      text = "Exit"
       leftanchor = true, group = 0, fontid = 0
       frame = 1
       hresize = 0, vresize = 0
     }
     button UIButton getTimeButton {
       id = 1021
-      x = 5, y = 61, w = 36, h = 12
+      x = 7, y = 142, w = 36, h = 12
       text = "Get"
       leftanchor = true, group = 0, fontid = 0
       frame = 1
@@ -133,7 +86,7 @@
     }
     button UIButton setTimeButton {
       id = 1009
-      x = 47, y = 61, w = 40, h = 12
+      x = 49, y = 142, w = 40, h = 12
       text = "Set time"
       leftanchor = true, group = 0, fontid = 0
       frame = 1
@@ -141,57 +94,64 @@
     }
     label UILabel label1003 {
       id = 1003
-      x = 34, y = 16
+      x = 25, y = 78
       fontid = 0
       text = "Date:"
       hresize = 0, vresize = 0
     }
     label UILabel label1004 {
       id = 1004
-      x = 33, y = 28
+      x = 24, y = 90
       fontid = 0
       text = "Time:"
       hresize = 0, vresize = 0
     }
     label UILabel label1005 {
       id = 1005
-      x = 34, y = 40
+      x = 25, y = 102
       fontid = 0
       text = "GMT:"
       hresize = 0, vresize = 0
     }
     label UILabel NDateLabel {
       id = 1008
-      x = 60, y = 16
+      x = 51, y = 78
       fontid = 0
       text = "-                                        "
       hresize = 0, vresize = 0
     }
     label UILabel NTimeLabel {
       id = 1010
-      x = 60, y = 28
+      x = 51, y = 90
       fontid = 0
       text = "-                                        "
       hresize = 0, vresize = 0
     }
     label UILabel NGMTLabel {
       id = 1011
-      x = 60, y = 40
+      x = 51, y = 102
       fontid = 0
       text = "-                                        "
       hresize = 0, vresize = 0
     }
     label UILabel retryLabel {
       id = 1012
-      x = 147, y = 14
+      x = 61, y = 114
       fontid = 0
       text = "0"
       hresize = 0, vresize = 0
     }
     bitmap UIFBitmap connectionStateBMP {
       id = 1014
-      x = 6, y = 17
+      x = 20, y = 41
       bitmapid = 1017
+      hresize = 0, vresize = 0
+    }
+    label UILabel label1000 {
+      id = 1000
+      x = 25, y = 114
+      fontid = 0
+      text = "Retries:"
       hresize = 0, vresize = 0
     }
   }
@@ -224,6 +184,4 @@
 // source files
 #include "NetSample.oc"
 #include "functions.oc"
-#include "mainform.oc"
 #include "netTimeForm.oc"
-#include "testForm.oc"
