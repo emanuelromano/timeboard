@@ -70,7 +70,7 @@
     hresize = 0, vresize = 0
     button UIButton netTimeBackButton {
       id = 1007
-      x = 117, y = 142, w = 36, h = 12
+      x = 117, y = 141, w = 36, h = 12
       text = "Exit"
       leftanchor = true, group = 0, fontid = 0
       frame = 1
@@ -78,80 +78,64 @@
     }
     button UIButton getTimeButton {
       id = 1021
-      x = 7, y = 142, w = 36, h = 12
-      text = "Get"
+      x = 7, y = 141, w = 90, h = 12
+      text = "Get & set new time"
       leftanchor = true, group = 0, fontid = 0
       frame = 1
       hresize = 0, vresize = 0
     }
-    button UIButton setTimeButton {
-      id = 1009
-      x = 49, y = 142, w = 40, h = 12
-      text = "Set time"
-      leftanchor = true, group = 0, fontid = 0
-      frame = 1
-      hresize = 0, vresize = 0
-    }
-    label UILabel label1003 {
+    label UILabel dateLabel {
       id = 1003
-      x = 25, y = 78
-      fontid = 0
+      x = 42, y = 51
+      fontid = 1
       text = "Date:"
       hresize = 0, vresize = 0
     }
-    label UILabel label1004 {
+    label UILabel timeLabel {
       id = 1004
-      x = 24, y = 90
-      fontid = 0
+      x = 42, y = 83
+      fontid = 1
       text = "Time:"
       hresize = 0, vresize = 0
     }
-    label UILabel label1005 {
+    label UILabel offsetLabel {
       id = 1005
-      x = 25, y = 102
+      x = 7, y = 123
       fontid = 0
-      text = "GMT:"
+      text = "GMT offset:"
       hresize = 0, vresize = 0
     }
     label UILabel NDateLabel {
       id = 1008
-      x = 51, y = 78
-      fontid = 0
-      text = "-                                        "
+      x = 53, y = 64
+      fontid = 2
+      text = "-                        "
       hresize = 0, vresize = 0
     }
     label UILabel NTimeLabel {
       id = 1010
-      x = 51, y = 90
-      fontid = 0
-      text = "-                                        "
-      hresize = 0, vresize = 0
-    }
-    label UILabel NGMTLabel {
-      id = 1011
-      x = 51, y = 102
-      fontid = 0
-      text = "-                                        "
-      hresize = 0, vresize = 0
-    }
-    label UILabel retryLabel {
-      id = 1012
-      x = 61, y = 114
-      fontid = 0
-      text = "0"
+      x = 53, y = 96
+      fontid = 2
+      text = "-                        "
       hresize = 0, vresize = 0
     }
     bitmap UIFBitmap connectionStateBMP {
       id = 1014
-      x = 20, y = 41
+      x = 8, y = 22
       bitmapid = 1017
       hresize = 0, vresize = 0
     }
-    label UILabel label1000 {
-      id = 1000
-      x = 25, y = 114
-      fontid = 0
-      text = "Retries:"
+    popup UIPopup offsetPopup {
+      id = 1015
+      x = 58, y = 123, w = 43, h = 11
+      text = "Select"
+      leftanchor = true, group = 0, fontid = 0
+      hresize = 0, vresize = 0
+    }
+    list UIList offsetList {
+      id = 1024
+      x = 63, y = 21, w = 90, h = 132
+      numvisible = 12, triggerid = 1015, fontid = 0
       hresize = 0, vresize = 0
     }
   }

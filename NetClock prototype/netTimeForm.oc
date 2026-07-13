@@ -1,8 +1,3 @@
-Draw draw;
-Date date;
-int lastSec;
-string lastTime;
-
 handler netTimeForm.onopen() {
 	draw.attachForm(this);
 
@@ -15,6 +10,164 @@ handler netTimeForm.onopen() {
 	offset = "";
 	
 	setFlag = false;
+	
+	// Offset list
+	// UTC+14
+	offsetNames[0] = "+14:00 Kiritimati";
+	offsetSeconds[0] = 50400;
+	
+	// UTC+13
+	offsetNames[1] = "+13:00 Samoa";
+	offsetSeconds[1] = 46800;
+	
+	// UTC+12:45
+	offsetNames[2] = "+12:45 Chatham Islands";
+	offsetSeconds[2] = 45900;
+	
+	// UTC+12
+	offsetNames[3] = "+12:00 Auckland";
+	offsetSeconds[3] = 43200;
+	
+	// UTC+11
+	offsetNames[4] = "+11:00 Noumea";
+	offsetSeconds[4] = 39600;
+	
+	// UTC+10:30
+	offsetNames[5] = "+10:30 Lord Howe";
+	offsetSeconds[5] = 37800;
+	
+	// UTC+10
+	offsetNames[6] = "+10:00 Sydney";
+	offsetSeconds[6] = 36000;
+	
+	// UTC+9:30
+	offsetNames[7] = "+09:30 Adelaide";
+	offsetSeconds[7] = 34200;
+	
+	// UTC+9
+	offsetNames[8] = "+09:00 Tokyo";
+	offsetSeconds[8] = 32400;
+	
+	// UTC+8:45
+	offsetNames[9] = "+08:45 Eucla";
+	offsetSeconds[9] = 31500;
+	
+	// UTC+8
+	offsetNames[10] = "+08:00 Beijing";
+	offsetSeconds[10] = 28800;
+	
+	// UTC+7
+	offsetNames[11] = "+07:00 Bangkok";
+	offsetSeconds[11] = 25200;
+	
+	// UTC+6:30
+	offsetNames[12] = "+06:30 Yangon";
+	offsetSeconds[12] = 23400;
+	
+	// UTC+6
+	offsetNames[13] = "+06:00 Dhaka";
+	offsetSeconds[13] = 21600;
+	
+	// UTC+5:45
+	offsetNames[14] = "+05:45 Kathmandu";
+	offsetSeconds[14] = 20700;
+	
+	// UTC+5:30
+	offsetNames[15] = "+05:30 New Delhi";
+	offsetSeconds[15] = 19800;
+	
+	// UTC+5
+	offsetNames[16] = "+05:00 Karachi";
+	offsetSeconds[16] = 18000;
+	
+	// UTC+4:30
+	offsetNames[17] = "+04:30 Kabul";
+	offsetSeconds[17] = 16200;
+	
+	// UTC+4
+	offsetNames[18] = "+04:00 Dubai";
+	offsetSeconds[18] = 14400;
+	
+	// UTC+3:30
+	offsetNames[19] = "+03:30 Tehran";
+	offsetSeconds[19] = 12600;
+	
+	// UTC+3
+	offsetNames[20] = "+03:00 Moscow";
+	offsetSeconds[20] = 10800;
+	
+	// UTC+2
+	offsetNames[21] = "+02:00 Athens";
+	offsetSeconds[21] = 7200;
+	
+	// UTC+1
+	offsetNames[22] = "+01:00 Paris";
+	offsetSeconds[22] = 3600;
+	
+	// UTC
+	offsetNames[23] = "+00:00 UTC";
+	offsetSeconds[23] = 0;
+	
+	// UTC-1
+	offsetNames[24] = "-01:00 Azores";
+	offsetSeconds[24] = -3600;
+	
+	// UTC-2
+	offsetNames[25] = "-02:00 South Georgia";
+	offsetSeconds[25] = -7200;
+	
+	// UTC-3
+	offsetNames[26] = "-03:00 Buenos Aires";
+	offsetSeconds[26] = -10800;
+	
+	// UTC-3:30
+	offsetNames[27] = "-03:30 Newfoundland";
+	offsetSeconds[27] = -12600;
+	
+	// UTC-4
+	offsetNames[28] = "-04:00 Caracas";
+	offsetSeconds[28] = -14400;
+	
+	// UTC-5
+	offsetNames[29] = "-05:00 New York";
+	offsetSeconds[29] = -18000;
+	
+	// UTC-6
+	offsetNames[30] = "-06:00 Mexico City";
+	offsetSeconds[30] = -21600;
+	
+	// UTC-7
+	offsetNames[31] = "-07:00 Denver";
+	offsetSeconds[31] = -25200;
+	
+	// UTC-8
+	offsetNames[32] = "-08:00 Los Angeles";
+	offsetSeconds[32] = -28800;
+	
+	// UTC-9
+	offsetNames[33] = "-09:00 Anchorage";
+	offsetSeconds[33] = -32400;
+	
+	// UTC-9:30
+	offsetNames[34] = "-09:30 Marquesas";
+	offsetSeconds[34] = -34200;
+	
+	// UTC-10
+	offsetNames[35] = "-10:00 Honolulu";
+	offsetSeconds[35] = -36000;
+	
+	// UTC-11
+	offsetNames[36] = "-11:00 Pago Pago";
+	offsetSeconds[36] = -39600;
+	
+	// UTC-12
+	offsetNames[37] = "-12:00 Baker Island";
+	offsetSeconds[37] = -43200;
+	
+	// Llenar la lista
+	offsetList.setitems(38, offsetNames);
+	
+	timer(1);
 }
 
 
@@ -22,27 +175,35 @@ handler getTimeButton.onselect() {
 	string response;
 	int err;
 	
+	// No offset alert
+	if (offsetPopup.text == "Select") {
+		alert("Please select the GMT offset according to your location.");
+		return;
+	}
+	
 	setFlag = false;
-	retryLabel.text = 0;
+	//retryLabel.text = 0;
 	
 	NDateLabel.text = "-";
     NTimeLabel.text = "-";
-    NGMTLabel.text = "-";
-	
-	draw.begin();
-	draw.bitmap(internetConnectingBMP, 20, 41);
+    //NGMTLabel.text = "-";
 	
 	getTimeButton.enabled = false;
 	
+	draw.begin();
+	draw.bitmap(internetConnectingBMP, 8, 22);
+	
+	// Get time from API
 	err = getTime();
 	showResponse(err);
 	
 	if (bitmapStatus == 0) {
-		draw.bitmap(internetSuccessBMP, 20, 41); // success
+		draw.bitmap(internetSuccessBMP, 8, 22); // success
+		setDateTime();
 	}
 	else
 	{
-		draw.bitmap(internetErrorBMP, 20, 41); // error
+		draw.bitmap(internetErrorBMP, 8, 22); // error
 	}
 	
 	draw.end();
@@ -51,30 +212,16 @@ handler getTimeButton.onselect() {
 }
 
 
-handler netTimeBackButton.onselect() {
-	app.abort();
+handler netTimeForm.ontimer() {
+	deviceDate.now();
+	
+	NDateLabel.text = deviceDate.year + "-" + deviceDate.month + "-" + deviceDate.day + "      ";
+	NTimeLabel.text = deviceDate.hour + ":" + deviceDate.min + ":" + deviceDate.sec + "      ";
+	
+	timer(20);
 }
 
 
-handler setTimeButton.onselect() {
-	string response;
-	int resp;
-
-	if (setFlag) {
-		resp = alertc(
-			"Set time",
-    		"New time: " + hour + ":" + minute + "\n\n" +
-    		"Set new system time and date?",
-    		"Yes:No",
-    		alertInfo
-		);
-		
-		if (resp == 0) {
-			setSystemDateTime();
-		}
-	}
-	else
-	{
-		alert("No time obtained yet.");
-	}
+handler netTimeBackButton.onselect() {
+	app.abort();
 }

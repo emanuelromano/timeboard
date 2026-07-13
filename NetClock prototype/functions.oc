@@ -1,5 +1,9 @@
 // ---- FUNCIONES DE RED Y PARSE ----
 
+Draw draw;
+Date deviceDate, utcDate, localDate;
+int userOffsetSeconds = -3 * 3600;
+
 // parámetros globales
 //string apiURL = "worldtimeapi.org";
 string apiURL = "192.168.1.119";
@@ -15,9 +19,18 @@ string petition = "GET /api/utc HTTP/1.0\r\n" +
 					"\r\n";
 int port = 80;
 int bitmapStatus = 0;
-string globalResponse;
-string year, month, day, hour, minute, second, offset;
+string globalResponse,
+	year,
+	month,
+	day,
+	hour,
+	minute,
+	second,
+	offset;
 bool setFlag;
+
+string offsetNames[38];
+int offsetSeconds[38];
 
 
 int getTime() {
@@ -145,6 +158,17 @@ void parseUTCDateTime(string dt) {
     hour   = substr(dt, 11, 2);
     minute = substr(dt, 14, 2);
     second = substr(dt, 17, 2);
+    
+    utcDate.ymd = lparse(year) * 10000 + lparse(month) * 100 + lparse(day);
+	utcDate.hour = hour;
+	utcDate.min = minute;
+	utcDate.sec = second;
+}
+
+
+void applyGMTOffset() {
+    localDate = utcDate;
+    localDate.addsecs(userOffsetSeconds);
 }
 
 
@@ -156,7 +180,7 @@ void retryConnection() {
 	
 	while (count <= retryNumber && errorCode != 0) {
 		errorCode = getTime();
-		retryLabel.text = count;
+		//retryLabel.text = count;
 		count++;
 		
 		if (errorCode == 0) {
@@ -166,7 +190,7 @@ void retryConnection() {
 			
     		NDateLabel.text = day + "/" + month + "/" + year;
     		NTimeLabel.text = hour + ":" + minute /* + ":" + second */;
-    		NGMTLabel.text = "UTC";
+    		//NGMTLabel.text = "UTC";
     		
     		setFlag = true;
     		bitmapStatus = 0; // success
@@ -193,7 +217,7 @@ void showResponse(int err) {
 		
     	NDateLabel.text = day + "/" + month + "/" + year;
     	NTimeLabel.text = hour + ":" + minute /* + ":" + second */;
-    	NGMTLabel.text = "UTC";
+    	//NGMTLabel.text = "UTC";
     	
     	setFlag = true;
     	bitmapStatus = 0; // success
@@ -201,7 +225,7 @@ void showResponse(int err) {
 	else if (err == 4628) {
     	NDateLabel.text = "-";
     	NTimeLabel.text = "-";
-    	NGMTLabel.text = "-";
+    	//NGMTLabel.text = "-";
     	
     	retryConnection();
 	}
@@ -213,7 +237,7 @@ void showResponse(int err) {
 }
 
 
-void setSystemDateTime() {
+void setDateTime() {
     Date d;
     int y, m, da;
     int hr, min, sec;
@@ -242,5 +266,5 @@ void setSystemDateTime() {
     d.sec  = sec;
 
 	// Función obtenida desde el add-in OrbTimeSet.oc
-	setSystemTimeDate(d);
+	setSystemDateTime(d);
 }
