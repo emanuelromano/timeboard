@@ -164,51 +164,70 @@ handler netTimeForm.onopen() {
 	offsetNames[37] = "-12:00 Baker Island";
 	offsetSeconds[37] = -43200;
 	
-	// Llenar la lista
+	// Build list
 	offsetList.setitems(38, offsetNames);
+		
+	// Popup and retries field
+	offsetPopup.text = offsetNames[appPrefs[0].selectedOffsetIndex];
+	offsetList.selitem = appPrefs[0].selectedOffsetIndex;
+	retriesField.text = appPrefs[0].connectionAttempts;
 	
 	timer(1);
 }
 
 
 handler getTimeButton.onselect() {
-	string response;
 	int err;
+	int retries;
+	bool resp;
 	
-	// No offset alert
-	if (offsetPopup.text == "Select") {
-		alert("Please select the GMT offset according to your location.");
+	if (offsetPopup.text == "Select...") {
+		alert("Please select the GMT offset according to the nearest city of your current location.");
 		return;
 	}
 	
-	setFlag = false;
-	//retryLabel.text = 0;
+	retries = lparse(retriesField.text);
 	
-	NDateLabel.text = "-";
-    NTimeLabel.text = "-";
-    //NGMTLabel.text = "-";
+	if (retries <= 0) {
+		alert("Retry attempts must be in the range 1 to 9.");
+		return;
+	}
 	
-	getTimeButton.enabled = false;
+	// Save oreferences
+	resp = setNewPrefs(offsetList.selitem, retries);
+	if (!resp) {
+		alert("Error trying to save preferences.");
+	}
 	
 	draw.begin();
-	draw.bitmap(internetConnectingBMP, 8, 22);
+    draw.bitmap(internetConnectingBMP, 8, 22);
+    draw.end();
 	
-	// Get time from API
-	err = getTime();
-	showResponse(err);
+	err = downloadTime();
 	
-	if (bitmapStatus == 0) {
-		draw.bitmap(internetSuccessBMP, 8, 22); // success
-		setDateTime();
+	if (err == 0) {
+	
+    	processUTCResponse();
+	
+    	draw.begin();
+    	draw.bitmap(internetSuccessBMP, 8, 22);
+    	draw.end();
+	
+    	setDateTime();
 	}
-	else
-	{
-		draw.bitmap(internetErrorBMP, 8, 22); // error
+	else {
+	
+    	draw.begin();
+    	draw.bitmap(internetErrorBMP, 8, 22);
+    	draw.end();
+	
+    	alertc(
+        	"Error",
+        	"Unable to get time from the Internet.\nError code: " + err,
+        	"OK",
+        	alertError
+    	);
 	}
-	
-	draw.end();
-	
-	getTimeButton.enabled = true;
 }
 
 
@@ -224,4 +243,9 @@ handler netTimeForm.ontimer() {
 
 handler netTimeBackButton.onselect() {
 	app.abort();
+}
+
+
+handler menu0101.onselect() {
+	alert("NetClock prototype by @coloraturip - 2026");
 }

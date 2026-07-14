@@ -65,9 +65,24 @@
     id = 1006
     text = "NetClock"
     x = 0, y = 0, w = 160, h = 160
-    menuid = 0, helpid = 0, defbuttonid = 0
+    menuid = 1011, helpid = 0, defbuttonid = 0
     modal = false, resizable = false
     hresize = 0, vresize = 0
+    menubar UIMenuBar menuBar {
+      id = 1011
+      menu UIMenu menu01 {
+        text = "NetClock"
+        menuitem UIMenuItem menu0101 {
+          id = 1012, sysid = 0, text = "About..."
+        }
+      }
+    }
+    bitmap UIFBitmap connectionStateBMP {
+      id = 1014
+      x = 8, y = 22
+      bitmapid = 1017
+      hresize = 0, vresize = 0
+    }
     button UIButton netTimeBackButton {
       id = 1007
       x = 117, y = 141, w = 36, h = 12
@@ -86,49 +101,43 @@
     }
     label UILabel dateLabel {
       id = 1003
-      x = 42, y = 51
+      x = 42, y = 34
       fontid = 1
       text = "Date:"
       hresize = 0, vresize = 0
     }
     label UILabel timeLabel {
       id = 1004
-      x = 42, y = 83
+      x = 42, y = 66
       fontid = 1
       text = "Time:"
       hresize = 0, vresize = 0
     }
-    label UILabel offsetLabel {
-      id = 1005
-      x = 7, y = 123
-      fontid = 0
-      text = "GMT offset:"
-      hresize = 0, vresize = 0
-    }
     label UILabel NDateLabel {
       id = 1008
-      x = 53, y = 64
+      x = 53, y = 47
       fontid = 2
       text = "-                        "
       hresize = 0, vresize = 0
     }
     label UILabel NTimeLabel {
       id = 1010
-      x = 53, y = 96
+      x = 53, y = 79
       fontid = 2
       text = "-                        "
       hresize = 0, vresize = 0
     }
-    bitmap UIFBitmap connectionStateBMP {
-      id = 1014
-      x = 8, y = 22
-      bitmapid = 1017
+    label UILabel offsetLabel {
+      id = 1005
+      x = 7, y = 105
+      fontid = 0
+      text = "GMT offset:"
       hresize = 0, vresize = 0
     }
     popup UIPopup offsetPopup {
       id = 1015
-      x = 58, y = 123, w = 43, h = 11
-      text = "Select"
+      x = 58, y = 105, w = 49, h = 11
+      text = "Select..."
       leftanchor = true, group = 0, fontid = 0
       hresize = 0, vresize = 0
     }
@@ -136,6 +145,21 @@
       id = 1024
       x = 63, y = 21, w = 90, h = 132
       numvisible = 12, triggerid = 1015, fontid = 0
+      hresize = 0, vresize = 0
+    }
+    label UILabel retryLabel {
+      id = 1000
+      x = 7, y = 120
+      fontid = 0
+      text = "Retry attempts:"
+      hresize = 0, vresize = 0
+    }
+    field UIField retriesField {
+      id = 1009
+      x = 78, y = 120, w = 22, h = 12
+      fontid = 0, leftanchor = true, maxchars = 1
+      underline = true, singleline = true, dynamicsize = false, hasscroll = false
+      editable = true, autoshift = true, numeric = true
       hresize = 0, vresize = 0
     }
   }

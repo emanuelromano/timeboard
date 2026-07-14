@@ -2,18 +2,18 @@
 
 Draw draw;
 Date deviceDate, utcDate, localDate;
-int userOffsetSeconds = -3 * 3600;
+int userOffsetSeconds;
 
-// parámetros globales
 //string apiURL = "worldtimeapi.org";
-string apiURL = "192.168.1.119";
 /*string petition = "GET /api/ip HTTP/1.1\r\n" +
 					"Host: " + apiURL + "\r\n" +
 					"User-Agent: PalmOS-OrbForms\r\n" +
 					"Accept: application/json\r\n" +
 					"Connection: close\r\n" +
 					"\r\n";*/
-string petition = "GET /api/utc HTTP/1.0\r\n" +
+					
+string apiURL = "192.168.1.119";
+string petition = "GET /api/v1/utc HTTP/1.0\r\n" +
 					"Host: " + apiURL + "\r\n" +
 					"Connection: close\r\n" +
 					"\r\n";
@@ -117,6 +117,26 @@ int getTime() {
 }
 
 
+int downloadTime() {
+    int err,
+    	tries,
+    	attempts;
+    	
+    	attempts = lparse(retriesField.text);
+
+    for (tries = 0; tries < attempts; tries++) {
+        err = getTime();
+
+        if (err == 0)
+            return 0;
+
+        sleep(500);
+    }
+
+    return err;
+}
+
+
 string jsonGet(string json, string key) {
     string pattern = "\"" + key + "\":\"";
     int start = strstr(json, pattern, 0);
@@ -126,10 +146,10 @@ string jsonGet(string json, string key) {
         return "";
     }
 
-    // Mover al inicio del valor
+    // Go to start
     start += strlen(pattern);
 
-    // Buscar el final exacto del valor: ", 
+    // Search for the ending of the value: ", 
     end = strstr(json, "\",", start);
     
     if (end < 0) {
@@ -145,7 +165,6 @@ string jsonGet(string json, string key) {
 
 
 void parseUTCDateTime(string dt) {
-
     if (strlen(dt) < 20) {
         year = month = day = hour = minute = second = "";
         return;
@@ -163,77 +182,30 @@ void parseUTCDateTime(string dt) {
 	utcDate.hour = hour;
 	utcDate.min = minute;
 	utcDate.sec = second;
-}
-
-
-void applyGMTOffset() {
-    localDate = utcDate;
-    localDate.addsecs(userOffsetSeconds);
-}
-
-
-void retryConnection() {
-	int count = 0;
-	int retryNumber = 9;
-	int errorCode = 9999;
-	string response;
 	
-	while (count <= retryNumber && errorCode != 0) {
-		errorCode = getTime();
-		//retryLabel.text = count;
-		count++;
-		
-		if (errorCode == 0) {
-			response = jsonGet(globalResponse, "utc_datetime");
-		
-			parseUTCDateTime(response);
-			
-    		NDateLabel.text = day + "/" + month + "/" + year;
-    		NTimeLabel.text = hour + ":" + minute /* + ":" + second */;
-    		//NGMTLabel.text = "UTC";
-    		
-    		setFlag = true;
-    		bitmapStatus = 0; // success
-		}
-		
-		sleep(500);
-	}
-
-	if (count > retryNumber) {
-		alertc("Error", "Unable to get time from the Internet.\nError code: " + errorCode, "OK", alertError);
-		bitmapStatus = 1; // error
-	}
+	// Apply GMT offset set by user
+	userOffsetSeconds = offsetSeconds[offsetList.selitem];
+	
+	utcDate.addsecs(userOffsetSeconds);
 }
 
 
-void showResponse(int err) {
-	string response;
-	
-	if (err == 0) {
-		response = jsonGet(globalResponse, "utc_datetime");
-		//alert("[" + response + "]");
-		
-		parseUTCDateTime(response);
-		
-    	NDateLabel.text = day + "/" + month + "/" + year;
-    	NTimeLabel.text = hour + ":" + minute /* + ":" + second */;
-    	//NGMTLabel.text = "UTC";
-    	
-    	setFlag = true;
-    	bitmapStatus = 0; // success
-	}
-	else if (err == 4628) {
-    	NDateLabel.text = "-";
-    	NTimeLabel.text = "-";
-    	//NGMTLabel.text = "-";
-    	
-    	retryConnection();
-	}
-	else
-	{
-		alertc("Error", "Unable to get time from the Internet.\nError code: " + err, "OK", alertError);
-		bitmapStatus = 1; // error
-	}
+void processUTCResponse() {
+    string response;
+
+    response = jsonGet(globalResponse, "utc_datetime");
+
+    if (strlen(response) == 0) {
+        alert("Invalid server response.");
+        return;
+    }
+
+    parseUTCDateTime(response);
+
+    NDateLabel.text = day + "/" + month + "/" + year;
+    NTimeLabel.text = hour + ":" + minute;
+
+    setFlag = true;
 }
 
 
@@ -241,30 +213,31 @@ void setDateTime() {
     Date d;
     int y, m, da;
     int hr, min, sec;
-
-    // Convertir strings a int
+	
+    // Convert string to long
     y  = lparse(year);
     m  = lparse(month);
     da = lparse(day);
-
+	
     hr  = lparse(hour);
     min = lparse(minute);
     sec  = lparse(second);
-
-    // Validación mínima
+	
+    // Validation
     if (y < 1904 || m < 1 || m > 12 || da < 1 || da > 31) {
         alert("Invalid date.");
         return;
     }
+	
+	// Function from add-in OrbTimeSet.oc
+	setSystemDateTime(utcDate);
+}
 
-    // Setear fecha usando ymd (yyyymmdd)
-    d.ymd = y * 10000 + m * 100 + da;
 
-    // Setear hora
-    d.hour = hr;
-    d.min  = min;
-    d.sec  = sec;
-
-	// Función obtenida desde el add-in OrbTimeSet.oc
-	setSystemDateTime(d);
+// Set new preferences
+bool setNewPrefs(int index, int attempts) {
+  	appPrefs[0].selectedOffsetIndex = index;
+  	appPrefs[0].connectionAttempts = attempts;
+  		
+	return prefs.set(app.creator, true, appPrefs, typeof(AppPrefs), 1);
 }
