@@ -247,5 +247,5 @@ handler netTimeBackButton.onselect() {
 
 
 handler menu0101.onselect() {
-	alert("NetClock prototype by @coloraturip - 2026");
+	alert("NetClock prototype (TimeBoard Time Service) by @coloraturip - 2026");
 }

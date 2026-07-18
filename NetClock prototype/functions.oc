@@ -3,22 +3,15 @@
 Draw draw;
 Date deviceDate, utcDate, localDate;
 int userOffsetSeconds;
-
-//string apiURL = "worldtimeapi.org";
-/*string petition = "GET /api/ip HTTP/1.1\r\n" +
-					"Host: " + apiURL + "\r\n" +
-					"User-Agent: PalmOS-OrbForms\r\n" +
-					"Accept: application/json\r\n" +
-					"Connection: close\r\n" +
-					"\r\n";*/
-					
-string apiURL = "192.168.1.119";
+int port = 80;
+int bitmapStatus = 0;
+			
+string apiURL = "tbts.coloraturip.com";
 string petition = "GET /api/v1/utc HTTP/1.0\r\n" +
 					"Host: " + apiURL + "\r\n" +
 					"Connection: close\r\n" +
 					"\r\n";
-int port = 80;
-int bitmapStatus = 0;
+
 string globalResponse,
 	year,
 	month,
@@ -109,7 +102,7 @@ int getTime() {
     }
 
     globalResponse = strleft(response, 1024);
-    //alert(globalResponse);
+	//alert(globalResponse);
 
     s.close();
     net.close();
@@ -201,9 +194,6 @@ void processUTCResponse() {
     }
 
     parseUTCDateTime(response);
-
-    NDateLabel.text = day + "/" + month + "/" + year;
-    NTimeLabel.text = hour + ":" + minute;
 
     setFlag = true;
 }
