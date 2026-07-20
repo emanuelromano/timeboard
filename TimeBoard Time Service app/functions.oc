@@ -1,4 +1,4 @@
-// ---- FUNCIONES DE RED Y PARSE ----
+// ---- NETWORK AND PARSE FUNCTIONS ----
 
 Draw draw;
 Date deviceDate, utcDate, localDate;
@@ -20,7 +20,6 @@ string globalResponse,
 	minute,
 	second,
 	offset;
-bool setFlag;
 
 string offsetNames[38];
 int offsetSeconds[38];
@@ -35,11 +34,11 @@ int getTime() {
     int err;
     int pos, last;
 
-    // limpiar globals
+    // Clear globals
     year = month = day = hour = minute = second = offset = "";
     globalResponse = "";
 
-    // 1- abrir red
+    // 1- Open network
     err = net.open();
     if (err != 0) {
         net.close();
@@ -53,14 +52,14 @@ int getTime() {
         return err;
     }
 
-    // 3- socket
+    // 3- Socket
     err = s.open(netAfInet, netSockStream, netProtoIpTcp);
     if (err != 0) {
         net.close();
         return err;
     }
 
-    // 4- connect
+    // 4- Connect
     err = s.connect(addr + ":" + format(port, 0));
     if (err != 0) {
         s.close();
@@ -68,7 +67,7 @@ int getTime() {
         return err;
     }
 
-    // 5- send
+    // 5- Send petition
     err = s.sends(petition);
     if (err != 0) {
         s.close();
@@ -76,7 +75,7 @@ int getTime() {
         return err;
     }
 
-    // 6- recv
+    // 6- Receive response
     err = s.recvs(&response);
     if (err != 0 || strlen(response) <= 1) {
         s.close();
@@ -84,14 +83,14 @@ int getTime() {
         return err;
     }
 
-    // 7- quitar headers
+    // 7- Remove headers
     pos = strstr(response, "\r\n\r\n", 0);
     if (pos >= 0) {
         response = substr(response, pos + 4,
                            strlen(response) - (pos + 4));
     }
 
-    // 8- corregir último carácter duplicado
+    // 8- Remove last duplicate character
     if (strlen(response) > 1) {
         last = strlen(response) - 1;
         lastChar = substr(response, last, 1);
@@ -123,7 +122,7 @@ int downloadTime() {
         if (err == 0)
             return 0;
 
-        sleep(500);
+        sleep(1000);
     }
 
     return err;
@@ -176,7 +175,7 @@ void parseUTCDateTime(string dt) {
 	utcDate.min = minute;
 	utcDate.sec = second;
 	
-	// Apply GMT offset set by user
+	// Apply GMT offset selected by user
 	userOffsetSeconds = offsetSeconds[offsetList.selitem];
 	
 	utcDate.addsecs(userOffsetSeconds);
@@ -194,8 +193,6 @@ void processUTCResponse() {
     }
 
     parseUTCDateTime(response);
-
-    setFlag = true;
 }
 
 

@@ -9,8 +9,6 @@ handler mainForm.onopen() {
 	second = "";
 	offset = "";
 	
-	setFlag = false;
-	
 	// Offset list
 	// UTC+14
 	offsetNames[0] = "+14:00 Kiritimati";
@@ -167,7 +165,7 @@ handler mainForm.onopen() {
 	// Build list
 	offsetList.setitems(38, offsetNames);
 		
-	// Popup and retries field
+	// Set popup and retry field
 	offsetPopup.text = offsetNames[appPrefs[0].selectedOffsetIndex];
 	offsetList.selitem = appPrefs[0].selectedOffsetIndex;
 	retriesField.text = appPrefs[0].connectionAttempts;
@@ -193,7 +191,7 @@ handler syncTimeBtn.onselect() {
 		return;
 	}
 	
-	// Save oreferences
+	// Save preferences
 	resp = setNewPrefs(offsetList.selitem, retries);
 	if (!resp) {
 		alert("Error trying to save preferences.");
@@ -281,5 +279,5 @@ handler TBTSExitBtn.onselect() {
 
 
 handler menu0101.onselect() {
-	alert("TimeBoard Time Service v1.0.1 (Prototype)\n@coloraturip\nÂ©2026");
+	alert("TimeBoard Time Service v1.0.1 (Prototype)\n@coloraturip\©2026");
 }

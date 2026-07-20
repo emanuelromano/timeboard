@@ -1,4 +1,13 @@
-// application code
+/* ------------------------------------------------------------
+	TimeBoard Time Service app
+
+	Written by @coloraturip
+	using OrbForms Designer.
+
+	- Supports Palm OS 3.5 or newer
+
+	Project started on March 20th, 2026
+--------------------------------------------------------------- */
 
 #include "add-ins/OrbNetwork.oc"
 #include "OrbTimeSet.oc"
@@ -14,7 +23,7 @@ AppPrefs appPrefs[1];
 
 
 // Getting saved preferences
-// Returns false if there's no stored preferences
+// Returns false if there is no stored preferences
 bool GetPrefs() {
 	return prefs.get(TBTS.creator, true, appPrefs, typeof(AppPrefs), 1);
 }
@@ -35,12 +44,12 @@ handler TBTS.onstart() {
 		setDefaultPrefs();
 	}
 	
-	// load the main form
+	// Load the main form
 	mainForm.load();
 }
 
 
 handler TBTS.onstop() {
-	// save the preferences
+	// Save the preferences
 	//prefs.set(app.creator, true, appPrefs, typeof(AppPrefs), 1);
 }

@@ -1,4 +1,4 @@
-/* ----------------------------------------------
+/* ------------------------------------------------------------
 	TimeBoard (codenamed KASIO) - A fun clock app for Palm OS
 
 	Written by @coloraturip,
@@ -8,7 +8,7 @@
 	- Supports Palm OS 3.5 or newer
 
 	Project started on March 13th, 2025
----------------------------------------------- */
+--------------------------------------------------------------- */
 
 
 Preferences prefs;
