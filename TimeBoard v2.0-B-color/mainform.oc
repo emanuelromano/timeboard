@@ -149,7 +149,7 @@ handler mainForm.ontimer() {
 	date.now();
 	seconds = date.sec;
 	
-	if (seconds != lastSecond) {
+	if (!mainForm.obscured && seconds != lastSecond) {
 		year = date.year;
 		month = date.month;
 		day = date.day;
@@ -181,5 +181,5 @@ handler mainForm.ontimer() {
 
 
 handler mainOptionsAbout.onselect() {
-	alert("This is an OrbForms Designer Application");
+	alert("TimeBoard v2.0.0 (Prototype)\n@coloraturip\n©2026");
 }

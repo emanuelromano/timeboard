@@ -229,5 +229,5 @@ bool setNewPrefs(int index, int attempts) {
   	appPrefs[0].selectedOffsetIndex = index;
   	appPrefs[0].connectionAttempts = attempts;
   		
-	return prefs.set(app.creator, true, appPrefs, typeof(AppPrefs), 1);
+	return prefs.set(TBTS.creator, true, appPrefs, typeof(AppPrefs), 1);
 }

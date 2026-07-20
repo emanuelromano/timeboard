@@ -1,7 +1,14 @@
-// application code
+/* ----------------------------------------------
+	TimeBoard (codenamed KASIO) - A fun clock app for Palm OS
 
-// The saved state of your application is represented
-// by the members of this structure
+	Written by @coloraturip,
+	based on the Analog Clock sample app
+	from OrbForms Designer.
+
+	- Supports Palm OS 3.5 or newer
+
+	Project started on March 13th, 2025
+---------------------------------------------- */
 
 
 Preferences prefs;

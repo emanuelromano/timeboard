@@ -1,48 +1,3 @@
-void drawClockHands(int centerX, int centerY) {
-	int x, y;
-
-	float hourAngle,
-		minuteAngle,
-		secondAngle;
-
-	// Angles
-	hourAngle = (((hours % 12) * 30) + (minutes * 0.5) - 90) * 3.14159265 / 180;
-	minuteAngle = ((minutes * 6) - 90) * 3.14159265 / 180;
-	secondAngle = ((seconds * 6) - 90) * 3.14159265 / 180;
-
-	// Hour
-	mainBuffer.fgRGB(mainR, mainG, mainB);
-
-	x = centerX + (cos(hourAngle) * hourLength);
-	y = centerY + (sin(hourAngle) * hourLength);
-
-	mainBuffer.line(clrFG, centerX, centerY, x, y);
-
-	// Minutes
-	x = centerX + (cos(minuteAngle) * minuteLength);
-	y = centerY + (sin(minuteAngle) * minuteLength);
-
-	mainBuffer.line(clrFG, centerX, centerY, x, y);
-
-	// Seconds
-	mainBuffer.fgRGB(highlightR, highlightG, highlightB);
-
-	x = centerX + (cos(secondAngle) * secondLength);
-	y = centerY + (sin(secondAngle) * secondLength);
-
-	mainBuffer.line(clrFG, centerX, centerY, x, y);
-
-	// Center
-	mainBuffer.fgRGB(mainR, mainG, mainB);
-	mainBuffer.rect(clrFG,
-		centerX - 1,
-		centerY - 1,
-		centerX + 2,
-		centerY + 2,
-		2);
-}
-
-
 void drawHand(float angle,
 			  int length,
 			  int centerX,
@@ -64,8 +19,67 @@ void drawHand(float angle,
 }
 
 
-void updateClockHands() {
+void drawClockHands(int centerX, int centerY) {
+	int x, y;
+	float hourAngle,
+		minuteAngle,
+		secondAngle;
 
+	// Angles
+	hourAngle =
+		(((hours % 12) * 30) + (minutes * 0.5) - 90)
+		* 3.14159265 / 180;
+
+	minuteAngle =
+		((minutes * 6) - 90)
+		* 3.14159265 / 180;
+
+	secondAngle =
+		((seconds * 6) - 90)
+		* 3.14159265 / 180;
+
+	// Draw hands
+	drawHand(hourAngle,
+			 hourLength,
+			 centerX,
+			 centerY,
+			 mainR,
+			 mainG,
+			 mainB);
+
+	drawHand(minuteAngle,
+			 minuteLength,
+			 centerX,
+			 centerY,
+			 mainR,
+			 mainG,
+			 mainB);
+
+	drawHand(secondAngle,
+			 secondLength,
+			 centerX,
+			 centerY,
+			 highlightR,
+			 highlightG,
+			 highlightB);
+
+	// Center
+	mainBuffer.fgRGB(mainR, mainG, mainB);
+	mainBuffer.rect(clrFG,
+		centerX - 1,
+		centerY - 1,
+		centerX + 2,
+		centerY + 2,
+		2);
+	
+	// Save for next draw in buffer
+	oldHourAngle = hourAngle;
+	oldMinuteAngle = minuteAngle;
+	oldSecondAngle = secondAngle;
+}
+
+
+void updateClockHands() {
 	float newHourAngle;
 	float newMinuteAngle;
 	float newSecondAngle;
@@ -166,7 +180,7 @@ void analogClockWidget(int startX, int startY) {
 
 	mainBuffer.begin();
 	// Central point
-	mainBuffer.fgRGB(255, 255, 255);
+	mainBuffer.fgRGB(mainR, mainG, mainB);
 	mainBuffer.pixel(clrFG, centerX, centerY);
 
 	// Centered text, font and color

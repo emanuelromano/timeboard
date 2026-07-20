@@ -16,31 +16,31 @@ AppPrefs appPrefs[1];
 // Getting saved preferences
 // Returns false if there's no stored preferences
 bool GetPrefs() {
-	return prefs.get(app.creator, true, appPrefs, typeof(AppPrefs), 1);
+	return prefs.get(TBTS.creator, true, appPrefs, typeof(AppPrefs), 1);
 }
 
 
 // Set default preferences in case they don't exist
 bool setDefaultPrefs() {
-	appPrefs[0].selectedOffsetIndex = 23;
+	appPrefs[0].selectedOffsetIndex = 23; // +00:00 UTC
 	appPrefs[0].connectionAttempts = 1;
 	
-	return prefs.set(app.creator, true, appPrefs, typeof(AppPrefs), 1);
+	return prefs.set(TBTS.creator, true, appPrefs, typeof(AppPrefs), 1);
 }
 
 
-handler app.onstart() {
+handler TBTS.onstart() {
 	// If there is no default prefs, set default prefs
 	if (GetPrefs() == false) {		
 		setDefaultPrefs();
 	}
 	
 	// load the main form
-	netTimeForm.load();
+	mainForm.load();
 }
 
 
-handler app.onstop() {
+handler TBTS.onstop() {
 	// save the preferences
 	//prefs.set(app.creator, true, appPrefs, typeof(AppPrefs), 1);
 }

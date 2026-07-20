@@ -1,4 +1,4 @@
-handler netTimeForm.onopen() {
+handler mainForm.onopen() {
 	draw.attachForm(this);
 
 	year = "";
@@ -176,7 +176,7 @@ handler netTimeForm.onopen() {
 }
 
 
-handler getTimeButton.onselect() {
+handler syncTimeBtn.onselect() {
 	int err;
 	int retries;
 	bool resp;
@@ -231,21 +231,55 @@ handler getTimeButton.onselect() {
 }
 
 
-handler netTimeForm.ontimer() {
+handler mainForm.ontimer() {
+	string yyyy;
+	string MM;
+	string dd;
+	string hh;
+	string mm;
+	string ss;
+	
 	deviceDate.now();
-	
-	NDateLabel.text = deviceDate.year + "-" + deviceDate.month + "-" + deviceDate.day + "      ";
-	NTimeLabel.text = deviceDate.hour + ":" + deviceDate.min + ":" + deviceDate.sec + "      ";
-	
+
+	yyyy = "" + deviceDate.year;
+
+	if (deviceDate.month < 10)
+		MM = "0" + deviceDate.month;
+	else
+		MM = "" + deviceDate.month;
+
+	if (deviceDate.day < 10)
+		dd = "0" + deviceDate.day;
+	else
+		dd = "" + deviceDate.day;
+
+	if (deviceDate.hour < 10)
+		hh = "0" + deviceDate.hour;
+	else
+		hh = "" + deviceDate.hour;
+
+	if (deviceDate.min < 10)
+		mm = "0" + deviceDate.min;
+	else
+		mm = "" + deviceDate.min;
+
+	if (deviceDate.sec < 10)
+		ss = "0" + deviceDate.sec;
+	else
+		ss = "" + deviceDate.sec;
+
+	NDateLabel.text = yyyy + "-" + MM + "-" + dd + "      ";
+	NTimeLabel.text = hh + ":" + mm + ":" + ss + "      ";
+
 	timer(20);
 }
 
 
-handler netTimeBackButton.onselect() {
-	app.abort();
+handler TBTSExitBtn.onselect() {
+	TBTS.abort();
 }
 
 
 handler menu0101.onselect() {
-	alert("NetClock prototype (TimeBoard Time Service) by @coloraturip - 2026");
+	alert("TimeBoard Time Service v1.0.1 (Prototype)\n@coloraturip\n©2026");
 }
