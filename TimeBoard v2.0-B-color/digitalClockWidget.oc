@@ -151,7 +151,7 @@ void digitalClockWidget(int startX, int startY) {
 	splitTimeDigits();
 	
 	mainBuffer.begin();
-	if (minutes != lastMinute) {
+	//if (minutes != lastMinute) {
 		// Hour
 		mainBuffer.fgRGB(highlightR, highlightG, highlightB);
 		drawDigit(hourDigit1, digitW, digitH, digitHr1X, digitY, radius);
@@ -168,7 +168,7 @@ void digitalClockWidget(int startX, int startY) {
 		mainBuffer.bgRGB(fgColorR, fgColorG, fgColorB);
 		mainBuffer.font(fntLargeBold);
 		//mainBuffer.text(clrText, digitHr1X, digitY+digitH, "a.m.");
-	}
+	//}
 	
 	// Seconds
 	mainBuffer.textAlign(02);

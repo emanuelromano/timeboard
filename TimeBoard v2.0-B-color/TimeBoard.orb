@@ -38,7 +38,7 @@
     x = 0, y = 0, w = 160, h = 160
     menuid = 1001, helpid = 0, defbuttonid = 0
     modal = false, resizable = true
-    hresize = 0, vresize = 0
+    hresize = 2, vresize = 2
     menubar UIMenuBar barMain {
       id = 1001
       menu UIMenu menuMainOptions {

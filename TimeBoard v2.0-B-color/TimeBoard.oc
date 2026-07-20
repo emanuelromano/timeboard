@@ -6,6 +6,8 @@
 	from OrbForms Designer.
 
 	- Supports Palm OS 3.5 or newer
+	
+	VERSION 2.0.0
 
 	Project started on March 13th, 2025
 --------------------------------------------------------------- */
@@ -45,13 +47,13 @@ AppPrefs appPrefs[1];
 
 
 // Getting saved preferences
-// Returns false if there's no stored preferences
+// Returns false if there is no stored preferences
 bool GetPrefs() {
 	return prefs.get(TimeBoard.creator, true, appPrefs, typeof(appPrefs), 1);
 }
 
 
-// Set default preferences in case they don't exist
+// Set default preferences in case they do not exist
 bool setDefaultPrefs() {
 	appPrefs[0].bgColorR = 153;
 	appPrefs[0].bgColorG = 51;
@@ -84,12 +86,12 @@ handler TimeBoard.onstart() {
 		setDefaultPrefs();
 	}
 	
-	// load the main form
+	// Load the main form
 	mainForm.load();
 }
 
 
 handler TimeBoard.onstop() {
-	// save the preferences
+	// Save the preferences
 	prefs.set(TimeBoard.creator, false, appPrefs, typeof(appPrefs), 1);
 }

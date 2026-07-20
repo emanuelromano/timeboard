@@ -18,12 +18,17 @@ void setThemeColors() {
 
 
 void composeBackgroundBuffer() {
+	// Show selected widgets
 	showWidget1 = appPrefs[0].showWidget1;
 	showWidget2 = appPrefs[0].showWidget2;
 	showWidget3 = appPrefs[0].showWidget3;
 	showWidget4 = appPrefs[0].showWidget4;
 	
+	// Create offscreen buffer
+	mainBuffer.create(mainForm.w, mainForm.h);
+	
 	mainBuffer.begin();
+	// Draw background
 	mainBuffer.fgRGB(bgColorR, bgColorG, bgColorB);
 	mainBuffer.rect(clrFG, mainForm.x, mainForm.y, mainForm.w, mainForm.h, 0);
 	
@@ -31,6 +36,7 @@ void composeBackgroundBuffer() {
 	
 	calculateShadowColor(100);
 	calculateHighlightColor(50);
+	
 	mainBuffer.bgRGB(bgShadowColorR, bgShadowColorG, bgShadowColorB);
 	
 	if (showWidget1) {
@@ -115,7 +121,7 @@ handler mainForm.onopen() {
 	draw.attachForm(this);
 	
 	// Create offscreen buffer
-	mainBuffer.create(mainForm.w, mainForm.h);
+	//mainBuffer.create(mainForm.w, mainForm.h);
 	
 	date.now();
 	year = date.year;
@@ -177,6 +183,18 @@ handler mainForm.ontimer() {
 	lastDay = day;
 	lastCharge = charge;
 	timer(20);
+}
+
+
+handler mainForm.onresize() {
+	// UIform attach this form for drawing methods
+	mainBuffer.attachForm(this);
+	draw.attachForm(this);
+}
+
+
+handler mainForm.onpenup() {
+	//alert(e.x + " - " + e.y);
 }
 
 

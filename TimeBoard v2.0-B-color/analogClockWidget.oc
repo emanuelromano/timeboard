@@ -19,6 +19,35 @@ void drawHand(float angle,
 }
 
 
+/*void drawHand(float angle,
+			  int length,
+			  int centerX,
+			  int centerY,
+			  int r,
+			  int g,
+			  int b)
+{
+	int x1, y1,
+		x2, y2,
+		separation = 3; // Hand separation from center
+
+	mainBuffer.begin();
+	mainBuffer.fgRGB(r, g, b);
+
+	// Hand beginning
+	x1 = centerX + (cos(angle) * separation);
+	y1 = centerY + (sin(angle) * separation);
+
+	// Hand end
+	x2 = centerX + (cos(angle) * length);
+	y2 = centerY + (sin(angle) * length);
+
+	mainBuffer.line(clrFG, x1, y1, x2, y2);
+
+	mainBuffer.end();
+}*/
+
+
 void drawClockHands(int centerX, int centerY) {
 	int x, y;
 	float hourAngle,
