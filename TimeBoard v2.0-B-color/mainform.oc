@@ -28,10 +28,12 @@ void composeBackgroundBuffer() {
 	mainBuffer.create(mainForm.w, mainForm.h);
 	
 	mainBuffer.begin();
+	
 	// Draw background
 	mainBuffer.fgRGB(bgColorR, bgColorG, bgColorB);
 	mainBuffer.rect(clrFG, mainForm.x, mainForm.y, mainForm.w, mainForm.h, 0);
 	
+	// Set colors
 	mainBuffer.fgRGB(fgColorR, fgColorG, fgColorB);
 	
 	calculateShadowColor(100);
@@ -194,7 +196,28 @@ handler mainForm.onresize() {
 
 
 handler mainForm.onpenup() {
-	//alert(e.x + " - " + e.y);
+	int penX = e.x,
+		penY = e.y;
+	
+	// Widget 1
+	if (penX >= startX1 && penX <= startX1 + widgetW && penY >= startY1 && penY <= startY1 + widgetH) {
+		//alert("Widget 1");
+	}
+	
+	// Widget 2
+	if (penX >= startX2 && penX <= startX2 + widgetW && penY >= startY2 && penY <= startY2 + widgetH) {
+		//alert("Widget 2");
+	}
+	
+	// Widget 3
+	if (penX >= startX3 && penX <= startX3 + widgetW && penY >= startY3 && penY <= startY3 + widgetH) {
+		//alert("Widget 3");
+	}
+	
+	// Widget 4
+	if (penX >= startX4 && penX <= startX4 + widgetW && penY >= startY4 && penY <= startY4 + widgetH) {
+		//alert("Widget 4");
+	}
 }
 
 
