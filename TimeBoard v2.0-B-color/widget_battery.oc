@@ -26,9 +26,9 @@ void drawBatteryDots(
 	// Battery color
 	if (charge > 40) {
 		// Green
-		activeR = 102;
-		activeG = 255;
-		activeB = 0;
+		activeR = batteryR;
+		activeG = batteryG;
+		activeB = batteryB;
 	}
 	else if (charge > 20) {
 		// Orange

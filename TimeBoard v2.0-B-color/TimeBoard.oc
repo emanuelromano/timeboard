@@ -21,21 +21,30 @@ Draw draw;
 
 
 struct AppPrefs {
+	// Background color
 	int bgColorR;
 	int bgColorG;
 	int bgColorB;
-		
+	
+	// Foreground color on widgets
 	int fgColorR;
 	int fgColorG;
 	int fgColorB;
-		
+	
+	// Highlight color on widgets
 	int highlightR;
 	int highlightG;
 	int highlightB;
-		
+	
+	// Base color on widgets
 	int mainR;
 	int mainG;
 	int mainB;
+	
+	// Battery color between 100% - 50% charge 
+	int batteryR;
+	int batteryG;
+	int batteryB;
 	
 	bool showWidget1;
 	bool showWidget2;
@@ -70,6 +79,10 @@ bool setDefaultPrefs() {
 	appPrefs[0].mainR = 255;
 	appPrefs[0].mainG = 255;
 	appPrefs[0].mainB = 255;
+	
+	appPrefs[0].batteryR = 102;
+	appPrefs[0].batteryG = 255;
+	appPrefs[0].batteryB = 0;
 	
 	appPrefs[0].showWidget1 = true;
 	appPrefs[0].showWidget2 = true;

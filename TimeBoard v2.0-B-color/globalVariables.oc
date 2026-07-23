@@ -62,6 +62,10 @@ int bgColorR,
 	mainG,
 	mainB,
 	
+	batteryR,
+	batteryG,
+	batteryB,
+	
 	bgShadowColorR,
 	bgShadowColorG,
 	bgShadowColorB,

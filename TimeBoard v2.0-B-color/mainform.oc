@@ -14,6 +14,10 @@ void setThemeColors() {
 	mainR = appPrefs[0].mainR;
 	mainG = appPrefs[0].mainG;
 	mainB = appPrefs[0].mainB;
+	
+	batteryR = appPrefs[0].batteryR;
+	batteryG = appPrefs[0].batteryG;
+	batteryB = appPrefs[0].batteryB;
 }
 
 

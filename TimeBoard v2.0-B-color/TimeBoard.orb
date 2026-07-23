@@ -9,7 +9,7 @@
 @project {
   "<PROJECT><FILE>TimeBoard.oc</FILE><STANDALONE>1</STANDALONE><LAN"
   "GUAGEFILE></LANGUAGEFILE><DEBUG>0</DEBUG><FORMS><FORM><NAME>main"
-  "Form</NAME><FILE>mainform.oc</FILE></FORM></FORMS></PROJECT>"
+  "Form</NAME><FILE>mainForm.oc</FILE></FORM></FORMS></PROJECT>"
 }
 
 // app definition
@@ -55,8 +55,8 @@
 #include "TimeBoard.oc"
 #include "globalVariables.oc"
 #include "globalFunctions.oc"
-#include "analogClockWidget.oc"
-#include "digitalClockWidget.oc"
-#include "calendarWidget.oc"
-#include "batteryWidget.oc"
-#include "mainform.oc"
+#include "widget_analogClock.oc"
+#include "widget_digitalClock.oc"
+#include "widget_calendar.oc"
+#include "widget_battery.oc"
+#include "mainForm.oc"
