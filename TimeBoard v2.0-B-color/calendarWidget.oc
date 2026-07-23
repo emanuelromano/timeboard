@@ -4,7 +4,7 @@ void calendarWidget(int startX, int startY) {
 		
 		digitY = startY + 18,
 		
-		textX = startX + (widgetW / 2),
+		textX = startX + (widgetW / 2) + 1,
 		
 		digitW = 12,
 		digitH = 33,

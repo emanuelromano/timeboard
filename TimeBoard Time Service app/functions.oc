@@ -5,6 +5,7 @@ Date deviceDate, utcDate, localDate;
 int userOffsetSeconds;
 int port = 80;
 int bitmapStatus = 0;
+int timerSecond, timerLastSecond;
 			
 string apiURL = "tbts.coloraturip.com";
 string petition = "GET /api/v1/utc HTTP/1.0\r\n" +

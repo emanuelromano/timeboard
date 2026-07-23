@@ -238,37 +238,41 @@ handler mainForm.ontimer() {
 	string ss;
 	
 	deviceDate.now();
+	timerSecond = deviceDate.sec;
 
-	yyyy = "" + deviceDate.year;
-
-	if (deviceDate.month < 10)
-		MM = "0" + deviceDate.month;
-	else
-		MM = "" + deviceDate.month;
-
-	if (deviceDate.day < 10)
-		dd = "0" + deviceDate.day;
-	else
-		dd = "" + deviceDate.day;
-
-	if (deviceDate.hour < 10)
-		hh = "0" + deviceDate.hour;
-	else
-		hh = "" + deviceDate.hour;
-
-	if (deviceDate.min < 10)
-		mm = "0" + deviceDate.min;
-	else
-		mm = "" + deviceDate.min;
-
-	if (deviceDate.sec < 10)
-		ss = "0" + deviceDate.sec;
-	else
-		ss = "" + deviceDate.sec;
-
-	NDateLabel.text = yyyy + "-" + MM + "-" + dd + "      ";
-	NTimeLabel.text = hh + ":" + mm + ":" + ss + "      ";
-
+	if (!mainForm.obscured && timerSecond != timerLastSecond) {
+		yyyy = "" + deviceDate.year;
+	
+		if (deviceDate.month < 10)
+			MM = "0" + deviceDate.month;
+		else
+			MM = "" + deviceDate.month;
+	
+		if (deviceDate.day < 10)
+			dd = "0" + deviceDate.day;
+		else
+			dd = "" + deviceDate.day;
+	
+		if (deviceDate.hour < 10)
+			hh = "0" + deviceDate.hour;
+		else
+			hh = "" + deviceDate.hour;
+	
+		if (deviceDate.min < 10)
+			mm = "0" + deviceDate.min;
+		else
+			mm = "" + deviceDate.min;
+	
+		if (deviceDate.sec < 10)
+			ss = "0" + deviceDate.sec;
+		else
+			ss = "" + deviceDate.sec;
+	
+		NDateLabel.text = yyyy + "-" + MM + "-" + dd + "      ";
+		NTimeLabel.text = hh + ":" + mm + ":" + ss + "      ";
+	}
+	
+	timerLastSecond = timerSecond;
 	timer(20);
 }
 
