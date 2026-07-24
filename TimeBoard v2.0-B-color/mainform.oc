@@ -1,4 +1,4 @@
-void setThemeColors() {
+void setMainPreferences() {
 	bgColorR = appPrefs[0].bgColorR;
 	bgColorG = appPrefs[0].bgColorG;
 	bgColorB = appPrefs[0].bgColorB;
@@ -18,6 +18,8 @@ void setThemeColors() {
 	batteryR = appPrefs[0].batteryR;
 	batteryG = appPrefs[0].batteryG;
 	batteryB = appPrefs[0].batteryB;
+	
+	useAnalogClockNumbers = appPrefs[0].useAnalogClockNumbers;
 }
 
 
@@ -146,7 +148,7 @@ handler mainForm.onopen() {
 
 
 handler mainForm.ondraw() {
-	setThemeColors();
+	setMainPreferences();
 	composeBackgroundBuffer();
 	composeWidgetsBuffer();
 	

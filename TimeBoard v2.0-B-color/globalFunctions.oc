@@ -23,9 +23,9 @@ void calculateHighlightColor(int amount) {
 	if (bgHighlightColorB > 255) bgHighlightColorB = 255;
 	
 	if (fgColorR == 255 && fgColorG == 255 && fgColorB == 255 ) {
-		bgHighlightColorR = 204;
-		bgHighlightColorG = 255;
-		bgHighlightColorB = 255;
+		bgHighlightColorR = 238;
+		bgHighlightColorG = 238;
+		bgHighlightColorB = 238;
 	}
 }
 
@@ -48,4 +48,141 @@ void splitTimeDigits() {
 	// Seconds
 	secondDigit1 = seconds / 10;
 	secondDigit2 = seconds % 10;
+}
+
+
+void drawDigit(int number, int digitW, int digitH, int digitX, int digitY, int radius) {
+	bool segment1,
+		segment2,
+		segment3,
+		segment4,
+		segment5,
+		segment6,
+		segment7,
+		segmentA,
+		segmentB;
+	
+	switch (number) {
+		case 0:
+			segment1 = true;
+			segment2 = false;
+			segment3 = true;
+			segment4 = true;
+			segment5 = true;
+			segment6 = true;
+			segment7 = true;
+			break;
+		case 1:
+			segment1 = false;
+			segment2 = false;
+			segment3 = true;
+			segment4 = false; //
+			segment5 = false; //
+			segment6 = false;
+			segment7 = false;
+			segmentA = true;
+			segmentB = true;
+			break;
+		case 2:
+			segment1 = true;
+			segment2 = true;
+			segment3 = true;
+			segment4 = true;
+			segment5 = false;
+			segment6 = false;
+			segment7 = true;
+			break;
+		case 3:
+			segment1 = true;
+			segment2 = true;
+			segment3 = true;
+			segment4 = true;
+			segment5 = true;
+			segment6 = false;
+			segment7 = false;
+			break;
+		case 4:
+			segment1 = false;
+			segment2 = true;
+			segment3 = false;
+			segment4 = true;
+			segment5 = true;
+			segment6 = true;
+			segment7 = false;
+			break;
+		case 5:
+			segment1 = true;
+			segment2 = true;
+			segment3 = true;
+			segment4 = false;
+			segment5 = true;
+			segment6 = true;
+			segment7 = false;
+			break;
+		case 6:
+			segment1 = true;
+			segment2 = true;
+			segment3 = true;
+			segment4 = false;
+			segment5 = true;
+			segment6 = true;
+			segment7 = true;
+			break;
+		case 7:
+			segment1 = true;
+			segment2 = false;
+			segment3 = false;
+			segment4 = true;
+			segment5 = true;
+			segment6 = false;
+			segment7 = false;
+			break;
+		case 8:
+			segment1 = true;
+			segment2 = true;
+			segment3 = true;
+			segment4 = true;
+			segment5 = true;
+			segment6 = true;
+			segment7 = true;
+			break;
+		case 9:
+			segment1 = true;
+			segment2 = true;
+			segment3 = true;
+			segment4 = true;
+			segment5 = true;
+			segment6 = true;
+			segment7 = false;
+			break;
+	}
+	
+	// Erase old char
+	mainBuffer.bgRGB(fgColorR, fgColorG, fgColorB);
+	mainBuffer.rect(clrBG, digitX, digitY, digitX+digitW, digitY+4, radius);
+	mainBuffer.rect(clrBG, digitX, digitY+14, digitX+digitW, digitY+18, radius);
+	mainBuffer.rect(clrBG, digitX, digitY+29, digitX+digitW, digitY+33, radius);
+	
+	mainBuffer.rect(clrBG, digitX+7, digitY, digitX+digitW, digitY+18, radius);
+	mainBuffer.rect(clrBG, digitX+7, digitY+15, digitX+digitW, digitY+33, radius);
+	
+	mainBuffer.rect(clrBG, digitX, digitY, digitX+5, digitY+18, radius);
+	mainBuffer.rect(clrBG, digitX, digitY+15, digitX+5, digitY+33, radius);
+	
+	mainBuffer.rect(clrBG, digitX, digitY, digitX+9, digitY+4, radius);
+	mainBuffer.rect(clrBG, digitX+4, digitY, digitX+9, digitY+33, radius);
+	
+	// Main char
+	if (segment1) mainBuffer.rect(clrFG, digitX, digitY, digitX+digitW, digitY+4, radius);
+	if (segment2) mainBuffer.rect(clrFG, digitX, digitY+14, digitX+digitW, digitY+18, radius);
+	if (segment3) mainBuffer.rect(clrFG, digitX, digitY+29, digitX+digitW, digitY+33, radius);
+	
+	if (segment4) mainBuffer.rect(clrFG, digitX+7, digitY, digitX+digitW, digitY+18, radius);
+	if (segment5) mainBuffer.rect(clrFG, digitX+7, digitY+15, digitX+digitW, digitY+33, radius);
+	
+	if (segment6) mainBuffer.rect(clrFG, digitX, digitY, digitX+5, digitY+18, radius);
+	if (segment7) mainBuffer.rect(clrFG, digitX, digitY+15, digitX+5, digitY+33, radius);
+	
+	if (segmentA) mainBuffer.rect(clrFG, digitX, digitY, digitX+9, digitY+4, radius);
+	if (segmentB) mainBuffer.rect(clrFG, digitX+4, digitY, digitX+9, digitY+33, radius);
 }

@@ -14,7 +14,9 @@ int	centerX, centerY,
 
 	hourLength = 15,
 	minuteLength = 20,
-	secondLength = 20;
+	secondLength = 20,
+	
+	useAnalogClockNumbers;
 
 float oldHourAngle,
 	oldMinuteAngle,
@@ -37,7 +39,7 @@ int startX1 = 8,
 	widgetW = 68,
 	widgetH = 68,
 	
-	cornerRadius = 8;
+	cornerRadius = 4;
 
 bool showWidget1,
 	showWidget2,

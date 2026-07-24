@@ -85,7 +85,7 @@ void calendarWidget(int startX, int startY) {
 		
 	//Date
 	mainBuffer.fgRGB(mainR, mainG, mainB);
-	// drawDigit() comes from widget_digitalClock.oc
+	// drawDigit() comes from globalFunctions.oc
 	drawDigit(dayDigit1, digitW, digitH, digitDateX1, digitY, radius);
 	drawDigit(dayDigit2, digitW, digitH, digitDateX2, digitY, radius);
 	
