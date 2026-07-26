@@ -43,7 +43,7 @@ int startX1 = 8,
 	widgetW = 70,
 	widgetH = 70,
 	
-	cornerRadius = 4;
+	cornerRadius = 8;
 
 bool showWidget1,
 	showWidget2,

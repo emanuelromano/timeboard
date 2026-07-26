@@ -264,7 +264,7 @@ void analogClockWidget(int startX, int startY) {
 			}
 			else {
     			// Shorter lines
-    			innerRadius = (widgetW / 2) * 0.72;
+    			innerRadius = (widgetW / 2) * 0.70;
     			outerRadius = (widgetW / 2) * 0.80;
 			}
 			

@@ -1,8 +1,8 @@
 void calendarWidget(int startX, int startY) {
-	int digitDateX1 = startX + 21,
+	int digitDateX1 = startX + 22,
 		digitDateX2 = digitDateX1 + 14,
 		
-		digitY = startY + 18,
+		digitY = startY + 19,
 		
 		textX = startX + (widgetW / 2) + 1,
 		

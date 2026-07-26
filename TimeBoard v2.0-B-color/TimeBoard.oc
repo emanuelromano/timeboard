@@ -68,20 +68,20 @@ bool GetPrefs() {
 // Set default preferences in case they do not exist
 bool setDefaultPrefs() {
 	appPrefs[0].bgColorR = 255;
-	appPrefs[0].bgColorG = 204;
-	appPrefs[0].bgColorB = 0;
+	appPrefs[0].bgColorG = 102;
+	appPrefs[0].bgColorB = 51;
 	
-	appPrefs[0].fgColorR = 255;
-	appPrefs[0].fgColorG = 255;
-	appPrefs[0].fgColorB = 255;
+	appPrefs[0].fgColorR = 102;
+	appPrefs[0].fgColorG = 51;
+	appPrefs[0].fgColorB = 153;
 	
 	appPrefs[0].highlightR = 255;
-	appPrefs[0].highlightG = 102;
-	appPrefs[0].highlightB = 0;
+	appPrefs[0].highlightG = 153;
+	appPrefs[0].highlightB = 51;
 	
-	appPrefs[0].mainR = 51;
-	appPrefs[0].mainG = 51;
-	appPrefs[0].mainB = 51;
+	appPrefs[0].mainR = 102;
+	appPrefs[0].mainG = 255;
+	appPrefs[0].mainB = 0;
 	
 	appPrefs[0].batteryR = 102;
 	appPrefs[0].batteryG = 255;
