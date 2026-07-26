@@ -12,9 +12,9 @@ int year, month, day, lastDay, weekday,
 
 int	centerX, centerY,
 
-	hourLength = 15,
-	minuteLength = 20,
-	secondLength = 20,
+	hourLength,
+	minuteLength,
+	secondLength,
 	
 	useAnalogClockNumbers;
 
@@ -22,22 +22,26 @@ float oldHourAngle,
 	oldMinuteAngle,
 	oldSecondAngle;
 
+const float pi = 3.14159265;
+
 
 // Widgets
 int startX1 = 8,
 	startY1 = 8,
 	
-	startX2 = 84,
+	startX2 = 82,
 	startY2 = 8,
 	
 	startX3 = 8,
-	startY3 = 84,
+	startY3 = 82,
 	
-	startX4 = 84,
-	startY4 = 84,
+	startX4 = 82,
+	startY4 = 82,
 	
-	widgetW = 68,
-	widgetH = 68,
+	//widgetW = 70,
+	//widgetH = 70,
+	widgetW = 70,
+	widgetH = 70,
 	
 	cornerRadius = 4;
 
@@ -75,4 +79,3 @@ int bgColorR,
 	bgHighlightColorR,
 	bgHighlightColorG,
 	bgHighlightColorB;
-	

@@ -94,6 +94,6 @@ void batteryWidget(int startX, int startY) {
 	mainBuffer.textRGB(mainR, mainG, mainB);
 	mainBuffer.bgRGB(fgColorR, fgColorG, fgColorB);
 	mainBuffer.font(fntLargeBold);
-	mainBuffer.text(clrText, startX+63, digitY, charge+"%");
+	mainBuffer.text(clrText, startX+63, digitY, "   "+charge+"%");
 	mainBuffer.end();
 }

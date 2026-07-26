@@ -12,7 +12,6 @@
 	Project started on March 13th, 2025
 --------------------------------------------------------------- */
 
-
 Preferences prefs;
 Event e;
 Date date;
@@ -51,6 +50,7 @@ struct AppPrefs {
 	bool showWidget3;
 	bool showWidget4;
 	
+	int interfaceMode;
 	// Show numbers or lines in analog clock: 1 = true / 0 = false
 	int useAnalogClockNumbers;
 };
@@ -68,8 +68,8 @@ bool GetPrefs() {
 // Set default preferences in case they do not exist
 bool setDefaultPrefs() {
 	appPrefs[0].bgColorR = 255;
-	appPrefs[0].bgColorG = 255;
-	appPrefs[0].bgColorB = 153;
+	appPrefs[0].bgColorG = 204;
+	appPrefs[0].bgColorB = 0;
 	
 	appPrefs[0].fgColorR = 255;
 	appPrefs[0].fgColorG = 255;
@@ -92,6 +92,7 @@ bool setDefaultPrefs() {
 	appPrefs[0].showWidget3 = true;
 	appPrefs[0].showWidget4 = true;
 	
+	appPrefs[0].interfaceMode = 0;
 	appPrefs[0].useAnalogClockNumbers = 0;
 	
 	return prefs.set(TimeBoard.creator, false, appPrefs, typeof(appPrefs), 1);
