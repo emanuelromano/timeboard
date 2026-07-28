@@ -2,6 +2,7 @@
 
 Draw draw, mainBuffer;
 Date deviceDate, utcDate, localDate;
+bool validResponse;
 int userOffsetSeconds;
 int port = 80;
 			
@@ -18,7 +19,11 @@ string globalResponse,
 	hour,
 	minute,
 	second,
-	offset;
+	offset,
+	apiVersion,
+	serviceVersion;
+int	separation,
+	newLine;
 
 string offsetNames[38];
 int offsetSeconds[38];
@@ -35,6 +40,7 @@ int getTime() {
 
     // Clear globals
     year = month = day = hour = minute = second = offset = "";
+    apiVersion = serviceVersion = "";
     globalResponse = "";
 
     // 1- Open network
@@ -82,38 +88,48 @@ int getTime() {
         return err;
     }
 
-    // 7- Remove headers
+    // 7- Check HTTP status
+    if (strstr(response, "HTTP/1.1 429", 0) >= 0 ||
+        strstr(response, "HTTP/1.0 429", 0) >= 0) {
+
+        s.close();
+        net.close();
+        return 429;
+    }
+
+    // 8- Remove headers
     pos = strstr(response, "\r\n\r\n", 0);
     if (pos >= 0) {
         response = substr(response, pos + 4,
-                           strlen(response) - (pos + 4));
+                          strlen(response) - (pos + 4));
     }
 
-    // 8- Remove last duplicate character
+    // 9- Remove last duplicate character
     if (strlen(response) > 1) {
         last = strlen(response) - 1;
         lastChar = substr(response, last, 1);
         prevChar = substr(response, last - 1, 1);
+
         if (lastChar == prevChar) {
             response = strleft(response, last);
         }
     }
 
     globalResponse = strleft(response, 1024);
-	//alert(globalResponse);
 
     s.close();
     net.close();
+
     return 0;
 }
 
 
 int downloadTime() {
     int err,
-    	tries,
-    	attempts;
-    	
-    	attempts = lparse(retriesField.text);
+        tries,
+        attempts;
+
+    attempts = lparse(retriesField.text);
 
     for (tries = 0; tries < attempts; tries++) {
         err = getTime();
@@ -121,6 +137,11 @@ int downloadTime() {
         if (err == 0)
             return 0;
 
+        // Do not retry when the server rate limit has been reached
+        if (err == 429)
+            return 429;
+		
+		// Wait for the next connection attempt
         sleep(1000);
     }
 
@@ -181,17 +202,35 @@ void parseUTCDateTime(string dt) {
 }
 
 
-void processUTCResponse() {
+bool processUTCResponse() {
     string response;
 
+    // Get UTC date and time
     response = jsonGet(globalResponse, "utc_datetime");
 
     if (strlen(response) == 0) {
         alert("Invalid server response.");
-        return;
+        return false;
     }
 
+    // Get API and service versions
+    apiVersion = jsonGet(globalResponse, "api_version");
+    serviceVersion = jsonGet(globalResponse, "service_version");
+
     parseUTCDateTime(response);
+
+    if (strlen(year) == 0 ||
+        strlen(month) == 0 ||
+        strlen(day) == 0 ||
+        strlen(hour) == 0 ||
+        strlen(minute) == 0 ||
+        strlen(second) == 0) {
+
+        alert("Invalid date received from server.");
+        return false;
+    }
+
+    return true;
 }
 
 
@@ -224,6 +263,8 @@ void setDateTime() {
 bool setNewPrefs(int index, int attempts) {
   	appPrefs[0].selectedOffsetIndex = index;
   	appPrefs[0].connectionAttempts = attempts;
-  		
+  	appPrefs[0].apiVersion = apiVersion;
+	appPrefs[0].serviceVersion = serviceVersion;
+	  		
 	return prefs.set(TBTS.creator, true, appPrefs, typeof(AppPrefs), 1);
 }

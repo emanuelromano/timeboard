@@ -1,10 +1,29 @@
-handler mainForm.onopen() {
+void showHide(bool show) {
+ 	connectionStateBMP.visible = show;
+ 	TimeSyncBtn.visible = show;
+ 	helpBtn.visible = show;
+ 	exitBtn.visible = show;
+ 	backButton.visible = show;
+ 	dateLabel.visible = show;
+ 	timeLabel.visible = show;
+ 	NDateLabel.visible = show;
+ 	NTimeLabel.visible = show;
+ 	offsetLabel.visible = show;
+ 	offsetPopup.visible = show;
+ 	retryLabel.visible = show;
+ 	retriesField.visible = show;
+ }
+ 
+ handler mainForm.onopen() {
 	// UIform attach this form for drawing methods
 	//mainBuffer.attachForm(this);
 	draw.attachForm(this);
 	
 	// Create offscreen buffer
 	mainBuffer.create(mainForm.w, mainForm.h/2);
+	
+	// Hide all elements
+	showHide(false);
 
 	year = "";
 	month = "";
@@ -180,23 +199,15 @@ handler mainForm.onopen() {
 	offsetList.selitem = appPrefs[0].selectedOffsetIndex;
 	retriesField.text = appPrefs[0].connectionAttempts;
 	
-	// Checks if TimeBoard called the app
-	if (TBTS.launchArgs == "TIMEBOARD") {
-		exitBtn.visible = false;
-		backButton.visible = true;
-	}
-	else {
-		exitBtn.visible = true;
-		backButton.visible = false;
-	}
-	
+	apiVersion = appPrefs[0].apiVersion;
+	serviceVersion = appPrefs[0].serviceVersion;
 	timer(1);
 }
 
 
 handler mainForm.ondraw() {
-	int separation = 6,
-		newLine = 13;
+	separation = 6;
+	newLine = 13;
 	
 	// Draw analog clock
 	analogClockWidget(startX1, startY1);
@@ -209,13 +220,34 @@ handler mainForm.ondraw() {
 	mainBuffer.text(clrText, startX1+widgetW+separation, startY1, "TimeBoard");
 	mainBuffer.text(clrText, startX1+widgetW+separation, startY1+newLine, "Time");
 	mainBuffer.text(clrText, startX1+widgetW+separation, startY1+(newLine*2), "Service");
-	mainBuffer.text(clrText, startX1+widgetW+separation, startY1+(newLine*3), "App");
+	
+	if (apiVersion != "" && serviceVersion != "") {
+    	mainBuffer.textAlign(20);
+		mainBuffer.font(fntStandard);
+		mainBuffer.text(clrText, startX1+widgetW+separation, startY1+widgetH-10, "API: " + apiVersion + "        ");
+		mainBuffer.text(clrText, startX1+widgetW+separation, startY1+widgetH, "Service: v" + serviceVersion + "        ");
+	}
+	
 	mainBuffer.end();
 	
 	// Draw mainBuffer
 	draw.begin();
 	draw.draw(mainBuffer, 0, 0); 
 	draw.end();
+	
+	// Show all elements
+	showHide(true);
+	
+	// Checks if TimeBoard called the app
+	if (TBTS.launchArgs == "TIMEBOARD") {
+		exitBtn.visible = false;
+		backButton.visible = true;
+	}
+	else
+	{
+		backButton.visible = false;
+		exitBtn.visible = true;
+	}
 }
 
 
@@ -274,58 +306,85 @@ handler mainForm.ontimer() {
 
 
 handler TimeSyncBtn.onselect() {
-	int err,
-		retries;
-	bool resp;
+    int err,
+        retries;
+    bool resp;
+
+    if (offsetPopup.text == "Select...") {
+        alert("Please select the GMT offset according to the nearest city of your current location.");
+        return;
+    }
+
+    retries = lparse(retriesField.text);
+
+    if (retries <= 0) {
+        alert("Retry attempts must be in the range 1 to 9.");
+        return;
+    }
 	
-	if (offsetPopup.text == "Select...") {
-		alert("Please select the GMT offset according to the nearest city of your current location.");
-		return;
-	}
-	
-	retries = lparse(retriesField.text);
-	
-	if (retries <= 0) {
-		alert("Retry attempts must be in the range 1 to 9.");
-		return;
-	}
-	
-	// Save preferences
-	resp = setNewPrefs(offsetList.selitem, retries);
-	if (!resp) {
-		alert("Error trying to save preferences.");
-	}
-	
-	// Connecting...
-	draw.begin();
+    // Connecting...
+    draw.begin();
     draw.bitmap(internetConnectingBMP, connectionStateBMP.x, connectionStateBMP.y);
     draw.end();
-	
-	err = downloadTime();
-	
+
+    err = downloadTime();
+
 	if (err == 0) {
-		// Success
-    	processUTCResponse();
+    	validResponse = processUTCResponse();
 	
-    	draw.begin();
-    	draw.bitmap(internetSuccessBMP, connectionStateBMP.x, connectionStateBMP.y);
-    	draw.end();
-	
-    	setDateTime();
+    	if (validResponse) {
+    		// Save preferences
+    		resp = setNewPrefs(offsetList.selitem, retries);
+    		if (!resp) {
+        		alert("Error trying to save preferences.");
+    		}
+    		
+        	// Success
+        	draw.begin();
+        	draw.bitmap(internetSuccessBMP, connectionStateBMP.x, connectionStateBMP.y);
+        	draw.end();
+        	
+        	// Show current API and Service versions
+        	mainBuffer.begin();
+        	mainBuffer.textRGB(highlightR, highlightG, highlightB);
+        	mainBuffer.textAlign(20);
+			mainBuffer.font(fntStandard);
+			mainBuffer.text(clrText, startX1+widgetW+separation, startY1+widgetH-10, "API: " + apiVersion + "        ");
+			mainBuffer.text(clrText, startX1+widgetW+separation, startY1+widgetH, "Service: v" + serviceVersion + "        ");
+			mainBuffer.end();
+			
+        	setDateTime();
+    	}
+    	else {
+        	// Invalid server response
+        	draw.begin();
+        	draw.bitmap(internetErrorBMP, connectionStateBMP.x, connectionStateBMP.y);
+        	draw.end();
+    	}
 	}
-	else {
-		// Error
-    	draw.begin();
-    	draw.bitmap(internetErrorBMP, connectionStateBMP.x, connectionStateBMP.y);
-    	draw.end();
-	
-    	alertc(
-        	"Error",
-        	"Unable to get time from the Internet.\nError code: " + err,
-        	"OK",
-        	alertError
-    	);
-	}
+    else {
+        // Error
+        draw.begin();
+        draw.bitmap(internetErrorBMP, connectionStateBMP.x, connectionStateBMP.y);
+        draw.end();
+
+        if (err == 429) {
+            alertc(
+                "Error",
+                "Too many requests. Please try again later.\nError code: " + err,
+                "OK",
+                alertError
+            );
+        }
+        else {
+            alertc(
+                "Error",
+                "Unable to get time from the Internet.\nError code: " + err,
+                "OK",
+                alertError
+            );
+        }
+    }
 }
 
 
@@ -346,9 +405,9 @@ handler exitBtn.onselect() {
 }
 
 
-// Back to TimeBoard if installed
+// Back to TimeBoard v2.X if installed
 handler backButton.onselect() {
-	launch("KS10");
+	launch("TBRD");
 }
 
 handler mainOptionsHelp.onselect() {

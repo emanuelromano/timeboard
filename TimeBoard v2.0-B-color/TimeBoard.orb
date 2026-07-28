@@ -19,7 +19,7 @@
   name = "TimeBoard"
   dbname = "TimeBoard"
   file = "TimeBoard.prc"
-  creator = "KS10"
+  creator = "TBRD"
   version = "2.0.0"
   locked = false, hidden = false
   icon {

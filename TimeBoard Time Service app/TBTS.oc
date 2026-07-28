@@ -17,6 +17,8 @@ Preferences prefs;
 struct AppPrefs {
 	int selectedOffsetIndex;
 	int connectionAttempts;
+	string apiVersion;
+	string serviceVersion;
 };
 
 AppPrefs appPrefs[1];
@@ -33,6 +35,8 @@ bool GetPrefs() {
 bool setDefaultPrefs() {
 	appPrefs[0].selectedOffsetIndex = 23; // +00:00 UTC
 	appPrefs[0].connectionAttempts = 1;
+	appPrefs[0].apiVersion = "";
+	appPrefs[0].serviceVersion = "";
 	
 	return prefs.set(TBTS.creator, true, appPrefs, typeof(AppPrefs), 1);
 }

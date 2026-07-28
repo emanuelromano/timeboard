@@ -19,7 +19,7 @@
   dbname = "TBTS"
   file = "TBTS.prc"
   creator = "TBTS"
-  version = "1.0.1"
+  version = "1.0.2"
   locked = false, hidden = false
   icon {
     large1 = "graphics\\icon_l1.bmp"
@@ -33,7 +33,7 @@
     largeh8 = "graphics\\icon_lh8.bmp"
     smallh8 = "graphics\\icon_sh8.bmp"
   }
-  bitmap Bitmap internetBMP {
+  bitmap Bitmap internetReadyBMP {
     id = 1017
     image8 = "graphics\\internet_c.bmp"
     image16 = "graphics\\internet_c.bmp"
@@ -157,8 +157,8 @@
     }
     list UIList offsetList {
       id = 1024
-      x = 63, y = 21, w = 90, h = 132
-      numvisible = 12, triggerid = 1015, fontid = 0
+      x = 62, y = 9, w = 90, h = 143
+      numvisible = 13, triggerid = 1015, fontid = 0
       hresize = 0, vresize = 0
     }
     label UILabel retryLabel {
@@ -179,14 +179,14 @@
   }
   form UIForm helpForm {
     id = 1016
-    text = ""
-    x = 0, y = 0, w = 160, h = 160
+    text = "Help"
+    x = 2, y = 2, w = 156, h = 156
     menuid = 0, helpid = 0, defbuttonid = 0
-    modal = false, resizable = false
+    modal = true, resizable = false
     hresize = 0, vresize = 0
     button UIButton helpBackBtn {
       id = 1022
-      x = 117, y = 141, w = 36, h = 12
+      x = 115, y = 139, w = 36, h = 12
       text = "Back"
       leftanchor = true, group = 0, fontid = 0
       frame = 1

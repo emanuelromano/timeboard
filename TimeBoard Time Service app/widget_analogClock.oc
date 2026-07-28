@@ -1,8 +1,7 @@
 // Widget
-int seconds, hours, minutes, timerLastSecond;
 const float pi = 3.14159265;
-int	centerX, centerY,
-
+int seconds, hours, minutes, timerLastSecond,
+	centerX, centerY,
 	hourLength,
 	minuteLength,
 	secondLength;
@@ -34,6 +33,7 @@ int fgColorR = 255,
 	useAnalogClockNumbers = 0;
 
 
+// Round coordinates for drawing and angles
 int roundCoord(float value) {
     if (value >= 0)
         return (int)(value + 0.5);
@@ -42,6 +42,7 @@ int roundCoord(float value) {
 }
 
 
+// Draws hand with given parameters
 void drawHand(float angle,
 			  int length,
 			  int centerX,
