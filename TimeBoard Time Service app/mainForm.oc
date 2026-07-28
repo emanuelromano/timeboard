@@ -1,7 +1,10 @@
+// Show or hide all elements
 void showHide(bool show) {
  	connectionStateBMP.visible = show;
  	timeSyncBtn.visible = show;
- 	backButton.visible = show;
+ 	helpBtn.visible = show;
+ 	exitBtn.visible = false;
+	backButton.visible = false;
  	dateLabel.visible = show;
  	timeLabel.visible = show;
  	NDateLabel.visible = show;
@@ -12,17 +15,15 @@ void showHide(bool show) {
  	retriesField.visible = show;
  }
  
+ 
  handler mainForm.onopen() {
 	// UIform attach this form for drawing methods
-	//mainBuffer.attachForm(this);
 	draw.attachForm(this);
 	
 	// Create offscreen buffer
 	mainBuffer.create(mainForm.w, mainForm.h/2);
 	
 	// Hide all elements
-	helpBtn.visible = false;
- 	exitBtn.visible = false;
  	showHide(false);
 
 	year = "";
@@ -199,13 +200,16 @@ void showHide(bool show) {
 	offsetList.selitem = appPrefs[0].selectedOffsetIndex;
 	retriesField.text = appPrefs[0].connectionAttempts;
 	
+	// Set API and Service versions
 	apiVersion = appPrefs[0].apiVersion;
 	serviceVersion = appPrefs[0].serviceVersion;
+	
 	timer(1);
 }
 
 
 handler mainForm.ondraw() {
+	// Text adjustments
 	separation = 6;
 	newLine = 13;
 	
@@ -221,13 +225,13 @@ handler mainForm.ondraw() {
 	mainBuffer.text(clrText, startX1+widgetW+separation, startY1+newLine, "Time");
 	mainBuffer.text(clrText, startX1+widgetW+separation, startY1+(newLine*2), "Service");
 	
+	// Show API and System versions if they exist
 	if (apiVersion != "" && serviceVersion != "") {
     	mainBuffer.textAlign(20);
 		mainBuffer.font(fntStandard);
 		mainBuffer.text(clrText, startX1+widgetW+separation, startY1+widgetH-10, "API: " + apiVersion + "        ");
 		mainBuffer.text(clrText, startX1+widgetW+separation, startY1+widgetH, "Service: v" + serviceVersion + "        ");
 	}
-	
 	mainBuffer.end();
 	
 	// Draw mainBuffer
@@ -238,7 +242,7 @@ handler mainForm.ondraw() {
 	// Show all elements
 	showHide(true);
 	
-	// Checks if TimeBoard called the app
+	// Checks if TimeBoard called the app, then show propper exit button
 	if (TBTS.launchArgs == "TIMEBOARD") {
 		exitBtn.enabled = false;
 		exitBtn.visible = false;
@@ -263,7 +267,7 @@ handler mainForm.ontimer() {
 		hours = deviceDate.hour;
 		minutes = deviceDate.min;
 		
-		// Clock movement
+		// Analog clock movement
 		updateClockHands();
 		
 		// Draw mainBuffer
@@ -271,6 +275,7 @@ handler mainForm.ontimer() {
 		draw.draw(mainBuffer, 0, 0); 
 		draw.end();
 		
+		// Set date and time labels
 		yyyy = "" + deviceDate.year;
 	
 		if (deviceDate.month < 10)
@@ -307,24 +312,26 @@ handler mainForm.ontimer() {
 }
 
 
+// Time Sync button handler
 handler timeSyncBtn.onselect() {
     int err,
         retries;
     bool resp;
-
+	
+	// Popup validation
     if (offsetPopup.text == "Select...") {
         alert("Please select the GMT offset according to the nearest city of your current location.");
         return;
     }
-
+	
+	// Retry attempts field validation
     retries = lparse(retriesField.text);
-
     if (retries <= 0) {
         alert("Retry attempts must be in the range 1 to 9.");
         return;
     }
     
-	// Save preferences
+	// Save GMT offset and retry number preferences
     resp = setNewPrefs(offsetList.selitem, retries);
     if (!resp) {
         alert("Error trying to save preferences.");
@@ -363,14 +370,16 @@ handler timeSyncBtn.onselect() {
 			
         	setDateTime();
     	}
-    	else {
+    	else
+    	{
         	// Invalid server response
         	draw.begin();
         	draw.bitmap(internetErrorBMP, connectionStateBMP.x, connectionStateBMP.y);
         	draw.end();
     	}
 	}
-    else {
+    else
+    {
         // Error
         draw.begin();
         draw.bitmap(internetErrorBMP, connectionStateBMP.x, connectionStateBMP.y);
@@ -384,7 +393,8 @@ handler timeSyncBtn.onselect() {
                 alertError
             );
         }
-        else {
+        else
+        {
             alertc(
                 "Error",
                 "Unable to get time from the Internet.\nError code: " + err,
@@ -410,7 +420,7 @@ handler helpBtn.onselect() {
 }
 
 
-// Exit app
+// Exit the app
 handler exitBtn.onselect() {
 	TBTS.abort();
 }
@@ -421,7 +431,11 @@ handler backButton.onselect() {
 	launch("TBRD");
 }
 
+
+// Help menu option
 handler mainOptionsHelp.onselect() {
+	// Clean buffer before opening new form
 	mainBuffer.release();
+	
 	helpForm.load();
 }
