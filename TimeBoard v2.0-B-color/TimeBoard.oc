@@ -93,7 +93,7 @@ bool setDefaultPrefs() {
 	appPrefs[0].showWidget4 = true;
 	
 	appPrefs[0].interfaceMode = 0;
-	appPrefs[0].useAnalogClockNumbers = 0;
+	appPrefs[0].useAnalogClockNumbers = 1;
 	
 	return prefs.set(TimeBoard.creator, false, appPrefs, typeof(appPrefs), 1);
 }

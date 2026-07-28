@@ -156,7 +156,7 @@ void analogClockWidget(int startX, int startY) {
 	centerX = startX + (widgetW / 2);
 	centerY = startY + (widgetH / 2);
 	
-	radius = (widgetW / 2) - (widgetW / 2) * 0.2;
+	radius = (widgetW / 2) - (widgetW / 2) * 0.25;
 	
 	// Hands lenght
 	hourLength = (widgetW / 2) - (widgetW / 2) * 0.55;
@@ -186,7 +186,7 @@ void analogClockWidget(int startX, int startY) {
 			// Centered text, font and color
 			mainBuffer.textAlign(11);
 			mainBuffer.bgRGB(fgColorR, fgColorG, fgColorB);
-			mainBuffer.font(fntLarge);
+			mainBuffer.font(fntStandard);
 			
 			// Color for 3, 6, 9 & 12 numbers
 			if (i == 0 || i == 3 || i == 6 || i == 9) {
