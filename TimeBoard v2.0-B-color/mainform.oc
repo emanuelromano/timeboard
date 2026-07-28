@@ -51,28 +51,28 @@ void composeBackgroundBuffer() {
 		mainBuffer.rect(clrBG, startX1+1, startY1+1, startX1+widgetW+1, startY1+widgetH+1, cornerRadius);
 		mainBuffer.rect(clrFG, startX1, startY1, startX1+widgetW, startY1+widgetH, cornerRadius);
 		
-		drawWidgetHighlight(startX1, startY1);
+		drawWidgetHighlight(startX1, startY1, widgetW, widgetH);
 		}
 	
 	if (showWidget2) {
 		mainBuffer.rect(clrBG, startX2+1, startY2+1, startX2+widgetW+1, startY2+widgetH+1, cornerRadius);
 		mainBuffer.rect(clrFG, startX2, startY2, startX2+widgetW, startY2+widgetH, cornerRadius);
 		
-		drawWidgetHighlight(startX2, startY2);
+		drawWidgetHighlight(startX2, startY2, widgetW, widgetH);
 		}
 	
 	if (showWidget3) {
 		mainBuffer.rect(clrBG, startX3+1, startY3+1, startX3+widgetW+1, startY3+widgetH+1, cornerRadius);
 		mainBuffer.rect(clrFG, startX3, startY3, startX3+widgetW, startY3+widgetH, cornerRadius);
 		
-		drawWidgetHighlight(startX3, startY3);
+		drawWidgetHighlight(startX3, startY3, widgetW, widgetH);
 		}
 	
 	if (showWidget4) {
 		mainBuffer.rect(clrBG, startX4+1, startX4+1, startX4+widgetW+1, startY4+widgetH+1, cornerRadius);
 		mainBuffer.rect(clrFG, startX4, startX4, startX4+widgetW, startY4+widgetH, cornerRadius);
 		
-		drawWidgetHighlight(startX4, startY4);
+		drawWidgetHighlight(startX4, startY4, widgetW, widgetH);
 		}
 	
 	mainBuffer.end();
@@ -115,6 +115,17 @@ handler mainForm.ondraw() {
 	setMainPreferences();
 	composeBackgroundBuffer();
 	composeWidgetsBuffer();
+	
+	if (mainForm.h > 160) {
+		mainBuffer.begin();
+		mainBuffer.fgRGB(bgShadowColorR, bgShadowColorG, bgShadowColorB);
+		mainBuffer.rect(clrFG, mainForm.x+9, startY4+widgetH+5, mainForm.w-7, mainForm.h-7, cornerRadius);
+		mainBuffer.fgRGB(fgColorR, fgColorG, fgColorB);
+		mainBuffer.rect(clrFG, mainForm.x+8, startY4+widgetH+4, mainForm.w-8, mainForm.h-8, cornerRadius);
+		
+		drawWidgetHighlight(mainForm.x+8, startY4+widgetH+4, mainForm.w, widgetH-10);
+		mainBuffer.end();
+	}
 	
 	// Draw mainBuffer
 	draw.begin();
