@@ -81,7 +81,7 @@
       bitmapid = 1017
       hresize = 0, vresize = 0
     }
-    button UIButton TimeSyncBtn {
+    button UIButton timeSyncBtn {
       id = 1021
       x = 7, y = 141, w = 65, h = 12
       text = "Time Sync"

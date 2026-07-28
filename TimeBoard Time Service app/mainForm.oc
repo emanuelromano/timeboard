@@ -1,6 +1,6 @@
 void showHide(bool show) {
  	connectionStateBMP.visible = show;
- 	TimeSyncBtn.visible = show;
+ 	timeSyncBtn.visible = show;
  	helpBtn.visible = show;
  	exitBtn.visible = show;
  	backButton.visible = show;
@@ -305,7 +305,7 @@ handler mainForm.ontimer() {
 }
 
 
-handler TimeSyncBtn.onselect() {
+handler timeSyncBtn.onselect() {
     int err,
         retries;
     bool resp;
@@ -321,6 +321,12 @@ handler TimeSyncBtn.onselect() {
         alert("Retry attempts must be in the range 1 to 9.");
         return;
     }
+    
+	// Save preferences
+    resp = setNewPrefs(offsetList.selitem, retries);
+    if (!resp) {
+        alert("Error trying to save preferences.");
+    }
 	
     // Connecting...
     draw.begin();
@@ -333,7 +339,7 @@ handler TimeSyncBtn.onselect() {
     	validResponse = processUTCResponse();
 	
     	if (validResponse) {
-    		// Save preferences
+    		// Save preferences again, now with updated API and Service versions
     		resp = setNewPrefs(offsetList.selitem, retries);
     		if (!resp) {
         		alert("Error trying to save preferences.");

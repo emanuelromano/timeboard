@@ -217,6 +217,13 @@ bool processUTCResponse() {
     apiVersion = jsonGet(globalResponse, "api_version");
     serviceVersion = jsonGet(globalResponse, "service_version");
 
+    if (strlen(apiVersion) == 0 ||
+        strlen(serviceVersion) == 0) {
+
+        alert("Invalid server response.");
+        return false;
+    }
+
     parseUTCDateTime(response);
 
     if (strlen(year) == 0 ||
