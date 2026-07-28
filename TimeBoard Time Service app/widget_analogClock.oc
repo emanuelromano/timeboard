@@ -19,11 +19,7 @@ int startX1 = 8,
 	
 	cornerRadius = 8;
 
-int bgColorR = 255,
-	bgColorG = 255,
-	bgColorB = 255,
-	
-	fgColorR = 255,
+int fgColorR = 255,
 	fgColorG = 255,
 	fgColorB = 255,
 	
@@ -207,8 +203,8 @@ void updateClockHands() {
 void analogClockWidget(int startX, int startY) {
 	int i,
 		x, y,
-		radius;
-	int innerRadius,
+		radius,
+		innerRadius,
 		outerRadius,
 		x1, y1,
 		x2, y2;
@@ -217,8 +213,7 @@ void analogClockWidget(int startX, int startY) {
 
 	centerX = startX + (widgetW / 2);
 	centerY = startY + (widgetH / 2);
-
-	//radius = 26;
+	
 	radius = (widgetW / 2) - (widgetW / 2) * 0.2;
 	
 	// Hands lenght

@@ -89,11 +89,11 @@ void composeWidgetsBuffer() {
 
 handler mainForm.onopen() {
 	// UIform attach this form for drawing methods
-	mainBuffer.attachForm(this);
+	//mainBuffer.attachForm(this);
 	draw.attachForm(this);
 	
 	// Create offscreen buffer
-	//mainBuffer.create(mainForm.w, mainForm.h);
+	mainBuffer.create(mainForm.w, mainForm.h);
 	
 	date.now();
 	year = date.year;
@@ -160,8 +160,11 @@ handler mainForm.ontimer() {
 
 handler mainForm.onresize() {
 	// UIform attach this form for drawing methods
-	mainBuffer.attachForm(this);
+	//mainBuffer.attachForm(this);
 	draw.attachForm(this);
+	
+	// Create offscreen buffer
+	mainBuffer.create(mainForm.w, mainForm.h);
 }
 
 
@@ -191,8 +194,13 @@ handler mainForm.onpenup() {
 }
 
 
-// TEST MENU OPTION: Checks if TimeBoard Time Service is installed
-handler mainOptionsTest.onselect() {
+handler mainOptionsPrefs.onselect() {
+	preferencesForm.load();
+}
+
+
+// TBTS: Checks if TimeBoard Time Service is installed
+handler mainOptionsTBTS.onselect() {
 	if (isTBTSInstalled()) {
 		launchCustomString("TBTS", launchCodeOrbCAppWithArgs, "TIMEBOARD");
 	}
@@ -202,6 +210,11 @@ handler mainOptionsTest.onselect() {
 }
 
 
+handler mainOptionsHelp.onselect() {
+	helpForm.load();
+}
+
+
 handler mainOptionsAbout.onselect() {
-	alert("TimeBoard v2.0.0 (Prototype)\n@coloraturip\n©2026");
+	alert("TimeBoard v" + TimeBoard.version + " (Prototype)\n@coloraturip\n©2026");
 }

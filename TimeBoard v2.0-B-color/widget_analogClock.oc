@@ -57,90 +57,37 @@ void drawHand(float angle,
 }*/
 
 
-void drawClockHands(int centerX, int centerY) {
-	int x, y;
-	float hourAngle,
-		minuteAngle,
-		secondAngle;
-
-	// Angles
-	hourAngle =
-		((float)(hours % 12) * 30 + (float)minutes / 2 - 90) / 180 * pi;
-	minuteAngle =
-		((float)minutes * 6 - 90) / 180 * pi;
-	secondAngle =
-		((float)seconds * 6 - 90) / 180 * pi;
-
-	// Draw hands
-	drawHand(hourAngle,
-			 hourLength,
-			 centerX,
-			 centerY,
-			 mainR,
-			 mainG,
-			 mainB);
-
-	drawHand(minuteAngle,
-			 minuteLength,
-			 centerX,
-			 centerY,
-			 mainR,
-			 mainG,
-			 mainB);
-
-	drawHand(secondAngle,
-			 secondLength,
-			 centerX,
-			 centerY,
-			 highlightR,
-			 highlightG,
-			 highlightB);
-
-	// Center
-	mainBuffer.fgRGB(highlightR, highlightG, highlightB);
-	mainBuffer.rect(clrFG,
-		centerX - 1,
-		centerY - 1,
-		centerX + 2,
-		centerY + 2,
-		2);
-	
-	// Save for next draw in buffer
-	oldHourAngle = hourAngle;
-	oldMinuteAngle = minuteAngle;
-	oldSecondAngle = secondAngle;
-}
-
-
 void updateClockHands() {
 	float newHourAngle,
 		newMinuteAngle,
 		newSecondAngle;
 
 	// 1) Delete old hands
-	drawHand(oldHourAngle,
-			 hourLength,
-			 centerX,
-			 centerY,
-			 fgColorR,
-			 fgColorG,
-			 fgColorB);
-
-	drawHand(oldMinuteAngle,
-			 minuteLength,
-			 centerX,
-			 centerY,
-			 fgColorR,
-			 fgColorG,
-			 fgColorB);
-
-	drawHand(oldSecondAngle,
-			 secondLength,
-			 centerX,
-			 centerY,
-			 fgColorR,
-			 fgColorG,
-			 fgColorB);
+	if (oldHourAngle != 0) {
+		drawHand(oldHourAngle,
+			 	hourLength,
+			 	centerX,
+			 	centerY,
+			 	fgColorR,
+			 	fgColorG,
+			 	fgColorB);
+	
+		drawHand(oldMinuteAngle,
+			 	minuteLength,
+			 	centerX,
+			 	centerY,
+			 	fgColorR,
+			 	fgColorG,
+			 	fgColorB);
+	
+		drawHand(oldSecondAngle,
+			 	secondLength,
+			 	centerX,
+			 	centerY,
+			 	fgColorR,
+			 	fgColorG,
+			 	fgColorB);
+	}
 
 	// 2) Calculate new angles	
 	newHourAngle =
@@ -177,14 +124,15 @@ void updateClockHands() {
 
 	// 4) Center
 	mainBuffer.begin();
+	
 	mainBuffer.fgRGB(highlightR, highlightG, highlightB);
-
 	mainBuffer.rect(clrFG,
 		centerX - 1,
 		centerY - 1,
 		centerX + 2,
 		centerY + 2,
 		2);
+	
 	mainBuffer.end();
 
 	// 5) Save for next draw in buffer
@@ -197,8 +145,8 @@ void updateClockHands() {
 void analogClockWidget(int startX, int startY) {
 	int i,
 		x, y,
-		radius;
-	int innerRadius,
+		radius,
+		innerRadius,
 		outerRadius,
 		x1, y1,
 		x2, y2;
@@ -207,8 +155,7 @@ void analogClockWidget(int startX, int startY) {
 
 	centerX = startX + (widgetW / 2);
 	centerY = startY + (widgetH / 2);
-
-	//radius = 26;
+	
 	radius = (widgetW / 2) - (widgetW / 2) * 0.2;
 	
 	// Hands lenght
@@ -290,6 +237,6 @@ void analogClockWidget(int startX, int startY) {
 		}
 	}
 	
-	drawClockHands(centerX, centerY);
+	updateClockHands();
 	mainBuffer.end();
 }

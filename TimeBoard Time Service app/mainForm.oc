@@ -1,7 +1,10 @@
 handler mainForm.onopen() {
 	// UIform attach this form for drawing methods
-	mainBuffer.attachForm(this);
+	//mainBuffer.attachForm(this);
 	draw.attachForm(this);
+	
+	// Create offscreen buffer
+	mainBuffer.create(mainForm.w, mainForm.h/2);
 
 	year = "";
 	month = "";
@@ -177,14 +180,14 @@ handler mainForm.onopen() {
 	offsetList.selitem = appPrefs[0].selectedOffsetIndex;
 	retriesField.text = appPrefs[0].connectionAttempts;
 	
-	// TEST MENU OPTION: Checks if TimeBoard called the app
+	// Checks if TimeBoard called the app
 	if (TBTS.launchArgs == "TIMEBOARD") {
-		TBTSExitBtn.visible = false;
-		TBTSBackButton.visible = true;
+		exitBtn.visible = false;
+		backButton.visible = true;
 	}
 	else {
-		TBTSExitBtn.visible = true;
-		TBTSBackButton.visible = false;
+		exitBtn.visible = true;
+		backButton.visible = false;
 	}
 	
 	timer(1);
@@ -192,7 +195,7 @@ handler mainForm.onopen() {
 
 
 handler mainForm.ondraw() {
-	int separation = 4,
+	int separation = 6,
 		newLine = 13;
 	
 	// Draw analog clock
@@ -228,6 +231,11 @@ handler mainForm.ontimer() {
 		
 		// Clock movement
 		updateClockHands();
+		
+		// Draw mainBuffer
+		draw.begin();
+		draw.draw(mainBuffer, 0, 0); 
+		draw.end();
 		
 		yyyy = "" + deviceDate.year;
 	
@@ -265,9 +273,9 @@ handler mainForm.ontimer() {
 }
 
 
-handler syncTimeBtn.onselect() {
-	int err;
-	int retries;
+handler TimeSyncBtn.onselect() {
+	int err,
+		retries;
 	bool resp;
 	
 	if (offsetPopup.text == "Select...") {
@@ -321,15 +329,28 @@ handler syncTimeBtn.onselect() {
 }
 
 
-handler TBTSExitBtn.onselect() {
+handler mainOptionsAbout.onselect() {
+	alert("TimeBoard Time Service v" + TBTS.version + " (Prototype)\n@coloraturip\n©2026");
+}
+
+
+// Help button
+handler helpBtn.onselect() {
+	helpForm.load();
+}
+
+
+// Exit app
+handler exitBtn.onselect() {
 	TBTS.abort();
 }
 
 
 // Back to TimeBoard if installed
-handler TBTSBackButton.onselect() {
-	launch("KS10"); }
+handler backButton.onselect() {
+	launch("KS10");
+}
 
-handler menu0101.onselect() {
-	alert("TimeBoard Time Service v1.0.1 (Prototype)\n@coloraturip\n©2026");
+handler mainOptionsHelp.onselect() {
+	helpForm.load();
 }

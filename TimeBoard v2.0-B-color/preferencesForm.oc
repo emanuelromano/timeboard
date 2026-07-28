@@ -1,0 +1,5 @@
+
+
+handler prefsBackBtn.onselect() {
+	mainForm.load();
+}

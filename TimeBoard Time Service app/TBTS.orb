@@ -9,7 +9,8 @@
 @project {
   "<PROJECT><FILE>TBTS.oc</FILE><STANDALONE>1</STANDALONE><LANGUAGE"
   "FILE></LANGUAGEFILE><DEBUG>0</DEBUG><FORMS><FORM><NAME>mainForm<"
-  "/NAME><FILE>mainForm.oc</FILE></FORM></FORMS></PROJECT>"
+  "/NAME><FILE>mainForm.oc</FILE></FORM><FORM><NAME>helpForm</NAME>"
+  "<FILE>helpForm.oc</FILE></FORM></FORMS></PROJECT>"
 }
 
 // app definition
@@ -18,7 +19,7 @@
   dbname = "TBTS"
   file = "TBTS.prc"
   creator = "TBTS"
-  version = "1.0"
+  version = "1.0.1"
   locked = false, hidden = false
   icon {
     large1 = "graphics\\icon_l1.bmp"
@@ -31,14 +32,6 @@
     small8 = "graphics\\icon_s8.bmp"
     largeh8 = "graphics\\icon_lh8.bmp"
     smallh8 = "graphics\\icon_sh8.bmp"
-  }
-  bitmap Bitmap worldBMP {
-    id = 1013
-    image1 = "world_bw.bmp"
-    image2 = "world_bw.bmp"
-    image4 = "world_c.bmp"
-    image8 = "world_c.bmp"
-    image16 = "world_c.bmp"
   }
   bitmap Bitmap internetBMP {
     id = 1017
@@ -69,20 +62,26 @@
     hresize = 0, vresize = 0
     menubar UIMenuBar menuBar {
       id = 1011
-      menu UIMenu menu01 {
-        text = "TimeBoard Time Service"
-        menuitem UIMenuItem menu0101 {
-          id = 1012, sysid = 0, text = "About..."
+      menu UIMenu menuMainOptions {
+        text = "Options"
+        menuitem UIMenuItem mainOptionsHelp {
+          id = 1013, sysid = 0, text = "Help", shortcut = "H"
+        }
+        menuitem UIMenuItem menu1023 {
+          id = 1023, sysid = 0, text = "-"
+        }
+        menuitem UIMenuItem mainOptionsAbout {
+          id = 1012, sysid = 0, text = "About...", shortcut = "A"
         }
       }
     }
     bitmap UIFBitmap connectionStateBMP {
       id = 1014
-      x = 122, y = 73
+      x = 7, y = 88
       bitmapid = 1017
       hresize = 0, vresize = 0
     }
-    button UIButton syncTimeBtn {
+    button UIButton TimeSyncBtn {
       id = 1021
       x = 7, y = 141, w = 65, h = 12
       text = "Time Sync"
@@ -90,7 +89,15 @@
       frame = 1
       hresize = 0, vresize = 0
     }
-    button UIButton TBTSExitBtn {
+    button UIButton helpBtn {
+      id = 1002
+      x = 79, y = 141, w = 12, h = 12
+      text = "?"
+      leftanchor = true, group = 0, fontid = 0
+      frame = 1
+      hresize = 0, vresize = 0
+    }
+    button UIButton exitBtn {
       id = 1007
       x = 117, y = 141, w = 36, h = 12
       text = "Exit"
@@ -98,7 +105,7 @@
       frame = 1
       hresize = 0, vresize = 0
     }
-    button UIButton TBTSBackButton {
+    button UIButton backButton {
       id = 1001
       x = 117, y = 141, w = 36, h = 12
       text = "Back"
@@ -108,28 +115,28 @@
     }
     label UILabel dateLabel {
       id = 1003
-      x = 15, y = 84
+      x = 47, y = 84
       fontid = 1
       text = "Date:"
       hresize = 0, vresize = 0
     }
     label UILabel timeLabel {
       id = 1004
-      x = 15, y = 97
+      x = 47, y = 97
       fontid = 1
       text = "Time:"
       hresize = 0, vresize = 0
     }
     label UILabel NDateLabel {
       id = 1008
-      x = 48, y = 84
+      x = 78, y = 84
       fontid = 0
       text = "-                             "
       hresize = 0, vresize = 0
     }
     label UILabel NTimeLabel {
       id = 1010
-      x = 48, y = 97
+      x = 78, y = 97
       fontid = 0
       text = "-                             "
       hresize = 0, vresize = 0
@@ -143,7 +150,7 @@
     }
     popup UIPopup offsetPopup {
       id = 1015
-      x = 58, y = 112, w = 49, h = 11
+      x = 59, y = 112, w = 49, h = 11
       text = "Select..."
       leftanchor = true, group = 0, fontid = 0
       hresize = 0, vresize = 0
@@ -163,10 +170,26 @@
     }
     field UIField retriesField {
       id = 1009
-      x = 78, y = 125, w = 12, h = 12
+      x = 79, y = 125, w = 12, h = 12
       fontid = 0, leftanchor = false, maxchars = 1
       underline = true, singleline = true, dynamicsize = false, hasscroll = false
       editable = true, autoshift = true, numeric = true
+      hresize = 0, vresize = 0
+    }
+  }
+  form UIForm helpForm {
+    id = 1016
+    text = ""
+    x = 0, y = 0, w = 160, h = 160
+    menuid = 0, helpid = 0, defbuttonid = 0
+    modal = false, resizable = false
+    hresize = 0, vresize = 0
+    button UIButton helpBackBtn {
+      id = 1022
+      x = 117, y = 141, w = 36, h = 12
+      text = "Back"
+      leftanchor = true, group = 0, fontid = 0
+      frame = 1
       hresize = 0, vresize = 0
     }
   }
@@ -177,3 +200,4 @@
 #include "functions.oc"
 #include "widget_analogClock.oc"
 #include "mainForm.oc"
+#include "helpForm.oc"
