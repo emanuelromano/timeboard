@@ -1,4 +1,6 @@
 handler mainForm.onopen() {
+	// UIform attach this form for drawing methods
+	mainBuffer.attachForm(this);
 	draw.attachForm(this);
 
 	year = "";
@@ -8,6 +10,11 @@ handler mainForm.onopen() {
 	minute = "";
 	second = "";
 	offset = "";
+	
+	deviceDate.now();
+	hours = deviceDate.hour;
+	minutes = deviceDate.min;
+	seconds = deviceDate.sec;
 	
 	// Offset list
 	// UTC+14
@@ -184,73 +191,44 @@ handler mainForm.onopen() {
 }
 
 
-handler syncTimeBtn.onselect() {
-	int err;
-	int retries;
-	bool resp;
+handler mainForm.ondraw() {
+	int separation = 4,
+		newLine = 13;
 	
-	if (offsetPopup.text == "Select...") {
-		alert("Please select the GMT offset according to the nearest city of your current location.");
-		return;
-	}
+	// Draw analog clock
+	analogClockWidget(startX1, startY1);
 	
-	retries = lparse(retriesField.text);
+	// App text
+	mainBuffer.begin();
+	mainBuffer.textRGB(highlightR, highlightG, highlightB);
+	mainBuffer.font(fntLargeBold);
+	mainBuffer.textAlign(00);
+	mainBuffer.text(clrText, startX1+widgetW+separation, startY1, "TimeBoard");
+	mainBuffer.text(clrText, startX1+widgetW+separation, startY1+newLine, "Time");
+	mainBuffer.text(clrText, startX1+widgetW+separation, startY1+(newLine*2), "Service");
+	mainBuffer.text(clrText, startX1+widgetW+separation, startY1+(newLine*3), "App");
+	mainBuffer.end();
 	
-	if (retries <= 0) {
-		alert("Retry attempts must be in the range 1 to 9.");
-		return;
-	}
-	
-	// Save preferences
-	resp = setNewPrefs(offsetList.selitem, retries);
-	if (!resp) {
-		alert("Error trying to save preferences.");
-	}
-	
+	// Draw mainBuffer
 	draw.begin();
-    draw.bitmap(internetConnectingBMP, 8, 22);
-    draw.end();
-	
-	err = downloadTime();
-	
-	if (err == 0) {
-	
-    	processUTCResponse();
-	
-    	draw.begin();
-    	draw.bitmap(internetSuccessBMP, 8, 22);
-    	draw.end();
-	
-    	setDateTime();
-	}
-	else {
-	
-    	draw.begin();
-    	draw.bitmap(internetErrorBMP, 8, 22);
-    	draw.end();
-	
-    	alertc(
-        	"Error",
-        	"Unable to get time from the Internet.\nError code: " + err,
-        	"OK",
-        	alertError
-    	);
-	}
+	draw.draw(mainBuffer, 0, 0); 
+	draw.end();
 }
 
 
 handler mainForm.ontimer() {
-	string yyyy;
-	string MM;
-	string dd;
-	string hh;
-	string mm;
-	string ss;
+	string yyyy, MM, dd, hh, mm, ss;
 	
 	deviceDate.now();
-	timerSecond = deviceDate.sec;
+	seconds = deviceDate.sec;
 
-	if (!mainForm.obscured && timerSecond != timerLastSecond) {
+	if (!mainForm.obscured && seconds != timerLastSecond) {
+		hours = deviceDate.hour;
+		minutes = deviceDate.min;
+		
+		// Clock movement
+		updateClockHands();
+		
 		yyyy = "" + deviceDate.year;
 	
 		if (deviceDate.month < 10)
@@ -282,8 +260,64 @@ handler mainForm.ontimer() {
 		NTimeLabel.text = hh + ":" + mm + ":" + ss + "      ";
 	}
 	
-	timerLastSecond = timerSecond;
+	timerLastSecond = seconds;
 	timer(20);
+}
+
+
+handler syncTimeBtn.onselect() {
+	int err;
+	int retries;
+	bool resp;
+	
+	if (offsetPopup.text == "Select...") {
+		alert("Please select the GMT offset according to the nearest city of your current location.");
+		return;
+	}
+	
+	retries = lparse(retriesField.text);
+	
+	if (retries <= 0) {
+		alert("Retry attempts must be in the range 1 to 9.");
+		return;
+	}
+	
+	// Save preferences
+	resp = setNewPrefs(offsetList.selitem, retries);
+	if (!resp) {
+		alert("Error trying to save preferences.");
+	}
+	
+	// Connecting...
+	draw.begin();
+    draw.bitmap(internetConnectingBMP, connectionStateBMP.x, connectionStateBMP.y);
+    draw.end();
+	
+	err = downloadTime();
+	
+	if (err == 0) {
+		// Success
+    	processUTCResponse();
+	
+    	draw.begin();
+    	draw.bitmap(internetSuccessBMP, connectionStateBMP.x, connectionStateBMP.y);
+    	draw.end();
+	
+    	setDateTime();
+	}
+	else {
+		// Error
+    	draw.begin();
+    	draw.bitmap(internetErrorBMP, connectionStateBMP.x, connectionStateBMP.y);
+    	draw.end();
+	
+    	alertc(
+        	"Error",
+        	"Unable to get time from the Internet.\nError code: " + err,
+        	"OK",
+        	alertError
+    	);
+	}
 }
 
 
@@ -292,9 +326,9 @@ handler TBTSExitBtn.onselect() {
 }
 
 
+// Back to TimeBoard if installed
 handler TBTSBackButton.onselect() {
-	launch("KS10");
-}
+	launch("KS10"); }
 
 handler menu0101.onselect() {
 	alert("TimeBoard Time Service v1.0.1 (Prototype)\n@coloraturip\n©2026");
