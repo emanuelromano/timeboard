@@ -1,8 +1,6 @@
 void showHide(bool show) {
  	connectionStateBMP.visible = show;
  	timeSyncBtn.visible = show;
- 	helpBtn.visible = show;
- 	exitBtn.visible = show;
  	backButton.visible = show;
  	dateLabel.visible = show;
  	timeLabel.visible = show;
@@ -23,7 +21,9 @@ void showHide(bool show) {
 	mainBuffer.create(mainForm.w, mainForm.h/2);
 	
 	// Hide all elements
-	showHide(false);
+	helpBtn.visible = false;
+ 	exitBtn.visible = false;
+ 	showHide(false);
 
 	year = "";
 	month = "";
@@ -232,7 +232,7 @@ handler mainForm.ondraw() {
 	
 	// Draw mainBuffer
 	draw.begin();
-	draw.draw(mainBuffer, 0, 0); 
+	draw.draw(mainBuffer, 0, 0);
 	draw.end();
 	
 	// Show all elements
@@ -240,11 +240,13 @@ handler mainForm.ondraw() {
 	
 	// Checks if TimeBoard called the app
 	if (TBTS.launchArgs == "TIMEBOARD") {
+		exitBtn.enabled = false;
 		exitBtn.visible = false;
 		backButton.visible = true;
 	}
 	else
 	{
+		backButton.enabled = false;
 		backButton.visible = false;
 		exitBtn.visible = true;
 	}
@@ -395,12 +397,15 @@ handler timeSyncBtn.onselect() {
 
 
 handler mainOptionsAbout.onselect() {
-	alert("TimeBoard Time Service v" + TBTS.version + " (Prototype)\n@coloraturip\n©2026");
+	alert("TimeBoard Time Service v" + TBTS.version + "\n@coloraturip\n©2026");
 }
 
 
 // Help button
 handler helpBtn.onselect() {
+	// Clean buffer before opening new form
+	mainBuffer.release();
+	
 	helpForm.load();
 }
 
@@ -417,5 +422,6 @@ handler backButton.onselect() {
 }
 
 handler mainOptionsHelp.onselect() {
+	mainBuffer.release();
 	helpForm.load();
 }

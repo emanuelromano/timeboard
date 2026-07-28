@@ -1,3 +1,50 @@
+handler helpForm.onopen() {
+	draw.attachForm(this);
+}
+
+
+handler helpForm.ondraw() {
+	mainBuffer.begin();
+	mainBuffer.textRGB(highlightR, highlightG, highlightB);
+	mainBuffer.font(fntLargeBold);
+	mainBuffer.textAlign(00);
+	mainBuffer.text(clrText, 8, 6, "Help");
+	mainBuffer.end();
+	
+	// Draw mainBuffer
+	draw.begin();
+	draw.draw(mainBuffer, 0, 0);
+	draw.end();
+	
+	// Fill helpField & page up to show scrollbar
+	helpField.text = helpString.text;
+	helpField.scroll(-3);
+	helpScroll.update(helpField);
+}
+
+
+// Field and scroll handlers
+handler helpField.onchange() {
+	helpScroll.update(this);
+}
+
+
+handler helpScroll.onmove() {
+	helpField.scroll(e.value - e.prev);
+	update(helpField);
+}
+
+
+// Hard buttons handler
+handler helpForm.onhkey() {
+	if (e.key == evUp) {
+		helpField.scroll(-3);
+		helpScroll.update(helpField);
+	} else if (e.key == evDown) {
+		helpField.scroll(3);
+		helpScroll.update(helpField);
+	}
+}
 
 
 handler helpBackBtn.onselect() {

@@ -1,5 +1,6 @@
 // ---- NETWORK AND PARSE FUNCTIONS ----
 
+Event e;
 Draw draw, mainBuffer;
 Date deviceDate, utcDate, localDate;
 bool validResponse;
