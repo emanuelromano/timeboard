@@ -33,6 +33,7 @@ void calculateHighlightColor(int amount) {
 void drawWidgetHighlight(int startX, int startY) {
 	int x10, x74, x77, x80, x83;
 	int y10, y77, y80;
+	int cornerRadiusAux;
 
 	x10 = widgetW * 10 / 100;
 	x74 = widgetW * 74 / 100;
@@ -82,6 +83,12 @@ void drawWidgetHighlight(int startX, int startY) {
 		startX + 1,
 		startY + y80);
 	
+	// Corner radius correction
+	if (cornerRadius <= 0)
+		cornerRadiusAux = 1;
+	else
+		cornerRadiusAux = cornerRadius;
+	
 	// Bright corner
 	mainBuffer.rect(
 		clrFG,
@@ -89,7 +96,7 @@ void drawWidgetHighlight(int startX, int startY) {
 		startY + 1,
 		startX + (widgetW * 20 / 100),
 		startY + (widgetH * 20 / 100),
-		cornerRadius - 1);
+		cornerRadiusAux - 1);
 	
 	mainBuffer.fgRGB(fgColorR, fgColorG, fgColorB);
 	mainBuffer.rect(
@@ -98,7 +105,7 @@ void drawWidgetHighlight(int startX, int startY) {
 		startY + 2,
 		startX + (widgetW * 20 / 100) + 2,
 		startY + (widgetH * 20 / 100) + 2,
-		cornerRadius - 1);
+		cornerRadiusAux - 1);
 }
 
 
@@ -257,4 +264,18 @@ void drawDigit(int number, int digitW, int digitH, int digitX, int digitY, int r
 	
 	if (segmentA) mainBuffer.rect(clrFG, digitX, digitY, digitX+9, digitY+4, radius);
 	if (segmentB) mainBuffer.rect(clrFG, digitX+4, digitY, digitX+9, digitY+33, radius);
+}
+
+
+// Checks if TimeBoard Time Service is installed
+bool isTBTSInstalled() {
+	DatabaseMgr dbMgr;
+	string appName;
+
+	appName = dbMgr.dbenum(true, "appl", "TBTS");
+
+	if (appName != "")
+		return true;
+
+	return false;
 }

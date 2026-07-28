@@ -140,7 +140,7 @@ handler mainForm.ontimer() {
 	
 		if (showWidget1) updateClockHands();
 		if (showWidget2) digitalClockWidget(startX2, startY2);
-				
+		
 		if (showWidget3) if (day != lastDay) calendarWidget(startX3, startY3);
 		if (showWidget4) if (charge != lastCharge) batteryWidget(startX4, startY4);
 		
@@ -187,6 +187,17 @@ handler mainForm.onpenup() {
 	// Widget 4
 	if (penX >= startX4 && penX <= startX4 + widgetW && penY >= startY4 && penY <= startY4 + widgetH) {
 		//alert("Widget 4");
+	}
+}
+
+
+// TEST MENU OPTION: Checks if TimeBoard Time Service is installed
+handler mainOptionsTest.onselect() {
+	if (isTBTSInstalled()) {
+		launchCustomString("TBTS", launchCodeOrbCAppWithArgs, "TIMEBOARD");
+	}
+	else {
+		alert("TBTS is not installed.");
 	}
 }
 

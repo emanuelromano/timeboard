@@ -46,6 +46,9 @@
         menuitem UIMenuItem mainOptionsAbout {
           id = 1002, sysid = 0, text = "About", shortcut = "A"
         }
+        menuitem UIMenuItem mainOptionsTest {
+          id = 1003, sysid = 0, text = "TBTS Test"
+        }
       }
     }
   }

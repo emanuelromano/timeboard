@@ -82,6 +82,14 @@
       bitmapid = 1017
       hresize = 0, vresize = 0
     }
+    button UIButton syncTimeBtn {
+      id = 1021
+      x = 7, y = 141, w = 68, h = 12
+      text = "Time Sync"
+      leftanchor = true, group = 0, fontid = 0
+      frame = 1
+      hresize = 0, vresize = 0
+    }
     button UIButton TBTSExitBtn {
       id = 1007
       x = 117, y = 141, w = 36, h = 12
@@ -90,10 +98,10 @@
       frame = 1
       hresize = 0, vresize = 0
     }
-    button UIButton syncTimeBtn {
-      id = 1021
-      x = 7, y = 141, w = 68, h = 12
-      text = "Sync Time"
+    button UIButton TBTSBackButton {
+      id = 1001
+      x = 117, y = 141, w = 36, h = 12
+      text = "Back"
       leftanchor = true, group = 0, fontid = 0
       frame = 1
       hresize = 0, vresize = 0

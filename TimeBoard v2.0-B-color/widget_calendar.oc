@@ -8,7 +8,9 @@ void calendarWidget(int startX, int startY) {
 		
 		digitW = 12,
 		digitH = 33,
-		radius = 3;
+		radius = 3,
+		
+		cornerRadiusAux;
 	
 	string weekdayStr, monthStr;
 	
@@ -79,9 +81,16 @@ void calendarWidget(int startX, int startY) {
 			break;
 	}
 	
+	// Corner radius correction
+	if (cornerRadius <= 0)
+		cornerRadiusAux = 3;
+	else
+		cornerRadiusAux = cornerRadius;
+		
 	mainBuffer.begin();
+	// Background rectangle for new drawings
 	mainBuffer.fgRGB(fgColorR, fgColorG, fgColorB);
-	mainBuffer.rect(clrFG, startX+3, startY+3, startX+widgetW-2, startY+widgetH-2, cornerRadius-3);
+	mainBuffer.rect(clrFG, startX+3, startY+3, startX+widgetW-2, startY+widgetH-2, cornerRadiusAux-3);
 		
 	//Date
 	mainBuffer.fgRGB(mainR, mainG, mainB);

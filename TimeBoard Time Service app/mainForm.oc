@@ -170,6 +170,16 @@ handler mainForm.onopen() {
 	offsetList.selitem = appPrefs[0].selectedOffsetIndex;
 	retriesField.text = appPrefs[0].connectionAttempts;
 	
+	// TEST MENU OPTION: Checks if TimeBoard called the app
+	if (TBTS.launchArgs == "TIMEBOARD") {
+		TBTSExitBtn.visible = false;
+		TBTSBackButton.visible = true;
+	}
+	else {
+		TBTSExitBtn.visible = true;
+		TBTSBackButton.visible = false;
+	}
+	
 	timer(1);
 }
 
@@ -282,6 +292,10 @@ handler TBTSExitBtn.onselect() {
 }
 
 
+handler TBTSBackButton.onselect() {
+	launch("KS10");
+}
+
 handler menu0101.onselect() {
-	alert("TimeBoard Time Service v1.0.1 (Prototype)\n@coloraturip\©2026");
+	alert("TimeBoard Time Service v1.0.1 (Prototype)\n@coloraturip\n©2026");
 }
