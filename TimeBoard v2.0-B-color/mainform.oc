@@ -22,10 +22,15 @@ void setMainPreferences() {
 	useAnalogClockNumbers = appPrefs[0].useAnalogClockNumbers;
 	
 	// Show selected widgets
-	showWidget1 = appPrefs[0].showWidget1;
+	/*showWidget1 = appPrefs[0].showWidget1;
 	showWidget2 = appPrefs[0].showWidget2;
 	showWidget3 = appPrefs[0].showWidget3;
-	showWidget4 = appPrefs[0].showWidget4;
+	showWidget4 = appPrefs[0].showWidget4;*/
+	
+	showWidget1 = true;
+	showWidget2 = true;
+	showWidget3 = true;
+	showWidget4 = true;
 }
 
 
@@ -89,7 +94,6 @@ void composeWidgetsBuffer() {
 
 handler mainForm.onopen() {
 	// UIform attach this form for drawing methods
-	//mainBuffer.attachForm(this);
 	draw.attachForm(this);
 	
 	// Create offscreen buffer
@@ -116,20 +120,31 @@ handler mainForm.ondraw() {
 	composeBackgroundBuffer();
 	composeWidgetsBuffer();
 	
+	widgetW = 70;
+	widgetH = 70;
+	
 	if (mainForm.h > 160) {
+		showWidget1 = true;
+		showWidget2 = false;
+		showWidget3 = false;
+		showWidget4 = false;
+		
+		widgetW = 144;
+		widgetH = 144;
+		
 		mainBuffer.begin();
 		mainBuffer.fgRGB(bgShadowColorR, bgShadowColorG, bgShadowColorB);
-		mainBuffer.rect(clrFG, mainForm.x+9, startY4+widgetH+5, mainForm.w-7, mainForm.h-7, cornerRadius);
+		mainBuffer.rect(clrFG, mainForm.x+9, 157, mainForm.w-7, mainForm.h-7, cornerRadius);
 		mainBuffer.fgRGB(fgColorR, fgColorG, fgColorB);
-		mainBuffer.rect(clrFG, mainForm.x+8, startY4+widgetH+4, mainForm.w-8, mainForm.h-8, cornerRadius);
+		mainBuffer.rect(clrFG, mainForm.x+8, 156, mainForm.w-8, mainForm.h-8, cornerRadius);
 		
-		drawWidgetHighlight(mainForm.x+8, startY4+widgetH+4, mainForm.w, widgetH-10);
+		drawWidgetHighlight(mainForm.x+8, 156, mainForm.w-8, 60);
 		mainBuffer.end();
 	}
 	
 	// Draw mainBuffer
 	draw.begin();
-	draw.draw(mainBuffer, 0, 0); 
+	draw.draw(mainBuffer, 0, 0);
 	draw.end();
 }
 
@@ -171,7 +186,6 @@ handler mainForm.ontimer() {
 
 handler mainForm.onresize() {
 	// UIform attach this form for drawing methods
-	//mainBuffer.attachForm(this);
 	draw.attachForm(this);
 	
 	// Create offscreen buffer
@@ -205,6 +219,8 @@ handler mainForm.onpenup() {
 }
 
 
+// MENU OPTIONS
+// Preferences
 handler mainOptionsPrefs.onselect() {
 	preferencesForm.load();
 }
@@ -216,16 +232,18 @@ handler mainOptionsTBTS.onselect() {
 		launchCustomString("TBTS", launchCodeOrbCAppWithArgs, "TIMEBOARD");
 	}
 	else {
-		alert("TBTS is not installed.");
+		alert("TimeBoard Time Service (TBTS) is not installed.");
 	}
 }
 
 
+// Help
 handler mainOptionsHelp.onselect() {
 	helpForm.load();
 }
 
 
+// About
 handler mainOptionsAbout.onselect() {
 	alert("TimeBoard v" + TimeBoard.version + " (Prototype)\n@coloraturip\n©2026");
 }
