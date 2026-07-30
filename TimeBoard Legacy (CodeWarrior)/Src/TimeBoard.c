@@ -75,24 +75,7 @@ static void * GetObjectPtr(UInt16 objectID)
 
 static void MainFormInit(FormType *frmP)
 {
-	FieldType *field;
-	const char *wizardDescription;
-	UInt16 fieldIndex;
 
-	fieldIndex = FrmGetObjectIndex(frmP, MainDescriptionField);
-	field = (FieldType *)FrmGetObjectPtr(frmP, fieldIndex);
-	FrmSetFocus(frmP, fieldIndex);
-
-	wizardDescription =
-		"C application\n"
-		"Creator Code: TBRX\n"
-		"\n"
-		"Other SDKs:\n"
-		;
-				
-	/* dont stack FldInsert calls, since each one generates a
-	 * fldChangedEvent, and multiple uses can overflow the event queue */
-	FldInsert(field, wizardDescription, StrLen(wizardDescription));
 }
 
 /*
@@ -162,21 +145,8 @@ static Boolean MainFormHandleEvent(EventType * eventP)
 			break;
 			
 		case ctlSelectEvent:
-		{
-			if (eventP->data.ctlSelect.controlID == MainClearTextButton)
-			{
-				/* The "Clear" button was hit. Clear the contents of the field. */
-				FieldType * field = (FieldType*)GetObjectPtr(MainDescriptionField);
-				if (field)
-				{
-					FldDelete(field, 0, 0xFFFF);					
-					FldDrawField(field);
-				}
-				break;
-			}
 
 			break;
-		}
 	}
     
 	return handled;
@@ -322,7 +292,7 @@ static Err RomVersionCompatible(UInt32 requiredVersion, UInt16 launchFlags)
 			(sysAppLaunchFlagNewGlobals | sysAppLaunchFlagUIApp)) ==
 			(sysAppLaunchFlagNewGlobals | sysAppLaunchFlagUIApp))
 		{
-			FrmAlert (RomIncompatibleAlert);
+			//FrmAlert (RomIncompatibleAlert);
 
 			/* Palm OS versions before 2.0 will continuously relaunch this
 			 * app unless we switch to another safe one. */
@@ -359,31 +329,24 @@ static Err RomVersionCompatible(UInt32 requiredVersion, UInt16 launchFlags)
  * RETURNED:
  *     Result of launch, errNone if all went OK
  */
-
+ 
 UInt32 PilotMain(UInt16 cmd, MemPtr cmdPBP, UInt16 launchFlags)
 {
-	Err error;
+    Err error;
 
-	error = RomVersionCompatible (ourMinVersion, launchFlags);
-	if (error) return (error);
+    switch (cmd)
+    {
+        case sysAppLaunchCmdNormalLaunch:
+            error = AppStart();
+            if (error)
+                return error;
 
-	switch (cmd)
-	{
-		case sysAppLaunchCmdNormalLaunch:
-			error = AppStart();
-			if (error) 
-				return error;
+            FrmGotoForm(MainForm);
+            AppEventLoop();
 
-			/* 
-			 * start application by opening the main form
-			 * and then entering the main event loop 
-			 */
-			FrmGotoForm(MainForm);
-			AppEventLoop();
+            AppStop();
+            break;
+    }
 
-			AppStop();
-			break;
-	}
-
-	return errNone;
+    return errNone;
 }
