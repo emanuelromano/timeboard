@@ -5,9 +5,6 @@
 #define MINUTE_HAND_LENGTH   21
 #define SECOND_HAND_LENGTH   21
 
-Boolean useAnalogClockNumbers = true;
-
-
 // Clock constants
 static const Int16 clockX[12] =
 {
@@ -61,6 +58,8 @@ static UInt16 oldSecondPosition;
 
 static Boolean handsDrawn = false;
 
+Boolean useAnalogClockNumbers = true;
+
 
 static void DrawClockCenter(Int16 centerX, Int16 centerY)
 {
@@ -74,7 +73,7 @@ static void DrawClockCenter(Int16 centerX, Int16 centerY)
         3
     );
 	
-    WinDrawRectangle(&centerRect, 2);
+    WinDrawRectangle(&centerRect, 1);
 }
 
 
@@ -116,7 +115,7 @@ void DrawAnalogClockFace(Int16 centerX, Int16 centerY)
             textWidth = FntCharsWidth(clockNumbers[i], textLength);
 
             textX = x1 - (textWidth / 2);
-            textY = y1 - (textHeight / 2 + 1);
+            textY = y1 - (textHeight / 2);
 
             WinDrawChars(
                 clockNumbers[i],
@@ -149,6 +148,7 @@ void DrawAnalogClockFace(Int16 centerX, Int16 centerY)
 
     /* WinDrawPixel() is unavailable in Palm OS 1.0. */
     //WinDrawLine(centerX, centerY, centerX, centerY);
+    
     DrawClockCenter(centerX, centerY);
 }
 
@@ -164,8 +164,8 @@ static void DrawHand(
 
     position %= 60;
 
-    x = centerX + (clock60X[position] * length) / 100;
-    y = centerY + (clock60Y[position] * length) / 100;
+    x = centerX + ((clock60X[position] * length) / 100);
+    y = centerY + ((clock60Y[position] * length) / 100);
 
     WinDrawLine(centerX, centerY, x, y);
 }
@@ -182,8 +182,8 @@ static void EraseHand(
 
     position %= 60;
 
-    x = centerX + (clock60X[position] * length) / 100;
-    y = centerY + (clock60Y[position] * length) / 100;
+    x = centerX + ((clock60X[position] * length) / 100);
+    y = centerY + ((clock60Y[position] * length) / 100);
 
     WinEraseLine(centerX, centerY, x, y);
 }

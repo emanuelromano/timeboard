@@ -18,7 +18,6 @@
 #include "TimeBoardDraw.h"
 #include "AnalogClock.h"
 
-static Boolean mainFormObscured = false;
 
 /*********************************************************************
  * Entry Points
@@ -28,7 +27,8 @@ static Boolean mainFormObscured = false;
  * Global variables
  *********************************************************************/
 
-
+// Global to detect if form has been obscured by MainMenuBar, etc.
+static Boolean mainFormObscured = false;
 
 /*********************************************************************
  * Internal Constants
@@ -137,24 +137,22 @@ static Boolean MainFormHandleEvent(EventType * eventP)
 			return MainFormDoCommand(eventP->data.menu.itemID);
 
 		case frmOpenEvent:
-			/*frmP = FrmGetActiveForm();
-			FrmDrawForm(frmP);
-			MainFormInit(frmP);
-			handled = true;*/
-			
 			frmP = FrmGetActiveForm();
 		    FrmDrawForm(frmP);
-					    
+			
+			// Draw background panels
 			DrawViewPanels();
-
+			
+			// Draw analog clock numbers/lines
 			DrawAnalogClockFace(
-			    GetViewCenterX(0),
-			    GetViewCenterY(0)
+			    GetViewCenterX(0) - 1,
+			    GetViewCenterY(0) - 1
 			);
-
+			
+			// Draw first set of hands
 			DrawCurrentAnalogClockHands(
-			    GetViewCenterX(0),
-			    GetViewCenterY(0)
+			    GetViewCenterX(0) - 1,
+			    GetViewCenterY(0) - 1
 			);
 			
 		    handled = true;
@@ -163,9 +161,10 @@ static Boolean MainFormHandleEvent(EventType * eventP)
 		case nilEvent:
 		    if (!mainFormObscured)
 		    {
+		    	// Update clock hands every second
 		        UpdateAnalogClock(
-		            GetViewCenterX(0),
-		            GetViewCenterY(0)
+		            GetViewCenterX(0) - 1,
+		            GetViewCenterY(0) - 1
 		        );
 		    }
 
@@ -255,9 +254,7 @@ static void AppEventLoop(void)
     {
         EvtGetEvent(&event, sysTicksPerSecond);
 
-        /*
-         * Detect when MainForm becomes obscured or visible again.
-         */
+        // Detect when MainForm becomes obscured or visible again.
         if (event.eType == winExitEvent)
         {
             mainFormP = FrmGetFormPtr(MainForm);
@@ -317,7 +314,7 @@ static Err AppStart(void)
 static void AppStop(void)
 {
         
-	/* Close all the open forms. */
+	// Close all the open forms.
 	FrmCloseAllForms();
 
 }
