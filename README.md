@@ -58,7 +58,7 @@ Provides battery and system information:
 
 ## TBTS Palm Client
 
-This repository also contains the **TBTS Palm Client**, a companion application for Palm OS that provides Internet time synchronization using the **TimeBoard Time Service**.
+This repository also contains the **TBTS Palm Client**, a companion application for Palm OS that provides Internet time synchronization using the **TimeBoard Time Service API**.
 
 The client connects to the TBTS server using HTTP, retrieves the current Coordinated Universal Time (UTC), applies the GMT offset selected by the user, and updates the Palm system clock.
 
