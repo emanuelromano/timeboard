@@ -159,6 +159,7 @@ TimeBoard is compatible with:
 - Grayscale Palm OS devices
 - Color Palm OS devices
 - Palm OS Emulator (POSE)
+- [CloudpilotEmu](https://cloudpilot-emu.github.io/) — Web-based Palm OS emulator
 - Compatible real Palm OS hardware
 
 Internet time synchronization through the TBTS Palm Client additionally requires a working Palm OS network connection.
