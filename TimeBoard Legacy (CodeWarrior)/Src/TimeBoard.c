@@ -15,6 +15,10 @@
 
 #include "TimeBoard.h"
 #include "TimeBoard_Rsc.h"
+#include "TimeBoardDraw.h"
+#include "AnalogClock.h"
+
+static Boolean mainFormObscured = false;
 
 /*********************************************************************
  * Entry Points
@@ -91,14 +95,17 @@ static void MainFormInit(FormType *frmP)
 
 static Boolean MainFormDoCommand(UInt16 command)
 {
-	Boolean handled = false;
+    Boolean handled = false;
 
-	switch (command)
-	{
+    switch (command)
+    {
+        case AboutMenuItem:
+            FrmAlert(AboutAlert);
+            handled = true;
+            break;
+    }
 
-	}
-
-	return handled;
+    return handled;
 }
 
 /*
@@ -130,11 +137,40 @@ static Boolean MainFormHandleEvent(EventType * eventP)
 			return MainFormDoCommand(eventP->data.menu.itemID);
 
 		case frmOpenEvent:
-			frmP = FrmGetActiveForm();
+			/*frmP = FrmGetActiveForm();
 			FrmDrawForm(frmP);
 			MainFormInit(frmP);
-			handled = true;
+			handled = true;*/
+			
+			frmP = FrmGetActiveForm();
+		    FrmDrawForm(frmP);
+					    
+			DrawViewPanels();
+
+			DrawAnalogClockFace(
+			    GetViewCenterX(0),
+			    GetViewCenterY(0)
+			);
+
+			DrawCurrentAnalogClockHands(
+			    GetViewCenterX(0),
+			    GetViewCenterY(0)
+			);
+			
+		    handled = true;
 			break;
+			
+		case nilEvent:
+		    if (!mainFormObscured)
+		    {
+		        UpdateAnalogClock(
+		            GetViewCenterX(0),
+		            GetViewCenterY(0)
+		        );
+		    }
+
+		    handled = true;
+		    break;
             
         case frmUpdateEvent:
 			/* 
@@ -147,6 +183,9 @@ static Boolean MainFormHandleEvent(EventType * eventP)
 		case ctlSelectEvent:
 
 			break;
+			
+		    handled = true;
+		    break;
 	}
     
 	return handled;
@@ -208,25 +247,50 @@ static Boolean AppHandleEvent(EventType * eventP)
 
 static void AppEventLoop(void)
 {
-	UInt16 error;
-	EventType event;
+    UInt16 error;
+    EventType event;
+    FormType *mainFormP;
 
-	do 
-	{
-		/* change timeout if you need periodic nilEvents */
-		EvtGetEvent(&event, evtWaitForever);
+    do
+    {
+        EvtGetEvent(&event, sysTicksPerSecond);
 
-		if (! SysHandleEvent(&event))
-		{
-			if (! MenuHandleEvent(0, &event, &error))
-			{
-				if (! AppHandleEvent(&event))
-				{
-					FrmDispatchEvent(&event);
-				}
-			}
-		}
-	} while (event.eType != appStopEvent);
+        /*
+         * Detect when MainForm becomes obscured or visible again.
+         */
+        if (event.eType == winExitEvent)
+        {
+            mainFormP = FrmGetFormPtr(MainForm);
+
+            if (mainFormP != NULL &&
+                event.data.winExit.exitWindow == (WinHandle)mainFormP)
+            {
+                mainFormObscured = true;
+            }
+        }
+        else if (event.eType == winEnterEvent)
+        {
+            mainFormP = FrmGetFormPtr(MainForm);
+
+            if (mainFormP != NULL &&
+                event.data.winEnter.enterWindow == (WinHandle)mainFormP)
+            {
+                mainFormObscured = false;
+            }
+        }
+
+        if (!SysHandleEvent(&event))
+        {
+            if (!MenuHandleEvent(0, &event, &error))
+            {
+                if (!AppHandleEvent(&event))
+                {
+                    FrmDispatchEvent(&event);
+                }
+            }
+        }
+
+    } while (event.eType != appStopEvent);
 }
 
 /*

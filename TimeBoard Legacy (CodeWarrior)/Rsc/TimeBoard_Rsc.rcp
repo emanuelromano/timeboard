@@ -13,8 +13,9 @@ RESETAUTOID 1000
 
 FORM ID MainForm AT (0 0 160 160)
 	NOSAVEBEHIND NOFRAME
+	MENUID MainMenuBar
 BEGIN
-	 TITLE "TimeBoard"
+	 
 	
     END
 
@@ -37,3 +38,21 @@ BEGIN
 
 
 
+
+
+MENU ID MainMenuBar 
+BEGIN
+     
+     PULLDOWN "Options"
+     BEGIN
+          MENUITEM "About..." ID AboutMenuItem  "A"
+     END
+END
+
+ALERT ID AboutAlert 
+INFORMATION
+BEGIN
+     TITLE "About TimeBoard"
+     MESSAGE "TimeBoard Legacy v1.0.0"
+     BUTTONS "OK" 
+END
