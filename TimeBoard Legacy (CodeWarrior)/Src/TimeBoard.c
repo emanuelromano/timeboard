@@ -103,6 +103,10 @@ static Boolean MainFormDoCommand(UInt16 command)
             FrmAlert(AboutAlert);
             handled = true;
             break;
+        case PrefsMenuItem:
+			FrmGotoForm(PreferencesForm);
+        	handled = true;
+        	break;
     }
 
     return handled;
@@ -190,6 +194,104 @@ static Boolean MainFormHandleEvent(EventType * eventP)
 	return handled;
 }
 
+
+// Preferences form handler
+static Boolean PreferencesFormHandleEvent(EventType *eventP)
+{
+    Boolean handled = false;
+    FormType *frmP;
+
+    switch (eventP->eType)
+    {
+        case frmOpenEvent:
+            frmP = FrmGetActiveForm();
+            FrmDrawForm(frmP);
+            handled = true;
+            break;
+            			
+	case ctlSelectEvent:
+
+	    switch (eventP->data.ctlSelect.controlID)
+	    {
+	        case AnalogClockPrefBtn:
+	        {
+	            FormType *frmP;
+
+	            frmP = FrmInitForm(AngClockPrefMForm);
+	            FrmDoDialog(frmP);
+	            FrmDeleteForm(frmP);
+
+	            handled = true;
+	            break;
+	        }
+
+	        case PreferencesBackBtn:
+	            FrmGotoForm(MainForm);
+	            handled = true;
+	            break;
+	    }
+
+	    break;
+    }
+
+    return handled;
+}
+
+
+// Analog Clock Preferences Modal Form
+static Boolean AngClockPrefMFormHandleEvent(EventType *eventP)
+{
+    Boolean handled = false;
+    FormType *frmP;
+
+    switch (eventP->eType)
+    {
+        case frmOpenEvent:
+        {
+            ControlType *popupP;
+            ListType *listP;
+
+            frmP = FrmGetActiveForm();
+            FrmDrawForm(frmP);
+
+            popupP = GetObjectPtr(ClockMarkersPopup);
+            listP  = GetObjectPtr(ClockMarkersList);
+
+            CtlSetLabel(
+                popupP,
+                LstGetSelectionText(
+                    listP,
+                    LstGetSelection(listP)
+                )
+            );
+
+            handled = true;
+            break;
+        }
+
+        case popSelectEvent:
+        {
+            handled = true;
+            break;
+        }
+
+        case ctlSelectEvent:
+
+            switch (eventP->data.ctlSelect.controlID)
+            {
+                case AngClockPrefBackBtn:
+                    FrmReturnToForm(0);
+                    handled = true;
+                    break;
+            }
+
+            break;
+    }
+
+    return handled;
+}
+
+
 /*
  * FUNCTION: AppHandleEvent
  *
@@ -227,10 +329,17 @@ static Boolean AppHandleEvent(EventType * eventP)
 		 */
 		switch (formId)
 		{
-			case MainForm:
-				FrmSetEventHandler(frmP, MainFormHandleEvent);
-				break;
+		    case MainForm:
+		        FrmSetEventHandler(frmP, MainFormHandleEvent);
+		        break;
 
+		    case PreferencesForm:
+		        FrmSetEventHandler(frmP, PreferencesFormHandleEvent);
+		        break;
+		        
+		    case AngClockPrefMForm:
+			    FrmSetEventHandler(frmP, AngClockPrefMFormHandleEvent);
+			    break;
 		}
 		return true;
 	}

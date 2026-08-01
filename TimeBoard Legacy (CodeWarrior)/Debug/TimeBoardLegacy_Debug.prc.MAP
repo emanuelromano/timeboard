@@ -28,12 +28,12 @@ File:   27	"\\engserv\cdserver\Product_Layouts\PalmOS\Version 9.0\Win Layout\CW 
 File:   28	"\\engserv\cdserver\Product_Layouts\PalmOS\Version 9.0\Win Layout\CW for Palm OS Support\MSL\MSL_C\MSL_Common\Src\rand.c"
 File:   29	"\\engserv\cdserver\Product_Layouts\PalmOS\Version 9.0\Win Layout\CW for Palm OS Support\MSL\MSL_C\MSL_Common\Src\ctype.c"
 File:   30	"\\engserv\cdserver\Product_Layouts\PalmOS\Version 9.0\Win Layout\CW for Palm OS Support\MSL\MSL_C\MSL_Common\Src\locale.c"
-File:   31	"C:\Users\eroma\OneDrive\Escritorio\Palm OS\Proyectos\OrbForms\TimeBoard\TimeBoard Legacy (CodeWarrior)\Src\TimeBoard.c"
-File:   32	"C:\Users\eroma\OneDrive\Escritorio\Palm OS\Proyectos\OrbForms\TimeBoard\TimeBoard Legacy (CodeWarrior)\Rsc\TimeBoard_Rsc.rcp"
-File:   33	"C:\Users\eroma\OneDrive\Escritorio\Palm OS\Proyectos\OrbForms\TimeBoard\TimeBoard Legacy (CodeWarrior)\Src\TimeBoardDraw.c"
-File:   34	"C:\Users\eroma\OneDrive\Escritorio\Palm OS\Proyectos\OrbForms\TimeBoard\TimeBoard Legacy (CodeWarrior)\Src\AnalogClock.c"
+File:   31	"D:\Emanuel\Documents\Proyectos\Palm OS\Proyectos\OrbForms\TimeBoard\TimeBoard Legacy (CodeWarrior)\Src\TimeBoard.c"
+File:   32	"D:\Emanuel\Documents\Proyectos\Palm OS\Proyectos\OrbForms\TimeBoard\TimeBoard Legacy (CodeWarrior)\Rsc\TimeBoard_Rsc.rcp"
+File:   33	"D:\Emanuel\Documents\Proyectos\Palm OS\Proyectos\OrbForms\TimeBoard\TimeBoard Legacy (CodeWarrior)\Src\TimeBoardDraw.c"
+File:   34	"D:\Emanuel\Documents\Proyectos\Palm OS\Proyectos\OrbForms\TimeBoard\TimeBoard Legacy (CodeWarrior)\Src\AnalogClock.c"
 
-Segment:   1    2892 bytes  "Segment 1"
+Segment:   1    3236 bytes  "Segment 1"
 Code: 000004      12 bytes  "__DummyStartup__"               File: "__RuntimeModule__"
 Code: 000010      12 bytes  "__dthandler__4MTWKFv"           File: "NMWException.cp"
 Code: 00001c      12 bytes  "__duhandler__4MTWKFv"
@@ -42,32 +42,35 @@ Code: 000038      24 bytes  "abort"                          File: "PalmOS_Abort
 Code: 000050      42 bytes  "__destroy_global_chain"         File: "PalmOS_GlobalDestructors.c"
 Code: 00007a      14 bytes  "setjmp"                         File: "PalmOS_setjmp.c"
 Code: 000088      18 bytes  "longjmp"
-Code: 00009a     160 bytes  "__Relocate____4MTWKFPScPScUl"   File: "PalmOS_Startup.cpp"
-Code: 00013a     314 bytes  "__Startup__"
-Code: 000274       8 bytes  "__PreInit__"
-Code: 00027c       8 bytes  "__InitCode__"
-Code: 000284     132 bytes  "__SkipToXREFs____4MTWKFPSc"
-Code: 000308     128 bytes  "__PatchV10Devices____4MTWKFP14SysAppInfoType"
-Code: 000388     234 bytes  "__LoadAndRelocate____4MTWKFUcP7_opaque"
-Code: 000472      40 bytes  "MainFormDoCommand"              File: "C:\Users\eroma\OneDrive\Escritorio\Palm OS\Proyectos\OrbForms\TimeBoard\TimeBoard Legacy (CodeWarrior)\Src\TimeBoard.c"
-Code: 00049a     186 bytes  "MainFormHandleEvent"
-Code: 000554      74 bytes  "AppHandleEvent"
-Code: 00059e     168 bytes  "AppEventLoop"
-Code: 000646      10 bytes  "AppStart"
-Code: 000650      12 bytes  "AppStop"
-Code: 00065c      54 bytes  "PilotMain"
-Code: 000692     124 bytes  "DrawViewPanels"                 File: "C:\Users\eroma\OneDrive\Escritorio\Palm OS\Proyectos\OrbForms\TimeBoard\TimeBoard Legacy (CodeWarrior)\Src\TimeBoardDraw.c"
-Code: 00070e      22 bytes  "GetViewX"
-Code: 000724      20 bytes  "GetViewY"
-Code: 000738      20 bytes  "GetViewCenterX"
-Code: 00074c      20 bytes  "GetViewCenterY"
-Code: 000760      50 bytes  "DrawClockCenter"                File: "C:\Users\eroma\OneDrive\Escritorio\Palm OS\Proyectos\OrbForms\TimeBoard\TimeBoard Legacy (CodeWarrior)\Src\AnalogClock.c"
-Code: 000792     440 bytes  "DrawAnalogClockFace"
-Code: 00094a     106 bytes  "DrawHand"
-Code: 0009b4     106 bytes  "EraseHand"
-Code: 000a1e     190 bytes  "UpdateAnalogClockHands"
-Code: 000adc      56 bytes  "DrawCurrentAnalogClockHands"
-Code: 000b14      56 bytes  "UpdateAnalogClock"
+Code: 00009a     154 bytes  "__Relocate____4MTWKFPScPScUl"   File: "PalmOS_Startup.cpp"
+Code: 000134     314 bytes  "__Startup__"
+Code: 00026e       8 bytes  "__PreInit__"
+Code: 000276       8 bytes  "__InitCode__"
+Code: 00027e     132 bytes  "__SkipToXREFs____4MTWKFPSc"
+Code: 000302     128 bytes  "__PatchV10Devices____4MTWKFP14SysAppInfoType"
+Code: 000382     234 bytes  "__LoadAndRelocate____4MTWKFUcP7_opaque"
+Code: 00046c      40 bytes  "GetObjectPtr"                   File: "D:\Emanuel\Documents\Proyectos\Palm OS\Proyectos\OrbForms\TimeBoard\TimeBoard Legacy (CodeWarrior)\Src\TimeBoard.c"
+Code: 000494      58 bytes  "MainFormDoCommand"
+Code: 0004ce     186 bytes  "MainFormHandleEvent"
+Code: 000588     116 bytes  "PreferencesFormHandleEvent"
+Code: 0005fc     140 bytes  "AngClockPrefMFormHandleEvent"
+Code: 000688     110 bytes  "AppHandleEvent"
+Code: 0006f6     168 bytes  "AppEventLoop"
+Code: 00079e      10 bytes  "AppStart"
+Code: 0007a8      12 bytes  "AppStop"
+Code: 0007b4      54 bytes  "PilotMain"
+Code: 0007ea     124 bytes  "DrawViewPanels"                 File: "D:\Emanuel\Documents\Proyectos\Palm OS\Proyectos\OrbForms\TimeBoard\TimeBoard Legacy (CodeWarrior)\Src\TimeBoardDraw.c"
+Code: 000866      22 bytes  "GetViewX"
+Code: 00087c      20 bytes  "GetViewY"
+Code: 000890      20 bytes  "GetViewCenterX"
+Code: 0008a4      20 bytes  "GetViewCenterY"
+Code: 0008b8      50 bytes  "DrawClockCenter"                File: "D:\Emanuel\Documents\Proyectos\Palm OS\Proyectos\OrbForms\TimeBoard\TimeBoard Legacy (CodeWarrior)\Src\AnalogClock.c"
+Code: 0008ea     440 bytes  "DrawAnalogClockFace"
+Code: 000aa2     106 bytes  "DrawHand"
+Code: 000b0c     106 bytes  "EraseHand"
+Code: 000b76     190 bytes  "UpdateAnalogClockHands"
+Code: 000c34      56 bytes  "DrawCurrentAnalogClockHands"
+Code: 000c6c      56 bytes  "UpdateAnalogClock"
 
 Data section below A5:    384 bytes
 Data section above A5:    168 bytes
@@ -86,11 +89,11 @@ Data:    -70       2 bytes  "@73"
 Data:    -72       2 bytes  "@72"
 Data:    -74       2 bytes  "@71"
 Data:    -78       3 bytes  "@70"
-Data:   -198     120 bytes  "clock60Y"
-Data:   -318     120 bytes  "clock60X"
-Data:   -342      24 bytes  "clockY"
-Data:   -366      24 bytes  "clockX"
-Data:   -367       1 bytes  "useAnalogClockNumbers"
+Data:    -79       1 bytes  "useAnalogClockNumbers"
+Data:   -200     120 bytes  "clock60Y"
+Data:   -320     120 bytes  "clock60X"
+Data:   -344      24 bytes  "clockY"
+Data:   -368      24 bytes  "clockX"
 
 Uninitialized near data
 Data:   -372       4 bytes  "__CW_FEATURES_PTR"
@@ -110,9 +113,9 @@ PRC DB Name:       TimeBoardLegacy_Debug
 PRC DB Version:    1
 Type:              appl
 Creator:           TBRX
-Resource Count:    10
-Creation Time:     2026-07-31 @ 0805
-Modification Time: 2026-07-31 @ 0805
+Resource Count:    12
+Creation Time:     2026-08-01 @ 1702
+Modification Time: 2026-08-01 @ 1702
 Last Backup Time:  
 Attributes:         0x00000009
                     dmHdrAttrResDB
@@ -122,11 +125,13 @@ Attributes:         0x00000009
 [TimeBoard]
 2:   tver           Application Version String         1000 (0x03e8)     4
 [1.0]
-3:   code           68K Object Code                    1 (0x0001)        2892
+3:   code           68K Object Code                    1 (0x0001)        3236
 4:   data           68K Global Data                    0 (0x0000)        469
 5:   code           68K Object Code                    0 (0x0000)        24
-6:   tFRM           Form                               1001 (0x03e9)     68
-7:   tAIB           Application Icon                   1000 (0x03e8)     416
-8:   tAIB           Application Icon                   1001 (0x03e9)     88
-9:   MBAR           Menu Bar                           1002 (0x03ea)     89
-10:   Talt           Alert                              1004 (0x03ec)     51
+6:   tAIB           Application Icon                   1000 (0x03e8)     416
+7:   tAIB           Application Icon                   1001 (0x03e9)     88
+8:   tFRM           Form                               1001 (0x03e9)     68
+9:   MBAR           Menu Bar                           1002 (0x03ea)     109
+10:   Talt           Alert                              1005 (0x03ed)     51
+11:   tFRM           Form                               1006 (0x03ee)     308
+12:   tFRM           Form                               1013 (0x03f5)     284

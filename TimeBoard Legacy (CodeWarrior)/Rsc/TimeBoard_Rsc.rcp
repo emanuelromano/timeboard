@@ -8,22 +8,12 @@ GENERATEHEADER "TimeBoard_Rsc.h"
 RESETAUTOID 1000
 
 
-
-
-
-FORM ID MainForm AT (0 0 160 160)
-	NOSAVEBEHIND NOFRAME
-	MENUID MainMenuBar
-BEGIN
-	 
-	
-    END
-
 ICONFAMILYEX
 BEGIN
     BITMAP "icon-lg-1.bmp" BPP 1 
     BITMAP "icon-lg-2.bmp" BPP 2 
     END
+
 
 SMALLICONFAMILYEX
 BEGIN
@@ -32,22 +22,23 @@ BEGIN
     END
 
 
+FORM ID MainForm AT (0 0 160 160)
+	NOSAVEBEHIND NOFRAME
+	MENUID MainMenuBar
+BEGIN
 
-
-
-
-
-
+END
 
 
 MENU ID MainMenuBar 
 BEGIN
-     
-     PULLDOWN "Options"
-     BEGIN
-          MENUITEM "About..." ID AboutMenuItem  "A"
-     END
+	PULLDOWN "Options"
+	BEGIN
+    	MENUITEM "Preferences" ID PrefsMenuItem  "P"
+		MENUITEM "About..." ID AboutMenuItem  "A"
+	END
 END
+
 
 ALERT ID AboutAlert 
 INFORMATION
@@ -56,3 +47,29 @@ BEGIN
      MESSAGE "TimeBoard Legacy v1.0.0"
      BUTTONS "OK" 
 END
+
+
+FORM ID PreferencesForm  AT ( 0 0 160 160 )
+NOFRAME 
+BEGIN
+	TITLE "Preferences"
+	LABEL "Widgets" ID WodgetsPrefLabel  AT (8 20) FONT 1
+	BUTTON "Analog clock" ID AnalogClockPrefBtn  AT (8 34 AUTO AUTO) NOFRAME
+	BUTTON "Digital clock" ID DigitalClockPrefBtn  AT (88 34 AUTO AUTO) NOFRAME
+	BUTTON "Calendar" ID CalendarPrefBtn  AT (8 48 AUTO AUTO) NOFRAME
+	BUTTON "Battery" ID BatteryPrefBtn   AT (88 48 AUTO AUTO) NOFRAME
+	BUTTON "Back" ID PreferencesBackBtn   AT (124 142 AUTO AUTO) FRAME
+END
+
+
+FORM ID AngClockPrefMForm  AT ( 2 2 156 156 )
+MODAL
+BEGIN
+    TITLE "Analog Clock Preferences"
+	LABEL "Clock markers:" ID CLockMakersLbl  AT (5 18)
+	POPUPTRIGGER "Numbers" ID ClockMarkersPopup  AT (65 18 AUTO AUTO)
+	LIST "Numbers" "Lines"   ID ClockMarkersList  AT (65 18 42 24) VISIBLEITEMS 2 NONUSABLE
+	POPUPLIST ID ClockMarkersPopup ClockMarkersList
+	BUTTON "Back" ID AngClockPrefBackBtn  AT (122 140 AUTO AUTO)
+END
+
