@@ -7,6 +7,11 @@
 #define VIEW_STEP        (VIEW_SIZE + VIEW_GAP)
 #define VIEW_HALF_SIZE   (VIEW_SIZE / 2)
 
+UInt16 cornerRadiusOut;
+UInt16 cornerRadiusIn;
+
+static Boolean hasCornerRadius = true;
+
 
 void DrawViewPanels(void)
 {
@@ -16,7 +21,18 @@ void DrawViewPanels(void)
     Int16 y;
     UInt16 row;
     UInt16 col;
-
+    
+    // Corner radius control
+    if (hasCornerRadius) {
+    	cornerRadiusOut = 8;
+    	cornerRadiusIn = 7;
+    }
+    else
+    {
+    	cornerRadiusOut = 0;
+    	cornerRadiusIn = 0;
+    }
+	
     for (row = 0; row < 2; row++)
     {
         for (col = 0; col < 2; col++)
@@ -25,14 +41,14 @@ void DrawViewPanels(void)
             y = VIEW_MARGIN + (row * VIEW_STEP);
 
             RctSetRectangle(&outerRect, x, y, VIEW_SIZE, VIEW_SIZE);
-            WinDrawRectangle(&outerRect, 8);
+            WinDrawRectangle(&outerRect, cornerRadiusOut);
 
             /*
              * 67x67 intentionally gives the frame
              * the slight shadow effect.
              */
             RctSetRectangle(&innerRect, x + 1, y + 1, 67, 67);
-            WinEraseRectangle(&innerRect, 7);
+            WinEraseRectangle(&innerRect, cornerRadiusIn);
         }
     }
 }

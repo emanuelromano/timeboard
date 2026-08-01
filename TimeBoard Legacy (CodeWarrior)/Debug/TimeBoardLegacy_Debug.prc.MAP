@@ -33,7 +33,7 @@ File:   32	"D:\Emanuel\Documents\Proyectos\Palm OS\Proyectos\OrbForms\TimeBoard\
 File:   33	"D:\Emanuel\Documents\Proyectos\Palm OS\Proyectos\OrbForms\TimeBoard\TimeBoard Legacy (CodeWarrior)\Src\TimeBoardDraw.c"
 File:   34	"D:\Emanuel\Documents\Proyectos\Palm OS\Proyectos\OrbForms\TimeBoard\TimeBoard Legacy (CodeWarrior)\Src\AnalogClock.c"
 
-Segment:   1    3236 bytes  "Segment 1"
+Segment:   1    3264 bytes  "Segment 1"
 Code: 000004      12 bytes  "__DummyStartup__"               File: "__RuntimeModule__"
 Code: 000010      12 bytes  "__dthandler__4MTWKFv"           File: "NMWException.cp"
 Code: 00001c      12 bytes  "__duhandler__4MTWKFv"
@@ -59,20 +59,20 @@ Code: 0006f6     168 bytes  "AppEventLoop"
 Code: 00079e      10 bytes  "AppStart"
 Code: 0007a8      12 bytes  "AppStop"
 Code: 0007b4      54 bytes  "PilotMain"
-Code: 0007ea     124 bytes  "DrawViewPanels"                 File: "D:\Emanuel\Documents\Proyectos\Palm OS\Proyectos\OrbForms\TimeBoard\TimeBoard Legacy (CodeWarrior)\Src\TimeBoardDraw.c"
-Code: 000866      22 bytes  "GetViewX"
-Code: 00087c      20 bytes  "GetViewY"
-Code: 000890      20 bytes  "GetViewCenterX"
-Code: 0008a4      20 bytes  "GetViewCenterY"
-Code: 0008b8      50 bytes  "DrawClockCenter"                File: "D:\Emanuel\Documents\Proyectos\Palm OS\Proyectos\OrbForms\TimeBoard\TimeBoard Legacy (CodeWarrior)\Src\AnalogClock.c"
-Code: 0008ea     440 bytes  "DrawAnalogClockFace"
-Code: 000aa2     106 bytes  "DrawHand"
-Code: 000b0c     106 bytes  "EraseHand"
-Code: 000b76     190 bytes  "UpdateAnalogClockHands"
-Code: 000c34      56 bytes  "DrawCurrentAnalogClockHands"
-Code: 000c6c      56 bytes  "UpdateAnalogClock"
+Code: 0007ea     152 bytes  "DrawViewPanels"                 File: "D:\Emanuel\Documents\Proyectos\Palm OS\Proyectos\OrbForms\TimeBoard\TimeBoard Legacy (CodeWarrior)\Src\TimeBoardDraw.c"
+Code: 000882      22 bytes  "GetViewX"
+Code: 000898      20 bytes  "GetViewY"
+Code: 0008ac      20 bytes  "GetViewCenterX"
+Code: 0008c0      20 bytes  "GetViewCenterY"
+Code: 0008d4      50 bytes  "DrawClockCenter"                File: "D:\Emanuel\Documents\Proyectos\Palm OS\Proyectos\OrbForms\TimeBoard\TimeBoard Legacy (CodeWarrior)\Src\AnalogClock.c"
+Code: 000906     440 bytes  "DrawAnalogClockFace"
+Code: 000abe     106 bytes  "DrawHand"
+Code: 000b28     106 bytes  "EraseHand"
+Code: 000b92     190 bytes  "UpdateAnalogClockHands"
+Code: 000c50      56 bytes  "DrawCurrentAnalogClockHands"
+Code: 000c88      56 bytes  "UpdateAnalogClock"
 
-Data section below A5:    384 bytes
+Data section below A5:    391 bytes
 Data section above A5:    168 bytes
 
 Initialized near data
@@ -94,15 +94,18 @@ Data:   -200     120 bytes  "clock60Y"
 Data:   -320     120 bytes  "clock60X"
 Data:   -344      24 bytes  "clockY"
 Data:   -368      24 bytes  "clockX"
+Data:   -369       1 bytes  "hasCornerRadius"
 
 Uninitialized near data
-Data:   -372       4 bytes  "__CW_FEATURES_PTR"
-Data:   -376       4 bytes  "__global_destructor_chain"
-Data:   -378       2 bytes  "oldHourPosition"
-Data:   -380       2 bytes  "oldMinutePosition"
-Data:   -382       2 bytes  "oldSecondPosition"
-Data:   -383       1 bytes  "handsDrawn"
-Data:   -384       1 bytes  "mainFormObscured"
+Data:   -374       4 bytes  "__CW_FEATURES_PTR"
+Data:   -378       4 bytes  "__global_destructor_chain"
+Data:   -380       2 bytes  "oldHourPosition"
+Data:   -382       2 bytes  "oldMinutePosition"
+Data:   -384       2 bytes  "oldSecondPosition"
+Data:   -385       1 bytes  "handsDrawn"
+Data:   -388       2 bytes  "cornerRadiusOut"
+Data:   -390       2 bytes  "cornerRadiusIn"
+Data:   -391       1 bytes  "mainFormObscured"
 
 Initialized far data
 Data:     40     128 bytes  "__segtable__"
@@ -114,8 +117,8 @@ PRC DB Version:    1
 Type:              appl
 Creator:           TBRX
 Resource Count:    12
-Creation Time:     2026-08-01 @ 1702
-Modification Time: 2026-08-01 @ 1702
+Creation Time:     2026-08-01 @ 1729
+Modification Time: 2026-08-01 @ 1729
 Last Backup Time:  
 Attributes:         0x00000009
                     dmHdrAttrResDB
@@ -125,8 +128,8 @@ Attributes:         0x00000009
 [TimeBoard]
 2:   tver           Application Version String         1000 (0x03e8)     4
 [1.0]
-3:   code           68K Object Code                    1 (0x0001)        3236
-4:   data           68K Global Data                    0 (0x0000)        469
+3:   code           68K Object Code                    1 (0x0001)        3264
+4:   data           68K Global Data                    0 (0x0000)        471
 5:   code           68K Object Code                    0 (0x0000)        24
 6:   tAIB           Application Icon                   1000 (0x03e8)     416
 7:   tAIB           Application Icon                   1001 (0x03e9)     88
