@@ -38,12 +38,23 @@ int startX1 = 8,
 	startX4 = 82,
 	startY4 = 82,
 	
-	widgetW = 70,
-	widgetH = 70,
-	bigWidgetW = 144,
-	bigWidgetH = 144,
+	widgetW,
+	widgetH,
+		
+	cornerRadius = 8,
 	
-	cornerRadius = 8;
+	// Mini panels
+	miniPanelX1,
+	miniPanelY1,
+	
+	miniPanelX2,
+	miniPanelY2,
+	
+	miniPanelX3,
+	miniPanelY3,
+	
+	miniPanelW,
+	miniPanelH;
 
 bool showWidget1,
 	showWidget2,

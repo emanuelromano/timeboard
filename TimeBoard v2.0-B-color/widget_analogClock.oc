@@ -63,8 +63,8 @@ void updateClockHands() {
 	float newHourAngle,
 		newMinuteAngle,
 		newSecondAngle;
-
-	// 1) Delete old hands
+	
+	// Delete old hands
 	if (oldHourAngle != 0) {
 		drawHand(oldHourAngle,
 			 	hourLength,
@@ -90,16 +90,27 @@ void updateClockHands() {
 			 	fgColorG,
 			 	fgColorB);
 	}
-
-	// 2) Calculate new angles	
+	
+	// Calculate new angles	
 	newHourAngle =
 		((float)(hours % 12) * 30 + (float)minutes / 2 - 90) / 180 * pi;
 	newMinuteAngle =
 		((float)minutes * 6 - 90) / 180 * pi;
 	newSecondAngle =
 		((float)seconds * 6 - 90) / 180 * pi;
-
-	// 3) Draw new hands
+	
+	// TimeBoard text on big widget
+	if (widgetW != 70) {
+		mainBuffer.begin();
+		mainBuffer.textRGB(highlightR, highlightG, highlightB);
+		mainBuffer.bgRGB(fgColorR, fgColorG, fgColorB);
+		mainBuffer.textAlign(11);
+		mainBuffer.font(fntLargeBold);
+		mainBuffer.text(clrText, centerX, centerY-28, "TimeBoard");
+		mainBuffer.end();
+	}
+	
+	// Draw new hands
 	drawHand(newHourAngle,
 			 hourLength,
 			 centerX,
@@ -107,7 +118,7 @@ void updateClockHands() {
 			 mainR,
 			 mainG,
 			 mainB);
-
+	
 	drawHand(newMinuteAngle,
 			 minuteLength,
 			 centerX,
@@ -115,7 +126,7 @@ void updateClockHands() {
 			 mainR,
 			 mainG,
 			 mainB);
-
+	
 	drawHand(newSecondAngle,
 			 secondLength,
 			 centerX,
@@ -123,21 +134,31 @@ void updateClockHands() {
 			 highlightR,
 			 highlightG,
 			 highlightB);
-
-	// 4) Center
+	
+	// Center according to widget size
 	mainBuffer.begin();
-	
-	mainBuffer.fgRGB(highlightR, highlightG, highlightB);
-	mainBuffer.rect(clrFG,
-		centerX - 1,
-		centerY - 1,
-		centerX + 2,
-		centerY + 2,
-		2);
-	
+	if (widgetW == 70) {
+		mainBuffer.fgRGB(highlightR, highlightG, highlightB);
+		mainBuffer.rect(clrFG,
+			centerX - 2,
+			centerY - 2,
+			centerX + 2,
+			centerY + 2,
+			2);
+	}
+	else
+	{
+		mainBuffer.fgRGB(highlightR, highlightG, highlightB);
+		mainBuffer.rect(clrFG,
+			centerX - 3,
+			centerY - 3,
+			centerX + 3,
+			centerY + 3,
+			3);
+	}
 	mainBuffer.end();
-
-	// 5) Save for next draw in buffer
+	
+	// Save for next draw in buffer
 	oldHourAngle = newHourAngle;
 	oldMinuteAngle = newMinuteAngle;
 	oldSecondAngle = newSecondAngle;
@@ -151,25 +172,24 @@ void analogClockWidget(int startX, int startY) {
 		innerRadius,
 		outerRadius,
 		x1, y1,
-		x2, y2;
+		x2, y2,
+		circleSeparation,
+		circleCornerRadius,
+		secondDotRadius;
 	float angle;
 	string number;
-
+	
 	centerX = startX + (widgetW / 2);
 	centerY = startY + (widgetH / 2);
 	
-	radius = (widgetW / 2) - (widgetW / 2) * 0.25;
+	radius = (widgetW / 2) - (widgetW / 2) * 0.26;
 	
 	// Hands lenght
 	hourLength = (widgetW / 2) - (widgetW / 2) * 0.55;
-	minuteLength = (widgetW / 2) - (widgetW / 2) * 0.38;
-	secondLength = (widgetW / 2) - (widgetW / 2) * 0.38;
-
-	mainBuffer.begin();
-	// Central point
-	mainBuffer.fgRGB(mainR, mainG, mainB);
-	mainBuffer.pixel(clrFG, centerX, centerY);
+	minuteLength = (widgetW / 2) - (widgetW / 2) * 0.41;
+	secondLength = (widgetW / 2) - (widgetW / 2) * 0.41;
 	
+	mainBuffer.begin();	
 	if (useAnalogClockNumbers == 1) {
 		// Clock numbers
 		for (i = 0; i < 12; i++) {
@@ -188,7 +208,14 @@ void analogClockWidget(int startX, int startY) {
 			// Centered text, font and color
 			mainBuffer.textAlign(11);
 			mainBuffer.bgRGB(fgColorR, fgColorG, fgColorB);
-			mainBuffer.font(fntStandard);
+			// Font size difference according to widget
+			if (widgetW == 70) {
+				mainBuffer.font(fntStandard);
+			}
+			else
+			{
+				mainBuffer.font(fntLarge);
+			}
 			
 			// Color for 3, 6, 9 & 12 numbers
 			if (i == 0 || i == 3 || i == 6 || i == 9) {
@@ -237,6 +264,58 @@ void analogClockWidget(int startX, int startY) {
     			
     		mainBuffer.line(clrFG, x1, y1, x2, y2);
 		}
+	}
+	
+	// Circle around clock
+	if (widgetW != 70) {
+		circleSeparation = 66;
+		circleCornerRadius = 66;
+		secondDotRadius = 63;
+		
+		mainBuffer.fgRGB(bgHighlightColorR, bgHighlightColorG, bgHighlightColorB);
+		mainBuffer.frame(clrFG,
+						centerX-circleSeparation,
+						centerY-circleSeparation,
+						centerX+circleSeparation,
+						centerY+circleSeparation,
+						circleCornerRadius,
+						1);
+		
+		// Seconds dots
+		mainBuffer.fgRGB(mainR, mainG, mainB);
+		
+		for (i = 0; i < 60; i++) {
+		
+			angle = ((i * 6) - 90) * 3.14159265 / 180;
+		
+			x = centerX + roundCoord(cos(angle) * secondDotRadius);
+			y = centerY + roundCoord(sin(angle) * secondDotRadius) - 1;
+		
+			mainBuffer.pixel(clrFG, x, y);
+		}
+	}
+	else
+	{
+		// Small circle on small widget
+		circleSeparation = 31;
+		circleCornerRadius = 31;
+		
+		mainBuffer.fgRGB(bgHighlightColorR, bgHighlightColorG, bgHighlightColorB);
+		mainBuffer.frame(clrFG,
+						centerX-circleSeparation,
+						centerY-circleSeparation,
+						centerX+circleSeparation,
+						centerY+circleSeparation,
+						circleCornerRadius,
+						1);
+	}
+	
+	// TimeBoard text on big widget
+	if (widgetW != 70) {
+		mainBuffer.textRGB(highlightR, highlightG, highlightB);
+		mainBuffer.textAlign(11);
+		mainBuffer.font(fntLargeBold);
+		mainBuffer.text(clrText, centerX, centerY-28, "TimeBoard");
 	}
 	
 	updateClockHands();

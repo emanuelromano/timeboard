@@ -65,7 +65,7 @@ END
 FORM ID AngClockPrefMForm  AT ( 2 2 156 156 )
 MODAL
 BEGIN
-    TITLE "Analog Clock Preferences"
+    TITLE "Analog Clock"
 	LABEL "Clock markers:" ID CLockMakersLbl  AT (5 18)
 	POPUPTRIGGER "Numbers" ID ClockMarkersPopup  AT (65 18 AUTO AUTO)
 	LIST "Numbers" "Lines"   ID ClockMarkersList  AT (65 18 42 24) VISIBLEITEMS 2 NONUSABLE
@@ -73,3 +73,25 @@ BEGIN
 	BUTTON "Back" ID AngClockPrefBackBtn  AT (122 140 AUTO AUTO)
 END
 
+
+
+FORM ID DigClockPrefMForm  AT ( 2 2 156 156 )
+FRAME MODAL
+BEGIN
+        TITLE "Digital Clock"
+	BUTTON "Back" ID DigClockPrefBackBtn   AT (122 140 AUTO AUTO)
+END
+
+FORM ID CalPrefMForm  AT ( 2 2 156 156 )
+FRAME MODAL
+BEGIN
+        TITLE "Calendar"
+	BUTTON "Back" ID CalPrefBackBtn    AT (122 140 AUTO AUTO)
+END
+
+FORM ID BatPrefMForm  AT ( 2 2 156 156 )
+FRAME  MODAL
+BEGIN
+        TITLE "Battery"
+	BUTTON "Back" ID BatPrefBackBtn    AT (122 140 AUTO AUTO)
+END

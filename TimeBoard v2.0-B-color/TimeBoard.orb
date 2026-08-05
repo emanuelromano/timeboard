@@ -43,13 +43,28 @@
     hresize = 2, vresize = 2
     menubar UIMenuBar menuBar {
       id = 1001
+      menu UIMenu menuMainFunctions {
+        text = "Functions"
+        menuitem UIMenuItem mainFuncAnalogClock {
+          id = 1012, sysid = 0, text = "Analog clock", shortcut = "C"
+        }
+        menuitem UIMenuItem mainFuncDigitalClock {
+          id = 1013, sysid = 0, text = "Digital clock", shortcut = "D"
+        }
+        menuitem UIMenuItem mainFuncCalendar {
+          id = 1014, sysid = 0, text = "Calendar", shortcut = "L"
+        }
+        menuitem UIMenuItem mainFuncBattery {
+          id = 1015, sysid = 0, text = "Battery", shortcut = "B"
+        }
+        menuitem UIMenuItem mainFuncTBTS {
+          id = 1011, sysid = 0, text = "TBTS", shortcut = "T"
+        }
+      }
       menu UIMenu menuMainOptions {
         text = "Options"
         menuitem UIMenuItem mainOptionsPrefs {
           id = 1007, sysid = 0, text = "Preferences", shortcut = "P"
-        }
-        menuitem UIMenuItem mainOptionsTBTS {
-          id = 1003, sysid = 0, text = "TBTS", shortcut = "T"
         }
         menuitem UIMenuItem mainOptionsHelp {
           id = 1005, sysid = 0, text = "Help", shortcut = "H"

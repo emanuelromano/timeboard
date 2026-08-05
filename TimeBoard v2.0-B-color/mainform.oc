@@ -26,11 +26,6 @@ void setMainPreferences() {
 	showWidget2 = appPrefs[0].showWidget2;
 	showWidget3 = appPrefs[0].showWidget3;
 	showWidget4 = appPrefs[0].showWidget4;*/
-	
-	showWidget1 = true;
-	showWidget2 = true;
-	showWidget3 = true;
-	showWidget4 = true;
 }
 
 
@@ -53,30 +48,38 @@ void composeBackgroundBuffer() {
 	mainBuffer.bgRGB(bgShadowColorR, bgShadowColorG, bgShadowColorB);
 	
 	if (showWidget1) {
+		// Shadow
 		mainBuffer.rect(clrBG, startX1+1, startY1+1, startX1+widgetW+1, startY1+widgetH+1, cornerRadius);
+		// Main rectangle
 		mainBuffer.rect(clrFG, startX1, startY1, startX1+widgetW, startY1+widgetH, cornerRadius);
-		
+		// Highlight
 		drawWidgetHighlight(startX1, startY1, widgetW, widgetH);
 		}
 	
 	if (showWidget2) {
+		// Shadow
 		mainBuffer.rect(clrBG, startX2+1, startY2+1, startX2+widgetW+1, startY2+widgetH+1, cornerRadius);
+		// Main rectangle
 		mainBuffer.rect(clrFG, startX2, startY2, startX2+widgetW, startY2+widgetH, cornerRadius);
-		
+		// Highlight
 		drawWidgetHighlight(startX2, startY2, widgetW, widgetH);
 		}
 	
 	if (showWidget3) {
+		// Shadow
 		mainBuffer.rect(clrBG, startX3+1, startY3+1, startX3+widgetW+1, startY3+widgetH+1, cornerRadius);
+		// Main rectangle
 		mainBuffer.rect(clrFG, startX3, startY3, startX3+widgetW, startY3+widgetH, cornerRadius);
-		
+		// Highlight
 		drawWidgetHighlight(startX3, startY3, widgetW, widgetH);
 		}
 	
 	if (showWidget4) {
+		// Shadow
 		mainBuffer.rect(clrBG, startX4+1, startX4+1, startX4+widgetW+1, startY4+widgetH+1, cornerRadius);
+		// Main rectangle
 		mainBuffer.rect(clrFG, startX4, startX4, startX4+widgetW, startY4+widgetH, cornerRadius);
-		
+		// Highlight
 		drawWidgetHighlight(startX4, startY4, widgetW, widgetH);
 		}
 	
@@ -111,19 +114,18 @@ handler mainForm.onopen() {
 	
 	charge = battery(false);
 	
+	showWidget1 = true;
+	showWidget2 = true;
+	showWidget3 = true;
+	showWidget4 = true;
+	
 	timer(1);
 }
 
 
-handler mainForm.ondraw() {
-	setMainPreferences();
-	composeBackgroundBuffer();
-	composeWidgetsBuffer();
-	
-	widgetW = 70;
-	widgetH = 70;
-	
+handler mainForm.ondraw() {	
 	if (mainForm.h > 160) {
+		// Portrait mode
 		showWidget1 = true;
 		showWidget2 = false;
 		showWidget3 = false;
@@ -132,14 +134,62 @@ handler mainForm.ondraw() {
 		widgetW = 144;
 		widgetH = 144;
 		
-		mainBuffer.begin();
-		mainBuffer.fgRGB(bgShadowColorR, bgShadowColorG, bgShadowColorB);
-		mainBuffer.rect(clrFG, mainForm.x+9, 157, mainForm.w-7, mainForm.h-7, cornerRadius);
-		mainBuffer.fgRGB(fgColorR, fgColorG, fgColorB);
-		mainBuffer.rect(clrFG, mainForm.x+8, 156, mainForm.w-8, mainForm.h-8, cornerRadius);
+		miniPanelX1 = 14;
+		miniPanelY1 = 166;
 		
-		drawWidgetHighlight(mainForm.x+8, 156, mainForm.w-8, 60);
+		miniPanelX2 = 61;
+		miniPanelY2 = 166;
+		
+		miniPanelX3 = 108;
+		miniPanelY3 = 166;
+		
+		miniPanelW = 38;
+		miniPanelH = 45;
+		
+		setMainPreferences();
+		composeBackgroundBuffer();
+		composeWidgetsBuffer();
+		
+		// Rectangle at the bottom
+		mainBuffer.begin();
+		// Shadow
+		mainBuffer.fgRGB(bgShadowColorR, bgShadowColorG, bgShadowColorB);
+		mainBuffer.rect(clrFG, mainForm.x+9, 161, mainForm.w-7, mainForm.h-7, cornerRadius);
+		// Main rectangle
+		mainBuffer.fgRGB(fgColorR, fgColorG, fgColorB);
+		mainBuffer.rect(clrFG, mainForm.x+8, 160, mainForm.w-8, mainForm.h-8, cornerRadius);
+		// Highlight
+		drawWidgetHighlight(mainForm.x+8, 160, mainForm.w-8, 60);
+		// Line separators
+		mainBuffer.fgRGB(bgHighlightColorR, bgHighlightColorG, bgHighlightColorB);
+		mainBuffer.line(clrFG, mainForm.x+56, 168, mainForm.x+56, 208);
+		mainBuffer.line(clrFG, mainForm.w-57, 168, mainForm.w-57, 208);
+		
+		// TESTING LOWER PANELS
+		mainBuffer.fgRGB(255, 255, 255);
+		mainBuffer.rect(clrFG, miniPanelX1, miniPanelY1, 52, 211, 0);
+		mainBuffer.rect(clrFG, miniPanelX2, miniPanelY2, 99, 211, 0);
+		mainBuffer.rect(clrFG, miniPanelX3, miniPanelY3, 146, 211, 0);
+		
 		mainBuffer.end();
+	}
+	else if (mainForm.w > 160) {
+		// Landscape mode
+	}
+	else
+	{
+		// Normal mode
+		showWidget1 = true;
+		showWidget2 = true;
+		showWidget3 = true;
+		showWidget4 = true;
+		
+		widgetW = 70;
+		widgetH = 70;
+		
+		setMainPreferences();
+		composeBackgroundBuffer();
+		composeWidgetsBuffer();
 	}
 	
 	// Draw mainBuffer
@@ -227,7 +277,7 @@ handler mainOptionsPrefs.onselect() {
 
 
 // TBTS: Checks if TimeBoard Time Service is installed
-handler mainOptionsTBTS.onselect() {
+handler mainFuncTBTS.onselect() {
 	if (isTBTSInstalled()) {
 		launchCustomString("TBTS", launchCodeOrbCAppWithArgs, "TIMEBOARD");
 	}
