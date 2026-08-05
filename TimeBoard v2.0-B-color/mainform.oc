@@ -168,9 +168,9 @@ handler mainForm.ondraw() {
 		
 		// TESTING LOWER PANELS
 		mainBuffer.fgRGB(255, 255, 255);
-		mainBuffer.rect(clrFG, miniPanelX1, miniPanelY1, miniPanelX1+miniPanelW, miniPanelY1+miniPanelH, 0);
-		mainBuffer.rect(clrFG, miniPanelX2, miniPanelY2, miniPanelX2+miniPanelW, miniPanelY2+miniPanelH, 0);
-		mainBuffer.rect(clrFG, miniPanelX3, miniPanelY3, miniPanelX3+miniPanelW, miniPanelY3+miniPanelH, 0);
+		mainBuffer.frame(clrFG, miniPanelX1, miniPanelY1, miniPanelX1+miniPanelW, miniPanelY1+miniPanelH, 0, 1);
+		mainBuffer.frame(clrFG, miniPanelX2, miniPanelY2, miniPanelX2+miniPanelW, miniPanelY2+miniPanelH, 0, 1);
+		mainBuffer.frame(clrFG, miniPanelX3, miniPanelY3, miniPanelX3+miniPanelW, miniPanelY3+miniPanelH, 0, 1);
 		
 		mainBuffer.end();
 	}
@@ -217,9 +217,9 @@ handler mainForm.ondraw() {
 		
 		// TESTING LOWER PANELS
 		mainBuffer.fgRGB(255, 255, 255);
-		mainBuffer.rect(clrFG, miniPanelX1, miniPanelY1, miniPanelX1+miniPanelW, miniPanelY1+miniPanelH, 0);
-		mainBuffer.rect(clrFG, miniPanelX2, miniPanelY2, miniPanelX2+miniPanelW, miniPanelY2+miniPanelH, 0);
-		mainBuffer.rect(clrFG, miniPanelX3, miniPanelY3, miniPanelX3+miniPanelW, miniPanelY3+miniPanelH, 0);
+		mainBuffer.frame(clrFG, miniPanelX1, miniPanelY1, miniPanelX1+miniPanelW, miniPanelY1+miniPanelH, 0, 1);
+		mainBuffer.frame(clrFG, miniPanelX2, miniPanelY2, miniPanelX2+miniPanelW, miniPanelY2+miniPanelH, 0, 1);
+		mainBuffer.frame(clrFG, miniPanelX3, miniPanelY3, miniPanelX3+miniPanelW, miniPanelY3+miniPanelH, 0, 1);
 		
 		mainBuffer.end();
 	}
@@ -260,12 +260,33 @@ handler mainForm.ontimer() {
 		minutes = date.min;
 		
 		charge = battery(false);
-	
-		if (showWidget1) updateClockHands();
-		if (showWidget2) digitalClockWidget(startX2, startY2);
 		
-		if (showWidget3) if (day != lastDay) calendarWidget(startX3, startY3);
-		if (showWidget4) if (charge != lastCharge) batteryWidget(startX4, startY4);
+		// Widgets
+		if (showWidget1) updateClockHands();
+		
+		if (showWidget2) {
+			digitalClockWidget(startX2, startY2);
+		}
+		else
+		{
+			//digitalClockWidget(startX2, startY2);
+		}
+		
+		if (showWidget3) {
+			if (day != lastDay) calendarWidget(startX3, startY3);
+		}
+		else
+		{
+			//if (day != lastDay) calendarWidget(startX3, startY3);
+		}
+		
+		if (showWidget4) {
+			if (charge != lastCharge) batteryWidget(startX4, startY4);
+		}
+		else
+		{
+			//if (charge != lastCharge) batteryWidget(startX4, startY4);
+		}
 		
 		// Draw mainBuffer
 		draw.begin();

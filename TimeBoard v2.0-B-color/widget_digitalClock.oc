@@ -27,11 +27,11 @@ void digitalClockWidget(int startX, int startY) {
 		drawDigit(minuteDigit2, digitW, digitH, digitMin2X, digitY, radius);
 		
 		// AP/PM
-		mainBuffer.textAlign(00);
+		/*mainBuffer.textAlign(00);
 		mainBuffer.textRGB(highlightR, highlightG, highlightB);
 		mainBuffer.bgRGB(fgColorR, fgColorG, fgColorB);
 		mainBuffer.font(fntLargeBold);
-		//mainBuffer.text(clrText, digitHr1X, digitY+digitH, "a.m.");
+		mainBuffer.text(clrText, digitHr1X, digitY+digitH, "a.m.");*/
 	//}
 	
 	// Seconds
@@ -42,4 +42,9 @@ void digitalClockWidget(int startX, int startY) {
 	mainBuffer.text(clrText, startX+65, digitY+digitH+1, "   " + secondDigit1 + "" + secondDigit2);
 	
 	mainBuffer.end();
+}
+
+
+void miniDigitalClockWidget() {
+
 }
