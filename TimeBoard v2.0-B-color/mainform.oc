@@ -19,6 +19,7 @@ void setMainPreferences() {
 	batteryG = appPrefs[0].batteryG;
 	batteryB = appPrefs[0].batteryB;
 	
+	cornerRadius = appPrefs[0].cornerRadius;
 	useAnalogClockNumbers = appPrefs[0].useAnalogClockNumbers;
 	
 	// Show selected widgets
@@ -135,16 +136,16 @@ handler mainForm.ondraw() {
 		widgetH = 144;
 		
 		miniPanelX1 = 14;
-		miniPanelY1 = 166;
+		miniPanelY1 = 170;
 		
 		miniPanelX2 = 61;
-		miniPanelY2 = 166;
+		miniPanelY2 = 170;
 		
 		miniPanelX3 = 108;
-		miniPanelY3 = 166;
+		miniPanelY3 = 170;
 		
 		miniPanelW = 38;
-		miniPanelH = 45;
+		miniPanelH = 38; // 45
 		
 		setMainPreferences();
 		composeBackgroundBuffer();
@@ -175,6 +176,52 @@ handler mainForm.ondraw() {
 	}
 	else if (mainForm.w > 160) {
 		// Landscape mode
+		showWidget1 = true;
+		showWidget2 = false;
+		showWidget3 = false;
+		showWidget4 = false;
+		
+		widgetW = 144;
+		widgetH = 144;
+		
+		miniPanelX1 = 170;
+		miniPanelY1 = 15;
+		
+		miniPanelX2 = 170;
+		miniPanelY2 = 62;
+		
+		miniPanelX3 = 170;
+		miniPanelY3 = 109;
+		
+		miniPanelW = 38;
+		miniPanelH = 38; // 45
+		
+		setMainPreferences();
+		composeBackgroundBuffer();
+		composeWidgetsBuffer();
+		
+		// Rectangle at the side
+		mainBuffer.begin();
+		// Shadow
+		mainBuffer.fgRGB(bgShadowColorR, bgShadowColorG, bgShadowColorB);
+		mainBuffer.rect(clrFG, mainForm.x+161, 9, mainForm.w-7, mainForm.h-7, cornerRadius);
+		// Main rectangle
+		mainBuffer.fgRGB(fgColorR, fgColorG, fgColorB);
+		mainBuffer.rect(clrFG, mainForm.x+160, 8, mainForm.w-8, mainForm.h-8, cornerRadius);
+		// Highlight
+		drawWidgetHighlight(mainForm.x+160, 8, 60, mainForm.h-8);
+		// Line separators
+		mainBuffer.fgRGB(bgHighlightColorR, bgHighlightColorG, bgHighlightColorB);
+		mainBuffer.line(clrFG, 168, mainForm.h-56, 208, mainForm.h-56);
+		mainBuffer.line(clrFG, 168, mainForm.y+57, 208, mainForm.y+57);
+		
+		// TESTING LOWER PANELS
+		mainBuffer.fgRGB(255, 255, 255);
+		mainBuffer.rect(clrFG, miniPanelX1, miniPanelY1, miniPanelX1+miniPanelW, miniPanelY1+miniPanelH, 0);
+		mainBuffer.rect(clrFG, miniPanelX2, miniPanelY2, miniPanelX2+miniPanelW, miniPanelY2+miniPanelH, 0);
+		mainBuffer.rect(clrFG, miniPanelX3, miniPanelY3, miniPanelX3+miniPanelW, miniPanelY3+miniPanelH, 0);
+		
+		mainBuffer.end();
 	}
 	else
 	{

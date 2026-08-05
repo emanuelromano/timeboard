@@ -47,6 +47,7 @@ struct AppPrefs {
 	bool showWidget4;
 	
 	int interfaceMode;
+	int cornerRadius;
 	// Show numbers or lines in analog clock: 1 = true / 0 = false
 	int useAnalogClockNumbers;
 };
@@ -89,6 +90,7 @@ bool setDefaultPrefs() {
 	appPrefs[0].showWidget4 = true;
 	
 	appPrefs[0].interfaceMode = 0;
+	appPrefs[0].cornerRadius = 0; // 8
 	appPrefs[0].useAnalogClockNumbers = 1;
 	
 	return prefs.set(TimeBoard.creator, false, appPrefs, typeof(appPrefs), 1);
