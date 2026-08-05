@@ -167,9 +167,9 @@ handler mainForm.ondraw() {
 		
 		// TESTING LOWER PANELS
 		mainBuffer.fgRGB(255, 255, 255);
-		mainBuffer.rect(clrFG, miniPanelX1, miniPanelY1, 52, 211, 0);
-		mainBuffer.rect(clrFG, miniPanelX2, miniPanelY2, 99, 211, 0);
-		mainBuffer.rect(clrFG, miniPanelX3, miniPanelY3, 146, 211, 0);
+		mainBuffer.rect(clrFG, miniPanelX1, miniPanelY1, miniPanelX1+miniPanelW, miniPanelY1+miniPanelH, 0);
+		mainBuffer.rect(clrFG, miniPanelX2, miniPanelY2, miniPanelX2+miniPanelW, miniPanelY2+miniPanelH, 0);
+		mainBuffer.rect(clrFG, miniPanelX3, miniPanelY3, miniPanelX3+miniPanelW, miniPanelY3+miniPanelH, 0);
 		
 		mainBuffer.end();
 	}
