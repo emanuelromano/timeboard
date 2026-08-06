@@ -269,7 +269,7 @@ handler mainForm.ontimer() {
 		}
 		else
 		{
-			//digitalClockWidget(startX2, startY2);
+			miniDigitalClockWidget(miniPanelX1, miniPanelY1);
 		}
 		
 		if (showWidget3) {
