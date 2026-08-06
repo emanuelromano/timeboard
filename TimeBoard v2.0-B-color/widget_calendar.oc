@@ -91,19 +91,19 @@ void calendarWidget(int startX, int startY) {
 	// Background rectangle for new drawings
 	mainBuffer.fgRGB(fgColorR, fgColorG, fgColorB);
 	mainBuffer.rect(clrFG, startX+3, startY+3, startX+widgetW-2, startY+widgetH-2, cornerRadiusAux-3);
-		
-	//Date
-	mainBuffer.fgRGB(mainR, mainG, mainB);
-	// drawDigit() comes from globalFunctions.oc
-	drawDigit(dayDigit1, digitW, digitH, digitDateX1, digitY, radius);
-	drawDigit(dayDigit2, digitW, digitH, digitDateX2, digitY, radius);
 	
-	// Day
+	// Weekday
 	mainBuffer.textAlign(21);
 	mainBuffer.textRGB(highlightR, highlightG, highlightB);
 	mainBuffer.bgRGB(fgColorR, fgColorG, fgColorB);
 	mainBuffer.font(fntLargeBold);
 	mainBuffer.text(clrText, textX, digitY-3, weekdayStr);
+	
+	// Date
+	mainBuffer.fgRGB(mainR, mainG, mainB);
+	// drawDigit() comes from globalFunctions.oc
+	drawDigit(dayDigit1, digitW, digitH, digitDateX1, digitY, radius);
+	drawDigit(dayDigit2, digitW, digitH, digitDateX2, digitY, radius);
 	
 	// Month
 	mainBuffer.textAlign(01);
@@ -112,5 +112,98 @@ void calendarWidget(int startX, int startY) {
 	mainBuffer.font(fntLargeBold);
 	mainBuffer.text(clrText, textX, digitY+digitH, monthStr);
 	
+	mainBuffer.end();
+}
+
+
+void miniCalendarWidget(int startX, int startY) {
+	int digitX, digitY;
+	string weekdayStr, monthStr;
+	
+	digitX = startX + (miniPanelW / 2);
+	digitY = startY + (miniPanelH / 2);
+	
+	splitDateDigits(day);
+	
+	// Months
+	switch (month) {
+		case 1:
+			monthStr = "JAN";
+			break;
+		case 2:
+			monthStr = "FEB";
+			break;
+		case 3:
+			monthStr = "MAR";
+			break;
+		case 4:
+			monthStr = "APR";
+			break;
+		case 5:
+			monthStr = "MAY";
+			break;
+		case 6:
+			monthStr = "JUN";
+			break;
+		case 7:
+			monthStr = "JUL";
+			break;
+		case 8:
+			monthStr = "AUG";
+			break;
+		case 9:
+			monthStr = "SEP";
+			break;
+		case 10:
+			monthStr = "OCT";
+			break;
+		case 11:
+			monthStr = "NOV";
+			break;
+		case 12:
+			monthStr = "DEC";
+			break;
+	}
+	
+	// Weekdays
+		switch (weekday) {
+		case 0:
+			weekdayStr = "SUN";
+			break;
+		case 1:
+			weekdayStr = "MON";
+			break;
+		case 2:
+			weekdayStr = "TUE";
+			break;
+		case 3:
+			weekdayStr = "WED";
+			break;
+		case 4:
+			weekdayStr = "THU";
+			break;
+		case 5:
+			weekdayStr = "FRI";
+			break;
+		case 6:
+			weekdayStr = "SAT";
+			break;
+	}
+
+	
+	mainBuffer.begin();
+	mainBuffer.textAlign(11);
+	mainBuffer.bgRGB(fgColorR, fgColorG, fgColorB);
+	mainBuffer.textRGB(highlightR, highlightG, highlightB);
+	mainBuffer.font(fntBold);
+	// Weekday
+	mainBuffer.text(clrText, digitX, digitY-15, weekdayStr);
+	// Date
+	mainBuffer.font(fntLED);
+	mainBuffer.textRGB(mainR, mainG, mainB);
+	mainBuffer.text(clrText, digitX, digitY, dayDigit1 + "" + dayDigit2);
+	// Month
+	mainBuffer.font(fntBold);
+	mainBuffer.text(clrText, digitX, digitY+12, monthStr);
 	mainBuffer.end();
 }

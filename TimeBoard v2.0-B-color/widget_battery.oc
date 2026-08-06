@@ -1,15 +1,8 @@
-void drawBatteryDots(
-	int startX,
-	int startY,
-	int dotRadius,
-	int ringRadius,
-	int charge)
-{
-	int centerX, centerY;
-	int activeDots;
-	int i;
-	int x, y;
-	int activeR, activeG, activeB;
+void drawBatteryDots(int startX, int startY, int dotRadius, int ringRadius, int charge) {
+	int centerX, centerY,
+		activeDots,
+		i, x, y,
+		activeR, activeG, activeB;
 	float angle;
 
 	centerX = startX + (widgetW / 2);
@@ -86,7 +79,9 @@ void batteryWidget(int startX, int startY) {
 	// Battery icon
 	mainBuffer.fgRGB(mainR, mainG, mainB);
 	mainBuffer.frame(clrFG, iconX, iconY, iconX+15, iconY+8, 2, 1);
+	mainBuffer.fgRGB(highlightR, highlightG, highlightB);
 	mainBuffer.rect(clrFG, iconX+1, iconY+1, iconX+14, iconY+7, 1);
+	mainBuffer.fgRGB(mainR, mainG, mainB);
 	mainBuffer.line(clrFG, iconX+16, iconY+2, iconX+16, iconY+5);
 	
 	// Battery percentage
@@ -95,5 +90,37 @@ void batteryWidget(int startX, int startY) {
 	mainBuffer.bgRGB(fgColorR, fgColorG, fgColorB);
 	mainBuffer.font(fntLargeBold);
 	mainBuffer.text(clrText, startX+65, digitY, "   "+charge+"%");
+	mainBuffer.end();
+}
+
+
+void miniBatteryWidget(int startX, int startY) {
+	int digitX, digitY, iconX, iconY;
+	
+	iconX = startX + 11;
+	iconY = startY + 30;
+		
+	digitX = startX + (miniPanelW / 2);
+	digitY = startY + (miniPanelH / 2);
+		
+	mainBuffer.begin();
+	mainBuffer.textAlign(11);
+	mainBuffer.bgRGB(fgColorR, fgColorG, fgColorB);
+	mainBuffer.textRGB(highlightR, highlightG, highlightB);
+	mainBuffer.font(fntBold);
+	// BATT text
+	mainBuffer.text(clrText, digitX, digitY-15, "BATT");
+	// Charge
+	mainBuffer.font(fntLED);
+	mainBuffer.textRGB(mainR, mainG, mainB);
+	mainBuffer.text(clrText, digitX, digitY, " " + charge + " ");
+	// Icon
+	// Battery icon
+	mainBuffer.fgRGB(mainR, mainG, mainB);
+	mainBuffer.frame(clrFG, iconX, iconY, iconX+15, iconY+6, 2, 1);
+	mainBuffer.fgRGB(highlightR, highlightG, highlightB);
+	mainBuffer.rect(clrFG, iconX+1, iconY+1, iconX+14, iconY+5, 1);
+	mainBuffer.fgRGB(mainR, mainG, mainB);
+	mainBuffer.line(clrFG, iconX+16, iconY+1, iconX+16, iconY+4);
 	mainBuffer.end();
 }

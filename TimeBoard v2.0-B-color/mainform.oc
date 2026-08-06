@@ -167,12 +167,17 @@ handler mainForm.ondraw() {
 		mainBuffer.line(clrFG, mainForm.w-57, 168, mainForm.w-57, 208);
 		
 		// TESTING LOWER PANELS
-		mainBuffer.fgRGB(255, 255, 255);
-		mainBuffer.frame(clrFG, miniPanelX1, miniPanelY1, miniPanelX1+miniPanelW, miniPanelY1+miniPanelH, 0, 1);
-		mainBuffer.frame(clrFG, miniPanelX2, miniPanelY2, miniPanelX2+miniPanelW, miniPanelY2+miniPanelH, 0, 1);
-		mainBuffer.frame(clrFG, miniPanelX3, miniPanelY3, miniPanelX3+miniPanelW, miniPanelY3+miniPanelH, 0, 1);
+		//mainBuffer.fgRGB(255, 255, 255);
+		//mainBuffer.frame(clrFG, miniPanelX1, miniPanelY1, miniPanelX1+miniPanelW, miniPanelY1+miniPanelH, 0, 1);
+		//mainBuffer.frame(clrFG, miniPanelX2, miniPanelY2, miniPanelX2+miniPanelW, miniPanelY2+miniPanelH, 0, 1);
+		//mainBuffer.frame(clrFG, miniPanelX3, miniPanelY3, miniPanelX3+miniPanelW, miniPanelY3+miniPanelH, 0, 1);
 		
 		mainBuffer.end();
+		
+		// Mini widgets
+		miniDigitalClockWidget(miniPanelX1, miniPanelY1);
+		miniCalendarWidget(miniPanelX2, miniPanelY2);
+		miniBatteryWidget(miniPanelX3, miniPanelY3);
 	}
 	else if (mainForm.w > 160) {
 		// Landscape mode
@@ -216,12 +221,17 @@ handler mainForm.ondraw() {
 		mainBuffer.line(clrFG, 168, mainForm.y+57, 208, mainForm.y+57);
 		
 		// TESTING LOWER PANELS
-		mainBuffer.fgRGB(255, 255, 255);
-		mainBuffer.frame(clrFG, miniPanelX1, miniPanelY1, miniPanelX1+miniPanelW, miniPanelY1+miniPanelH, 0, 1);
-		mainBuffer.frame(clrFG, miniPanelX2, miniPanelY2, miniPanelX2+miniPanelW, miniPanelY2+miniPanelH, 0, 1);
-		mainBuffer.frame(clrFG, miniPanelX3, miniPanelY3, miniPanelX3+miniPanelW, miniPanelY3+miniPanelH, 0, 1);
+		//mainBuffer.fgRGB(255, 255, 255);
+		//mainBuffer.frame(clrFG, miniPanelX1, miniPanelY1, miniPanelX1+miniPanelW, miniPanelY1+miniPanelH, 0, 1);
+		//mainBuffer.frame(clrFG, miniPanelX2, miniPanelY2, miniPanelX2+miniPanelW, miniPanelY2+miniPanelH, 0, 1);
+		//mainBuffer.frame(clrFG, miniPanelX3, miniPanelY3, miniPanelX3+miniPanelW, miniPanelY3+miniPanelH, 0, 1);
 		
 		mainBuffer.end();
+		
+		// Mini widgets
+		miniDigitalClockWidget(miniPanelX1, miniPanelY1);
+		miniCalendarWidget(miniPanelX2, miniPanelY2);
+		miniBatteryWidget(miniPanelX3, miniPanelY3);
 	}
 	else
 	{
@@ -277,7 +287,7 @@ handler mainForm.ontimer() {
 		}
 		else
 		{
-			//if (day != lastDay) calendarWidget(startX3, startY3);
+			miniCalendarWidget(miniPanelX2, miniPanelY2);
 		}
 		
 		if (showWidget4) {
@@ -285,7 +295,7 @@ handler mainForm.ontimer() {
 		}
 		else
 		{
-			//if (charge != lastCharge) batteryWidget(startX4, startY4);
+			miniBatteryWidget(miniPanelX3, miniPanelY3);
 		}
 		
 		// Draw mainBuffer
