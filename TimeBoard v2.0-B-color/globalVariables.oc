@@ -1,4 +1,5 @@
 // Time & battery
+const float pi = 3.14159265;
 int year, month, day, lastDay, weekday,
 	hours, minutes, seconds, lastSecond, lastMinute,
 	
@@ -10,23 +11,24 @@ int year, month, day, lastDay, weekday,
 	
 	charge, lastCharge; // Battery
 
+
+// Interface
 int	centerX, centerY,
 
 	hourLength,
 	minuteLength,
 	secondLength,
 	
+	interfaceMode,
 	useAnalogClockNumbers;
 
 float oldHourAngle,
 	oldMinuteAngle,
 	oldSecondAngle;
 
-const float pi = 3.14159265;
-
 
 // Widgets
-int startX1 = 8,
+int	startX1 = 8,
 	startY1 = 8,
 	
 	startX2 = 82,
@@ -41,10 +43,10 @@ int startX1 = 8,
 	widgetW,
 	widgetH,
 		
-	cornerRadius,
+	cornerRadius;
 	
-	// Mini panels
-	miniPanelX1,
+// Mini panels
+int	miniPanelX1,
 	miniPanelY1,
 	
 	miniPanelX2,

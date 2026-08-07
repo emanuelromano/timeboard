@@ -41,11 +41,6 @@ struct AppPrefs {
 	int batteryG;
 	int batteryB;
 	
-	bool showWidget1;
-	bool showWidget2;
-	bool showWidget3;
-	bool showWidget4;
-	
 	int interfaceMode;
 	bool widgetHighlight;
 	bool widgetShadow;
@@ -84,11 +79,6 @@ bool setDefaultPrefs() {
 	appPrefs[0].batteryR = 102;
 	appPrefs[0].batteryG = 255;
 	appPrefs[0].batteryB = 0;
-	
-	appPrefs[0].showWidget1 = true;
-	appPrefs[0].showWidget2 = true;
-	appPrefs[0].showWidget3 = true;
-	appPrefs[0].showWidget4 = true;
 	
 	appPrefs[0].interfaceMode = 0;
 	appPrefs[0].widgetHighlight = true;

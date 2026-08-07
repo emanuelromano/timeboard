@@ -109,6 +109,55 @@ void drawWidgetHighlight(int startX, int startY, int width, int height) {
 }
 
 
+void drawAuxiliarPanel(string orientation) {
+	if (orientation == "P") {
+		mainBuffer.begin();
+		// Shadow
+		mainBuffer.fgRGB(bgShadowColorR, bgShadowColorG, bgShadowColorB);
+		if (widgetShadow) mainBuffer.rect(clrFG, mainForm.x+9, 161, mainForm.w-7, mainForm.h-7, cornerRadius);
+		// Main rectangle
+		mainBuffer.fgRGB(fgColorR, fgColorG, fgColorB);
+		mainBuffer.rect(clrFG, mainForm.x+8, 160, mainForm.w-8, mainForm.h-8, cornerRadius);
+		// Highlight
+		if (widgetHighlight) drawWidgetHighlight(mainForm.x+8, 160, mainForm.w-8, 55);
+		// Line separators
+		mainBuffer.fgRGB(highlightR, highlightG, highlightB);
+		mainBuffer.line(clrFG, mainForm.x+56, 168, mainForm.x+56, 208);
+		mainBuffer.line(clrFG, mainForm.w-57, 168, mainForm.w-57, 208);
+		
+		// TESTING LOWER PANELS
+		/*mainBuffer.fgRGB(255, 255, 255);
+		mainBuffer.frame(clrFG, miniPanelX1, miniPanelY1, miniPanelX1+miniPanelW, miniPanelY1+miniPanelH, 0, 1);
+		mainBuffer.frame(clrFG, miniPanelX2, miniPanelY2, miniPanelX2+miniPanelW, miniPanelY2+miniPanelH, 0, 1);
+		mainBuffer.frame(clrFG, miniPanelX3, miniPanelY3, miniPanelX3+miniPanelW, miniPanelY3+miniPanelH, 0, 1);*/
+		mainBuffer.end();
+	}
+	
+	if (orientation == "L") {
+		mainBuffer.begin();
+		// Shadow
+		mainBuffer.fgRGB(bgShadowColorR, bgShadowColorG, bgShadowColorB);
+		if (widgetShadow) mainBuffer.rect(clrFG, mainForm.x+161, 9, mainForm.w-7, mainForm.h-7, cornerRadius);
+		// Main rectangle
+		mainBuffer.fgRGB(fgColorR, fgColorG, fgColorB);
+		mainBuffer.rect(clrFG, mainForm.x+160, 8, mainForm.w-8, mainForm.h-8, cornerRadius);
+		// Highlight
+		if (widgetHighlight) drawWidgetHighlight(mainForm.x+160, 8, 55, mainForm.h-8);
+		// Line separators
+		mainBuffer.fgRGB(highlightR, highlightG, highlightB);
+		mainBuffer.line(clrFG, 168, mainForm.h-56, 208, mainForm.h-56);
+		mainBuffer.line(clrFG, 168, mainForm.y+57, 208, mainForm.y+57);
+		
+		// TESTING LOWER PANELS
+		/*mainBuffer.fgRGB(255, 255, 255);
+		mainBuffer.frame(clrFG, miniPanelX1, miniPanelY1, miniPanelX1+miniPanelW, miniPanelY1+miniPanelH, 0, 1);
+		mainBuffer.frame(clrFG, miniPanelX2, miniPanelY2, miniPanelX2+miniPanelW, miniPanelY2+miniPanelH, 0, 1);
+		mainBuffer.frame(clrFG, miniPanelX3, miniPanelY3, miniPanelX3+miniPanelW, miniPanelY3+miniPanelH, 0, 1);*/
+		mainBuffer.end();
+	}
+}
+
+
 void splitDateDigits(int day) {
 	dayDigit1 = day / 10;
 	dayDigit2 = day % 10;

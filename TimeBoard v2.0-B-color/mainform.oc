@@ -1,4 +1,5 @@
 void setMainPreferences() {
+	// Set UI colors
 	bgColorR = appPrefs[0].bgColorR;
 	bgColorG = appPrefs[0].bgColorG;
 	bgColorB = appPrefs[0].bgColorB;
@@ -19,16 +20,12 @@ void setMainPreferences() {
 	batteryG = appPrefs[0].batteryG;
 	batteryB = appPrefs[0].batteryB;
 	
+	// Set other parameters
+	interfaceMode = appPrefs[0].interfaceMode;
 	widgetHighlight = appPrefs[0].widgetHighlight;
 	widgetShadow = appPrefs[0].widgetShadow;
 	cornerRadius = appPrefs[0].cornerRadius;
 	useAnalogClockNumbers = appPrefs[0].useAnalogClockNumbers;
-	
-	// Show selected widgets
-	/*showWidget1 = appPrefs[0].showWidget1;
-	showWidget2 = appPrefs[0].showWidget2;
-	showWidget3 = appPrefs[0].showWidget3;
-	showWidget4 = appPrefs[0].showWidget4;*/
 }
 
 
@@ -42,12 +39,10 @@ void composeBackgroundBuffer() {
 	mainBuffer.fgRGB(bgColorR, bgColorG, bgColorB);
 	mainBuffer.rect(clrFG, mainForm.x, mainForm.y, mainForm.w, mainForm.h, 0);
 	
-	// Set colors
+	// Set & calculate colors
 	mainBuffer.fgRGB(fgColorR, fgColorG, fgColorB);
-	
 	calculateShadowColor(100);
 	calculateHighlightColor(50);
-	
 	mainBuffer.bgRGB(bgShadowColorR, bgShadowColorG, bgShadowColorB);
 	
 	if (showWidget1) {
@@ -154,27 +149,7 @@ handler mainForm.ondraw() {
 		composeWidgetsBuffer();
 		
 		// Rectangle at the bottom
-		mainBuffer.begin();
-		// Shadow
-		mainBuffer.fgRGB(bgShadowColorR, bgShadowColorG, bgShadowColorB);
-		if (widgetShadow) mainBuffer.rect(clrFG, mainForm.x+9, 161, mainForm.w-7, mainForm.h-7, cornerRadius);
-		// Main rectangle
-		mainBuffer.fgRGB(fgColorR, fgColorG, fgColorB);
-		mainBuffer.rect(clrFG, mainForm.x+8, 160, mainForm.w-8, mainForm.h-8, cornerRadius);
-		// Highlight
-		if (widgetHighlight) drawWidgetHighlight(mainForm.x+8, 160, mainForm.w-8, 55);
-		// Line separators
-		mainBuffer.fgRGB(highlightR, highlightG, highlightB);
-		mainBuffer.line(clrFG, mainForm.x+56, 168, mainForm.x+56, 208);
-		mainBuffer.line(clrFG, mainForm.w-57, 168, mainForm.w-57, 208);
-		
-		// TESTING LOWER PANELS
-		/*mainBuffer.fgRGB(255, 255, 255);
-		mainBuffer.frame(clrFG, miniPanelX1, miniPanelY1, miniPanelX1+miniPanelW, miniPanelY1+miniPanelH, 0, 1);
-		mainBuffer.frame(clrFG, miniPanelX2, miniPanelY2, miniPanelX2+miniPanelW, miniPanelY2+miniPanelH, 0, 1);
-		mainBuffer.frame(clrFG, miniPanelX3, miniPanelY3, miniPanelX3+miniPanelW, miniPanelY3+miniPanelH, 0, 1);*/
-		
-		mainBuffer.end();
+		drawAuxiliarPanel("P"); // Portrait
 		
 		// Mini widgets
 		miniDigitalClockWidget(miniPanelX1, miniPanelY1);
@@ -208,27 +183,7 @@ handler mainForm.ondraw() {
 		composeWidgetsBuffer();
 		
 		// Rectangle at the side
-		mainBuffer.begin();
-		// Shadow
-		mainBuffer.fgRGB(bgShadowColorR, bgShadowColorG, bgShadowColorB);
-		if (widgetShadow) mainBuffer.rect(clrFG, mainForm.x+161, 9, mainForm.w-7, mainForm.h-7, cornerRadius);
-		// Main rectangle
-		mainBuffer.fgRGB(fgColorR, fgColorG, fgColorB);
-		mainBuffer.rect(clrFG, mainForm.x+160, 8, mainForm.w-8, mainForm.h-8, cornerRadius);
-		// Highlight
-		if (widgetHighlight) drawWidgetHighlight(mainForm.x+160, 8, 55, mainForm.h-8);
-		// Line separators
-		mainBuffer.fgRGB(highlightR, highlightG, highlightB);
-		mainBuffer.line(clrFG, 168, mainForm.h-56, 208, mainForm.h-56);
-		mainBuffer.line(clrFG, 168, mainForm.y+57, 208, mainForm.y+57);
-		
-		// TESTING LOWER PANELS
-		/*mainBuffer.fgRGB(255, 255, 255);
-		mainBuffer.frame(clrFG, miniPanelX1, miniPanelY1, miniPanelX1+miniPanelW, miniPanelY1+miniPanelH, 0, 1);
-		mainBuffer.frame(clrFG, miniPanelX2, miniPanelY2, miniPanelX2+miniPanelW, miniPanelY2+miniPanelH, 0, 1);
-		mainBuffer.frame(clrFG, miniPanelX3, miniPanelY3, miniPanelX3+miniPanelW, miniPanelY3+miniPanelH, 0, 1);*/
-		
-		mainBuffer.end();
+		drawAuxiliarPanel("L"); // Landscape
 		
 		// Mini widgets
 		miniDigitalClockWidget(miniPanelX1, miniPanelY1);
