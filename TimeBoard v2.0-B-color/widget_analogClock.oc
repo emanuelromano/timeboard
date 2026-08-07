@@ -254,7 +254,7 @@ void analogClockWidget(int startX, int startY) {
 			
 			// Color for 3, 6, 9 & 12 numbers
 			if (i == 0 || i == 3 || i == 6 || i == 9) {
-    			mainBuffer.textRGB(highlightR, highlightG, highlightB);
+    			mainBuffer.textRGB(mainR, mainG, mainB /*highlightR, highlightG, highlightB*/);
     		}
     		else
     		{
@@ -317,7 +317,7 @@ void analogClockWidget(int startX, int startY) {
 						1);
 		
 		// Seconds dots
-		mainBuffer.fgRGB(mainR, mainG, mainB);
+		mainBuffer.fgRGB(highlightR, highlightG, highlightB /*mainR, mainG, mainB*/);
 		
 		for (i = 0; i < 60; i++) {
 		

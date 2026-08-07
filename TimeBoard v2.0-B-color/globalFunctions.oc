@@ -23,9 +23,9 @@ void calculateHighlightColor(int amount) {
 	if (bgHighlightColorB > 255) bgHighlightColorB = 255;
 	
 	if (fgColorR == 255 && fgColorG == 255 && fgColorB == 255 ) {
-		bgHighlightColorR = 238;
-		bgHighlightColorG = 238;
-		bgHighlightColorB = 238;
+		bgHighlightColorR = 221;
+		bgHighlightColorG = 221;
+		bgHighlightColorB = 221;
 	}
 }
 
