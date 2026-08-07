@@ -1,12 +1,12 @@
-void drawBatteryDots(int startX, int startY, int dotRadius, int ringRadius, int charge) {
+void drawBatteryDots(int startX, int startY, int widW, int widH, int dotRadius, int ringRadius, int charge) {
 	int centerX, centerY,
 		activeDots,
 		i, x, y,
 		activeR, activeG, activeB;
 	float angle;
 
-	centerX = startX + (widgetW / 2);
-	centerY = startY + (widgetH / 2) - 7;
+	centerX = startX + (widW / 2);
+	centerY = startY + (widH / 2);
 
 	activeDots = charge / 10;
 
@@ -74,7 +74,8 @@ void batteryWidget(int startX, int startY) {
 		digitY = startY + 52;
 	
 	mainBuffer.begin();
-	drawBatteryDots(startX, startY, dotRadius, ringRadius, charge);
+	// Battery dots
+	drawBatteryDots(startX, startY, widgetW, widgetH-12, dotRadius, ringRadius, charge);
 	
 	// Battery icon
 	mainBuffer.fgRGB(mainR, mainG, mainB);
@@ -94,7 +95,7 @@ void batteryWidget(int startX, int startY) {
 }
 
 
-void miniBatteryWidget(int startX, int startY) {
+/*void miniBatteryWidget(int startX, int startY) {
 	int digitX, digitY, iconX, iconY;
 	
 	iconX = startX + 11;
@@ -122,5 +123,32 @@ void miniBatteryWidget(int startX, int startY) {
 	mainBuffer.rect(clrFG, iconX+1, iconY+1, iconX+14, iconY+5, 1);
 	mainBuffer.fgRGB(mainR, mainG, mainB);
 	mainBuffer.line(clrFG, iconX+16, iconY+1, iconX+16, iconY+4);
+	mainBuffer.end();
+}*/
+
+void miniBatteryWidget(int startX, int startY) {
+	int dotRadius = 3,
+		ringRadius = 15,
+		
+		digitX = startX + (miniPanelW / 2),
+		digitY = startY + (miniPanelH / 2);
+	
+	mainBuffer.begin();
+	mainBuffer.textAlign(11);
+	mainBuffer.bgRGB(fgColorR, fgColorG, fgColorB);
+	mainBuffer.textRGB(mainR, mainG, mainB);
+	mainBuffer.font(fntStandard);
+	
+	// Charge
+	if (charge == 100) {
+		mainBuffer.text(clrText, digitX-2, digitY-2, "  " + charge + "% ");
+	}
+	else
+	{
+		mainBuffer.text(clrText, digitX, digitY-2, "  " + charge + "% ");
+	}
+	
+	// Battery dots
+	drawBatteryDots(startX, startY, miniPanelW, miniPanelH, dotRadius, ringRadius, charge);
 	mainBuffer.end();
 }

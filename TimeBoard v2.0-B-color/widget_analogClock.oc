@@ -60,9 +60,18 @@ void drawHand(float angle,
 
 
 void updateClockHands() {
-	float newHourAngle,
+	int i, x, y,
+		axisYcorrection = 0,
+		circleRadius;
+	float angle,
+		newHourAngle,
 		newMinuteAngle,
 		newSecondAngle;
+	
+	if (widgetW != 70) {
+		axisYcorrection = 26;
+		secondLength = 14;
+	}
 	
 	// Delete old hands
 	if (oldHourAngle != 0) {
@@ -85,7 +94,7 @@ void updateClockHands() {
 		drawHand(oldSecondAngle,
 			 	secondLength,
 			 	centerX,
-			 	centerY,
+			 	centerY + axisYcorrection,
 			 	fgColorR,
 			 	fgColorG,
 			 	fgColorB);
@@ -110,6 +119,32 @@ void updateClockHands() {
 		mainBuffer.end();
 	}
 	
+	// Circle for seconds
+	if (widgetW != 70) {
+		mainBuffer.begin();
+		mainBuffer.fgRGB(bgHighlightColorR, bgHighlightColorG, bgHighlightColorB);
+		mainBuffer.frame(clrFG, centerX-18, centerY+8, centerX+18, centerY+44, 18, 1);
+		// Center
+		mainBuffer.fgRGB(highlightR, highlightG, highlightB);
+		//mainBuffer.pixel(clrFG, centerX, centerY+26);
+		mainBuffer.rect(clrFG, centerX-2, centerY+24, centerX+3, centerY+29, 2);
+		
+		// 6 dots (every 10 seconds)
+		circleRadius = 16;
+		for (i = 0; i < 6; i++) {
+		
+			// 0 = 12 o'clock
+			angle = ((i * 60) - 90) * 3.14159265 / 180;
+		
+			x = centerX + roundCoord(cos(angle) * circleRadius);
+			y = centerY+26 + roundCoord(sin(angle) * circleRadius);
+		
+			mainBuffer.pixel(clrFG, x, y);
+		}
+		
+		mainBuffer.end();
+	}
+	
 	// Draw new hands
 	drawHand(newHourAngle,
 			 hourLength,
@@ -130,12 +165,12 @@ void updateClockHands() {
 	drawHand(newSecondAngle,
 			 secondLength,
 			 centerX,
-			 centerY,
+			 centerY + axisYcorrection,
 			 highlightR,
 			 highlightG,
 			 highlightB);
 	
-	// Center according to widget size
+	// Center circle according to widget size
 	mainBuffer.begin();
 	if (widgetW == 70) {
 		mainBuffer.fgRGB(highlightR, highlightG, highlightB);
