@@ -19,6 +19,8 @@ void setMainPreferences() {
 	batteryG = appPrefs[0].batteryG;
 	batteryB = appPrefs[0].batteryB;
 	
+	widgetHighlight = appPrefs[0].widgetHighlight;
+	widgetShadow = appPrefs[0].widgetShadow;
 	cornerRadius = appPrefs[0].cornerRadius;
 	useAnalogClockNumbers = appPrefs[0].useAnalogClockNumbers;
 	
@@ -50,38 +52,38 @@ void composeBackgroundBuffer() {
 	
 	if (showWidget1) {
 		// Shadow
-		mainBuffer.rect(clrBG, startX1+1, startY1+1, startX1+widgetW+1, startY1+widgetH+1, cornerRadius);
+		if (widgetShadow) mainBuffer.rect(clrBG, startX1+1, startY1+1, startX1+widgetW+1, startY1+widgetH+1, cornerRadius);
 		// Main rectangle
 		mainBuffer.rect(clrFG, startX1, startY1, startX1+widgetW, startY1+widgetH, cornerRadius);
 		// Highlight
-		drawWidgetHighlight(startX1, startY1, widgetW, widgetH);
+		if (widgetHighlight) drawWidgetHighlight(startX1, startY1, widgetW, widgetH);
 		}
 	
 	if (showWidget2) {
 		// Shadow
-		mainBuffer.rect(clrBG, startX2+1, startY2+1, startX2+widgetW+1, startY2+widgetH+1, cornerRadius);
+		if (widgetShadow) mainBuffer.rect(clrBG, startX2+1, startY2+1, startX2+widgetW+1, startY2+widgetH+1, cornerRadius);
 		// Main rectangle
 		mainBuffer.rect(clrFG, startX2, startY2, startX2+widgetW, startY2+widgetH, cornerRadius);
 		// Highlight
-		drawWidgetHighlight(startX2, startY2, widgetW, widgetH);
+		if (widgetHighlight) drawWidgetHighlight(startX2, startY2, widgetW, widgetH);
 		}
 	
 	if (showWidget3) {
 		// Shadow
-		mainBuffer.rect(clrBG, startX3+1, startY3+1, startX3+widgetW+1, startY3+widgetH+1, cornerRadius);
+		if (widgetShadow) mainBuffer.rect(clrBG, startX3+1, startY3+1, startX3+widgetW+1, startY3+widgetH+1, cornerRadius);
 		// Main rectangle
 		mainBuffer.rect(clrFG, startX3, startY3, startX3+widgetW, startY3+widgetH, cornerRadius);
 		// Highlight
-		drawWidgetHighlight(startX3, startY3, widgetW, widgetH);
+		if (widgetHighlight) drawWidgetHighlight(startX3, startY3, widgetW, widgetH);
 		}
 	
 	if (showWidget4) {
 		// Shadow
-		mainBuffer.rect(clrBG, startX4+1, startX4+1, startX4+widgetW+1, startY4+widgetH+1, cornerRadius);
+		if (widgetShadow) mainBuffer.rect(clrBG, startX4+1, startX4+1, startX4+widgetW+1, startY4+widgetH+1, cornerRadius);
 		// Main rectangle
 		mainBuffer.rect(clrFG, startX4, startX4, startX4+widgetW, startY4+widgetH, cornerRadius);
 		// Highlight
-		drawWidgetHighlight(startX4, startY4, widgetW, widgetH);
+		if (widgetHighlight) drawWidgetHighlight(startX4, startY4, widgetW, widgetH);
 		}
 	
 	mainBuffer.end();
@@ -155,22 +157,22 @@ handler mainForm.ondraw() {
 		mainBuffer.begin();
 		// Shadow
 		mainBuffer.fgRGB(bgShadowColorR, bgShadowColorG, bgShadowColorB);
-		mainBuffer.rect(clrFG, mainForm.x+9, 161, mainForm.w-7, mainForm.h-7, cornerRadius);
+		if (widgetShadow) mainBuffer.rect(clrFG, mainForm.x+9, 161, mainForm.w-7, mainForm.h-7, cornerRadius);
 		// Main rectangle
 		mainBuffer.fgRGB(fgColorR, fgColorG, fgColorB);
 		mainBuffer.rect(clrFG, mainForm.x+8, 160, mainForm.w-8, mainForm.h-8, cornerRadius);
 		// Highlight
-		drawWidgetHighlight(mainForm.x+8, 160, mainForm.w-8, 60);
+		if (widgetHighlight) drawWidgetHighlight(mainForm.x+8, 160, mainForm.w-8, 55);
 		// Line separators
-		mainBuffer.fgRGB(bgHighlightColorR, bgHighlightColorG, bgHighlightColorB);
+		mainBuffer.fgRGB(highlightR, highlightG, highlightB);
 		mainBuffer.line(clrFG, mainForm.x+56, 168, mainForm.x+56, 208);
 		mainBuffer.line(clrFG, mainForm.w-57, 168, mainForm.w-57, 208);
 		
 		// TESTING LOWER PANELS
-		//mainBuffer.fgRGB(255, 255, 255);
-		//mainBuffer.frame(clrFG, miniPanelX1, miniPanelY1, miniPanelX1+miniPanelW, miniPanelY1+miniPanelH, 0, 1);
-		//mainBuffer.frame(clrFG, miniPanelX2, miniPanelY2, miniPanelX2+miniPanelW, miniPanelY2+miniPanelH, 0, 1);
-		//mainBuffer.frame(clrFG, miniPanelX3, miniPanelY3, miniPanelX3+miniPanelW, miniPanelY3+miniPanelH, 0, 1);
+		/*mainBuffer.fgRGB(255, 255, 255);
+		mainBuffer.frame(clrFG, miniPanelX1, miniPanelY1, miniPanelX1+miniPanelW, miniPanelY1+miniPanelH, 0, 1);
+		mainBuffer.frame(clrFG, miniPanelX2, miniPanelY2, miniPanelX2+miniPanelW, miniPanelY2+miniPanelH, 0, 1);
+		mainBuffer.frame(clrFG, miniPanelX3, miniPanelY3, miniPanelX3+miniPanelW, miniPanelY3+miniPanelH, 0, 1);*/
 		
 		mainBuffer.end();
 		
@@ -209,22 +211,22 @@ handler mainForm.ondraw() {
 		mainBuffer.begin();
 		// Shadow
 		mainBuffer.fgRGB(bgShadowColorR, bgShadowColorG, bgShadowColorB);
-		mainBuffer.rect(clrFG, mainForm.x+161, 9, mainForm.w-7, mainForm.h-7, cornerRadius);
+		if (widgetShadow) mainBuffer.rect(clrFG, mainForm.x+161, 9, mainForm.w-7, mainForm.h-7, cornerRadius);
 		// Main rectangle
 		mainBuffer.fgRGB(fgColorR, fgColorG, fgColorB);
 		mainBuffer.rect(clrFG, mainForm.x+160, 8, mainForm.w-8, mainForm.h-8, cornerRadius);
 		// Highlight
-		drawWidgetHighlight(mainForm.x+160, 8, 60, mainForm.h-8);
+		if (widgetHighlight) drawWidgetHighlight(mainForm.x+160, 8, 55, mainForm.h-8);
 		// Line separators
-		mainBuffer.fgRGB(bgHighlightColorR, bgHighlightColorG, bgHighlightColorB);
+		mainBuffer.fgRGB(highlightR, highlightG, highlightB);
 		mainBuffer.line(clrFG, 168, mainForm.h-56, 208, mainForm.h-56);
 		mainBuffer.line(clrFG, 168, mainForm.y+57, 208, mainForm.y+57);
 		
 		// TESTING LOWER PANELS
-		//mainBuffer.fgRGB(255, 255, 255);
-		//mainBuffer.frame(clrFG, miniPanelX1, miniPanelY1, miniPanelX1+miniPanelW, miniPanelY1+miniPanelH, 0, 1);
-		//mainBuffer.frame(clrFG, miniPanelX2, miniPanelY2, miniPanelX2+miniPanelW, miniPanelY2+miniPanelH, 0, 1);
-		//mainBuffer.frame(clrFG, miniPanelX3, miniPanelY3, miniPanelX3+miniPanelW, miniPanelY3+miniPanelH, 0, 1);
+		/*mainBuffer.fgRGB(255, 255, 255);
+		mainBuffer.frame(clrFG, miniPanelX1, miniPanelY1, miniPanelX1+miniPanelW, miniPanelY1+miniPanelH, 0, 1);
+		mainBuffer.frame(clrFG, miniPanelX2, miniPanelY2, miniPanelX2+miniPanelW, miniPanelY2+miniPanelH, 0, 1);
+		mainBuffer.frame(clrFG, miniPanelX3, miniPanelY3, miniPanelX3+miniPanelW, miniPanelY3+miniPanelH, 0, 1);*/
 		
 		mainBuffer.end();
 		

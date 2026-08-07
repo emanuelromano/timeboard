@@ -128,7 +128,7 @@ void batteryWidget(int startX, int startY) {
 
 void miniBatteryWidget(int startX, int startY) {
 	int dotRadius = 3,
-		ringRadius = 15,
+		ringRadius = 16,
 		
 		digitX = startX + (miniPanelW / 2),
 		digitY = startY + (miniPanelH / 2);

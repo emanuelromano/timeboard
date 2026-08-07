@@ -59,7 +59,9 @@ int startX1 = 8,
 bool showWidget1,
 	showWidget2,
 	showWidget3,
-	showWidget4;
+	showWidget4,
+	widgetHighlight,
+	widgetShadow;
 
 
 // Colors

@@ -31,9 +31,9 @@ void calculateHighlightColor(int amount) {
 
 
 void drawWidgetHighlight(int startX, int startY, int width, int height) {
-	int x10, x74, x77, x80, x83;
-	int y10, y77, y80;
-	int cornerRadiusAux;
+	int x10, x74, x77, x80, x83,
+		y10, y77, y80,
+		cornerRadiusAux;
 
 	x10 = width * 10 / 100;
 	x74 = width * 74 / 100;
@@ -94,8 +94,8 @@ void drawWidgetHighlight(int startX, int startY, int width, int height) {
 		clrFG,
 		startX + 1,
 		startY + 1,
-		startX + (width * 20 / 100),
-		startY + (height * 20 / 100),
+		startX + 20,
+		startY + 20,
 		cornerRadiusAux - 1);
 	
 	mainBuffer.fgRGB(fgColorR, fgColorG, fgColorB);
@@ -103,8 +103,8 @@ void drawWidgetHighlight(int startX, int startY, int width, int height) {
 		clrFG,
 		startX + 2,
 		startY + 2,
-		startX + (width * 20 / 100) + 2,
-		startY + (height * 20 / 100) + 2,
+		startX + 23,
+		startY + 23,
 		cornerRadiusAux - 1);
 }
 

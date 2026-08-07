@@ -59,12 +59,16 @@ void miniDigitalClockWidget(int startX, int startY) {
 	// Hour
 	mainBuffer.bgRGB(fgColorR, fgColorG, fgColorB);
 	mainBuffer.font(fntLED);
-	mainBuffer.text(clrText, digitX-5, digitY-10, hourDigit1 + "" + hourDigit2);
+	mainBuffer.text(clrText, digitX-8, digitY-11, /*hourDigit1 + "" + hourDigit2*/ "22");
+	// Dots
+	mainBuffer.fgRGB(mainR, mainG, mainB);
+	mainBuffer.rect(clrFG, digitX-15, digitY-2, digitX-11, digitY+2, 2);
+	mainBuffer.rect(clrFG, digitX-6, digitY-2, digitX-2, digitY+2, 2);
 	// Minutes
 	mainBuffer.textRGB(mainR, mainG, mainB);
-	mainBuffer.text(clrText, digitX-5, digitY+9, minuteDigit1 + "" + minuteDigit2);
+	mainBuffer.text(clrText, digitX-8, digitY+11, /*minuteDigit1 + "" + minuteDigit2*/ "22");
 	// Seconds
 	mainBuffer.font(fntStandard);
-	mainBuffer.text(clrText, digitX+11, digitY+11, secondDigit1 + "" + secondDigit2);
+	mainBuffer.text(clrText, digitX+13, digitY+13, secondDigit1 + "" + secondDigit2);
 	mainBuffer.end();
 }

@@ -91,7 +91,7 @@
       text = "Back"
       leftanchor = true, group = 0, fontid = 0
       frame = 1
-      hresize = 0, vresize = 1
+      hresize = 1, vresize = 1
     }
   }
   form UIForm helpForm {
@@ -107,7 +107,7 @@
       text = "Back"
       leftanchor = true, group = 0, fontid = 0
       frame = 1
-      hresize = 0, vresize = 1
+      hresize = 1, vresize = 1
     }
   }
 }

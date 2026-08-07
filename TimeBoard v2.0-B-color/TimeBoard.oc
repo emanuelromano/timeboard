@@ -47,8 +47,9 @@ struct AppPrefs {
 	bool showWidget4;
 	
 	int interfaceMode;
+	bool widgetHighlight;
+	bool widgetShadow;
 	int cornerRadius;
-	// Show numbers or lines in analog clock: 1 = true / 0 = false
 	int useAnalogClockNumbers;
 };
 
@@ -68,17 +69,17 @@ bool setDefaultPrefs() {
 	appPrefs[0].bgColorG = 0;
 	appPrefs[0].bgColorB = 0;
 	
-	appPrefs[0].fgColorR = 255;
-	appPrefs[0].fgColorG = 255;
-	appPrefs[0].fgColorB = 255;
+	appPrefs[0].fgColorR = 51;
+	appPrefs[0].fgColorG = 51;
+	appPrefs[0].fgColorB = 51;
 	
 	appPrefs[0].highlightR = 255;
 	appPrefs[0].highlightG = 0;
 	appPrefs[0].highlightB = 51;
 	
-	appPrefs[0].mainR = 51;
-	appPrefs[0].mainG = 51;
-	appPrefs[0].mainB = 51;
+	appPrefs[0].mainR = 255;
+	appPrefs[0].mainG = 255;
+	appPrefs[0].mainB = 255;
 	
 	appPrefs[0].batteryR = 102;
 	appPrefs[0].batteryG = 255;
@@ -90,8 +91,10 @@ bool setDefaultPrefs() {
 	appPrefs[0].showWidget4 = true;
 	
 	appPrefs[0].interfaceMode = 0;
-	appPrefs[0].cornerRadius = 0; // 8
-	appPrefs[0].useAnalogClockNumbers = 1;
+	appPrefs[0].widgetHighlight = true;
+	appPrefs[0].widgetShadow = true;
+	appPrefs[0].cornerRadius = 8; // 8
+	appPrefs[0].useAnalogClockNumbers = 1; // Show numbers or lines in analog clock: 1 = true / 0 = false
 	
 	return prefs.set(TimeBoard.creator, false, appPrefs, typeof(appPrefs), 1);
 }

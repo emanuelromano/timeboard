@@ -197,13 +197,13 @@ void miniCalendarWidget(int startX, int startY) {
 	mainBuffer.textRGB(highlightR, highlightG, highlightB);
 	mainBuffer.font(fntBold);
 	// Weekday
-	mainBuffer.text(clrText, digitX, digitY-15, weekdayStr);
+	mainBuffer.text(clrText, digitX, digitY-16, weekdayStr);
 	// Date
 	mainBuffer.font(fntLED);
 	mainBuffer.textRGB(mainR, mainG, mainB);
 	mainBuffer.text(clrText, digitX, digitY, dayDigit1 + "" + dayDigit2);
 	// Month
 	mainBuffer.font(fntBold);
-	mainBuffer.text(clrText, digitX, digitY+12, monthStr);
+	mainBuffer.text(clrText, digitX, digitY+13, monthStr);
 	mainBuffer.end();
 }
