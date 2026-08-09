@@ -346,10 +346,12 @@ void drawDigit(int number,
 		 segmentA = false,
 		 segmentB = false;
 
-	int midY;
-	int rightX;
+	int midY,
+		midYCorrection,
+		rightX;
 
 	midY = digitH / 2;
+	midYCorrection = 2;
 	rightX = digitW - segThickness;
 
 	switch (number) {
@@ -470,13 +472,13 @@ void drawDigit(int number,
 		drawSegment(digitX + rightX,
 					digitY,
 					digitX + digitW,
-					digitY + midY,
+					digitY + midY + midYCorrection,
 					radius);
 	}
 	
 	if (segment5) {
 		drawSegment(digitX + rightX,
-					digitY + midY,
+					digitY + midY - midYCorrection,
 					digitX + digitW,
 					digitY + digitH,
 					radius);
@@ -487,13 +489,13 @@ void drawDigit(int number,
 		drawSegment(digitX,
 					digitY,
 					digitX + segThickness,
-					digitY + midY,
+					digitY + midY + midYCorrection,
 					radius);
 	}
 	
 	if (segment7) {
 		drawSegment(digitX,
-					digitY + midY,
+					digitY + midY - midYCorrection,
 					digitX + segThickness,
 					digitY + digitH,
 					radius);

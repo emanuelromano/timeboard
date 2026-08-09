@@ -87,7 +87,7 @@ bool setDefaultPrefs() {
 	appPrefs[0].interfaceMode = 0;
 	appPrefs[0].widgetHighlight = true;
 	appPrefs[0].widgetShadow = true;
-	appPrefs[0].cornerRadius = 8; // 8
+	appPrefs[0].cornerRadius = 0; // 8
 	appPrefs[0].useAnalogClockNumbers = 1; // Show numbers or lines in analog clock: 1 = true / 0 = false
 	
 	return prefs.set(TimeBoard.creator, false, appPrefs, typeof(appPrefs), 1);
