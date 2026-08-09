@@ -68,7 +68,7 @@ void batteryWidget(int startX, int startY) {
 	int dotRadius = 4,
 		ringRadius = 18,
 		
-		iconX = startX + 8,
+		iconX = startX + 7,
 		iconY = startY + 55,
 		
 		digitY = startY + 52;

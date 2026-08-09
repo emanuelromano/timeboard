@@ -46,19 +46,19 @@
 
 
 void digitalClockWidget(int startX, int startY) {
-	int digitHr1X = startX + 8,
-		digitHr2X = startX + 25,
-		
-		digitMin1X = startX + 8,
-		digitMin2X = startX + 25,
-		
-		digitY1 = startY + 8,
-		digitY2 = startY + 37,
-		
-		digitW = 14,
-		digitH = 26,
+	int digitW = 14,
+		digitH = 28,
 		radius = 2,
-		segmentThickness = 4;
+		segmentThickness = 4,
+	
+		digitHr1X = startX + 6,
+		digitHr2X = digitHr1X + digitW + 3,
+		
+		digitMin1X = startX + 6,
+		digitMin2X = digitMin1X + digitW + 3,
+		
+		digitY1 = startY + 6,
+		digitY2 = digitY1 + digitH + 3;
 	
 	splitTimeDigits();
 	
@@ -88,7 +88,7 @@ void digitalClockWidget(int startX, int startY) {
 	mainBuffer.textRGB(mainR, mainG, mainB);
 	mainBuffer.bgRGB(fgColorR, fgColorG, fgColorB);
 	mainBuffer.font(fntLargeBold);
-	mainBuffer.text(clrText, startX+widgetW-7, startY+widgetH-7, "   " + secondDigit1 + "" + secondDigit2);
+	mainBuffer.text(clrText, startX+widgetW-5, startY+widgetH-6, "   " + secondDigit1 + "" + secondDigit2);
 	mainBuffer.end();
 }
 
