@@ -16,6 +16,8 @@ Draw draw;
 
 
 struct AppPrefs {
+	bool debugFlag;
+	
 	// Background color
 	int bgColorR;
 	int bgColorG;
@@ -60,6 +62,8 @@ bool GetPrefs() {
 
 // Set default preferences in case they do not exist
 bool setDefaultPrefs() {
+	appPrefs[0].debugFlag = false;
+	
 	appPrefs[0].bgColorR = 255;
 	appPrefs[0].bgColorG = 0;
 	appPrefs[0].bgColorB = 0;

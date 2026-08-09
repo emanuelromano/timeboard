@@ -126,10 +126,12 @@ void drawAuxiliarPanel(string orientation) {
 		mainBuffer.line(clrFG, mainForm.w-57, 168, mainForm.w-57, 208);
 		
 		// TESTING LOWER PANELS
-		/*mainBuffer.fgRGB(255, 255, 255);
-		mainBuffer.frame(clrFG, miniPanelX1, miniPanelY1, miniPanelX1+miniPanelW, miniPanelY1+miniPanelH, 0, 1);
-		mainBuffer.frame(clrFG, miniPanelX2, miniPanelY2, miniPanelX2+miniPanelW, miniPanelY2+miniPanelH, 0, 1);
-		mainBuffer.frame(clrFG, miniPanelX3, miniPanelY3, miniPanelX3+miniPanelW, miniPanelY3+miniPanelH, 0, 1);*/
+		if (debugFlag) {
+			mainBuffer.fgRGB(mainR, mainG, mainB);
+			mainBuffer.frame(clrFG, miniPanelX1, miniPanelY1, miniPanelX1+miniPanelW, miniPanelY1+miniPanelH, 0, 1);
+			mainBuffer.frame(clrFG, miniPanelX2, miniPanelY2, miniPanelX2+miniPanelW, miniPanelY2+miniPanelH, 0, 1);
+			mainBuffer.frame(clrFG, miniPanelX3, miniPanelY3, miniPanelX3+miniPanelW, miniPanelY3+miniPanelH, 0, 1);
+		}
 		mainBuffer.end();
 	}
 	
@@ -149,10 +151,12 @@ void drawAuxiliarPanel(string orientation) {
 		mainBuffer.line(clrFG, 168, mainForm.y+57, 208, mainForm.y+57);
 		
 		// TESTING LOWER PANELS
-		/*mainBuffer.fgRGB(255, 255, 255);
-		mainBuffer.frame(clrFG, miniPanelX1, miniPanelY1, miniPanelX1+miniPanelW, miniPanelY1+miniPanelH, 0, 1);
-		mainBuffer.frame(clrFG, miniPanelX2, miniPanelY2, miniPanelX2+miniPanelW, miniPanelY2+miniPanelH, 0, 1);
-		mainBuffer.frame(clrFG, miniPanelX3, miniPanelY3, miniPanelX3+miniPanelW, miniPanelY3+miniPanelH, 0, 1);*/
+		if (debugFlag) {
+			mainBuffer.fgRGB(mainR, mainG, mainB);
+			mainBuffer.frame(clrFG, miniPanelX1, miniPanelY1, miniPanelX1+miniPanelW, miniPanelY1+miniPanelH, 0, 1);
+			mainBuffer.frame(clrFG, miniPanelX2, miniPanelY2, miniPanelX2+miniPanelW, miniPanelY2+miniPanelH, 0, 1);
+			mainBuffer.frame(clrFG, miniPanelX3, miniPanelY3, miniPanelX3+miniPanelW, miniPanelY3+miniPanelH, 0, 1);
+		}
 		mainBuffer.end();
 	}
 }
@@ -179,7 +183,7 @@ void splitTimeDigits() {
 }
 
 
-void drawDigit(int number, int digitW, int digitH, int digitX, int digitY, int radius) {
+/*void drawDigit(int number, int digitW, int digitH, int digitX, int digitY, int radius) {
 	bool segment1,
 		segment2,
 		segment3,
@@ -204,8 +208,8 @@ void drawDigit(int number, int digitW, int digitH, int digitX, int digitY, int r
 			segment1 = false;
 			segment2 = false;
 			segment3 = true;
-			segment4 = false; //
-			segment5 = false; //
+			segment4 = false;
+			segment5 = false;
 			segment6 = false;
 			segment7 = false;
 			segmentA = true;
@@ -313,6 +317,204 @@ void drawDigit(int number, int digitW, int digitH, int digitX, int digitY, int r
 	
 	if (segmentA) mainBuffer.rect(clrFG, digitX, digitY, digitX+9, digitY+4, radius);
 	if (segmentB) mainBuffer.rect(clrFG, digitX+4, digitY, digitX+9, digitY+33, radius);
+}*/
+
+
+void drawSegment(int x1, int y1,
+				 int x2, int y2,
+				 int radius)
+{
+		mainBuffer.rect(clrFG, x1, y1, x2, y2, radius);
+}
+
+
+void drawDigit(int number,
+			   int digitW,
+			   int digitH,
+			   int digitX,
+			   int digitY,
+			   int radius,
+			   int segThickness)
+{
+	bool segment1 = false,
+		 segment2 = false,
+		 segment3 = false,
+		 segment4 = false,
+		 segment5 = false,
+		 segment6 = false,
+		 segment7 = false,
+		 segmentA = false,
+		 segmentB = false;
+
+	int midY;
+	int rightX;
+
+	midY = digitH / 2;
+	rightX = digitW - segThickness;
+
+	switch (number) {
+
+		case 0:
+			segment1 = true;
+			segment3 = true;
+			segment4 = true;
+			segment5 = true;
+			segment6 = true;
+			segment7 = true;
+			break;
+
+		case 1:
+			segment3 = true;
+			segmentA = true;
+			segmentB = true;
+			break;
+
+		case 2:
+			segment1 = true;
+			segment2 = true;
+			segment3 = true;
+			segment4 = true;
+			segment7 = true;
+			break;
+
+		case 3:
+			segment1 = true;
+			segment2 = true;
+			segment3 = true;
+			segment4 = true;
+			segment5 = true;
+			break;
+
+		case 4:
+			segment2 = true;
+			segment4 = true;
+			segment5 = true;
+			segment6 = true;
+			break;
+
+		case 5:
+			segment1 = true;
+			segment2 = true;
+			segment3 = true;
+			segment5 = true;
+			segment6 = true;
+			break;
+
+		case 6:
+			segment1 = true;
+			segment2 = true;
+			segment3 = true;
+			segment5 = true;
+			segment6 = true;
+			segment7 = true;
+			break;
+
+		case 7:
+			segment1 = true;
+			segment4 = true;
+			segment5 = true;
+			break;
+
+		case 8:
+			segment1 = true;
+			segment2 = true;
+			segment3 = true;
+			segment4 = true;
+			segment5 = true;
+			segment6 = true;
+			segment7 = true;
+			break;
+
+		case 9:
+			segment1 = true;
+			segment2 = true;
+			segment3 = true;
+			segment4 = true;
+			segment5 = true;
+			segment6 = true;
+			break;
+	}
+	
+	// ERASE OLD DIGIT
+	mainBuffer.bgRGB(fgColorR, fgColorG, fgColorB);
+	mainBuffer.rect(clrBG, digitX, digitY, digitX+digitW, digitY+digitH, 0);
+	
+	// DRAW NEW SEGMENTS
+	// -------- Horizontal --------
+	if (segment1) {
+		drawSegment(digitX,
+					digitY,
+					digitX + digitW,
+					digitY + segThickness,
+					radius);
+	}
+	
+	if (segment2) {
+		drawSegment(digitX,
+					digitY + midY - (segThickness / 2),
+					digitX + digitW,
+					digitY + midY + (segThickness / 2),
+					radius);
+	}
+	
+	if (segment3) {
+		drawSegment(digitX,
+					digitY + digitH - segThickness,
+					digitX + digitW,
+					digitY + digitH,
+					radius);
+	}
+	
+	// -------- Vertical right --------
+	if (segment4) {
+		drawSegment(digitX + rightX,
+					digitY,
+					digitX + digitW,
+					digitY + midY,
+					radius);
+	}
+	
+	if (segment5) {
+		drawSegment(digitX + rightX,
+					digitY + midY,
+					digitX + digitW,
+					digitY + digitH,
+					radius);
+	}
+	
+	// -------- Vertical left --------
+	if (segment6) {
+		drawSegment(digitX,
+					digitY,
+					digitX + segThickness,
+					digitY + midY,
+					radius);
+	}
+	
+	if (segment7) {
+		drawSegment(digitX,
+					digitY + midY,
+					digitX + segThickness,
+					digitY + digitH,
+					radius);
+	}
+	
+	// -------- Number 1 --------
+	if (segmentA) {
+		drawSegment(digitX,
+					digitY,
+					digitX + (digitW / 2),
+					digitY + segThickness,
+					radius);
+	}
+
+	if (segmentB) {
+		drawSegment(digitX + (digitW / 2) - (segThickness / 2),
+					digitY,
+					digitX + (digitW / 2) + (segThickness / 2),
+					digitY + digitH,
+					radius);
+	}
 }
 
 
@@ -327,4 +529,15 @@ bool isTBTSInstalled() {
 		return true;
 
 	return false;
+}
+
+// Draw mainBuffer
+void drawMainBuffer() {
+	draw.begin();
+	
+	draw.draw(mainBuffer, 0, 0);
+	
+	if (debugFlag) draw.text(clrFG, 0, 0, "W: " + mainForm.w + " / H: " + mainForm.h);
+	
+	draw.end();
 }

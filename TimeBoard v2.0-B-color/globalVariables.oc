@@ -1,4 +1,5 @@
 // Time & battery
+bool debugFlag;
 const float pi = 3.14159265;
 int year, month, day, lastDay, weekday,
 	hours, minutes, seconds, lastSecond, lastMinute,

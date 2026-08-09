@@ -1,4 +1,6 @@
 void setMainPreferences() {
+	debugFlag = appPrefs[0].debugFlag;
+	
 	// Set UI colors
 	bgColorR = appPrefs[0].bgColorR;
 	bgColorG = appPrefs[0].bgColorG;
@@ -207,9 +209,7 @@ handler mainForm.ondraw() {
 	}
 	
 	// Draw mainBuffer
-	draw.begin();
-	draw.draw(mainBuffer, 0, 0);
-	draw.end();
+	drawMainBuffer();
 }
 
 
@@ -256,9 +256,7 @@ handler mainForm.ontimer() {
 		}
 		
 		// Draw mainBuffer
-		draw.begin();
-		draw.draw(mainBuffer, 0, 0); 
-		draw.end();
+		drawMainBuffer();
 	}
 	
 	lastSecond = seconds;

@@ -8,7 +8,8 @@ void calendarWidget(int startX, int startY) {
 		
 		digitW = 12,
 		digitH = 33,
-		radius = 3,
+		radius = 2,
+		segmentThickness = 4,
 		
 		cornerRadiusAux;
 	
@@ -102,8 +103,8 @@ void calendarWidget(int startX, int startY) {
 	// Date
 	mainBuffer.fgRGB(mainR, mainG, mainB);
 	// drawDigit() comes from globalFunctions.oc
-	drawDigit(dayDigit1, digitW, digitH, digitDateX1, digitY, radius);
-	drawDigit(dayDigit2, digitW, digitH, digitDateX2, digitY, radius);
+	drawDigit(dayDigit1, digitW, digitH, digitDateX1, digitY, radius, segmentThickness);
+	drawDigit(dayDigit2, digitW, digitH, digitDateX2, digitY, radius, segmentThickness);
 	
 	// Month
 	mainBuffer.textAlign(01);
