@@ -1,8 +1,8 @@
 void digitalClockWidget(int startX, int startY) {
-	int digitW = 14,
+	int digitW = 16,
 		digitH = 28,
 		radius = 2,
-		segmentThickness = 4,
+		segmentThickness = 6,
 	
 		digitHr1X = startX + 6,
 		digitHr2X = digitHr1X + digitW + 3,

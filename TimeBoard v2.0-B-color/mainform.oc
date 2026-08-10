@@ -1,36 +1,3 @@
-void setMainPreferences() {
-	debugFlag = appPrefs[0].debugFlag;
-	
-	// Set UI colors
-	bgColorR = appPrefs[0].bgColorR;
-	bgColorG = appPrefs[0].bgColorG;
-	bgColorB = appPrefs[0].bgColorB;
-	
-	fgColorR = appPrefs[0].fgColorR;
-	fgColorG = appPrefs[0].fgColorG;
-	fgColorB = appPrefs[0].fgColorB;
-	
-	highlightR = appPrefs[0].highlightR;
-	highlightG = appPrefs[0].highlightG;
-	highlightB = appPrefs[0].highlightB;
-	
-	mainR = appPrefs[0].mainR;
-	mainG = appPrefs[0].mainG;
-	mainB = appPrefs[0].mainB;
-	
-	batteryR = appPrefs[0].batteryR;
-	batteryG = appPrefs[0].batteryG;
-	batteryB = appPrefs[0].batteryB;
-	
-	// Set other parameters
-	interfaceMode = appPrefs[0].interfaceMode;
-	widgetHighlight = appPrefs[0].widgetHighlight;
-	widgetShadow = appPrefs[0].widgetShadow;
-	cornerRadius = appPrefs[0].cornerRadius;
-	useAnalogClockNumbers = appPrefs[0].useAnalogClockNumbers;
-}
-
-
 void composeBackgroundBuffer() {
 	// Create offscreen buffer
 	mainBuffer.create(mainForm.w, mainForm.h);
@@ -49,36 +16,36 @@ void composeBackgroundBuffer() {
 	
 	if (showWidget1) {
 		// Shadow
-		if (widgetShadow) mainBuffer.rect(clrBG, startX1+1, startY1+1, startX1+widgetW+1, startY1+widgetH+1, cornerRadius);
+		if (widgetShadow) mainBuffer.rect(clrBG, startX1+1, startY1+1, startX1+widgetW+1, startY1+widgetH+1, widgetCornerRadius);
 		// Main rectangle
-		mainBuffer.rect(clrFG, startX1, startY1, startX1+widgetW, startY1+widgetH, cornerRadius);
+		mainBuffer.rect(clrFG, startX1, startY1, startX1+widgetW, startY1+widgetH, widgetCornerRadius);
 		// Highlight
 		if (widgetHighlight) drawWidgetHighlight(startX1, startY1, widgetW, widgetH);
 		}
 	
 	if (showWidget2) {
 		// Shadow
-		if (widgetShadow) mainBuffer.rect(clrBG, startX2+1, startY2+1, startX2+widgetW+1, startY2+widgetH+1, cornerRadius);
+		if (widgetShadow) mainBuffer.rect(clrBG, startX2+1, startY2+1, startX2+widgetW+1, startY2+widgetH+1, widgetCornerRadius);
 		// Main rectangle
-		mainBuffer.rect(clrFG, startX2, startY2, startX2+widgetW, startY2+widgetH, cornerRadius);
+		mainBuffer.rect(clrFG, startX2, startY2, startX2+widgetW, startY2+widgetH, widgetCornerRadius);
 		// Highlight
 		if (widgetHighlight) drawWidgetHighlight(startX2, startY2, widgetW, widgetH);
 		}
 	
 	if (showWidget3) {
 		// Shadow
-		if (widgetShadow) mainBuffer.rect(clrBG, startX3+1, startY3+1, startX3+widgetW+1, startY3+widgetH+1, cornerRadius);
+		if (widgetShadow) mainBuffer.rect(clrBG, startX3+1, startY3+1, startX3+widgetW+1, startY3+widgetH+1, widgetCornerRadius);
 		// Main rectangle
-		mainBuffer.rect(clrFG, startX3, startY3, startX3+widgetW, startY3+widgetH, cornerRadius);
+		mainBuffer.rect(clrFG, startX3, startY3, startX3+widgetW, startY3+widgetH, widgetCornerRadius);
 		// Highlight
 		if (widgetHighlight) drawWidgetHighlight(startX3, startY3, widgetW, widgetH);
 		}
 	
 	if (showWidget4) {
 		// Shadow
-		if (widgetShadow) mainBuffer.rect(clrBG, startX4+1, startX4+1, startX4+widgetW+1, startY4+widgetH+1, cornerRadius);
+		if (widgetShadow) mainBuffer.rect(clrBG, startX4+1, startX4+1, startX4+widgetW+1, startY4+widgetH+1, widgetCornerRadius);
 		// Main rectangle
-		mainBuffer.rect(clrFG, startX4, startX4, startX4+widgetW, startY4+widgetH, cornerRadius);
+		mainBuffer.rect(clrFG, startX4, startX4, startX4+widgetW, startY4+widgetH, widgetCornerRadius);
 		// Highlight
 		if (widgetHighlight) drawWidgetHighlight(startX4, startY4, widgetW, widgetH);
 		}

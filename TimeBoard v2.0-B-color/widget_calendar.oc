@@ -1,15 +1,15 @@
-void calendarWidget(int startX, int startY) {
-	int digitW = 14,
+/*void calendarWidget(int startX, int startY) {
+	int digitW = 16,
 		digitH = 30,
 		radius = 2,
-		segmentThickness = 4,
+		segmentThickness = 6,
 		
 		digitDateX1 = startX + 19,
 		digitDateX2 = digitDateX1 + digitW + 3,
 		
-		digitY = startY + 21,
+		digitY = startY + 20,
 		
-		textX = startX + (widgetW / 2) + 1,
+		textX = startX + (widgetW / 2),
 		
 		cornerRadiusAux;
 	
@@ -82,11 +82,35 @@ void calendarWidget(int startX, int startY) {
 			break;
 	}
 	
+	switch (weekday) {
+		case 0:
+			weekdayStr = "SUN";
+			break;
+		case 1:
+			weekdayStr = "MON";
+			break;
+		case 2:
+			weekdayStr = "TUE";
+			break;
+		case 3:
+			weekdayStr = "WED";
+			break;
+		case 4:
+			weekdayStr = "THU";
+			break;
+		case 5:
+			weekdayStr = "FRI";
+			break;
+		case 6:
+			weekdayStr = "SAT";
+			break;
+	}
+	
 	// Corner radius correction
-	if (cornerRadius <= 0)
+	if (widgetCornerRadius <= 0)
 		cornerRadiusAux = 3;
 	else
-		cornerRadiusAux = cornerRadius;
+		cornerRadiusAux = widgetCornerRadius;
 		
 	mainBuffer.begin();
 	// Background rectangle for new drawings
@@ -113,6 +137,125 @@ void calendarWidget(int startX, int startY) {
 	mainBuffer.font(fntLargeBold);
 	mainBuffer.text(clrText, textX, startY+widgetH-6, monthStr);
 	
+	mainBuffer.end();
+}*/
+
+
+void calendarWidget(int startX, int startY) {
+	int digitW = 22,
+		digitH = 44,
+		radius = 2,
+		segmentThickness = 8,
+		
+		digitDateX1 = startX + ((digitW * 2) / 2) - 11,
+		digitDateX2 = digitDateX1 + digitW + 4,
+		
+		digitY = startY + 20,
+		
+		textX = startX + (widgetW / 2),
+		
+		cornerRadiusAux;
+	
+	string weekdayStr, monthStr;
+	
+	splitDateDigits(day);
+	
+	// Months
+	switch (month) {
+		case 1:
+			monthStr = "JAN";
+			break;
+		case 2:
+			monthStr = "FEB";
+			break;
+		case 3:
+			monthStr = "MAR";
+			break;
+		case 4:
+			monthStr = "APR";
+			break;
+		case 5:
+			monthStr = "MAY";
+			break;
+		case 6:
+			monthStr = "JUN";
+			break;
+		case 7:
+			monthStr = "JUL";
+			break;
+		case 8:
+			monthStr = "AUG";
+			break;
+		case 9:
+			monthStr = "SEP";
+			break;
+		case 10:
+			monthStr = "OCT";
+			break;
+		case 11:
+			monthStr = "NOV";
+			break;
+		case 12:
+			monthStr = "DEC";
+			break;
+	}
+	
+	// Weekdays
+	switch (weekday) {
+		case 0:
+			weekdayStr = "SUN";
+			break;
+		case 1:
+			weekdayStr = "MON";
+			break;
+		case 2:
+			weekdayStr = "TUE";
+			break;
+		case 3:
+			weekdayStr = "WED";
+			break;
+		case 4:
+			weekdayStr = "THU";
+			break;
+		case 5:
+			weekdayStr = "FRI";
+			break;
+		case 6:
+			weekdayStr = "SAT";
+			break;
+	}
+	
+	// Corner radius correction
+	if (widgetCornerRadius <= 0)
+		cornerRadiusAux = 3;
+	else
+		cornerRadiusAux = widgetCornerRadius;
+		
+	mainBuffer.begin();
+	// Background rectangle for new drawings
+	mainBuffer.fgRGB(fgColorR, fgColorG, fgColorB);
+	mainBuffer.rect(clrFG, startX+3, startY+3, startX+widgetW-2, startY+widgetH-2, cornerRadiusAux-3);
+	
+	// Weekday
+	mainBuffer.textAlign(01);
+	mainBuffer.textRGB(highlightR, highlightG, highlightB);
+	mainBuffer.bgRGB(fgColorR, fgColorG, fgColorB);
+	mainBuffer.font(fntLargeBold);
+	mainBuffer.text(clrText, textX-12, startY+4, weekdayStr);
+	
+	// Month
+	mainBuffer.textAlign(01);
+	mainBuffer.textRGB(mainR, mainG, mainB);
+	mainBuffer.bgRGB(fgColorR, fgColorG, fgColorB);
+	mainBuffer.font(fntLargeBold);
+	mainBuffer.text(clrText, textX+13, startY+4, monthStr);
+	
+	// Date
+	mainBuffer.fgRGB(mainR, mainG, mainB);
+	// drawDigit() comes from globalFunctions.oc
+	drawDigit(dayDigit1, digitW, digitH, digitDateX1, digitY, radius, segmentThickness);
+	drawDigit(dayDigit2, digitW, digitH, digitDateX2, digitY, radius, segmentThickness);
+		
 	mainBuffer.end();
 }
 
@@ -175,7 +318,7 @@ void miniCalendarWidget(int startX, int startY) {
 	}
 	
 	// Weekdays
-		switch (weekday) {
+	switch (weekday) {
 		case 0:
 			weekdayStr = "SUN";
 			break;

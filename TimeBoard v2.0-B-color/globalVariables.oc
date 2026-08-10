@@ -44,7 +44,7 @@ int	startX1 = 8,
 	widgetW,
 	widgetH,
 		
-	cornerRadius;
+	widgetCornerRadius;
 	
 // Mini panels
 int	miniPanelX1,

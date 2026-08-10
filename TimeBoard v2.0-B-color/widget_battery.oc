@@ -95,6 +95,7 @@ void batteryWidget(int startX, int startY) {
 }
 
 
+// Alternate battery minipanel
 /*void miniBatteryWidget(int startX, int startY) {
 	int digitX, digitY, iconX, iconY;
 	

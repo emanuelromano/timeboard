@@ -1,3 +1,71 @@
+// Set main preferences on global variables
+void setMainPreferences() {
+	debugFlag = appPrefs[0].debugFlag;
+	
+	// Set UI colors
+	bgColorR = appPrefs[0].bgColorR;
+	bgColorG = appPrefs[0].bgColorG;
+	bgColorB = appPrefs[0].bgColorB;
+	
+	fgColorR = appPrefs[0].fgColorR;
+	fgColorG = appPrefs[0].fgColorG;
+	fgColorB = appPrefs[0].fgColorB;
+	
+	highlightR = appPrefs[0].highlightR;
+	highlightG = appPrefs[0].highlightG;
+	highlightB = appPrefs[0].highlightB;
+	
+	mainR = appPrefs[0].mainR;
+	mainG = appPrefs[0].mainG;
+	mainB = appPrefs[0].mainB;
+	
+	batteryR = appPrefs[0].batteryR;
+	batteryG = appPrefs[0].batteryG;
+	batteryB = appPrefs[0].batteryB;
+	
+	// Set other parameters
+	interfaceMode = appPrefs[0].interfaceMode;
+	widgetHighlight = appPrefs[0].widgetHighlight;
+	widgetShadow = appPrefs[0].widgetShadow;
+	widgetCornerRadius = appPrefs[0].widgetCornerRadius;
+	useAnalogClockNumbers = appPrefs[0].useAnalogClockNumbers;
+}
+
+
+// Save main preferences from global variables
+bool setMainPrefs() {
+	appPrefs[0].debugFlag = debugFlag;
+	
+	appPrefs[0].bgColorR = bgColorR;
+	appPrefs[0].bgColorG = bgColorG;
+	appPrefs[0].bgColorB = bgColorB;
+	
+	appPrefs[0].fgColorR = fgColorR;
+	appPrefs[0].fgColorG = fgColorG;
+	appPrefs[0].fgColorB = fgColorB;
+	
+	appPrefs[0].highlightR = highlightR;
+	appPrefs[0].highlightG = highlightG;
+	appPrefs[0].highlightB = highlightB;
+	
+	appPrefs[0].mainR = mainR;
+	appPrefs[0].mainG = mainG;
+	appPrefs[0].mainB = mainB;
+	
+	appPrefs[0].batteryR = batteryR;
+	appPrefs[0].batteryG = batteryG;
+	appPrefs[0].batteryB = batteryB;
+	
+	appPrefs[0].interfaceMode = interfaceMode;
+	appPrefs[0].widgetHighlight = widgetHighlight;
+	appPrefs[0].widgetShadow = widgetShadow;
+	appPrefs[0].widgetCornerRadius = widgetCornerRadius; // 8 pixels
+	appPrefs[0].useAnalogClockNumbers = useAnalogClockNumbers; // Show numbers or lines in analog clock: 1 = true / 0 = false
+	
+	return prefs.set(TimeBoard.creator, false, appPrefs, typeof(appPrefs), 1);
+}
+
+
 // Shadow color calculations
 void calculateShadowColor(int amount) {
 
@@ -84,10 +152,10 @@ void drawWidgetHighlight(int startX, int startY, int width, int height) {
 		startY + y80);
 	
 	// Corner radius correction
-	if (cornerRadius <= 0)
+	if (widgetCornerRadius <= 0)
 		cornerRadiusAux = 1;
 	else
-		cornerRadiusAux = cornerRadius;
+		cornerRadiusAux = widgetCornerRadius;
 	
 	// Bright corner
 	mainBuffer.rect(
@@ -114,16 +182,16 @@ void drawAuxiliarPanel(string orientation) {
 		mainBuffer.begin();
 		// Shadow
 		mainBuffer.fgRGB(bgShadowColorR, bgShadowColorG, bgShadowColorB);
-		if (widgetShadow) mainBuffer.rect(clrFG, mainForm.x+9, 161, mainForm.w-7, mainForm.h-7, cornerRadius);
+		if (widgetShadow) mainBuffer.rect(clrFG, mainForm.x+9, 161, mainForm.w-7, mainForm.h-7, widgetCornerRadius);
 		// Main rectangle
 		mainBuffer.fgRGB(fgColorR, fgColorG, fgColorB);
-		mainBuffer.rect(clrFG, mainForm.x+8, 160, mainForm.w-8, mainForm.h-8, cornerRadius);
+		mainBuffer.rect(clrFG, mainForm.x+8, 160, mainForm.w-8, mainForm.h-8, widgetCornerRadius);
 		// Highlight
 		if (widgetHighlight) drawWidgetHighlight(mainForm.x+8, 160, mainForm.w-8, 55);
 		// Line separators
 		mainBuffer.fgRGB(highlightR, highlightG, highlightB);
-		mainBuffer.line(clrFG, mainForm.x+56, 168, mainForm.x+56, 208);
-		mainBuffer.line(clrFG, mainForm.w-57, 168, mainForm.w-57, 208);
+		mainBuffer.line(clrFG, mainForm.x+56, 169, mainForm.x+56, 208);
+		mainBuffer.line(clrFG, mainForm.w-57, 169, mainForm.w-57, 208);
 		
 		// TESTING LOWER PANELS
 		if (debugFlag) {
@@ -139,16 +207,16 @@ void drawAuxiliarPanel(string orientation) {
 		mainBuffer.begin();
 		// Shadow
 		mainBuffer.fgRGB(bgShadowColorR, bgShadowColorG, bgShadowColorB);
-		if (widgetShadow) mainBuffer.rect(clrFG, mainForm.x+161, 9, mainForm.w-7, mainForm.h-7, cornerRadius);
+		if (widgetShadow) mainBuffer.rect(clrFG, mainForm.x+161, 9, mainForm.w-7, mainForm.h-7, widgetCornerRadius);
 		// Main rectangle
 		mainBuffer.fgRGB(fgColorR, fgColorG, fgColorB);
-		mainBuffer.rect(clrFG, mainForm.x+160, 8, mainForm.w-8, mainForm.h-8, cornerRadius);
+		mainBuffer.rect(clrFG, mainForm.x+160, 8, mainForm.w-8, mainForm.h-8, widgetCornerRadius);
 		// Highlight
 		if (widgetHighlight) drawWidgetHighlight(mainForm.x+160, 8, 55, mainForm.h-8);
 		// Line separators
 		mainBuffer.fgRGB(highlightR, highlightG, highlightB);
-		mainBuffer.line(clrFG, 168, mainForm.h-56, 208, mainForm.h-56);
-		mainBuffer.line(clrFG, 168, mainForm.y+57, 208, mainForm.y+57);
+		mainBuffer.line(clrFG, 169, mainForm.h-56, 208, mainForm.h-56);
+		mainBuffer.line(clrFG, 169, mainForm.y+57, 208, mainForm.y+57);
 		
 		// TESTING LOWER PANELS
 		if (debugFlag) {
