@@ -1,4 +1,5 @@
 void digitalClockWidget(int startX, int startY) {
+	string amPmStr;
 	int digitW = 16,
 		digitH = 28,
 		radius = 2,
@@ -15,6 +16,8 @@ void digitalClockWidget(int startX, int startY) {
 	
 	splitTimeDigits();
 	
+	amPmStr = "AM";
+	
 	mainBuffer.begin();
 	// Hour
 	mainBuffer.fgRGB(highlightR, highlightG, highlightB);
@@ -28,11 +31,11 @@ void digitalClockWidget(int startX, int startY) {
 	drawDigit(minuteDigit2, digitW, digitH, digitMin2X, digitY2, radius, segmentThickness);
 	
 	// AP/PM
-	/*mainBuffer.textAlign(00);
+	/*mainBuffer.textAlign(02);
 	mainBuffer.textRGB(highlightR, highlightG, highlightB);
 	mainBuffer.bgRGB(fgColorR, fgColorG, fgColorB);
 	mainBuffer.font(fntLargeBold);
-	mainBuffer.text(clrText, digitHr1X, digitY+digitH, "p.m.");*/
+	mainBuffer.text(clrText, startX+widgetW-5, startY+4, amPmStr);*/
 	
 	// Seconds
 	mainBuffer.textAlign(22);
