@@ -118,11 +118,19 @@ void calendarWidget(int startX, int startY) {
 
 
 void miniCalendarWidget(int startX, int startY) {
-	int digitX, digitY;
 	string weekdayStr, monthStr;
+	int digitW = 10,
+	digitH = 19,
+	radius = 2,
+	segmentThickness = 4,
 	
-	digitX = startX + (miniPanelW / 2);
-	digitY = startY + (miniPanelH / 2);
+	digitDate1X = startX + ((digitW * 2) / 2) - 3,
+	digitDate2X = digitDate1X + digitW + 3,
+		
+	digitY = startY + (digitH / 2),	
+	
+	textX = startX + (miniPanelW / 2),
+	textY = startY + (miniPanelH / 2);
 	
 	splitDateDigits(day);
 	
@@ -194,17 +202,18 @@ void miniCalendarWidget(int startX, int startY) {
 	
 	mainBuffer.begin();
 	mainBuffer.textAlign(11);
-	mainBuffer.bgRGB(fgColorR, fgColorG, fgColorB);
 	mainBuffer.textRGB(highlightR, highlightG, highlightB);
+	mainBuffer.bgRGB(fgColorR, fgColorG, fgColorB);
 	mainBuffer.font(fntBold);
 	// Weekday
-	mainBuffer.text(clrText, digitX, digitY-16, weekdayStr);
+	mainBuffer.text(clrText, textX, textY-18, weekdayStr);
 	// Date
-	mainBuffer.font(fntLED);
-	mainBuffer.textRGB(mainR, mainG, mainB);
-	mainBuffer.text(clrText, digitX, digitY, dayDigit1 + "" + dayDigit2);
+	mainBuffer.fgRGB(mainR, mainG, mainB);
+	drawDigit(dayDigit1, digitW, digitH, digitDate1X, digitY, radius, segmentThickness);
+	drawDigit(dayDigit2, digitW, digitH, digitDate2X, digitY, radius, segmentThickness);
 	// Month
+	mainBuffer.textRGB(mainR, mainG, mainB);
 	mainBuffer.font(fntBold);
-	mainBuffer.text(clrText, digitX, digitY+13, monthStr);
+	mainBuffer.text(clrText, textX, textY+14, monthStr);
 	mainBuffer.end();
 }

@@ -75,7 +75,7 @@ void batteryWidget(int startX, int startY) {
 	
 	mainBuffer.begin();
 	// Battery dots
-	drawBatteryDots(startX, startY, widgetW, widgetH-12, dotRadius, ringRadius, charge);
+	drawBatteryDots(startX, startY, widgetW, widgetH-13, dotRadius, ringRadius, charge);
 	
 	// Battery icon
 	mainBuffer.fgRGB(mainR, mainG, mainB);
