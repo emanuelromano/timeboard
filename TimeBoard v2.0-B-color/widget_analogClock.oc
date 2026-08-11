@@ -206,175 +206,6 @@ void updateClockHands() {
 }
 
 
-void updateClockHands2() {
-	int i, x, y,
-		axisXcorrection = 0,
-		axisYcorrection = 0,
-		circleRadius;
-	float angle,
-		newHourAngle,
-		newMinuteAngle,
-		newSecondAngle;
-	
-	if (interfaceMode != 0) {
-		axisXcorrection = 70;
-		axisYcorrection = 10;
-		secondLength = 16;
-	}
-	
-	// Delete old hands
-	if (oldHourAngle != 0) {
-		drawHand(oldSecondAngle,
-			 	secondLength,
-			 	centerX + axisXcorrection,
-			 	centerY + axisYcorrection,
-			 	fgColorR,
-			 	fgColorG,
-			 	fgColorB,
-			 	true);
-		
-		drawHand(oldHourAngle,
-			 	hourLength,
-			 	centerX,
-			 	centerY,
-			 	fgColorR,
-			 	fgColorG,
-			 	fgColorB,
-			 	false);
-	
-		drawHand(oldMinuteAngle,
-			 	minuteLength,
-			 	centerX,
-			 	centerY,
-			 	fgColorR,
-			 	fgColorG,
-			 	fgColorB,
-			 	false);
-	}
-	
-	// Calculate new angles	
-	newHourAngle =
-		((float)(hours % 12) * 30 + (float)minutes / 2 - 90) / 180 * pi;
-	newMinuteAngle =
-		((float)minutes * 6 - 90) / 180 * pi;
-	newSecondAngle =
-		((float)seconds * 6 - 90) / 180 * pi;
-	
-	if (widgetW != 70) {
-		mainBuffer.begin();
-		// Small circle for seconds
-		mainBuffer.fgRGB(highlightR, highlightG, highlightB);
-		mainBuffer.frame(clrFG, (centerX+axisXcorrection)-20, centerY-10, (centerX+axisXcorrection)+21, centerY+31, 21, 1);
-		// Center
-		//mainBuffer.pixel(clrFG, centerX, centerY+26);
-		mainBuffer.rect(clrFG, (centerX+axisXcorrection)-2, (centerY+axisYcorrection)-2, (centerX+axisXcorrection)+3, (centerY+axisYcorrection)+3, 3);
-		
-		// 6 dots (every 10 seconds)
-		circleRadius = 19;
-		for (i = 0; i < 6; i++) {
-		
-			// 0 = 12 o'clock
-			angle = ((i * 60) - 90) * 3.14159265 / 180;
-		
-			x = (centerX + axisXcorrection) + roundCoord(cos(angle) * circleRadius);
-			y = (centerY + 10) + roundCoord(sin(angle) * circleRadius);
-			
-			mainBuffer.fgRGB(mainR, mainG, mainB);
-			mainBuffer.pixel(clrFG, x, y);
-		}
-		mainBuffer.end();
-	}
-	
-	// Draw new hands (drawing order changes deppending on widget size)
-	if (widgetW != 70) {
-		drawHand(newSecondAngle,
-			 	secondLength,
-			 	centerX + axisXcorrection,
-			 	centerY + axisYcorrection,
-			 	highlightR,
-			 	highlightG,
-			 	highlightB,
-			 	true);
-		
-		drawHand(newHourAngle,
-			 	hourLength,
-			 	centerX,
-			 	centerY,
-			 	mainR,
-			 	mainG,
-			 	mainB,
-			 	false);
-		
-		drawHand(newMinuteAngle,
-			 	minuteLength,
-			 	centerX,
-			 	centerY,
-			 	mainR,
-			 	mainG,
-			 	mainB,
-			 	false);
-	}
-	else
-	{
-		drawHand(newHourAngle,
-			 	hourLength,
-			 	centerX,
-			 	centerY,
-			 	mainR,
-			 	mainG,
-			 	mainB,
-			 	false);
-		
-		drawHand(newMinuteAngle,
-			 	minuteLength,
-			 	centerX,
-			 	centerY,
-			 	mainR,
-			 	mainG,
-			 	mainB,
-			 	false);
-			 	
-		drawHand(newSecondAngle,
-			 	secondLength,
-			 	centerX + axisXcorrection,
-			 	centerY,
-			 	highlightR,
-			 	highlightG,
-			 	highlightB,
-			 	true);
-	}
-
-		
-	// Hand circle size according to widget size
-	mainBuffer.begin();
-	if (widgetW != 70) {
-		mainBuffer.fgRGB(mainR, mainG, mainB);
-		mainBuffer.rect(clrFG,
-			centerX - 3,
-			centerY - 3,
-			centerX + 4,
-			centerY + 4,
-			4);
-	}
-	else
-	{
-		mainBuffer.fgRGB(highlightR, highlightG, highlightB);
-		mainBuffer.rect(clrFG,
-			centerX - 2,
-			centerY - 2,
-			centerX + 3,
-			centerY + 3,
-			3);
-	}
-	mainBuffer.end();
-	
-	// Save for next draw in buffer
-	oldHourAngle = newHourAngle;
-	oldMinuteAngle = newMinuteAngle;
-	oldSecondAngle = newSecondAngle;
-}
-
-
 void analogClockWidget(int startX, int startY) {
 	int i,
 		x, y,
@@ -551,6 +382,175 @@ void analogClockWidget(int startX, int startY) {
 		
 	updateClockHands();
 	mainBuffer.end();
+}
+
+
+void updateClockHands2() {
+	int i, x, y,
+		axisXcorrection = 0,
+		axisYcorrection = 0,
+		circleRadius;
+	float angle,
+		newHourAngle,
+		newMinuteAngle,
+		newSecondAngle;
+	
+	if (interfaceMode != 0) {
+		axisXcorrection = 70;
+		axisYcorrection = 10;
+		secondLength = 16;
+	}
+	
+	// Delete old hands
+	if (oldHourAngle != 0) {
+		drawHand(oldSecondAngle,
+			 	secondLength,
+			 	centerX + axisXcorrection,
+			 	centerY + axisYcorrection,
+			 	fgColorR,
+			 	fgColorG,
+			 	fgColorB,
+			 	true);
+		
+		drawHand(oldHourAngle,
+			 	hourLength,
+			 	centerX,
+			 	centerY,
+			 	fgColorR,
+			 	fgColorG,
+			 	fgColorB,
+			 	false);
+	
+		drawHand(oldMinuteAngle,
+			 	minuteLength,
+			 	centerX,
+			 	centerY,
+			 	fgColorR,
+			 	fgColorG,
+			 	fgColorB,
+			 	false);
+	}
+	
+	// Calculate new angles	
+	newHourAngle =
+		((float)(hours % 12) * 30 + (float)minutes / 2 - 90) / 180 * pi;
+	newMinuteAngle =
+		((float)minutes * 6 - 90) / 180 * pi;
+	newSecondAngle =
+		((float)seconds * 6 - 90) / 180 * pi;
+	
+	if (widgetW != 70) {
+		mainBuffer.begin();
+		// Small circle for seconds
+		mainBuffer.fgRGB(highlightR, highlightG, highlightB);
+		mainBuffer.frame(clrFG, (centerX+axisXcorrection)-20, centerY-10, (centerX+axisXcorrection)+21, centerY+31, 21, 1);
+		// Center
+		//mainBuffer.pixel(clrFG, centerX, centerY+26);
+		mainBuffer.rect(clrFG, (centerX+axisXcorrection)-2, (centerY+axisYcorrection)-2, (centerX+axisXcorrection)+3, (centerY+axisYcorrection)+3, 3);
+		
+		// 6 dots (every 10 seconds)
+		circleRadius = 19;
+		for (i = 0; i < 6; i++) {
+		
+			// 0 = 12 o'clock
+			angle = ((i * 60) - 90) * 3.14159265 / 180;
+		
+			x = (centerX + axisXcorrection) + roundCoord(cos(angle) * circleRadius);
+			y = (centerY + 10) + roundCoord(sin(angle) * circleRadius);
+			
+			mainBuffer.fgRGB(mainR, mainG, mainB);
+			mainBuffer.pixel(clrFG, x, y);
+		}
+		mainBuffer.end();
+	}
+	
+	// Draw new hands (drawing order changes deppending on widget size)
+	if (widgetW != 70) {
+		drawHand(newSecondAngle,
+			 	secondLength,
+			 	centerX + axisXcorrection,
+			 	centerY + axisYcorrection,
+			 	highlightR,
+			 	highlightG,
+			 	highlightB,
+			 	true);
+		
+		drawHand(newHourAngle,
+			 	hourLength,
+			 	centerX,
+			 	centerY,
+			 	mainR,
+			 	mainG,
+			 	mainB,
+			 	false);
+		
+		drawHand(newMinuteAngle,
+			 	minuteLength,
+			 	centerX,
+			 	centerY,
+			 	mainR,
+			 	mainG,
+			 	mainB,
+			 	false);
+	}
+	else
+	{
+		drawHand(newHourAngle,
+			 	hourLength,
+			 	centerX,
+			 	centerY,
+			 	mainR,
+			 	mainG,
+			 	mainB,
+			 	false);
+		
+		drawHand(newMinuteAngle,
+			 	minuteLength,
+			 	centerX,
+			 	centerY,
+			 	mainR,
+			 	mainG,
+			 	mainB,
+			 	false);
+			 	
+		drawHand(newSecondAngle,
+			 	secondLength,
+			 	centerX + axisXcorrection,
+			 	centerY,
+			 	highlightR,
+			 	highlightG,
+			 	highlightB,
+			 	true);
+	}
+
+		
+	// Hand circle size according to widget size
+	mainBuffer.begin();
+	if (widgetW != 70) {
+		mainBuffer.fgRGB(mainR, mainG, mainB);
+		mainBuffer.rect(clrFG,
+			centerX - 3,
+			centerY - 3,
+			centerX + 4,
+			centerY + 4,
+			4);
+	}
+	else
+	{
+		mainBuffer.fgRGB(highlightR, highlightG, highlightB);
+		mainBuffer.rect(clrFG,
+			centerX - 2,
+			centerY - 2,
+			centerX + 3,
+			centerY + 3,
+			3);
+	}
+	mainBuffer.end();
+	
+	// Save for next draw in buffer
+	oldHourAngle = newHourAngle;
+	oldMinuteAngle = newMinuteAngle;
+	oldSecondAngle = newSecondAngle;
 }
 
 

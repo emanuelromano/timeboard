@@ -55,13 +55,12 @@ void composeBackgroundBuffer() {
 
 
 void composeWidgetsBuffer() {
-	if (showWidget1 && interfaceMode == 0) {
-		analogClockWidget(startX1, startY1);
-	}
-	else
-	{
-		analogClockWidget2(startX1, startY1);
-	}
+	if (showWidget1)
+		if (interfaceMode == 0)
+			analogClockWidget(startX1, startY1);
+		if (interfaceMode == 1)
+			analogClockWidget2(startX1, startY1);
+	
 	if (showWidget2) digitalClockWidget(startX2, startY2);
 	if (showWidget3) calendarWidget(startX3, startY3);
 	if (showWidget4) batteryWidget(startX4, startY4);
@@ -99,11 +98,16 @@ handler mainForm.ondraw() {
 	showWidget3 = false;
 	showWidget4 = false;
 	
+	falseZero = false;
+	
 	orientation = "";
 	
 	if (mainForm.h > 160) {
 		// Portrait mode
 		showWidget1 = true;
+		
+		interfaceMode = 0;
+		falseZero  = true;
 		
 		widgetW = 144;
 		widgetH = 144;
@@ -136,6 +140,9 @@ handler mainForm.ondraw() {
 		// Landscape mode
 		showWidget1 = true;
 		
+		interfaceMode = 0;
+		falseZero  = true;
+		
 		widgetW = 144;
 		widgetH = 144;
 		
@@ -165,7 +172,9 @@ handler mainForm.ondraw() {
 	}
 	else
 	{
-		// Normal mode
+		// Normal mode (square display)
+		interfaceMode = appPrefs[0].interfaceMode;
+		
 		if (interfaceMode == 0) {
 			showWidget1 = true;
 			showWidget2 = true;
@@ -238,20 +247,18 @@ handler mainForm.ontimer() {
 		charge = battery(false);
 		
 		// Widgets
-		if (showWidget1 && interfaceMode == 0) {
-			updateClockHands();
-		}
-		else
-		{
-			updateClockHands2();
-		}
+		if (showWidget1)
+			if (interfaceMode == 0)
+				updateClockHands();
+			if (interfaceMode == 1)
+				updateClockHands2();
 		
 		if (showWidget2) {
 			digitalClockWidget(startX2, startY2);
 		}
 		else
 		{
-			if (interfaceMode != 0 && orientation == "N") miniDigitalClockWidget(miniPanelX1, miniPanelY1);
+			if (interfaceMode == 1 || falseZero) miniDigitalClockWidget(miniPanelX1, miniPanelY1);
 		}
 		
 		if (showWidget3) {
@@ -259,7 +266,7 @@ handler mainForm.ontimer() {
 		}
 		else
 		{
-			if ( interfaceMode != 0 && orientation == "N") miniCalendarWidget(miniPanelX2, miniPanelY2);
+			if (interfaceMode == 1 || falseZero) miniCalendarWidget(miniPanelX2, miniPanelY2);
 		}
 		
 		if (showWidget4) {
@@ -267,7 +274,7 @@ handler mainForm.ontimer() {
 		}
 		else
 		{
-			if (interfaceMode != 0 && orientation == "N") miniBatteryWidget(miniPanelX3, miniPanelY3);
+			if (interfaceMode == 1 || falseZero) miniBatteryWidget(miniPanelX3, miniPanelY3);
 		}
 		
 		// Draw mainBuffer

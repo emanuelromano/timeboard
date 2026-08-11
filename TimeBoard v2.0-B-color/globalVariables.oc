@@ -66,7 +66,8 @@ bool showWidget1,
 	showWidget3,
 	showWidget4,
 	widgetHighlight,
-	widgetShadow;
+	widgetShadow,
+	falseZero; // Makes the mini panel ontimer updates work in Landscape or Portrait mode while interfaceMode == 1
 
 
 // Colors
