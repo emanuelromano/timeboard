@@ -100,13 +100,11 @@ handler mainForm.ondraw() {
 	
 	falseZero = false;
 	
-	orientation = "";
-	
 	if (mainForm.h > 160) {
 		// Portrait mode
 		showWidget1 = true;
 		
-		interfaceMode = 0;
+		interfaceMode = 0; // Force interfaceMode to 0 for fullscreen modes
 		falseZero  = true;
 		
 		widgetW = 144;
@@ -140,7 +138,7 @@ handler mainForm.ondraw() {
 		// Landscape mode
 		showWidget1 = true;
 		
-		interfaceMode = 0;
+		interfaceMode = 0; // Force interfaceMode to 0 for fullscreen modes
 		falseZero  = true;
 		
 		widgetW = 144;
@@ -175,21 +173,11 @@ handler mainForm.ondraw() {
 		// Normal mode (square display)
 		interfaceMode = appPrefs[0].interfaceMode;
 		
-		if (interfaceMode == 0) {
-			showWidget1 = true;
-			showWidget2 = true;
-			showWidget3 = true;
-			showWidget4 = true;
-			
-			widgetW = 70;
-			widgetH = 70;
-		}
-		else
-		{
+		if (interfaceMode == 1) {
 			showWidget1 = true;
 			
 			widgetW = 144;
-			widgetH = 84;
+			widgetH = 88;
 			
 			miniPanelX1 = 14;
 			miniPanelY1 = 107;
@@ -202,12 +190,10 @@ handler mainForm.ondraw() {
 			
 			miniPanelW = 38;
 			miniPanelH = 38;
-		}
-		
-		composeBackgroundBuffer();
-		composeWidgetsBuffer();
-		
-		if (interfaceMode != 0) {
+			
+			composeBackgroundBuffer();
+			composeWidgetsBuffer();
+			
 			mainBuffer.begin();
 			mainBuffer.textRGB(highlightR, highlightG, highlightB);
 			mainBuffer.bgRGB(fgColorR, fgColorG, fgColorB);
@@ -223,6 +209,19 @@ handler mainForm.ondraw() {
 			miniDigitalClockWidget(miniPanelX1, miniPanelY1);
 			miniCalendarWidget(miniPanelX2, miniPanelY2);
 			miniBatteryWidget(miniPanelX3, miniPanelY3);
+		}
+		else
+		{
+			showWidget1 = true;
+			showWidget2 = true;
+			showWidget3 = true;
+			showWidget4 = true;
+			
+			widgetW = 70;
+			widgetH = 70;
+			
+			composeBackgroundBuffer();
+			composeWidgetsBuffer();
 		}
 	}
 	
@@ -253,29 +252,25 @@ handler mainForm.ontimer() {
 			if (interfaceMode == 1)
 				updateClockHands2();
 		
-		if (showWidget2) {
+		if (showWidget2)
 			digitalClockWidget(startX2, startY2);
-		}
 		else
-		{
-			if (interfaceMode == 1 || falseZero) miniDigitalClockWidget(miniPanelX1, miniPanelY1);
-		}
+			if (interfaceMode == 1 || falseZero)
+				miniDigitalClockWidget(miniPanelX1, miniPanelY1);
 		
-		if (showWidget3) {
-			if (day != lastDay) calendarWidget(startX3, startY3);
-		}
+		if (showWidget3)
+			if (day != lastDay)
+				calendarWidget(startX3, startY3);
 		else
-		{
-			if (interfaceMode == 1 || falseZero) miniCalendarWidget(miniPanelX2, miniPanelY2);
-		}
+			if (interfaceMode == 1 || falseZero)
+				miniCalendarWidget(miniPanelX2, miniPanelY2);
 		
-		if (showWidget4) {
-			if (charge != lastCharge) batteryWidget(startX4, startY4);
-		}
+		if (showWidget4)
+			if (charge != lastCharge)
+				batteryWidget(startX4, startY4);
 		else
-		{
-			if (interfaceMode == 1 || falseZero) miniBatteryWidget(miniPanelX3, miniPanelY3);
-		}
+			if (interfaceMode == 1 || falseZero)
+				miniBatteryWidget(miniPanelX3, miniPanelY3);
 		
 		// Draw mainBuffer
 		drawMainBuffer();
