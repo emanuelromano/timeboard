@@ -21,6 +21,7 @@ int	centerX, centerY,
 	secondLength,
 	
 	interfaceMode,
+	origInterfaceMode,
 	useAnalogClockNumbers;
 
 float oldHourAngle,

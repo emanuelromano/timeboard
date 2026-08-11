@@ -24,7 +24,7 @@ void setMainPreferences() {
 	batteryB = appPrefs[0].batteryB;
 	
 	// Set other parameters
-	interfaceMode = appPrefs[0].interfaceMode;
+	origInterfaceMode = interfaceMode = appPrefs[0].interfaceMode;
 	widgetHighlight = appPrefs[0].widgetHighlight;
 	widgetShadow = appPrefs[0].widgetShadow;
 	widgetCornerRadius = appPrefs[0].widgetCornerRadius;
@@ -33,7 +33,7 @@ void setMainPreferences() {
 
 
 // Save main preferences from global variables
-bool setMainPrefs() {
+bool saveMainPreferences() {
 	appPrefs[0].debugFlag = debugFlag;
 	
 	appPrefs[0].bgColorR = bgColorR;
@@ -56,11 +56,11 @@ bool setMainPrefs() {
 	appPrefs[0].batteryG = batteryG;
 	appPrefs[0].batteryB = batteryB;
 	
-	appPrefs[0].interfaceMode = interfaceMode;
+	appPrefs[0].interfaceMode = origInterfaceMode;
 	appPrefs[0].widgetHighlight = widgetHighlight;
 	appPrefs[0].widgetShadow = widgetShadow;
-	appPrefs[0].widgetCornerRadius = widgetCornerRadius; // 8 pixels
-	appPrefs[0].useAnalogClockNumbers = useAnalogClockNumbers; // Show numbers or lines in analog clock: 1 = true / 0 = false
+	appPrefs[0].widgetCornerRadius = widgetCornerRadius;
+	appPrefs[0].useAnalogClockNumbers = useAnalogClockNumbers;
 	
 	return prefs.set(TimeBoard.creator, false, appPrefs, typeof(appPrefs), 1);
 }
@@ -495,7 +495,18 @@ void drawMainBuffer() {
 	
 	draw.draw(mainBuffer, 0, 0);
 	
-	if (debugFlag) draw.text(clrFG, 0, 0, "W: " + mainForm.w + " / H: " + mainForm.h);
+	if (debugFlag) {
+		draw.text(clrFG, 0, 0,
+			"Debug - " +
+			"W: " + mainForm.w + " / H: " + mainForm.h);
+		
+		draw.text(clrFG, 0, 11,
+			"InterfaceMode: " + interfaceMode + " / FalseZero: " + falseZero);
+			
+		draw.text(clrFG, 0, 22,
+			"OrigInterfaceMode: " + origInterfaceMode);
+			
+	}
 	
 	draw.end();
 }
