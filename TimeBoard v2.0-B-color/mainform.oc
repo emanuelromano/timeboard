@@ -199,7 +199,7 @@ handler mainForm.ondraw() {
 			mainBuffer.bgRGB(fgColorR, fgColorG, fgColorB);
 			mainBuffer.textAlign(02);
 			mainBuffer.font(fntLargeBold);
-			mainBuffer.text(clrText, mainForm.w-14, mainForm.y+17, "TimeBoard");
+			mainBuffer.text(clrText, mainForm.w-15, mainForm.y+14, "TimeBoard");
 			mainBuffer.end();
 		
 			orientation = "N"; // Normal (square)

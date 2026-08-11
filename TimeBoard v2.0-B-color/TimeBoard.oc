@@ -65,17 +65,17 @@ bool getPrefs() {
 bool setDefaultPrefs() {
 	appPrefs[0].debugFlag = false;
 	
-	appPrefs[0].bgColorR = 255;
-	appPrefs[0].bgColorG = 0;
-	appPrefs[0].bgColorB = 0;
+	appPrefs[0].bgColorR = 51;
+	appPrefs[0].bgColorG = 51;
+	appPrefs[0].bgColorB = 51;
 	
-	appPrefs[0].fgColorR = 51;
-	appPrefs[0].fgColorG = 51;
-	appPrefs[0].fgColorB = 51;
+	appPrefs[0].fgColorR = 68;
+	appPrefs[0].fgColorG = 68;
+	appPrefs[0].fgColorB = 68;
 	
 	appPrefs[0].highlightR = 255;
-	appPrefs[0].highlightG = 0;
-	appPrefs[0].highlightB = 51;
+	appPrefs[0].highlightG = 204;
+	appPrefs[0].highlightB = 0;
 	
 	appPrefs[0].mainR = 255;
 	appPrefs[0].mainG = 255;
@@ -103,7 +103,7 @@ void deletePrefs() {
 
 handler TimeBoard.onstart() {
 	// If there is no default prefs, set default prefs
-	if (getPrefs() == false)
+	//if (getPrefs() == false)
 		setDefaultPrefs();
 	
 	// Load the main form
