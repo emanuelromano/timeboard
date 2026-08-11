@@ -191,14 +191,28 @@ void parseUTCDateTime(string dt) {
     minute = substr(dt, 14, 2);
     second = substr(dt, 17, 2);
     
-    utcDate.ymd = lparse(year) * 10000 + lparse(month) * 100 + lparse(day);
+    // NOTE:
+	// Avoid using utcDate.ymd.
+	// Setting the date through year/month/day is reliable,
+	// while assigning ymd produced incorrect day values
+	// during testing (CloudpilotEmu and Palm OS).
+	
+    //utcDate.ymd = lparse(year) * 10000 + lparse(month) * 100 + lparse(day);
+    
+    utcDate.year = lparse(year);
+	utcDate.month = lparse(month);
+	utcDate.day = lparse(day);
+	
+	utcDate.hour = lparse(hour);
+	utcDate.min = lparse(minute);
+	utcDate.sec = lparse(second);
+	
 	utcDate.hour = hour;
 	utcDate.min = minute;
 	utcDate.sec = second;
 	
 	// Apply GMT offset selected by user
 	userOffsetSeconds = offsetSeconds[offsetList.selitem];
-	
 	utcDate.addsecs(userOffsetSeconds);
 }
 
