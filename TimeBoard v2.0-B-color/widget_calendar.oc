@@ -349,7 +349,7 @@ void miniCalendarWidget(int startX, int startY) {
 	mainBuffer.textRGB(highlightR, highlightG, highlightB);
 	mainBuffer.bgRGB(fgColorR, fgColorG, fgColorB);
 	// Weekday
-	mainBuffer.text(clrText, textX, textY-18, weekdayStr);
+	mainBuffer.text(clrText, textX-1, textY-18, weekdayStr);
 	// Date
 	mainBuffer.fgRGB(mainR, mainG, mainB);
 	drawDigit(dayDigit1, digitW, digitH, digitDate1X, digitY, radius, segmentThickness);

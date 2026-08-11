@@ -62,7 +62,13 @@ bool saveMainPreferences() {
 	appPrefs[0].widgetCornerRadius = widgetCornerRadius;
 	appPrefs[0].useAnalogClockNumbers = useAnalogClockNumbers;
 	
-	return prefs.set(TimeBoard.creator, false, appPrefs, typeof(appPrefs), 1);
+	return prefs.set(TimeBoard.creator, true, appPrefs, typeof(AppPrefs), 1);
+}
+
+
+// TimeBoard handler: Save preferences on app stop
+handler TimeBoard.onstop() {
+	saveMainPreferences();
 }
 
 
@@ -504,8 +510,7 @@ void drawMainBuffer() {
 			"InterfaceMode: " + interfaceMode + " / FalseZero: " + falseZero);
 			
 		draw.text(clrFG, 0, 22,
-			"OrigInterfaceMode: " + origInterfaceMode);
-			
+			"OrigInterfaceMode: " + origInterfaceMode);	
 	}
 	
 	draw.end();

@@ -43,6 +43,7 @@ struct AppPrefs {
 	int batteryG;
 	int batteryB;
 	
+	// Other preferences
 	int interfaceMode;
 	bool widgetHighlight;
 	bool widgetShadow;
@@ -55,8 +56,8 @@ AppPrefs appPrefs[1];
 
 // Getting saved preferences
 // Returns false if there is no stored preferences
-bool GetPrefs() {
-	return prefs.get(TimeBoard.creator, true, appPrefs, typeof(appPrefs), 1);
+bool getPrefs() {
+	return prefs.get(TimeBoard.creator, true, appPrefs, typeof(AppPrefs), 1);
 }
 
 
@@ -90,22 +91,21 @@ bool setDefaultPrefs() {
 	appPrefs[0].widgetCornerRadius = 0; // 8 pixels
 	appPrefs[0].useAnalogClockNumbers = 1; // Show numbers or lines in analog clock: 1 = true / 0 = false
 	
-	return prefs.set(TimeBoard.creator, false, appPrefs, typeof(appPrefs), 1);
+	return prefs.set(TimeBoard.creator, true, appPrefs, typeof(AppPrefs), 1);
+}
+
+
+// Delete preferences
+void deletePrefs() {
+	prefs.del(TimeBoard.creator, true);
 }
 
 
 handler TimeBoard.onstart() {
 	// If there is no default prefs, set default prefs
-	if (GetPrefs() == false) {
+	if (getPrefs() == false)
 		setDefaultPrefs();
-	}
 	
 	// Load the main form
 	mainForm.load();
-}
-
-
-handler TimeBoard.onstop() {
-	// Save the preferences
-	prefs.set(TimeBoard.creator, false, appPrefs, typeof(appPrefs), 1);
 }
