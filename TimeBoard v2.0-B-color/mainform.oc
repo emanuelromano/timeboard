@@ -55,7 +55,13 @@ void composeBackgroundBuffer() {
 
 
 void composeWidgetsBuffer() {
-	if (showWidget1) analogClockWidget(startX1, startY1);
+	if (showWidget1 && interfaceMode == 0) {
+		analogClockWidget(startX1, startY1);
+	}
+	else
+	{
+		analogClockWidget2(startX1, startY1);
+	}
 	if (showWidget2) digitalClockWidget(startX2, startY2);
 	if (showWidget3) calendarWidget(startX3, startY3);
 	if (showWidget4) batteryWidget(startX4, startY4);
@@ -69,6 +75,8 @@ handler mainForm.onopen() {
 	// Create offscreen buffer
 	mainBuffer.create(mainForm.w, mainForm.h);
 	
+	setMainPreferences();
+	
 	date.now();
 	year = date.year;
 	month = date.month;
@@ -81,22 +89,21 @@ handler mainForm.onopen() {
 	
 	charge = battery(false);
 	
-	showWidget1 = true;
-	showWidget2 = true;
-	showWidget3 = true;
-	showWidget4 = true;
-	
 	timer(1);
 }
 
 
-handler mainForm.ondraw() {	
+handler mainForm.ondraw() {
+	showWidget1 = false;
+	showWidget2 = false;
+	showWidget3 = false;
+	showWidget4 = false;
+	
+	orientation = "";
+	
 	if (mainForm.h > 160) {
 		// Portrait mode
 		showWidget1 = true;
-		showWidget2 = false;
-		showWidget3 = false;
-		showWidget4 = false;
 		
 		widgetW = 144;
 		widgetH = 144;
@@ -111,14 +118,14 @@ handler mainForm.ondraw() {
 		miniPanelY3 = 170;
 		
 		miniPanelW = 38;
-		miniPanelH = 38; // 45
+		miniPanelH = 38;
 		
-		setMainPreferences();
 		composeBackgroundBuffer();
 		composeWidgetsBuffer();
 		
 		// Rectangle at the bottom
-		drawAuxiliarPanel("P"); // Portrait
+		orientation = "P"; // Portrait
+		drawAuxiliarPanel(orientation);
 		
 		// Mini widgets
 		miniDigitalClockWidget(miniPanelX1, miniPanelY1);
@@ -128,9 +135,6 @@ handler mainForm.ondraw() {
 	else if (mainForm.w > 160) {
 		// Landscape mode
 		showWidget1 = true;
-		showWidget2 = false;
-		showWidget3 = false;
-		showWidget4 = false;
 		
 		widgetW = 144;
 		widgetH = 144;
@@ -145,14 +149,14 @@ handler mainForm.ondraw() {
 		miniPanelY3 = 109;
 		
 		miniPanelW = 38;
-		miniPanelH = 38; // 45
+		miniPanelH = 38;
 		
-		setMainPreferences();
 		composeBackgroundBuffer();
 		composeWidgetsBuffer();
 		
 		// Rectangle at the side
-		drawAuxiliarPanel("L"); // Landscape
+		orientation = "L"; // Landscape
+		drawAuxiliarPanel(orientation);
 		
 		// Mini widgets
 		miniDigitalClockWidget(miniPanelX1, miniPanelY1);
@@ -162,17 +166,55 @@ handler mainForm.ondraw() {
 	else
 	{
 		// Normal mode
-		showWidget1 = true;
-		showWidget2 = true;
-		showWidget3 = true;
-		showWidget4 = true;
+		if (interfaceMode == 0) {
+			showWidget1 = true;
+			showWidget2 = true;
+			showWidget3 = true;
+			showWidget4 = true;
+			
+			widgetW = 70;
+			widgetH = 70;
+		}
+		else
+		{
+			showWidget1 = true;
+			
+			widgetW = 144;
+			widgetH = 84;
+			
+			miniPanelX1 = 14;
+			miniPanelY1 = 107;
+			
+			miniPanelX2 = 61;
+			miniPanelY2 = 107;
+			
+			miniPanelX3 = 108;
+			miniPanelY3 = 107;
+			
+			miniPanelW = 38;
+			miniPanelH = 38;
+		}
 		
-		widgetW = 70;
-		widgetH = 70;
-		
-		setMainPreferences();
 		composeBackgroundBuffer();
 		composeWidgetsBuffer();
+		
+		if (interfaceMode != 0) {
+			mainBuffer.begin();
+			mainBuffer.textRGB(highlightR, highlightG, highlightB);
+			mainBuffer.bgRGB(fgColorR, fgColorG, fgColorB);
+			mainBuffer.textAlign(02);
+			mainBuffer.font(fntLargeBold);
+			mainBuffer.text(clrText, mainForm.w-14, mainForm.y+17, "TimeBoard");
+			mainBuffer.end();
+		
+			orientation = "N"; // Normal (square)
+			drawAuxiliarPanel(orientation);
+			
+			// Mini widgets
+			miniDigitalClockWidget(miniPanelX1, miniPanelY1);
+			miniCalendarWidget(miniPanelX2, miniPanelY2);
+			miniBatteryWidget(miniPanelX3, miniPanelY3);
+		}
 	}
 	
 	// Draw mainBuffer
@@ -196,14 +238,20 @@ handler mainForm.ontimer() {
 		charge = battery(false);
 		
 		// Widgets
-		if (showWidget1) updateClockHands();
+		if (showWidget1 && interfaceMode == 0) {
+			updateClockHands();
+		}
+		else
+		{
+			updateClockHands2();
+		}
 		
 		if (showWidget2) {
 			digitalClockWidget(startX2, startY2);
 		}
 		else
 		{
-			miniDigitalClockWidget(miniPanelX1, miniPanelY1);
+			if (interfaceMode != 0 && orientation == "N") miniDigitalClockWidget(miniPanelX1, miniPanelY1);
 		}
 		
 		if (showWidget3) {
@@ -211,7 +259,7 @@ handler mainForm.ontimer() {
 		}
 		else
 		{
-			miniCalendarWidget(miniPanelX2, miniPanelY2);
+			if ( interfaceMode != 0 && orientation == "N") miniCalendarWidget(miniPanelX2, miniPanelY2);
 		}
 		
 		if (showWidget4) {
@@ -219,7 +267,7 @@ handler mainForm.ontimer() {
 		}
 		else
 		{
-			miniBatteryWidget(miniPanelX3, miniPanelY3);
+			if (interfaceMode != 0 && orientation == "N") miniBatteryWidget(miniPanelX3, miniPanelY3);
 		}
 		
 		// Draw mainBuffer

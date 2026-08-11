@@ -84,7 +84,7 @@ bool setDefaultPrefs() {
 	appPrefs[0].batteryG = 255;
 	appPrefs[0].batteryB = 0;
 	
-	appPrefs[0].interfaceMode = 0;
+	appPrefs[0].interfaceMode = 1;
 	appPrefs[0].widgetHighlight = true;
 	appPrefs[0].widgetShadow = true;
 	appPrefs[0].widgetCornerRadius = 0; // 8 pixels

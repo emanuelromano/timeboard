@@ -47,6 +47,8 @@ int	startX1 = 8,
 	widgetCornerRadius;
 	
 // Mini panels
+string orientation;
+
 int	miniPanelX1,
 	miniPanelY1,
 	
