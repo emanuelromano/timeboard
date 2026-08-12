@@ -13,7 +13,13 @@ Event e;
 Date date;
 Draw mainBuffer;
 Draw draw;
-
+const int numberOfPrefs = 3;
+int colorDepth,
+	appPrefsPosition;	// Determines which preferences will be used
+						// according to the device's screen color depth.
+						// 0: B/W screens
+						// 1: Grayscale screens
+						// 2: Color screens
 
 struct AppPrefs {
 	bool debugFlag;
@@ -51,47 +57,108 @@ struct AppPrefs {
 	int useAnalogClockNumbers;
 };
 
-AppPrefs appPrefs[1];
+AppPrefs appPrefs[numberOfPrefs];
 
 
 // Getting saved preferences
 // Returns false if there is no stored preferences
 bool getPrefs() {
-	return prefs.get(TimeBoard.creator, true, appPrefs, typeof(AppPrefs), 1);
+	return prefs.get(TimeBoard.creator, true, appPrefs, typeof(AppPrefs), numberOfPrefs);
 }
 
 
 // Set default preferences in case they do not exist
 bool setDefaultPrefs() {
+	// 0: B/W screens
 	appPrefs[0].debugFlag = false;
 	
-	appPrefs[0].bgColorR = 51;
-	appPrefs[0].bgColorG = 51;
-	appPrefs[0].bgColorB = 51;
+	appPrefs[0].bgColorR = 255;
+	appPrefs[0].bgColorG = 255;
+	appPrefs[0].bgColorB = 255;
 	
-	appPrefs[0].fgColorR = 68;
-	appPrefs[0].fgColorG = 68;
-	appPrefs[0].fgColorB = 68;
+	appPrefs[0].fgColorR = 255;
+	appPrefs[0].fgColorG = 255;
+	appPrefs[0].fgColorB = 255;
 	
-	appPrefs[0].highlightR = 255;
-	appPrefs[0].highlightG = 204;
+	appPrefs[0].highlightR = 0;
+	appPrefs[0].highlightG = 0;
 	appPrefs[0].highlightB = 0;
 	
-	appPrefs[0].mainR = 255;
-	appPrefs[0].mainG = 255;
-	appPrefs[0].mainB = 255;
+	appPrefs[0].mainR = 0;
+	appPrefs[0].mainG = 0;
+	appPrefs[0].mainB = 0;
 	
-	appPrefs[0].batteryR = 102;
-	appPrefs[0].batteryG = 255;
+	appPrefs[0].batteryR = 0;
+	appPrefs[0].batteryG = 0;
 	appPrefs[0].batteryB = 0;
 	
 	appPrefs[0].interfaceMode = 1;
-	appPrefs[0].widgetHighlight = true;
-	appPrefs[0].widgetShadow = true;
-	appPrefs[0].widgetCornerRadius = 0; // 8 pixels
+	appPrefs[0].widgetHighlight = false;
+	appPrefs[0].widgetShadow = false;
+	appPrefs[0].widgetCornerRadius = 8; // 8 pixels
 	appPrefs[0].useAnalogClockNumbers = 1; // Show numbers or lines in analog clock: 1 = true / 0 = false
 	
-	return prefs.set(TimeBoard.creator, true, appPrefs, typeof(AppPrefs), 1);
+	
+	// 1: Grayscale screens
+	appPrefs[1].debugFlag = false;
+	
+	appPrefs[1].bgColorR = 255;
+	appPrefs[1].bgColorG = 255;
+	appPrefs[1].bgColorB = 255;
+	
+	appPrefs[1].fgColorR = 128;
+	appPrefs[1].fgColorG = 128;
+	appPrefs[1].fgColorB = 128;
+	
+	appPrefs[1].highlightR = 0;
+	appPrefs[1].highlightG = 0;
+	appPrefs[1].highlightB = 0;
+	
+	appPrefs[1].mainR = 255;
+	appPrefs[1].mainG = 255;
+	appPrefs[1].mainB = 255;
+	
+	appPrefs[1].batteryR = 0;
+	appPrefs[1].batteryG = 0;
+	appPrefs[1].batteryB = 0;
+	
+	appPrefs[1].interfaceMode = 1;
+	appPrefs[1].widgetHighlight = false;
+	appPrefs[1].widgetShadow = false;
+	appPrefs[1].widgetCornerRadius = 8; // 8 pixels
+	appPrefs[1].useAnalogClockNumbers = 1; // Show numbers or lines in analog clock: 1 = true / 0 = false
+	
+	
+	// 2: Color screens
+	appPrefs[2].debugFlag = false;
+	
+	appPrefs[2].bgColorR = 51;
+	appPrefs[2].bgColorG = 51;
+	appPrefs[2].bgColorB = 51;
+	
+	appPrefs[2].fgColorR = 68;
+	appPrefs[2].fgColorG = 68;
+	appPrefs[2].fgColorB = 68;
+	
+	appPrefs[2].highlightR = 255;
+	appPrefs[2].highlightG = 204;
+	appPrefs[2].highlightB = 0;
+	
+	appPrefs[2].mainR = 255;
+	appPrefs[2].mainG = 255;
+	appPrefs[2].mainB = 255;
+	
+	appPrefs[2].batteryR = 102;
+	appPrefs[2].batteryG = 255;
+	appPrefs[2].batteryB = 0;
+	
+	appPrefs[2].interfaceMode = 1;
+	appPrefs[2].widgetHighlight = true;
+	appPrefs[2].widgetShadow = true;
+	appPrefs[2].widgetCornerRadius = 8; // 8 pixels
+	appPrefs[2].useAnalogClockNumbers = 1; // Show numbers or lines in analog clock: 1 = true / 0 = false
+	
+	return prefs.set(TimeBoard.creator, true, appPrefs, typeof(AppPrefs), numberOfPrefs);
 }
 
 
@@ -102,8 +169,41 @@ void deletePrefs() {
 
 
 handler TimeBoard.onstart() {
+	int version = osver();
+	
+	// VALIDATIONS
+	// Minimun OS version warning
+	if (version < 50462720) {
+    	alert("TimeBoard requires Palm OS 3.5 or higher.\nApp will exit.");
+    	TimeBoard.abort();
+	}
+	
+	// Get color depth supported by device at the moment
+	colorDepth = TimeBoard.getdepth();
+		
+	switch (colorDepth) {
+		case 1:
+				appPrefsPosition = 0; // 0: B/W screens
+				break;
+		case 2:
+				appPrefsPosition = 1; // 1: Grayscale screens
+				break;
+		case 4:
+				appPrefsPosition = 1; // 1: Grayscale screens
+				break;
+		case 8:
+				appPrefsPosition = 2; // 2: Color screens
+				break;
+		case 16:
+				appPrefsPosition = 2; // 2: Color screens
+				break;
+		default:
+				appPrefsPosition = 0; // 0: B/W screens
+				break;
+	}
+	
 	// If there is no default prefs, set default prefs
-	//if (getPrefs() == false)
+	if (getPrefs() == false)
 		setDefaultPrefs();
 	
 	// Load the main form

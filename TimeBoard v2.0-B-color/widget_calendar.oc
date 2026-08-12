@@ -242,7 +242,7 @@ void calendarWidget(int startX, int startY) {
 	mainBuffer.textRGB(highlightR, highlightG, highlightB);
 	mainBuffer.bgRGB(fgColorR, fgColorG, fgColorB);
 	mainBuffer.font(fntLargeBold);
-	mainBuffer.text(clrText, textX-12, startY+4, weekdayStr);
+	mainBuffer.text(clrText, textX-13, startY+4, weekdayStr);
 	
 	// Month
 	mainBuffer.textAlign(01);

@@ -1,5 +1,9 @@
-// Time & battery
+// System
 bool debugFlag;
+int charge, lastCharge; // Battery
+
+
+// Time & battery
 const float pi = 3.14159265;
 int year, month, day, lastDay, weekday,
 	hours, minutes, seconds, lastSecond, lastMinute,
@@ -8,9 +12,7 @@ int year, month, day, lastDay, weekday,
 	
 	hourDigit1, hourDigit2,
 	minuteDigit1, minuteDigit2,
-	secondDigit1, secondDigit2,
-	
-	charge, lastCharge; // Battery
+	secondDigit1, secondDigit2;
 
 
 // Interface
@@ -45,9 +47,10 @@ int	startX1 = 8,
 	widgetW,
 	widgetH,
 		
-	widgetCornerRadius;
-	
-	
+	widgetCornerRadius,
+	auxWidgetCornerRadius;
+
+
 // Mini panels
 string orientation;
 

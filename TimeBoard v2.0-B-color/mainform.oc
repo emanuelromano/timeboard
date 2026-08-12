@@ -10,15 +10,35 @@ void composeBackgroundBuffer() {
 	
 	// Set & calculate colors
 	mainBuffer.fgRGB(fgColorR, fgColorG, fgColorB);
-	calculateShadowColor(100);
-	calculateHighlightColor(50);
+	
+	if (colorDepth > 4) {
+		calculateShadowColor(100);
+		calculateHighlightColor(50);
+	}
+	
 	mainBuffer.bgRGB(bgShadowColorR, bgShadowColorG, bgShadowColorB);
 	
 	if (showWidget1) {
 		// Shadow
 		if (widgetShadow) mainBuffer.rect(clrBG, startX1+1, startY1+1, startX1+widgetW+1, startY1+widgetH+1, widgetCornerRadius);
+		
 		// Main rectangle
-		mainBuffer.rect(clrFG, startX1, startY1, startX1+widgetW, startY1+widgetH, widgetCornerRadius);
+		if (colorDepth > 4) {
+			mainBuffer.rect(clrFG, startX1, startY1, startX1+widgetW, startY1+widgetH, widgetCornerRadius);
+		}
+		else
+		{
+			if (widgetCornerRadius == 0)
+				auxWidgetCornerRadius = 1;
+			else
+				auxWidgetCornerRadius = widgetCornerRadius;
+			
+			mainBuffer.fgRGB(highlightR, highlightG, highlightB);
+			mainBuffer.rect(clrFG, startX1, startY1, startX1+widgetW+1, startY1+widgetH+1, widgetCornerRadius);
+			mainBuffer.fgRGB(fgColorR, fgColorR, fgColorR);
+			mainBuffer.rect(clrFG, startX1+1, startY1+1, startX1+widgetW-1, startY1+widgetH-1, auxWidgetCornerRadius-1);
+		}
+		
 		// Highlight
 		if (widgetHighlight) drawWidgetHighlight(startX1, startY1, widgetW, widgetH);
 		}
@@ -26,8 +46,19 @@ void composeBackgroundBuffer() {
 	if (showWidget2) {
 		// Shadow
 		if (widgetShadow) mainBuffer.rect(clrBG, startX2+1, startY2+1, startX2+widgetW+1, startY2+widgetH+1, widgetCornerRadius);
+		
 		// Main rectangle
-		mainBuffer.rect(clrFG, startX2, startY2, startX2+widgetW, startY2+widgetH, widgetCornerRadius);
+		if (colorDepth > 4) {
+			mainBuffer.rect(clrFG, startX2, startY2, startX2+widgetW, startY2+widgetH, widgetCornerRadius);
+		}
+		else
+		{
+			mainBuffer.fgRGB(highlightR, highlightG, highlightB);
+			mainBuffer.rect(clrFG, startX2, startY2, startX2+widgetW+1, startY2+widgetH+1, widgetCornerRadius);
+			mainBuffer.fgRGB(fgColorR, fgColorR, fgColorR);
+			mainBuffer.rect(clrFG, startX2+1, startY2+1, startX2+widgetW-1, startY2+widgetH-1, auxWidgetCornerRadius-1);
+		}
+				
 		// Highlight
 		if (widgetHighlight) drawWidgetHighlight(startX2, startY2, widgetW, widgetH);
 		}
@@ -35,8 +66,19 @@ void composeBackgroundBuffer() {
 	if (showWidget3) {
 		// Shadow
 		if (widgetShadow) mainBuffer.rect(clrBG, startX3+1, startY3+1, startX3+widgetW+1, startY3+widgetH+1, widgetCornerRadius);
+		
 		// Main rectangle
-		mainBuffer.rect(clrFG, startX3, startY3, startX3+widgetW, startY3+widgetH, widgetCornerRadius);
+		if (colorDepth > 4) {
+			mainBuffer.rect(clrFG, startX3, startY3, startX3+widgetW, startY3+widgetH, widgetCornerRadius);
+		}
+		else
+		{
+			mainBuffer.fgRGB(highlightR, highlightG, highlightB);
+			mainBuffer.rect(clrFG, startX3, startY3, startX3+widgetW+1, startY3+widgetH+1, widgetCornerRadius);
+			mainBuffer.fgRGB(fgColorR, fgColorR, fgColorR);
+			mainBuffer.rect(clrFG, startX3+1, startY3+1, startX3+widgetW-1, startY3+widgetH-1, auxWidgetCornerRadius-1);
+		}
+				
 		// Highlight
 		if (widgetHighlight) drawWidgetHighlight(startX3, startY3, widgetW, widgetH);
 		}
@@ -44,8 +86,19 @@ void composeBackgroundBuffer() {
 	if (showWidget4) {
 		// Shadow
 		if (widgetShadow) mainBuffer.rect(clrBG, startX4+1, startX4+1, startX4+widgetW+1, startY4+widgetH+1, widgetCornerRadius);
+		
 		// Main rectangle
-		mainBuffer.rect(clrFG, startX4, startX4, startX4+widgetW, startY4+widgetH, widgetCornerRadius);
+		if (colorDepth > 4) {
+			mainBuffer.rect(clrFG, startX4, startY4, startX4+widgetW, startY4+widgetH, widgetCornerRadius);
+		}
+		else
+		{
+			mainBuffer.fgRGB(highlightR, highlightG, highlightB);
+			mainBuffer.rect(clrFG, startX4, startY4, startX4+widgetW+1, startY4+widgetH+1, widgetCornerRadius);
+			mainBuffer.fgRGB(fgColorR, fgColorR, fgColorR);
+			mainBuffer.rect(clrFG, startX4+1, startY4+1, startX4+widgetW-1, startY4+widgetH-1, auxWidgetCornerRadius-1);
+		}
+				
 		// Highlight
 		if (widgetHighlight) drawWidgetHighlight(startX4, startY4, widgetW, widgetH);
 		}
@@ -171,7 +224,7 @@ handler mainForm.ondraw() {
 	else
 	{
 		// Normal mode (square display)
-		interfaceMode = appPrefs[0].interfaceMode;
+		interfaceMode = appPrefs[appPrefsPosition].interfaceMode;
 		
 		if (interfaceMode == 1) {
 			showWidget1 = true;

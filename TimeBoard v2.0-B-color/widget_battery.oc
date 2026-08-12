@@ -17,24 +17,32 @@ void drawBatteryDots(int startX, int startY, int widW, int widH, int dotRadius, 
 		activeDots = 0;
 
 	// Battery color
-	if (charge > 40) {
-		// Green
-		activeR = batteryR;
-		activeG = batteryG;
-		activeB = batteryB;
-	}
-	else if (charge > 20) {
-		// Orange
-		activeR = 255;
-		activeG = 153;
-		activeB = 0;
+	if (colorDepth > 4) {
+		if (charge > 40) {
+			// Green
+			activeR = batteryR;
+			activeG = batteryG;
+			activeB = batteryB;
+		}
+		else if (charge > 20) {
+			// Orange
+			activeR = 255;
+			activeG = 153;
+			activeB = 0;
+		}
+		else
+		{
+			// Red
+			activeR = 255;
+			activeG = 0;
+			activeB = 0;
+		}
 	}
 	else
 	{
-		// Red
-		activeR = 255;
-		activeG = 0;
-		activeB = 0;
+		activeR = batteryR;
+		activeG = batteryG;
+		activeB = batteryB;
 	}
 
 	for (i = 0; i < 10; i++) {
@@ -44,22 +52,58 @@ void drawBatteryDots(int startX, int startY, int widW, int widH, int dotRadius, 
 		x = centerX + (cos(angle) * ringRadius);
 		y = centerY + (sin(angle) * ringRadius);
 
-		if (i < activeDots)
-		{
+		if (i < activeDots) {
 			mainBuffer.fgRGB(activeR, activeG, activeB);
-		}
-		else
-		{
-			mainBuffer.fgRGB(120, 120, 120);
-		}
-		
-		mainBuffer.rect(
+			
+			mainBuffer.rect(
 			clrFG,
 			x - dotRadius,
 			y - dotRadius,
 			x + dotRadius,
 			y + dotRadius,
 			dotRadius);
+		}
+		else
+		{
+			if (colorDepth > 4) {
+				mainBuffer.fgRGB(120, 120, 120); // Color discharged grey
+				
+				mainBuffer.rect(
+				clrFG,
+				x - dotRadius,
+				y - dotRadius,
+				x + dotRadius,
+				y + dotRadius,
+				dotRadius);
+			}
+			else
+			{
+				if (colorDepth == 1) {
+					mainBuffer.fgRGB(activeR, activeG, activeB); // B/W discharged empty circles
+					
+					mainBuffer.frame(
+					clrFG,
+					x - (dotRadius-1),
+					y - (dotRadius-1),
+					x + (dotRadius),
+					y + (dotRadius),
+					dotRadius,
+					1);
+				}
+				else
+				{
+					mainBuffer.fgRGB(mainR, mainG, mainB); // Gray discharged grey
+					
+					mainBuffer.rect(
+					clrFG,
+					x - dotRadius,
+					y - dotRadius,
+					x + dotRadius,
+					y + dotRadius,
+					dotRadius);
+				}
+			}
+		}
 	}
 }
 
