@@ -89,7 +89,7 @@
       x = 7, y = 141, w = 65, h = 12
       text = "Time Sync"
       leftanchor = true, group = 0, fontid = 0
-      frame = 3
+      frame = 1
       hresize = 0, vresize = 0
     }
     button UIButton helpBtn {
@@ -97,7 +97,7 @@
       x = 78, y = 141, w = 12, h = 12
       text = "?"
       leftanchor = true, group = 0, fontid = 0
-      frame = 3
+      frame = 1
       hresize = 0, vresize = 0
     }
     button UIButton exitBtn {
@@ -105,7 +105,7 @@
       x = 117, y = 141, w = 36, h = 12
       text = "Exit"
       leftanchor = true, group = 0, fontid = 0
-      frame = 3
+      frame = 1
       hresize = 0, vresize = 0
     }
     button UIButton backButton {
@@ -113,7 +113,7 @@
       x = 117, y = 141, w = 36, h = 12
       text = "Back"
       leftanchor = true, group = 0, fontid = 0
-      frame = 3
+      frame = 1
       hresize = 0, vresize = 0
     }
     label UILabel dateLabel {
