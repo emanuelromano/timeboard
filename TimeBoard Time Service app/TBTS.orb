@@ -19,7 +19,7 @@
   dbname = "TBTS"
   file = "TBTS.prc"
   creator = "TBTS"
-  version = "1.0.0"
+  version = "1.0.1"
   locked = false, hidden = false
   icon {
     large1 = "graphics\\icon_l1.bmp"
@@ -89,15 +89,15 @@
       x = 7, y = 141, w = 65, h = 12
       text = "Time Sync"
       leftanchor = true, group = 0, fontid = 0
-      frame = 1
+      frame = 3
       hresize = 0, vresize = 0
     }
     button UIButton helpBtn {
       id = 1002
-      x = 79, y = 141, w = 12, h = 12
+      x = 78, y = 141, w = 12, h = 12
       text = "?"
       leftanchor = true, group = 0, fontid = 0
-      frame = 1
+      frame = 3
       hresize = 0, vresize = 0
     }
     button UIButton exitBtn {
@@ -105,7 +105,7 @@
       x = 117, y = 141, w = 36, h = 12
       text = "Exit"
       leftanchor = true, group = 0, fontid = 0
-      frame = 1
+      frame = 3
       hresize = 0, vresize = 0
     }
     button UIButton backButton {
@@ -113,7 +113,7 @@
       x = 117, y = 141, w = 36, h = 12
       text = "Back"
       leftanchor = true, group = 0, fontid = 0
-      frame = 1
+      frame = 3
       hresize = 0, vresize = 0
     }
     label UILabel dateLabel {
@@ -173,7 +173,7 @@
     }
     field UIField retriesField {
       id = 1009
-      x = 79, y = 125, w = 12, h = 12
+      x = 78, y = 125, w = 12, h = 12
       fontid = 0, leftanchor = false, maxchars = 1
       underline = true, singleline = true, dynamicsize = false, hasscroll = false
       editable = true, autoshift = true, numeric = true
@@ -192,7 +192,7 @@
       x = 117, y = 141, w = 36, h = 12
       text = "Back"
       leftanchor = true, group = 0, fontid = 0
-      frame = 1
+      frame = 3
       hresize = 0, vresize = 0
     }
     field UIField helpField {
@@ -214,7 +214,7 @@
 
 // source files
 #include "TBTS.oc"
-#include "functions.oc"
+#include "network.oc"
 #include "widget_analogClock.oc"
 #include "mainForm.oc"
 #include "helpForm.oc"

@@ -281,8 +281,8 @@ void setDateTime() {
 }
 
 
-// Set new preferences
-bool setNewPrefs(int index, int attempts) {
+// Save new preferences
+bool saveNewPrefs(int index, int attempts) {
   	appPrefs[0].selectedOffsetIndex = index;
   	appPrefs[0].connectionAttempts = attempts;
   	appPrefs[0].apiVersion = apiVersion;

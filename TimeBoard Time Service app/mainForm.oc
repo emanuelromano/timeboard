@@ -332,7 +332,7 @@ handler timeSyncBtn.onselect() {
     }
     
 	// Save GMT offset and retry number preferences
-    resp = setNewPrefs(offsetList.selitem, retries);
+    resp = saveNewPrefs(offsetList.selitem, retries);
     if (!resp) {
         alert("Error trying to save preferences.");
     }
@@ -349,7 +349,7 @@ handler timeSyncBtn.onselect() {
 	
     	if (validResponse) {
     		// Save preferences again, now with updated API and Service versions
-    		resp = setNewPrefs(offsetList.selitem, retries);
+    		resp = saveNewPrefs(offsetList.selitem, retries);
     		if (!resp) {
         		alert("Error trying to save preferences.");
     		}

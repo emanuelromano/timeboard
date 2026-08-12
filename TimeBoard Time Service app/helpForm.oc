@@ -38,10 +38,10 @@ handler helpScroll.onmove() {
 // Hard buttons handler
 handler helpForm.onhkey() {
 	if (e.key == evUp) {
-		helpField.scroll(-3);
+		helpField.scroll(-9);
 		helpScroll.update(helpField);
 	} else if (e.key == evDown) {
-		helpField.scroll(3);
+		helpField.scroll(9);
 		helpScroll.update(helpField);
 	}
 }
