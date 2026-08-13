@@ -186,9 +186,9 @@ bool setDefaultPrefs() {
 	// 3: Color screens (8-bit)
 	appPrefs[3].debugFlag = debugFlag;
 	
-	appPrefs[3].bgColorR = 255;
-	appPrefs[3].bgColorG = 204;
-	appPrefs[3].bgColorB = 0;
+	appPrefs[3].bgColorR = 51;
+	appPrefs[3].bgColorG = 51;
+	appPrefs[3].bgColorB = 51;
 	
 	appPrefs[3].fgColorR = 68;
 	appPrefs[3].fgColorG = 68;
