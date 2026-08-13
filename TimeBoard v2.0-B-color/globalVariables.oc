@@ -96,6 +96,10 @@ int bgColorR,
 	batteryG,
 	batteryB,
 	
+	batteryEmptyR,
+	batteryEmptyG,
+	batteryEmptyB,
+	
 	bgShadowColorR,
 	bgShadowColorG,
 	bgShadowColorB,

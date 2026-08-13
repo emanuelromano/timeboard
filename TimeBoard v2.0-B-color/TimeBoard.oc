@@ -13,13 +13,14 @@ Event e;
 Date date;
 Draw mainBuffer;
 Draw draw;
-const int numberOfPrefs = 3;
+const int numberOfPrefs = 4;
 int colorDepth,
 	appPrefsPosition;	// Determines which preferences will be used
 						// according to the device's screen color depth.
-						// 0: B/W screens
-						// 1: Grayscale screens
-						// 2: Color screens
+						// 0: B/W screens (1-bit)
+						// 1: Grayscale screens (2-bit)
+						// 2: Grayscale screens (4-bit)
+						// 3: Color screens (8-bit)
 
 struct AppPrefs {
 	bool debugFlag;
@@ -49,6 +50,10 @@ struct AppPrefs {
 	int batteryG;
 	int batteryB;
 	
+	int batteryEmptyR;
+	int batteryEmptyG;
+	int batteryEmptyB;
+	
 	// Other preferences
 	int interfaceMode;
 	bool widgetHighlight;
@@ -69,8 +74,15 @@ bool getPrefs() {
 
 // Set default preferences in case they do not exist
 bool setDefaultPrefs() {
-	// 0: B/W screens
-	appPrefs[0].debugFlag = false;
+	bool debugFlag = false;
+	int interfaceMode = 1,
+		widgetCornerRadius = 4, // 8 pixels
+		useAnalogClockNumbers = 1;	// Show numbers or lines in analog clock:
+									// 1 = true
+									// 0 = false
+	
+	// 0: B/W screens (1-bit)
+	appPrefs[0].debugFlag = debugFlag;
 	
 	appPrefs[0].bgColorR = 255;
 	appPrefs[0].bgColorG = 255;
@@ -92,15 +104,19 @@ bool setDefaultPrefs() {
 	appPrefs[0].batteryG = 0;
 	appPrefs[0].batteryB = 0;
 	
-	appPrefs[0].interfaceMode = 1;
+	appPrefs[0].batteryEmptyR = 0;
+	appPrefs[0].batteryEmptyG = 0;
+	appPrefs[0].batteryEmptyB = 0;
+	
+	appPrefs[0].interfaceMode = interfaceMode;
 	appPrefs[0].widgetHighlight = false;
 	appPrefs[0].widgetShadow = false;
-	appPrefs[0].widgetCornerRadius = 8; // 8 pixels
-	appPrefs[0].useAnalogClockNumbers = 1; // Show numbers or lines in analog clock: 1 = true / 0 = false
+	appPrefs[0].widgetCornerRadius = widgetCornerRadius;
+	appPrefs[0].useAnalogClockNumbers = useAnalogClockNumbers;
+		
 	
-	
-	// 1: Grayscale screens
-	appPrefs[1].debugFlag = false;
+	// 1: Grayscale screens (2-bit)
+	appPrefs[1].debugFlag = debugFlag;
 	
 	appPrefs[1].bgColorR = 255;
 	appPrefs[1].bgColorG = 255;
@@ -118,45 +134,87 @@ bool setDefaultPrefs() {
 	appPrefs[1].mainG = 255;
 	appPrefs[1].mainB = 255;
 	
-	appPrefs[1].batteryR = 0;
-	appPrefs[1].batteryG = 0;
-	appPrefs[1].batteryB = 0;
+	appPrefs[1].batteryR = 255;
+	appPrefs[1].batteryG = 255;
+	appPrefs[1].batteryB = 255;
 	
-	appPrefs[1].interfaceMode = 1;
+	appPrefs[1].batteryEmptyR = 0;
+	appPrefs[1].batteryEmptyG = 0;
+	appPrefs[1].batteryEmptyB = 0;
+	
+	appPrefs[1].interfaceMode = interfaceMode;
 	appPrefs[1].widgetHighlight = false;
 	appPrefs[1].widgetShadow = false;
-	appPrefs[1].widgetCornerRadius = 8; // 8 pixels
-	appPrefs[1].useAnalogClockNumbers = 1; // Show numbers or lines in analog clock: 1 = true / 0 = false
+	appPrefs[1].widgetCornerRadius = widgetCornerRadius;
+	appPrefs[1].useAnalogClockNumbers = useAnalogClockNumbers;
 	
 	
-	// 2: Color screens
-	appPrefs[2].debugFlag = false;
+	// 2: Grayscale screens (4-bit)
+	appPrefs[2].debugFlag = debugFlag;
 	
-	appPrefs[2].bgColorR = 51;
-	appPrefs[2].bgColorG = 51;
-	appPrefs[2].bgColorB = 51;
+	appPrefs[2].bgColorR = 255;
+	appPrefs[2].bgColorG = 255;
+	appPrefs[2].bgColorB = 255;
 	
-	appPrefs[2].fgColorR = 68;
-	appPrefs[2].fgColorG = 68;
-	appPrefs[2].fgColorB = 68;
+	appPrefs[2].fgColorR = 128;
+	appPrefs[2].fgColorG = 128;
+	appPrefs[2].fgColorB = 128;
 	
-	appPrefs[2].highlightR = 255;
-	appPrefs[2].highlightG = 204;
+	appPrefs[2].highlightR = 0;
+	appPrefs[2].highlightG = 0;
 	appPrefs[2].highlightB = 0;
 	
 	appPrefs[2].mainR = 255;
 	appPrefs[2].mainG = 255;
 	appPrefs[2].mainB = 255;
 	
-	appPrefs[2].batteryR = 102;
+	appPrefs[2].batteryR = 255;
 	appPrefs[2].batteryG = 255;
-	appPrefs[2].batteryB = 0;
+	appPrefs[2].batteryB = 255;
 	
-	appPrefs[2].interfaceMode = 1;
-	appPrefs[2].widgetHighlight = true;
-	appPrefs[2].widgetShadow = true;
-	appPrefs[2].widgetCornerRadius = 8; // 8 pixels
-	appPrefs[2].useAnalogClockNumbers = 1; // Show numbers or lines in analog clock: 1 = true / 0 = false
+	appPrefs[2].batteryEmptyR = 0;
+	appPrefs[2].batteryEmptyG = 0;
+	appPrefs[2].batteryEmptyB = 0;
+	
+	appPrefs[2].interfaceMode = interfaceMode;
+	appPrefs[2].widgetHighlight = false;
+	appPrefs[2].widgetShadow = false;
+	appPrefs[2].widgetCornerRadius = widgetCornerRadius;
+	appPrefs[2].useAnalogClockNumbers = useAnalogClockNumbers;
+	
+	
+	// 3: Color screens (8-bit)
+	appPrefs[3].debugFlag = debugFlag;
+	
+	appPrefs[3].bgColorR = 51;
+	appPrefs[3].bgColorG = 51;
+	appPrefs[3].bgColorB = 51;
+	
+	appPrefs[3].fgColorR = 68;
+	appPrefs[3].fgColorG = 68;
+	appPrefs[3].fgColorB = 68;
+	
+	appPrefs[3].highlightR = 255;
+	appPrefs[3].highlightG = 204;
+	appPrefs[3].highlightB = 0;
+	
+	appPrefs[3].mainR = 255;
+	appPrefs[3].mainG = 255;
+	appPrefs[3].mainB = 255;
+	
+	appPrefs[3].batteryR = 102;
+	appPrefs[3].batteryG = 255;
+	appPrefs[3].batteryB = 0;
+	
+	appPrefs[3].batteryEmptyR = 120;
+	appPrefs[3].batteryEmptyG = 120;
+	appPrefs[3].batteryEmptyB = 120;
+	
+	appPrefs[3].interfaceMode = interfaceMode;
+	appPrefs[3].widgetHighlight = true;
+	appPrefs[3].widgetShadow = true;
+	appPrefs[3].widgetCornerRadius = widgetCornerRadius;
+	appPrefs[3].useAnalogClockNumbers = useAnalogClockNumbers;
 	
 	return prefs.set(TimeBoard.creator, true, appPrefs, typeof(AppPrefs), numberOfPrefs);
 }
@@ -165,6 +223,8 @@ bool setDefaultPrefs() {
 // Delete preferences
 void deletePrefs() {
 	prefs.del(TimeBoard.creator, true);
+	
+	setDefaultPrefs();
 }
 
 
@@ -183,27 +243,27 @@ handler TimeBoard.onstart() {
 		
 	switch (colorDepth) {
 		case 1:
-				appPrefsPosition = 0; // 0: B/W screens
+				appPrefsPosition = 0; // 0: B/W screens (1-bit)
 				break;
 		case 2:
-				appPrefsPosition = 1; // 1: Grayscale screens
+				appPrefsPosition = 1; // 1: Grayscale screens (2-bit)
 				break;
 		case 4:
-				appPrefsPosition = 1; // 1: Grayscale screens
+				appPrefsPosition = 2; // 2: Grayscale screens (4-bit)
 				break;
 		case 8:
-				appPrefsPosition = 2; // 2: Color screens
+				appPrefsPosition = 3; // 3: Color screens (8-bit)
 				break;
 		case 16:
-				appPrefsPosition = 2; // 2: Color screens
+				appPrefsPosition = 3; // 3: Color screens (8-bit)
 				break;
 		default:
-				appPrefsPosition = 0; // 0: B/W screens
+				appPrefsPosition = 3; // 3: Color screens (8-bit)
 				break;
 	}
 	
 	// If there is no default prefs, set default prefs
-	if (getPrefs() == false)
+	//if (getPrefs() == false)
 		setDefaultPrefs();
 	
 	// Load the main form

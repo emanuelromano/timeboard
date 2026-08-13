@@ -23,6 +23,10 @@ void setMainPreferences() {
 	batteryG = appPrefs[appPrefsPosition].batteryG;
 	batteryB = appPrefs[appPrefsPosition].batteryB;
 	
+	batteryEmptyR = appPrefs[appPrefsPosition].batteryEmptyR;
+	batteryEmptyG = appPrefs[appPrefsPosition].batteryEmptyG;
+	batteryEmptyB = appPrefs[appPrefsPosition].batteryEmptyB;
+	
 	// Set other parameters
 	origInterfaceMode = interfaceMode = appPrefs[appPrefsPosition].interfaceMode;
 	widgetHighlight = appPrefs[appPrefsPosition].widgetHighlight;
@@ -33,9 +37,8 @@ void setMainPreferences() {
 
 
 // Save main preferences from global variables
-bool saveMainPreferences() {
-	appPrefs[appPrefsPosition].debugFlag = debugFlag;
-	
+bool saveMainPreferences() {	
+	// Specific theme settings for different color depths
 	appPrefs[appPrefsPosition].bgColorR = bgColorR;
 	appPrefs[appPrefsPosition].bgColorG = bgColorG;
 	appPrefs[appPrefsPosition].bgColorB = bgColorB;
@@ -56,11 +59,43 @@ bool saveMainPreferences() {
 	appPrefs[appPrefsPosition].batteryG = batteryG;
 	appPrefs[appPrefsPosition].batteryB = batteryB;
 	
-	appPrefs[appPrefsPosition].interfaceMode = origInterfaceMode;
-	appPrefs[appPrefsPosition].widgetHighlight = widgetHighlight;
-	appPrefs[appPrefsPosition].widgetShadow = widgetShadow;
-	appPrefs[appPrefsPosition].widgetCornerRadius = widgetCornerRadius;
-	appPrefs[appPrefsPosition].useAnalogClockNumbers = useAnalogClockNumbers;
+	appPrefs[appPrefsPosition].batteryEmptyR = batteryEmptyR;
+	appPrefs[appPrefsPosition].batteryEmptyG = batteryEmptyG;
+	appPrefs[appPrefsPosition].batteryEmptyB = batteryEmptyB;
+	
+	// General
+	appPrefs[0].debugFlag = debugFlag;
+	appPrefs[1].debugFlag = debugFlag;
+	appPrefs[2].debugFlag = debugFlag;
+	appPrefs[3].debugFlag = debugFlag;
+	
+	// B/W screens (1-bit)
+	appPrefs[0].interfaceMode = origInterfaceMode;
+	appPrefs[0].widgetHighlight = false;
+	appPrefs[0].widgetShadow = false;
+	appPrefs[0].widgetCornerRadius = widgetCornerRadius;
+	appPrefs[0].useAnalogClockNumbers = useAnalogClockNumbers;
+	
+	// Grayscale screens (2-bit)
+	appPrefs[1].interfaceMode = origInterfaceMode;
+	appPrefs[1].widgetHighlight = false;
+	appPrefs[1].widgetShadow = false;
+	appPrefs[1].widgetCornerRadius = widgetCornerRadius;
+	appPrefs[1].useAnalogClockNumbers = useAnalogClockNumbers;
+	
+	// Grayscale screens (4-bit)
+	appPrefs[2].interfaceMode = origInterfaceMode;
+	appPrefs[2].widgetHighlight = false;
+	appPrefs[2].widgetShadow = false;
+	appPrefs[2].widgetCornerRadius = widgetCornerRadius;
+	appPrefs[2].useAnalogClockNumbers = useAnalogClockNumbers;
+	
+	// Color screens (8-bit)
+	appPrefs[3].interfaceMode = origInterfaceMode;
+	appPrefs[3].widgetHighlight = widgetHighlight;
+	appPrefs[3].widgetShadow = widgetShadow;
+	appPrefs[3].widgetCornerRadius = widgetCornerRadius;
+	appPrefs[3].useAnalogClockNumbers = useAnalogClockNumbers;
 	
 	return prefs.set(TimeBoard.creator, true, appPrefs, typeof(AppPrefs), numberOfPrefs);
 }
