@@ -38,8 +38,12 @@ void digitalClockWidget(int startX, int startY) {
 	mainBuffer.text(clrText, startX+widgetW-5, startY+4, amPmStr);*/
 	
 	// Seconds
+	if (colorDepth > 4 || colorDepth == 1)
+		mainBuffer.textRGB(mainR, mainG, mainB);
+	else
+		mainBuffer.textRGB(highlightR, highlightG, highlightB);
+	
 	mainBuffer.textAlign(22);
-	mainBuffer.textRGB(mainR, mainG, mainB);
 	mainBuffer.bgRGB(fgColorR, fgColorG, fgColorB);
 	mainBuffer.font(fntLargeBold);
 	mainBuffer.text(clrText, startX+widgetW-5, startY+widgetH-6, "   " + secondDigit1 + "" + secondDigit2);
@@ -80,7 +84,11 @@ void miniDigitalClockWidget(int startX, int startY) {
 	drawDigit(minuteDigit2, digitW, digitH, digitMin2X, digitY2, radius, segmentThickness);
 
 	// Seconds
-	mainBuffer.textRGB(mainR, mainG, mainB);
+	if (colorDepth > 4 || colorDepth == 1)
+		mainBuffer.textRGB(mainR, mainG, mainB);
+	else
+		mainBuffer.textRGB(highlightR, highlightG, highlightB);
+	
 	mainBuffer.textAlign(11);
 	mainBuffer.font(fntStandard);
 	mainBuffer.text(clrText, secondsX+14, secondsY+14, secondDigit1 + "" + secondDigit2);
