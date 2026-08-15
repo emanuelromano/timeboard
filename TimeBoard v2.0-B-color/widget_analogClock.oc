@@ -36,7 +36,7 @@ void drawHand(float angle,
 
 void updateClockHands() {
 	int i, x, y,
-		axisYcorrection = 0,
+		axisXcorrection = 0,
 		circleRadius,
 		bgColorR, bgColorG, bgColorB,
 		colorR, colorG, colorB;
@@ -46,7 +46,7 @@ void updateClockHands() {
 		newSecondAngle;
 	
 	if (widgetW != 70) {
-		axisYcorrection = 26;
+		axisXcorrection = 27;
 		secondLength = 14;
 	}
 	
@@ -83,8 +83,8 @@ void updateClockHands() {
 	if (oldHourAngle != 0) {
 		drawHand(oldSecondAngle,
 			 	secondLength,
-			 	centerX,
-			 	centerY + axisYcorrection,
+			 	centerX + axisXcorrection,
+			 	centerY,
 			 	bgColorR,
 			 	bgColorG,
 			 	bgColorB,
@@ -128,23 +128,23 @@ void updateClockHands() {
     		mainBuffer.bgRGB(mainR, mainG, mainB);
 		
 		mainBuffer.textAlign(11);
-		mainBuffer.font(fntLargeBold);
-		mainBuffer.text(clrText, centerX, centerY-28, "TimeBoard");
-	
+		mainBuffer.font(fntBold);
+		mainBuffer.text(clrText, centerX-36, centerY-2, " TimeBoard");
+		
 		// Small circle for seconds
 		mainBuffer.fgRGB(highlightR, highlightG, highlightB);
-		mainBuffer.frame(clrFG, centerX-17, centerY+9, centerX+18, centerY+44, 18, 1);
+		mainBuffer.frame(clrFG, (centerX + axisXcorrection)-17, centerY-17, (centerX + axisXcorrection)+18, centerY+18, 18, 1);
 		
 		// Center
-		mainBuffer.rect(clrFG, centerX-2, centerY+24, centerX+3, centerY+29, 3);
+		mainBuffer.rect(clrFG, (centerX + axisXcorrection)-2, centerY-2, (centerX + axisXcorrection)+3, centerY+3, 3);
 		
 		// 12 dots (every 5 seconds)
 		circleRadius = 16;
 		for (i = 0; i < 12; i++) {
 			angle = ((i * 30) - 90) * 3.14159265 / 180;
 		
-			x = centerX + roundCoord(cos(angle) * circleRadius);
-			y = (centerY + axisYcorrection) + roundCoord(sin(angle) * circleRadius);
+			x = (centerX + axisXcorrection) + roundCoord(cos(angle) * circleRadius);
+			y = centerY + roundCoord(sin(angle) * circleRadius);
 			
 			if (colorDepth > 4)
     			mainBuffer.fgRGB(mainR, mainG, mainB);
@@ -173,8 +173,8 @@ void updateClockHands() {
 	if (widgetW != 70) {
 		drawHand(newSecondAngle,
 			 	secondLength,
-			 	centerX,
-			 	centerY + axisYcorrection,
+			 	centerX + axisXcorrection,
+			 	centerY,
 			 	highlightR,
 			 	highlightG,
 			 	highlightB,
@@ -220,8 +220,8 @@ void updateClockHands() {
 			 	
 		drawHand(newSecondAngle,
 			 	secondLength,
-			 	centerX,
-			 	centerY + axisYcorrection,
+			 	centerX + axisXcorrection,
+			 	centerY,
 			 	highlightR,
 			 	highlightG,
 			 	highlightB,
@@ -326,10 +326,10 @@ void analogClockWidget(int startX, int startY) {
 		}
 		
 		// "TimeBoard" text on big widget
-		mainBuffer.textRGB(highlightR, highlightG, highlightB);
+		/*mainBuffer.textRGB(highlightR, highlightG, highlightB);
 		mainBuffer.textAlign(11);
 		mainBuffer.font(fntLargeBold);
-		mainBuffer.text(clrText, centerX, centerY-28, "TimeBoard");
+		mainBuffer.text(clrText, centerX, centerY-28, "TimeBoard");*/
 	}
 	else
 	{

@@ -251,9 +251,9 @@ handler mainForm.ondraw() {
 			mainBuffer.begin();
 			mainBuffer.textRGB(highlightR, highlightG, highlightB);
 			mainBuffer.bgRGB(fgColorR, fgColorG, fgColorB);
-			mainBuffer.font(fntLargeBold);
+			mainBuffer.font(fntBold);
 			mainBuffer.textAlign(02);
-			mainBuffer.text(clrText, mainForm.w-14, mainForm.y+14, "///////////");
+			mainBuffer.text(clrText, mainForm.w-14, mainForm.y+13, "/////////");
 			mainBuffer.textAlign(22);
 			mainBuffer.text(clrText, mainForm.w-14, mainForm.y+widgetH+1, "TimeBoard");
 			mainBuffer.end();
