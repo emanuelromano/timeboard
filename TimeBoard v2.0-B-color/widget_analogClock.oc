@@ -123,9 +123,9 @@ void updateClockHands() {
 		mainBuffer.textRGB(highlightR, highlightG, highlightB);
 		
 		if (colorDepth > 4 || colorDepth == 1)
-    			mainBuffer.bgRGB(fgColorR, fgColorG, fgColorB);
-    		else
-    			mainBuffer.bgRGB(mainR, mainG, mainB);
+    		mainBuffer.bgRGB(fgColorR, fgColorG, fgColorB);
+    	else
+    		mainBuffer.bgRGB(mainR, mainG, mainB);
 		
 		mainBuffer.textAlign(11);
 		mainBuffer.font(fntLargeBold);
@@ -488,9 +488,9 @@ void updateClockHands2() {
 		newMinuteAngle,
 		newSecondAngle;
 	
-	if (interfaceMode != 0) {
+	if (interfaceMode == 1) {
 		axisXcorrection = 70;
-		axisYcorrection = 14;
+		axisYcorrection = 0;
 		secondLength = 16;
 	}
 	
