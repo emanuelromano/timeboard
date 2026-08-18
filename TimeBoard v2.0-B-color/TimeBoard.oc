@@ -9,10 +9,6 @@
 --------------------------------------------------------------- */
 
 Preferences prefs;
-Event e;
-Date date;
-Draw mainBuffer;
-Draw draw;
 const int numberOfPrefs = 4;
 int colorDepth,
 	appPrefsPosition;	// Determines which preferences will be used

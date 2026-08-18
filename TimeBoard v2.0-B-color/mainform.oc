@@ -350,7 +350,7 @@ handler mainForm.onresize() {
 
 
 handler mainForm.onpenup() {
-	int penX = e.x,
+	/*int penX = e.x,
 		penY = e.y;
 	
 	// Widget 1
@@ -371,7 +371,7 @@ handler mainForm.onpenup() {
 	// Widget 4
 	if (penX >= startX4 && penX <= startX4 + widgetW && penY >= startY4 && penY <= startY4 + widgetH) {
 		//alert("Widget 4");
-	}
+	}*/
 }
 
 
