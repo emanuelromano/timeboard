@@ -467,8 +467,6 @@ void analogClockWidget(int startX, int startY) {
 						centerY+circleSeparation,
 						circleCornerRadius,
 						1);
-	
-	
 	}
 	
 	updateClockHands();
@@ -482,7 +480,8 @@ void updateClockHands2() {
 		axisYcorrection = 0,
 		circleRadius,
 		bgColorR, bgColorG, bgColorB,
-		colorR, colorG, colorB;
+		colorR, colorG, colorB,
+		secColorR, secColorG, secColorB;
 	float angle,
 		newHourAngle,
 		newMinuteAngle,
@@ -506,17 +505,10 @@ void updateClockHands2() {
 	}
 	else
 	{
-		if (colorDepth == 1) {
-			bgColorR = fgColorR;
-			bgColorG = fgColorG;
-			bgColorB = fgColorB;
-		}
-		else
-		{
-			bgColorR = mainR;
-			bgColorG = mainR;
-			bgColorB = mainR;
-		}
+
+		bgColorR = fgColorR;
+		bgColorG = fgColorR;
+		bgColorB = fgColorR;
 		
 		colorR = highlightR;
 		colorG = highlightG;
@@ -570,10 +562,11 @@ void updateClockHands2() {
 		}
 		
 		// Small circle for seconds
-		mainBuffer.fgRGB(highlightR, highlightG, highlightB);
+		mainBuffer.fgRGB(fgColorR, fgColorG, fgColorB);
 		mainBuffer.frame(clrFG, (centerX+axisXcorrection)-20, (centerY+axisYcorrection)-20, (centerX+axisXcorrection)+21, (centerY+axisYcorrection)+21, 21, 1);
 		
 		// Center
+		mainBuffer.fgRGB(highlightR, highlightG, highlightB);
 		mainBuffer.rect(clrFG, (centerX+axisXcorrection)-2, (centerY+axisYcorrection)-2, (centerX+axisXcorrection)+3, (centerY+axisYcorrection)+3, 3);
 		
 		// 12 dots (every 5 seconds)
@@ -588,11 +581,24 @@ void updateClockHands2() {
 			if (colorDepth > 4)
     			mainBuffer.fgRGB(mainR, mainG, mainB);
     		else
-    			mainBuffer.fgRGB(highlightR, highlightG, highlightB);
+    			mainBuffer.fgRGB(fgColorR, fgColorG, fgColorB);
     		
     		mainBuffer.pixel(clrFG, x, y);
 		}
 		mainBuffer.end();
+	}
+	
+	// Color switch
+	if (colorDepth == 2 || colorDepth == 4) {
+		secColorR = fgColorR;
+		secColorG = fgColorG;
+		secColorB = fgColorB;
+	}
+	else
+	{
+		secColorR = highlightR;
+		secColorG = highlightG;
+		secColorB = highlightB;
 	}
 	
 	// Draw new hands (drawing order changes depending on widget size)
@@ -601,9 +607,9 @@ void updateClockHands2() {
 			 	secondLength,
 			 	centerX + axisXcorrection,
 			 	centerY + axisYcorrection,
-			 	highlightR,
-			 	highlightG,
-			 	highlightB,
+			 	secColorR,
+			 	secColorG,
+			 	secColorB,
 			 	true);
 		
 		drawHand(newHourAngle,
@@ -648,9 +654,9 @@ void updateClockHands2() {
 			 	secondLength,
 			 	centerX + axisXcorrection,
 			 	centerY,
-			 	highlightR,
-			 	highlightG,
-			 	highlightB,
+			 	secColorR,
+			 	secColorG,
+			 	secColorB,
 			 	true);
 	}
 	
@@ -716,29 +722,19 @@ void analogClockWidget2(int startX, int startY) {
 		circleCornerRadius = 40;
 		secondDotRadius = 38;
 		
-		// White circle for background
-		if (colorDepth == 2 || colorDepth == 4) {
-			mainBuffer.fgRGB(mainR, mainG, mainB);
-			mainBuffer.rect(clrFG,
-							centerX-circleSeparation,
-							centerY-circleSeparation,
-							centerX+circleSeparation,
-							centerY+circleSeparation,
-							circleCornerRadius);
-		}
-		
+		// White circle for background		
 		mainBuffer.fgRGB(highlightR, highlightG, highlightB);
-		mainBuffer.frame(clrFG,
+		/*mainBuffer.frame(clrFG,
 						centerX-circleSeparation,
 						centerY-circleSeparation,
 						centerX+circleSeparation,
 						centerY+circleSeparation,
 						circleCornerRadius,
-						1);
+						1);*/
 		
 		// Minutes dots
 		if (colorDepth > 4)
-			mainBuffer.fgRGB(mainR, mainG, mainB);
+			mainBuffer.fgRGB(/*mainR, mainG, mainB*/ highlightR, highlightG, highlightB);
 		else
 			mainBuffer.fgRGB(highlightR, highlightR, highlightR);
 		
@@ -792,14 +788,7 @@ void analogClockWidget2(int startX, int startY) {
 			}
 			else
 			{
-				if (colorDepth == 1) {
-					mainBuffer.bgRGB(fgColorR, fgColorG, fgColorB);
-				}
-				else
-				{
-					mainBuffer.bgRGB(mainR, mainG, mainG);
-				}
-				
+				mainBuffer.bgRGB(fgColorR, fgColorG, fgColorB);
 				mainBuffer.textRGB(highlightR, highlightG, highlightB);
 			}
 			

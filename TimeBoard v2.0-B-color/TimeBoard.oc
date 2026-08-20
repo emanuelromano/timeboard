@@ -114,21 +114,21 @@ bool setDefaultPrefs() {
 	// 1: Grayscale screens (2-bit)
 	appPrefs[1].debugFlag = debugFlag;
 	
-	appPrefs[1].bgColorR = 255;
-	appPrefs[1].bgColorG = 255;
-	appPrefs[1].bgColorB = 255;
+	appPrefs[1].bgColorR = 128;
+	appPrefs[1].bgColorG = 128;
+	appPrefs[1].bgColorB = 128;
 	
-	appPrefs[1].fgColorR = 128;
-	appPrefs[1].fgColorG = 128;
-	appPrefs[1].fgColorB = 128;
+	appPrefs[1].fgColorR = 255;
+	appPrefs[1].fgColorG = 255;
+	appPrefs[1].fgColorB = 255;
 	
 	appPrefs[1].highlightR = 0;
 	appPrefs[1].highlightG = 0;
 	appPrefs[1].highlightB = 0;
 	
-	appPrefs[1].mainR = 255;
-	appPrefs[1].mainG = 255;
-	appPrefs[1].mainB = 255;
+	appPrefs[1].mainR = 128;
+	appPrefs[1].mainG = 128;
+	appPrefs[1].mainB = 128;
 	
 	appPrefs[1].batteryR = 0;
 	appPrefs[1].batteryG = 0;
@@ -148,29 +148,29 @@ bool setDefaultPrefs() {
 	// 2: Grayscale screens (4-bit)
 	appPrefs[2].debugFlag = debugFlag;
 	
-	appPrefs[2].bgColorR = 238;
-	appPrefs[2].bgColorG = 238;
-	appPrefs[2].bgColorB = 238;
+	appPrefs[2].bgColorR = 187;
+	appPrefs[2].bgColorG = 187;
+	appPrefs[2].bgColorB = 187;
 	
-	appPrefs[2].fgColorR = 187;
-	appPrefs[2].fgColorG = 187;
-	appPrefs[2].fgColorB = 187;
+	appPrefs[2].fgColorR = 255;
+	appPrefs[2].fgColorG = 255;
+	appPrefs[2].fgColorB = 255;
 	
 	appPrefs[2].highlightR = 51;
 	appPrefs[2].highlightG = 51;
 	appPrefs[2].highlightB = 51;
 	
-	appPrefs[2].mainR = 255;
-	appPrefs[2].mainG = 255;
-	appPrefs[2].mainB = 255;
+	appPrefs[2].mainR = 136;
+	appPrefs[2].mainG = 136;
+	appPrefs[2].mainB = 136;
 	
 	appPrefs[2].batteryR = 85;
 	appPrefs[2].batteryG = 85;
 	appPrefs[2].batteryB = 85;
 	
-	appPrefs[2].batteryEmptyR = 255;
-	appPrefs[2].batteryEmptyG = 255;
-	appPrefs[2].batteryEmptyB = 255;
+	appPrefs[2].batteryEmptyR = 153;
+	appPrefs[2].batteryEmptyG = 153;
+	appPrefs[2].batteryEmptyB = 153;
 	
 	appPrefs[2].interfaceMode = interfaceMode;
 	appPrefs[2].widgetHighlight = false;
