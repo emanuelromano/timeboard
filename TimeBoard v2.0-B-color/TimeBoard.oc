@@ -134,9 +134,9 @@ bool setDefaultPrefs() {
 	appPrefs[1].batteryG = 0;
 	appPrefs[1].batteryB = 0;
 	
-	appPrefs[1].batteryEmptyR = 255;
-	appPrefs[1].batteryEmptyG = 255;
-	appPrefs[1].batteryEmptyB = 255;
+	appPrefs[1].batteryEmptyR = 128;
+	appPrefs[1].batteryEmptyG = 128;
+	appPrefs[1].batteryEmptyB = 128;
 	
 	appPrefs[1].interfaceMode = interfaceMode;
 	appPrefs[1].widgetHighlight = false;
@@ -168,9 +168,9 @@ bool setDefaultPrefs() {
 	appPrefs[2].batteryG = 85;
 	appPrefs[2].batteryB = 85;
 	
-	appPrefs[2].batteryEmptyR = 153;
-	appPrefs[2].batteryEmptyG = 153;
-	appPrefs[2].batteryEmptyB = 153;
+	appPrefs[2].batteryEmptyR = 187;
+	appPrefs[2].batteryEmptyG = 187;
+	appPrefs[2].batteryEmptyB = 187;
 	
 	appPrefs[2].interfaceMode = interfaceMode;
 	appPrefs[2].widgetHighlight = false;

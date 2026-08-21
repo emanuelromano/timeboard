@@ -161,16 +161,16 @@ handler mainForm.ondraw() {
 		falseZero  = true;
 		
 		widgetW = 144;
-		widgetH = 144;
+		widgetH = 154;
 		
 		miniPanelX1 = 14;
-		miniPanelY1 = 170;
+		miniPanelY1 = 173;
 		
 		miniPanelX2 = 61;
-		miniPanelY2 = 170;
+		miniPanelY2 = 173;
 		
 		miniPanelX3 = 108;
-		miniPanelY3 = 170;
+		miniPanelY3 = 173;
 		
 		miniPanelW = 38;
 		miniPanelH = 38;
@@ -194,16 +194,16 @@ handler mainForm.ondraw() {
 		interfaceMode = 0; // Force interfaceMode to 0 for fullscreen modes
 		falseZero  = true;
 		
-		widgetW = 144;
+		widgetW = 154;
 		widgetH = 144;
 		
-		miniPanelX1 = 170;
+		miniPanelX1 = 173;
 		miniPanelY1 = 15;
 		
-		miniPanelX2 = 170;
+		miniPanelX2 = 173;
 		miniPanelY2 = 62;
 		
-		miniPanelX3 = 170;
+		miniPanelX3 = 173;
 		miniPanelY3 = 109;
 		
 		miniPanelW = 38;
@@ -230,16 +230,16 @@ handler mainForm.ondraw() {
 			showWidget1 = true;
 			
 			widgetW = 144;
-			widgetH = 88;
+			widgetH = 89;
 			
 			miniPanelX1 = 14;
-			miniPanelY1 = 107;
+			miniPanelY1 = 108;
 			
 			miniPanelX2 = 61;
-			miniPanelY2 = 107;
+			miniPanelY2 = 108;
 			
 			miniPanelX3 = 108;
-			miniPanelY3 = 107;
+			miniPanelY3 = 108;
 			
 			miniPanelW = 38;
 			miniPanelH = 38;
@@ -252,8 +252,8 @@ handler mainForm.ondraw() {
 			mainBuffer.textRGB(highlightR, highlightG, highlightB);
 			mainBuffer.bgRGB(fgColorR, fgColorG, fgColorB);
 			mainBuffer.font(fntBold);
-			mainBuffer.textAlign(02);
-			mainBuffer.text(clrText, mainForm.w-14, mainForm.y+13, "/////////");
+			//mainBuffer.textAlign(02);
+			//mainBuffer.text(clrText, mainForm.w-14, mainForm.y+13, "/////////");
 			mainBuffer.textAlign(22);
 			mainBuffer.text(clrText, mainForm.w-14, mainForm.y+widgetH+1, "TimeBoard");
 			mainBuffer.end();

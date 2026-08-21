@@ -223,12 +223,12 @@ void drawAuxiliarPanel(string orientation) {
 		mainBuffer.begin();
 		// Shadow
 		mainBuffer.fgRGB(bgShadowColorR, bgShadowColorG, bgShadowColorB);
-		if (widgetShadow) mainBuffer.rect(clrFG, mainForm.x+9, 161, mainForm.w-7, mainForm.h-7, widgetCornerRadius);
+		if (widgetShadow) mainBuffer.rect(clrFG, mainForm.x+9, 167, mainForm.w-7, mainForm.h-7, widgetCornerRadius);
 		
 		// Main rectangle
 		if (colorDepth > 4) {
 			mainBuffer.fgRGB(fgColorR, fgColorG, fgColorB);
-			mainBuffer.rect(clrFG, mainForm.x+8, 160, mainForm.w-8, mainForm.h-8, widgetCornerRadius);
+			mainBuffer.rect(clrFG, mainForm.x+8, 166, mainForm.w-8, mainForm.h-8, widgetCornerRadius);
 		}
 		else
 		{
@@ -244,12 +244,12 @@ void drawAuxiliarPanel(string orientation) {
 		}
 		
 		// Highlight
-		if (widgetHighlight) drawWidgetHighlight(mainForm.x+8, 160, widgetW, 55);
+		if (widgetHighlight) drawWidgetHighlight(mainForm.x+8, 166, widgetW, 55);
 		
 		// Line separators
 		mainBuffer.fgRGB(highlightR, highlightG, highlightB);
-		mainBuffer.line(clrFG, mainForm.x+56, 169, mainForm.x+56, 208);
-		mainBuffer.line(clrFG, mainForm.w-57, 169, mainForm.w-57, 208);
+		mainBuffer.line(clrFG, mainForm.x+56, 172, mainForm.x+56, 211);
+		mainBuffer.line(clrFG, mainForm.w-57, 172, mainForm.w-57, 211);
 		
 		// TESTING PANELS
 		if (debugFlag) {
@@ -290,8 +290,8 @@ void drawAuxiliarPanel(string orientation) {
 		
 		// Line separators
 		mainBuffer.fgRGB(highlightR, highlightG, highlightB);
-		mainBuffer.line(clrFG, 169, mainForm.h-56, 208, mainForm.h-56);
-		mainBuffer.line(clrFG, 169, mainForm.y+57, 208, mainForm.y+57);
+		mainBuffer.line(clrFG, 172, mainForm.h-56, 211, mainForm.h-56);
+		mainBuffer.line(clrFG, 172, mainForm.y+57, 211, mainForm.y+57);
 		
 		// TESTING PANELS
 		if (debugFlag) {
@@ -307,12 +307,12 @@ void drawAuxiliarPanel(string orientation) {
 		mainBuffer.begin();
 		// Shadow
 		mainBuffer.fgRGB(bgShadowColorR, bgShadowColorG, bgShadowColorB);
-		if (widgetShadow) mainBuffer.rect(clrFG, mainForm.x+9, 101, mainForm.w-7, mainForm.h-7, widgetCornerRadius);
+		if (widgetShadow) mainBuffer.rect(clrFG, mainForm.x+9, 102, mainForm.w-7, mainForm.h-7, widgetCornerRadius);
 		
 		// Main rectangle
 		if (colorDepth > 4) {
 			mainBuffer.fgRGB(fgColorR, fgColorG, fgColorB);
-			mainBuffer.rect(clrFG, mainForm.x+8, 100, mainForm.w-8, mainForm.h-8, widgetCornerRadius);
+			mainBuffer.rect(clrFG, mainForm.x+8, 101, mainForm.w-8, mainForm.h-8, widgetCornerRadius);
 		}
 		else
 		{
@@ -322,17 +322,17 @@ void drawAuxiliarPanel(string orientation) {
 				auxWidgetCornerRadius = widgetCornerRadius;
 			
 			mainBuffer.fgRGB(highlightR, highlightG, highlightB);
-			mainBuffer.rect(clrFG, mainForm.x+8, 100, mainForm.w-7, mainForm.h-7, widgetCornerRadius);
+			mainBuffer.rect(clrFG, mainForm.x+8, 101, mainForm.w-7, mainForm.h-7, widgetCornerRadius);
 			mainBuffer.fgRGB(fgColorR, fgColorR, fgColorR);
-			mainBuffer.rect(clrFG, mainForm.x+9, 101, mainForm.w-9, mainForm.h-9, auxWidgetCornerRadius-1);
+			mainBuffer.rect(clrFG, mainForm.x+9, 102, mainForm.w-9, mainForm.h-9, auxWidgetCornerRadius-1);
 		}
 		
 		// Highlight
-		if (widgetHighlight) drawWidgetHighlight(mainForm.x+8, 100, widgetW, 55);
+		if (widgetHighlight) drawWidgetHighlight(mainForm.x+8, 101, widgetW, 55);
 		// Line separators
 		mainBuffer.fgRGB(highlightR, highlightG, highlightB);
-		mainBuffer.line(clrFG, mainForm.x+56, 106, mainForm.x+56, 145);
-		mainBuffer.line(clrFG, mainForm.w-57, 106, mainForm.w-57, 145);
+		mainBuffer.line(clrFG, mainForm.x+56, 107, mainForm.x+56, 145);
+		mainBuffer.line(clrFG, mainForm.w-57, 107, mainForm.w-57, 145);
 		
 		// TESTING PANELS
 		if (debugFlag) {
