@@ -71,7 +71,7 @@ bool getPrefs() {
 // Set default preferences in case they do not exist
 bool setDefaultPrefs() {
 	bool debugFlag = false;
-	int interfaceMode = 1,
+	int interfaceMode = 0,
 		widgetCornerRadius = 4, // 8 pixels
 		useAnalogClockNumbers = 1;	// Show numbers or lines in analog clock:
 									// 1 = true

@@ -34,6 +34,14 @@
     largeh8 = "graphics\\icon_lh8.bmp"
     smallh8 = "graphics\\icon_sh8.bmp"
   }
+  bitmap Bitmap interfaceAbmp {
+    id = 1020
+    image1 = "graphics\\interfaceA.bmp"
+  }
+  bitmap Bitmap interfaceBbmp {
+    id = 1021
+    image1 = "graphics\\interfaceB.bmp"
+  }
   form UIForm mainForm {
     id = 1000
     text = ""
@@ -89,6 +97,44 @@
       id = 1008
       x = 117, y = 141, w = 36, h = 12
       text = "Back"
+      leftanchor = true, group = 0, fontid = 0
+      frame = 1
+      hresize = 1, vresize = 1
+    }
+    pushbutton UIPushButton interfaceApush {
+      id = 1003
+      x = 53, y = 25, w = 30, h = 30
+      text = "A"
+      leftanchor = true, group = 1, fontid = 0
+      graphic = true, bitmapid = 1020, sbitmapid = 0
+      hresize = 0, vresize = 0
+    }
+    pushbutton UIPushButton interfaceBpush {
+      id = 1016
+      x = 89, y = 25, w = 30, h = 30
+      text = "B"
+      leftanchor = true, group = 1, fontid = 0
+      graphic = true, bitmapid = 1021, sbitmapid = 0
+      hresize = 0, vresize = 0
+    }
+    label UILabel prefLabel {
+      id = 1017
+      x = 9, y = 6
+      fontid = 1
+      text = "Preferences"
+      hresize = 0, vresize = 0
+    }
+    label UILabel interfaceLbl {
+      id = 1018
+      x = 8, y = 22
+      fontid = 0
+      text = "Interface:"
+      hresize = 0, vresize = 0
+    }
+    button UIButton prefsSaveBtn {
+      id = 1019
+      x = 75, y = 141, w = 36, h = 12
+      text = "Save"
       leftanchor = true, group = 0, fontid = 0
       frame = 1
       hresize = 1, vresize = 1

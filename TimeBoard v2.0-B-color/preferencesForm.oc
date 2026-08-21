@@ -1,5 +1,35 @@
+handler preferencesForm.onopen() {
+	if (origInterfaceMode == 0) {
+		interfaceApush.checked = true;
+	}
+	else
+	{
+		interfaceBpush.checked = true;
+	}
+}
 
 
+// Push button A
+handler interfaceApush.onselect() {
+	origInterfaceMode = 0;
+}
+
+
+// Push button B
+handler interfaceBpush.onselect() {
+	origInterfaceMode = 1;
+}
+
+
+// Save button
+handler prefsSaveBtn.onselect() {
+	saveMainPreferences();
+	
+	mainForm.load();
+}
+
+
+// Back button
 handler prefsBackBtn.onselect() {
 	mainForm.load();
 }
