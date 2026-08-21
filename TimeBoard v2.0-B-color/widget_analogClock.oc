@@ -103,7 +103,7 @@ void updateClockHands() {
     	mainBuffer.bgRGB(fgColorR, fgColorG, fgColorB);
 		mainBuffer.textAlign(11);
 		mainBuffer.font(fntBold);
-		mainBuffer.text(clrText, centerX-36, centerY-2, " TimeBoard");
+		mainBuffer.text(clrText, centerX, centerY-27, " TimeBoard");
 		
 		// Small circle for seconds
 		if (colorDepth > 4)

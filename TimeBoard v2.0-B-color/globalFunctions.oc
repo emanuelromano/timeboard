@@ -238,9 +238,9 @@ void drawAuxiliarPanel(string orientation) {
 				auxWidgetCornerRadius = widgetCornerRadius;
 			
 			mainBuffer.fgRGB(highlightR, highlightG, highlightB);
-			mainBuffer.rect(clrFG, mainForm.x+8, 160, mainForm.w-7, mainForm.h-7, widgetCornerRadius);
+			mainBuffer.rect(clrFG, mainForm.x+8, 166, mainForm.w-7, mainForm.h-7, widgetCornerRadius);
 			mainBuffer.fgRGB(fgColorR, fgColorR, fgColorR);
-			mainBuffer.rect(clrFG, mainForm.x+9, 161, mainForm.w-9, mainForm.h-9, auxWidgetCornerRadius-1);
+			mainBuffer.rect(clrFG, mainForm.x+9, 167, mainForm.w-9, mainForm.h-9, auxWidgetCornerRadius-1);
 		}
 		
 		// Highlight
@@ -265,12 +265,12 @@ void drawAuxiliarPanel(string orientation) {
 		mainBuffer.begin();
 		// Shadow
 		mainBuffer.fgRGB(bgShadowColorR, bgShadowColorG, bgShadowColorB);
-		if (widgetShadow) mainBuffer.rect(clrFG, mainForm.x+161, 9, mainForm.w-7, mainForm.h-7, widgetCornerRadius);
+		if (widgetShadow) mainBuffer.rect(clrFG, mainForm.x+167, 9, mainForm.w-7, mainForm.h-7, widgetCornerRadius);
 		
 		// Main rectangle
 		if (colorDepth > 4) {
 		mainBuffer.fgRGB(fgColorR, fgColorG, fgColorB);
-		mainBuffer.rect(clrFG, mainForm.x+160, 8, mainForm.w-8, mainForm.h-8, widgetCornerRadius);
+		mainBuffer.rect(clrFG, mainForm.x+166, 8, mainForm.w-8, mainForm.h-8, widgetCornerRadius);
 		}
 		else
 		{
@@ -280,9 +280,9 @@ void drawAuxiliarPanel(string orientation) {
 				auxWidgetCornerRadius = widgetCornerRadius;
 			
 			mainBuffer.fgRGB(highlightR, highlightG, highlightB);
-			mainBuffer.rect(clrFG, mainForm.x+160, 8, mainForm.w-7, mainForm.h-7, widgetCornerRadius);
+			mainBuffer.rect(clrFG, mainForm.x+166, 8, mainForm.w-7, mainForm.h-7, widgetCornerRadius);
 			mainBuffer.fgRGB(fgColorR, fgColorR, fgColorR);
-			mainBuffer.rect(clrFG, mainForm.x+161, 9, mainForm.w-9, mainForm.h-9, auxWidgetCornerRadius-1);
+			mainBuffer.rect(clrFG, mainForm.x+167, 9, mainForm.w-9, mainForm.h-9, auxWidgetCornerRadius-1);
 		}
 		
 		// Highlight
