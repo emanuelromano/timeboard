@@ -25,21 +25,25 @@ struct AppPrefs {
 	int bgColorR;
 	int bgColorG;
 	int bgColorB;
+	int bgColorIndex;
 	
 	// Foreground color on widgets
 	int fgColorR;
 	int fgColorG;
 	int fgColorB;
+	int fgColorIndex;
 	
 	// Highlight color on widgets
 	int highlightR;
 	int highlightG;
 	int highlightB;
+	int highlightIndex;
 	
 	// Base color on widgets
 	int mainR;
 	int mainG;
 	int mainB;
+	int mainIndex;
 	
 	// Battery color between 100% - 50% charge 
 	int batteryR;
@@ -71,8 +75,8 @@ bool getPrefs() {
 // Set default preferences in case they do not exist
 bool setDefaultPrefs() {
 	bool debugFlag = false;
-	int interfaceMode = 0,
-		widgetCornerRadius = 8, // 0-4-8 pixels
+	int interfaceMode = 1,
+		widgetCornerRadius = 4, // 0-4-8 pixels
 		useAnalogClockNumbers = 1;	// Show numbers or lines in analog clock:
 									// 1 = true
 									// 0 = false

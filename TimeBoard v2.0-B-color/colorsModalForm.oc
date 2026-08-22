@@ -1,0 +1,179 @@
+Draw prefsBuffer;
+
+
+handler colorsModalForm.onopen() {
+	draw.attachForm(this);
+	prefsBuffer.create(156, 85);
+}
+
+
+handler colorsModalForm.ondraw() {
+	int startX = 6,
+		startY = 6,
+		digitW = 16,
+		digitH = 28,
+		radius = fontRadius,
+		segmentThickness = 6,
+	
+		digitHr1X = startX + 6,
+		digitHr2X = digitHr1X + digitW + 3,
+		
+		digitMin1X = startX + 6,
+		digitMin2X = digitMin1X + digitW + 3,
+		
+		digitY1 = startY + 6,
+		digitY2 = digitY1 + digitH + 3,
+		
+		widW = 70,
+		widH = 70;
+	
+	prefsBuffer.begin();
+	calculateShadowColor(100);
+	calculateHighlightColor(50);
+	
+	// Background
+	prefsBuffer.fg(bgColorIndex);
+	prefsBuffer.rect(clrFG, 0, 0, 85, 85, 0);
+	
+	// Shadow
+	prefsBuffer.fgRGB(bgShadowColorR, bgShadowColorR, bgShadowColorR);
+	prefsBuffer.rect(clrFG, startX+1, startY+1, startX+widW+1, startY+widH+1, widgetCornerRadius);
+	
+	// Widget
+	prefsBuffer.fg(fgColorIndex);
+	prefsBuffer.rect(clrFG, startX, startY, startX+widW, startY+widH, widgetCornerRadius);
+	drawWidgetHighlight(startX, startY, startX+widW, startY+widH);
+	
+	// Hour
+	prefsBuffer.fg(highlightIndex);
+	// drawDigit() comes from globalFunctions.oc
+	drawDigit("1", digitW, digitH, digitHr1X, digitY1, radius, segmentThickness);
+	drawDigit("2", digitW, digitH, digitHr2X, digitY1, radius, segmentThickness);
+	
+	// Minutes
+	prefsBuffer.fg(mainIndex);
+	drawDigit("3", digitW, digitH, digitMin1X, digitY2, radius, segmentThickness);
+	drawDigit("4", digitW, digitH, digitMin2X, digitY2, radius, segmentThickness);
+
+	// Seconds
+	prefsBuffer.textAlign(22);
+	prefsBuffer.bg(fgColorIndex);
+	mainBuffer.textColor(mainIndex);
+	prefsBuffer.font(fntLargeBold);
+	prefsBuffer.text(clrText, startX+widW-5, startY+widH-6, "56");
+	prefsBuffer.end();
+	
+	draw.begin();
+	draw.draw(prefsBuffer, 3, 18);
+	draw.end();
+	
+	themeLabel.visible = true;
+	themePopup.visible = true;
+	bgColorBtn.visible = true;
+	bgLbl.visible = true;
+	fgColorBtn.visible = true;
+	fgLbl.visible = true;
+	highlightBtn.visible = true;
+	hlghtLbl.visible = true;
+	mainBtn.visible = true;
+	mainLbl.visible = true;
+	
+	draw.begin();
+	// Background
+	draw.fgRGB(bgColorR, bgColorG, bgColorB);
+	draw.rect(clrFG, 92, 46, 102, 56, 0);
+	// Foreground
+	draw.fgRGB(fgColorR, fgColorG, fgColorB);
+	draw.rect(clrFG, 92, 61, 102, 71, 0);
+	// Highlights
+	draw.fgRGB(highlightR, highlightG, highlightB);
+	draw.rect(clrFG, 92, 76, 102, 86, 0);
+	// Main
+	draw.fgRGB(mainR, mainG, mainB);
+	draw.rect(clrFG, 92, 91, 102, 101, 0);
+	draw.end();
+}
+
+
+// Background color selector
+handler bgColorBtn.onselect() {
+	if (draw.selectIndex("Choose background color:", &bgColorIndex)) {
+		draw.begin();
+		draw.fg(bgColorIndex);
+		draw.rect(clrFG, 92, 46, 102, 56, 0);
+		draw.end();
+	}
+	else
+	{
+		draw.begin();
+		draw.fg(bgColorIndex);
+		draw.rect(clrFG, 92, 46, 102, 56, 0);
+		draw.end();
+	}
+}
+
+
+// Widgets color selector
+handler fgColorBtn.onselect() {
+	if (draw.selectIndex("Choose widgets color:", &fgColorIndex)) {
+		draw.begin();
+		draw.fg(fgColorIndex);
+		draw.rect(clrFG, 92, 61, 102, 71, 0);
+		draw.end();
+	}
+	else
+	{
+		draw.begin();
+		draw.fg(fgColorIndex);
+		draw.rect(clrFG, 92, 61, 102, 71, 0);
+		draw.end();
+	}
+}
+
+
+// Highlights color selector
+handler highlightBtn.onselect() {
+	if (draw.selectIndex("Choose highlights color:", &highlightIndex)) {
+		draw.begin();
+		draw.fg(highlightIndex);
+		draw.rect(clrFG, 92, 76, 102, 86, 0);
+		draw.end();
+	}
+	else
+	{
+		draw.begin();
+		draw.fg(highlightIndex);
+		draw.rect(clrFG, 92, 76, 102, 86, 0);
+		draw.end();
+	}
+}
+
+
+// Main color selector
+handler mainBtn.onselect() {
+	if (draw.selectIndex("Choose main color:", &mainIndex)) {
+		draw.begin();
+		draw.fg(mainIndex);
+		draw.rect(clrFG, 92, 91, 102, 101, 0);
+		draw.end();
+	}
+	else
+	{
+		draw.begin();
+		draw.fg(mainIndex);
+		draw.rect(clrFG, 92, 91, 102, 101, 0);
+		draw.end();
+	}
+}
+
+
+handler colorsModalBackBtn.onselect() {
+	colorsModalForm.close();
+}
+
+
+handler colorsModalSaveBtn.onselect() {
+	saveMainPreferences();
+	
+	colorsModalForm.close();
+}

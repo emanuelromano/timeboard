@@ -1,0 +1,33 @@
+handler debugModalForm.onopen() {
+	if (debugFlag)
+		debugCbx.checked = true;
+	else
+		debugCbx.checked = false;
+}
+
+
+// Reset to default values
+handler resetBtn.onselect() {
+	int response;
+	
+	response = alertc("Warning", "Reset the app to default values?", "OK:Cancel", alertWarning);
+	
+	if (response == 0) {
+		debugCbx.checked = false;
+		deletePrefs();
+		alert("Default values applied.");
+		mainForm.load();
+	}
+}
+
+
+handler debugModalBackBtn.onselect() {
+	if (debugCbx.checked)
+		debugFlag = true;
+	else
+		debugFlag = false;
+	
+	saveMainPreferences();
+	
+	debugModalForm.close();
+}

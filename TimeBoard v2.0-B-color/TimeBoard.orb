@@ -10,8 +10,11 @@
   "<PROJECT><FILE>TimeBoard.oc</FILE><STANDALONE>1</STANDALONE><LAN"
   "GUAGEFILE></LANGUAGEFILE><DEBUG>0</DEBUG><FORMS><FORM><NAME>main"
   "Form</NAME><FILE>mainForm.oc</FILE></FORM><FORM><NAME>preference"
-  "sForm</NAME><FILE>preferencesForm.oc</FILE></FORM><FORM><NAME>he"
-  "lpForm</NAME><FILE>helpForm.oc</FILE></FORM></FORMS></PROJECT>"
+  "sForm</NAME><FILE>preferencesForm.oc</FILE></FORM><FORM><NAME>co"
+  "lorsModalForm</NAME><FILE>colorsModalForm.oc</FILE></FORM><FORM>"
+  "<NAME>debugModalForm</NAME><FILE>debugModalForm.oc</FILE></FORM>"
+  "<FORM><NAME>helpForm</NAME><FILE>helpForm.oc</FILE></FORM></FORM"
+  "S></PROJECT>"
 }
 
 // app definition
@@ -53,6 +56,14 @@
   bitmap Bitmap corner8bmp {
     id = 1027
     image1 = "graphics\\corner8.bmp"
+  }
+  bitmap Bitmap debugBmp {
+    id = 1031
+    image1 = "graphics\\debug.bmp"
+  }
+  bitmap Bitmap colorsRGBbmp {
+    id = 1032
+    image8 = "graphics\\colorsRGB.bmp"
   }
   form UIForm mainForm {
     id = 1000
@@ -117,14 +128,14 @@
     }
     label UILabel interfaceLbl {
       id = 1018
-      x = 8, y = 22
+      x = 8, y = 23
       fontid = 0
       text = "Interface:"
       hresize = 0, vresize = 0
     }
     pushbutton UIPushButton interfaceApush {
       id = 1003
-      x = 51, y = 25, w = 30, h = 30
+      x = 53, y = 25, w = 30, h = 30
       text = "A"
       leftanchor = true, group = 1, fontid = 0
       graphic = true, bitmapid = 1020, sbitmapid = 0
@@ -132,7 +143,7 @@
     }
     pushbutton UIPushButton interfaceBpush {
       id = 1016
-      x = 84, y = 25, w = 30, h = 30
+      x = 86, y = 25, w = 30, h = 30
       text = "B"
       leftanchor = true, group = 1, fontid = 0
       graphic = true, bitmapid = 1021, sbitmapid = 0
@@ -140,7 +151,7 @@
     }
     pushbutton UIPushButton corner0push {
       id = 1022
-      x = 117, y = 25, w = 30, h = 8
+      x = 119, y = 25, w = 30, h = 8
       text = "A"
       leftanchor = true, group = 2, fontid = 0
       graphic = true, bitmapid = 1025, sbitmapid = 0
@@ -148,7 +159,7 @@
     }
     pushbutton UIPushButton corner4push {
       id = 1023
-      x = 117, y = 36, w = 30, h = 8
+      x = 119, y = 36, w = 30, h = 8
       text = "B"
       leftanchor = true, group = 2, fontid = 0
       graphic = true, bitmapid = 1026, sbitmapid = 0
@@ -156,11 +167,34 @@
     }
     pushbutton UIPushButton corner8push {
       id = 1024
-      x = 117, y = 47, w = 30, h = 8
+      x = 119, y = 47, w = 30, h = 8
       text = "C"
       leftanchor = true, group = 2, fontid = 0
       graphic = true, bitmapid = 1027, sbitmapid = 0
       hresize = 0, vresize = 0
+    }
+    bitmap UIFBitmap colorsBmp {
+      id = 1033
+      x = 11, y = 43
+      bitmapid = 1032
+      hresize = 0, vresize = 0
+    }
+    button UIButton prefsColorsBtn {
+      id = 1028
+      x = 9, y = 41, w = 41, h = 14
+      text = "      Colors"
+      leftanchor = true, group = 0, fontid = 0
+      frame = 3
+      hresize = 0, vresize = 0
+    }
+    button UIButton prefsDebugBtn {
+      id = 1030
+      x = 6, y = 142, w = 12, h = 12
+      text = "D"
+      leftanchor = true, group = 0, fontid = 0
+      graphic = true, bitmapid = 1031, sbitmapid = 0
+      frame = 3
+      hresize = 1, vresize = 1
     }
     button UIButton prefsSaveBtn {
       id = 1019
@@ -177,6 +211,161 @@
       leftanchor = true, group = 0, fontid = 0
       frame = 1
       hresize = 1, vresize = 1
+    }
+  }
+  form UIForm colorsModalForm {
+    id = 1040
+    text = ""
+    x = 2, y = 30, w = 156, h = 128
+    menuid = 0, helpid = 0, defbuttonid = 0
+    modal = true, resizable = true
+    hresize = 0, vresize = 1
+    bitmap UIFBitmap colorsPrefsBmp {
+      id = 1049
+      x = 3, y = 4
+      bitmapid = 1032
+      hresize = 0, vresize = 0
+    }
+    label UILabel colorsLbl {
+      id = 1048
+      x = 16, y = 4
+      fontid = 1
+      text = "Colors"
+      hresize = 0, vresize = 0
+    }
+    label UILabel themeLabel {
+      id = 1046
+      x = 91, y = 16
+      fontid = 0
+      text = "Theme:"
+      hresize = 0, vresize = 0
+    }
+    popup UIPopup themePopup {
+      id = 1047
+      x = 91, y = 29, w = 49, h = 11
+      text = "Select..."
+      leftanchor = true, group = 0, fontid = 0
+      hresize = 0, vresize = 0
+    }
+    button UIButton bgColorBtn {
+      id = 1042
+      x = 91, y = 45, w = 12, h = 12
+      text = ""
+      leftanchor = true, group = 0, fontid = 0
+      frame = 3
+      hresize = 0, vresize = 0
+    }
+    button UIButton fgColorBtn {
+      id = 1043
+      x = 91, y = 60, w = 12, h = 12
+      text = ""
+      leftanchor = true, group = 0, fontid = 0
+      frame = 3
+      hresize = 0, vresize = 0
+    }
+    button UIButton highlightBtn {
+      id = 1044
+      x = 91, y = 75, w = 12, h = 12
+      text = ""
+      leftanchor = true, group = 0, fontid = 0
+      frame = 3
+      hresize = 0, vresize = 0
+    }
+    button UIButton mainBtn {
+      id = 1045
+      x = 91, y = 90, w = 12, h = 12
+      text = ""
+      leftanchor = true, group = 0, fontid = 0
+      frame = 3
+      hresize = 0, vresize = 0
+    }
+    label UILabel bgLbl {
+      id = 1050
+      x = 106, y = 46
+      fontid = 0
+      text = "Background"
+      hresize = 0, vresize = 0
+    }
+    label UILabel fgLbl {
+      id = 1051
+      x = 106, y = 61
+      fontid = 0
+      text = "Widgets"
+      hresize = 0, vresize = 0
+    }
+    label UILabel hlghtLbl {
+      id = 1052
+      x = 106, y = 76
+      fontid = 0
+      text = "Highlights"
+      hresize = 0, vresize = 0
+    }
+    label UILabel mainLbl {
+      id = 1053
+      x = 106, y = 91
+      fontid = 0
+      text = "Main"
+      hresize = 0, vresize = 0
+    }
+    button UIButton colorsModalSaveBtn {
+      id = 1054
+      x = 72, y = 110, w = 36, h = 12
+      text = "Save"
+      leftanchor = true, group = 0, fontid = 0
+      frame = 1
+      hresize = 0, vresize = 0
+    }
+    button UIButton colorsModalBackBtn {
+      id = 1041
+      x = 114, y = 110, w = 36, h = 12
+      text = "Back"
+      leftanchor = true, group = 0, fontid = 0
+      frame = 1
+      hresize = 1, vresize = 1
+    }
+  }
+  form UIForm debugModalForm {
+    id = 1034
+    text = ""
+    x = 2, y = 108, w = 156, h = 50
+    menuid = 0, helpid = 0, defbuttonid = 0
+    modal = true, resizable = true
+    hresize = 0, vresize = 1
+    checkbox UICheckbox debugCbx {
+      id = 1035
+      x = 3, y = 17, w = 97, h = 11
+      text = "Enable debug mode"
+      leftanchor = true, group = 0, fontid = 0
+      hresize = 0, vresize = 0
+    }
+    button UIButton debugModalBackBtn {
+      id = 1036
+      x = 114, y = 32, w = 36, h = 12
+      text = "Back"
+      leftanchor = true, group = 0, fontid = 0
+      frame = 1
+      hresize = 1, vresize = 1
+    }
+    bitmap UIFBitmap bugBmp {
+      id = 1037
+      x = 3, y = 4
+      bitmapid = 1031
+      hresize = 0, vresize = 0
+    }
+    label UILabel dbgModeLbl {
+      id = 1038
+      x = 20, y = 4
+      fontid = 1
+      text = "Debug"
+      hresize = 0, vresize = 0
+    }
+    button UIButton resetBtn {
+      id = 1039
+      x = 6, y = 32, w = 40, h = 12
+      text = "RESET"
+      leftanchor = true, group = 0, fontid = 1
+      frame = 3
+      hresize = 0, vresize = 1
     }
   }
   form UIForm helpForm {
@@ -207,4 +396,6 @@
 #include "widget_battery.oc"
 #include "mainForm.oc"
 #include "preferencesForm.oc"
+#include "colorsModalForm.oc"
+#include "debugModalForm.oc"
 #include "helpForm.oc"

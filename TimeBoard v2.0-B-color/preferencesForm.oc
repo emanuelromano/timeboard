@@ -16,7 +16,19 @@ handler preferencesForm.onopen() {
 		case 8:
 			corner8push.checked = true;
 			break;
-	}	
+	}
+	
+	// Hide Colors button in B/W & grayscale modes
+	if (colorDepth < 8) {
+		prefsColorsBtn.visible = false;
+		colorsBmp.visible = false;
+	}
+}
+
+
+handler prefsColorsBtn.onselect() {
+	colorsBmp.visible = true;
+	colorsModalForm.domodal();
 }
 
 
@@ -61,4 +73,14 @@ handler prefsSaveBtn.onselect() {
 // Back button
 handler prefsBackBtn.onselect() {
 	mainForm.load();
+}
+
+
+handler preferencesForm.onpenup() {
+	if (colorDepth > 4) colorsBmp.visible = true;
+}
+
+
+handler prefsDebugBtn.onselect() {
+	debugModalForm.domodal();
 }

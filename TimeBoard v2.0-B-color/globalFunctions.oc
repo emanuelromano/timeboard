@@ -6,18 +6,22 @@ void setMainPreferences() {
 	bgColorR = appPrefs[appPrefsPosition].bgColorR;
 	bgColorG = appPrefs[appPrefsPosition].bgColorG;
 	bgColorB = appPrefs[appPrefsPosition].bgColorB;
+	bgColorIndex = draw.indexFromColor(bgColorR, bgColorG, bgColorB);
 	
 	fgColorR = appPrefs[appPrefsPosition].fgColorR;
 	fgColorG = appPrefs[appPrefsPosition].fgColorG;
 	fgColorB = appPrefs[appPrefsPosition].fgColorB;
+	fgColorIndex = draw.indexFromColor(fgColorR, fgColorG, fgColorB);
 	
 	highlightR = appPrefs[appPrefsPosition].highlightR;
 	highlightG = appPrefs[appPrefsPosition].highlightG;
 	highlightB = appPrefs[appPrefsPosition].highlightB;
+	highlightIndex = draw.indexFromColor(highlightR, highlightG, highlightB);
 	
 	mainR = appPrefs[appPrefsPosition].mainR;
 	mainG = appPrefs[appPrefsPosition].mainG;
 	mainB = appPrefs[appPrefsPosition].mainB;
+	mainIndex = draw.indexFromColor(mainR, mainG, mainB);
 	
 	batteryR = appPrefs[appPrefsPosition].batteryR;
 	batteryG = appPrefs[appPrefsPosition].batteryG;
@@ -38,30 +42,36 @@ void setMainPreferences() {
 
 // Save main preferences from global variables
 bool saveMainPreferences() {	
-	// Specific theme settings for different color depths
-	appPrefs[appPrefsPosition].bgColorR = bgColorR;
-	appPrefs[appPrefsPosition].bgColorG = bgColorG;
-	appPrefs[appPrefsPosition].bgColorB = bgColorB;
-	
-	appPrefs[appPrefsPosition].fgColorR = fgColorR;
-	appPrefs[appPrefsPosition].fgColorG = fgColorG;
-	appPrefs[appPrefsPosition].fgColorB = fgColorB;
-	
-	appPrefs[appPrefsPosition].highlightR = highlightR;
-	appPrefs[appPrefsPosition].highlightG = highlightG;
-	appPrefs[appPrefsPosition].highlightB = highlightB;
-	
-	appPrefs[appPrefsPosition].mainR = mainR;
-	appPrefs[appPrefsPosition].mainG = mainG;
-	appPrefs[appPrefsPosition].mainB = mainB;
-	
-	appPrefs[appPrefsPosition].batteryR = batteryR;
-	appPrefs[appPrefsPosition].batteryG = batteryG;
-	appPrefs[appPrefsPosition].batteryB = batteryB;
-	
-	appPrefs[appPrefsPosition].batteryEmptyR = batteryEmptyR;
-	appPrefs[appPrefsPosition].batteryEmptyG = batteryEmptyG;
-	appPrefs[appPrefsPosition].batteryEmptyB = batteryEmptyB;
+	// Specific theme settings for color themes
+	if (colorDepth > 4) {
+		appPrefs[appPrefsPosition].bgColorR = bgColorR;
+		appPrefs[appPrefsPosition].bgColorG = bgColorG;
+		appPrefs[appPrefsPosition].bgColorB = bgColorB;
+		appPrefs[appPrefsPosition].bgColorIndex = bgColorIndex;
+		
+		appPrefs[appPrefsPosition].fgColorR = fgColorR;
+		appPrefs[appPrefsPosition].fgColorG = fgColorG;
+		appPrefs[appPrefsPosition].fgColorB = fgColorB;
+		appPrefs[appPrefsPosition].fgColorIndex = fgColorIndex;
+		
+		appPrefs[appPrefsPosition].highlightR = highlightR;
+		appPrefs[appPrefsPosition].highlightG = highlightG;
+		appPrefs[appPrefsPosition].highlightB = highlightB;
+		appPrefs[appPrefsPosition].highlightIndex = highlightIndex;
+		
+		appPrefs[appPrefsPosition].mainR = mainR;
+		appPrefs[appPrefsPosition].mainG = mainG;
+		appPrefs[appPrefsPosition].mainB = mainB;
+		appPrefs[appPrefsPosition].mainIndex = mainIndex;
+		
+		appPrefs[appPrefsPosition].batteryR = batteryR;
+		appPrefs[appPrefsPosition].batteryG = batteryG;
+		appPrefs[appPrefsPosition].batteryB = batteryB;
+		
+		appPrefs[appPrefsPosition].batteryEmptyR = batteryEmptyR;
+		appPrefs[appPrefsPosition].batteryEmptyG = batteryEmptyG;
+		appPrefs[appPrefsPosition].batteryEmptyB = batteryEmptyB;
+	}
 	
 	// General
 	appPrefs[0].debugFlag = debugFlag;
@@ -90,10 +100,10 @@ bool saveMainPreferences() {
 	appPrefs[2].widgetCornerRadius = widgetCornerRadius;
 	appPrefs[2].useAnalogClockNumbers = useAnalogClockNumbers;
 	
-	// Color screens (8-bit)
+	// Color screens (8-bit & 16-bit)
 	appPrefs[3].interfaceMode = origInterfaceMode;
-	appPrefs[3].widgetHighlight = widgetHighlight;
-	appPrefs[3].widgetShadow = widgetShadow;
+	appPrefs[3].widgetHighlight = true;
+	appPrefs[3].widgetShadow = true;
 	appPrefs[3].widgetCornerRadius = widgetCornerRadius;
 	appPrefs[3].useAnalogClockNumbers = useAnalogClockNumbers;
 	
@@ -582,21 +592,30 @@ bool isTBTSInstalled() {
 
 // Draw mainBuffer
 void drawMainBuffer() {
-	draw.begin();
+	int nw, nh;
 	
+	draw.nbegin();
+	nw = draw.nw;
+	nh = draw.nh;
+	draw.end();
+	
+	draw.begin();
 	draw.draw(mainBuffer, 0, 0);
 	
 	if (debugFlag) {
-		draw.text(clrFG, 0, 0,
-			"Debug - " +
-			"W: " + mainForm.w + " / H: " + mainForm.h);
+		draw.text(clrFG, 0, 0, " DEBUG MODE");
 		
 		draw.text(clrFG, 0, 11,
-			"InterfaceMode: " + interfaceMode + " / FalseZero: " + falseZero);
-			
+			" Form W: " + mainForm.w + " / H: " + mainForm.h);
+		
 		draw.text(clrFG, 0, 22,
-			"OrigInterfaceMode: " + origInterfaceMode);	
+			" Native W: " + nw + " / H: " + nh);
+		
+		draw.text(clrFG, 0, 33,
+			" InterfaceMode: " + interfaceMode + " / BigUI (FalseZero): " + falseZero);
+			
+		draw.text(clrFG, 0, 44,
+			" OrigInterfaceMode: " + origInterfaceMode);	
 	}
-	
 	draw.end();
 }

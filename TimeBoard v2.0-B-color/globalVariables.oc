@@ -85,18 +85,22 @@ bool showWidget1,
 int bgColorR,
 	bgColorG,
 	bgColorB,
+	bgColorIndex,
 	
 	fgColorR,
 	fgColorG,
 	fgColorB,
+	fgColorIndex,
 	
 	highlightR,
 	highlightG,
 	highlightB,
+	highlightIndex,
 	
 	mainR,
 	mainG,
 	mainB,
+	mainIndex,
 	
 	batteryR,
 	batteryG,
