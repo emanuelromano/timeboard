@@ -298,23 +298,6 @@ void analogClockWidget(int startX, int startY) {
 			mainBuffer.pixel(clrFG, x, y);
 		}
 	}
-	else
-	{
-		// Small circle around clock on small widget
-		circleSeparation = 31;
-		circleCornerRadius = 31;
-		
-		// White background
-		if (colorDepth == 2 || colorDepth == 4) {
-			mainBuffer.fgRGB(mainR, mainG, mainB);
-			mainBuffer.rect(clrFG,
-							centerX-circleSeparation,
-							centerY-circleSeparation,
-							centerX+circleSeparation,
-							centerY+circleSeparation,
-							circleCornerRadius);
-		}
-	}
 	
 	if (useAnalogClockNumbers == 1) {
 		// Clock numbers
@@ -418,8 +401,12 @@ void analogClockWidget(int startX, int startY) {
 	if (widgetW == 70) {
 		circleSeparation = 31;
 		circleCornerRadius = 31;
-				
-		mainBuffer.fgRGB(highlightR, highlightG, highlightB);
+		
+		if (colorDepth > 4)
+			mainBuffer.fgRGB(highlightR, highlightG, highlightB);
+		else
+			mainBuffer.fgRGB(mainR, mainG, mainB);
+		
 		mainBuffer.frame(clrFG,
 						centerX-circleSeparation,
 						centerY-circleSeparation,

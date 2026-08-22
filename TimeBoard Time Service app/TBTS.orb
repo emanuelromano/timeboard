@@ -86,7 +86,7 @@
     }
     button UIButton timeSyncBtn {
       id = 1021
-      x = 7, y = 141, w = 65, h = 12
+      x = 6, y = 142, w = 65, h = 12
       text = "Time Sync"
       leftanchor = true, group = 0, fontid = 0
       frame = 1
@@ -94,7 +94,7 @@
     }
     button UIButton helpBtn {
       id = 1002
-      x = 78, y = 141, w = 12, h = 12
+      x = 78, y = 142, w = 12, h = 12
       text = "?"
       leftanchor = true, group = 0, fontid = 0
       frame = 1
@@ -102,7 +102,7 @@
     }
     button UIButton exitBtn {
       id = 1007
-      x = 117, y = 141, w = 36, h = 12
+      x = 118, y = 142, w = 36, h = 12
       text = "Exit"
       leftanchor = true, group = 0, fontid = 0
       frame = 1
@@ -110,7 +110,7 @@
     }
     button UIButton backButton {
       id = 1001
-      x = 117, y = 141, w = 36, h = 12
+      x = 118, y = 142, w = 36, h = 12
       text = "Back"
       leftanchor = true, group = 0, fontid = 0
       frame = 1
@@ -189,10 +189,10 @@
     hresize = 0, vresize = 0
     button UIButton helpBackBtn {
       id = 1022
-      x = 117, y = 141, w = 36, h = 12
+      x = 118, y = 142, w = 36, h = 12
       text = "Back"
       leftanchor = true, group = 0, fontid = 0
-      frame = 3
+      frame = 1
       hresize = 0, vresize = 0
     }
     field UIField helpField {

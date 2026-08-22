@@ -42,6 +42,18 @@
     id = 1021
     image1 = "graphics\\interfaceB.bmp"
   }
+  bitmap Bitmap corner0bmp {
+    id = 1025
+    image1 = "graphics\\corner0.bmp"
+  }
+  bitmap Bitmap corner4bmp {
+    id = 1026
+    image1 = "graphics\\corner4.bmp"
+  }
+  bitmap Bitmap corner8bmp {
+    id = 1027
+    image1 = "graphics\\corner8.bmp"
+  }
   form UIForm mainForm {
     id = 1000
     text = ""
@@ -64,6 +76,9 @@
         }
         menuitem UIMenuItem mainFuncBattery {
           id = 1015, sysid = 0, text = "Battery", shortcut = "B"
+        }
+        menuitem UIMenuItem menu1029 {
+          id = 1029, sysid = 0, text = "-"
         }
         menuitem UIMenuItem mainFuncTBTS {
           id = 1011, sysid = 0, text = "TBTS", shortcut = "T"
@@ -93,33 +108,9 @@
     menuid = 0, helpid = 0, defbuttonid = 0
     modal = false, resizable = true
     hresize = 2, vresize = 2
-    button UIButton prefsBackBtn {
-      id = 1008
-      x = 117, y = 141, w = 36, h = 12
-      text = "Back"
-      leftanchor = true, group = 0, fontid = 0
-      frame = 1
-      hresize = 1, vresize = 1
-    }
-    pushbutton UIPushButton interfaceApush {
-      id = 1003
-      x = 53, y = 25, w = 30, h = 30
-      text = "A"
-      leftanchor = true, group = 1, fontid = 0
-      graphic = true, bitmapid = 1020, sbitmapid = 0
-      hresize = 0, vresize = 0
-    }
-    pushbutton UIPushButton interfaceBpush {
-      id = 1016
-      x = 89, y = 25, w = 30, h = 30
-      text = "B"
-      leftanchor = true, group = 1, fontid = 0
-      graphic = true, bitmapid = 1021, sbitmapid = 0
-      hresize = 0, vresize = 0
-    }
     label UILabel prefLabel {
       id = 1017
-      x = 9, y = 6
+      x = 8, y = 6
       fontid = 1
       text = "Preferences"
       hresize = 0, vresize = 0
@@ -131,10 +122,58 @@
       text = "Interface:"
       hresize = 0, vresize = 0
     }
+    pushbutton UIPushButton interfaceApush {
+      id = 1003
+      x = 51, y = 25, w = 30, h = 30
+      text = "A"
+      leftanchor = true, group = 1, fontid = 0
+      graphic = true, bitmapid = 1020, sbitmapid = 0
+      hresize = 0, vresize = 0
+    }
+    pushbutton UIPushButton interfaceBpush {
+      id = 1016
+      x = 84, y = 25, w = 30, h = 30
+      text = "B"
+      leftanchor = true, group = 1, fontid = 0
+      graphic = true, bitmapid = 1021, sbitmapid = 0
+      hresize = 0, vresize = 0
+    }
+    pushbutton UIPushButton corner0push {
+      id = 1022
+      x = 117, y = 25, w = 30, h = 8
+      text = "A"
+      leftanchor = true, group = 2, fontid = 0
+      graphic = true, bitmapid = 1025, sbitmapid = 0
+      hresize = 0, vresize = 0
+    }
+    pushbutton UIPushButton corner4push {
+      id = 1023
+      x = 117, y = 36, w = 30, h = 8
+      text = "B"
+      leftanchor = true, group = 2, fontid = 0
+      graphic = true, bitmapid = 1026, sbitmapid = 0
+      hresize = 0, vresize = 0
+    }
+    pushbutton UIPushButton corner8push {
+      id = 1024
+      x = 117, y = 47, w = 30, h = 8
+      text = "C"
+      leftanchor = true, group = 2, fontid = 0
+      graphic = true, bitmapid = 1027, sbitmapid = 0
+      hresize = 0, vresize = 0
+    }
     button UIButton prefsSaveBtn {
       id = 1019
-      x = 75, y = 141, w = 36, h = 12
+      x = 76, y = 142, w = 36, h = 12
       text = "Save"
+      leftanchor = true, group = 0, fontid = 0
+      frame = 1
+      hresize = 1, vresize = 1
+    }
+    button UIButton prefsBackBtn {
+      id = 1008
+      x = 118, y = 142, w = 36, h = 12
+      text = "Back"
       leftanchor = true, group = 0, fontid = 0
       frame = 1
       hresize = 1, vresize = 1
@@ -149,7 +188,7 @@
     hresize = 2, vresize = 2
     button UIButton helpBackBtn {
       id = 1009
-      x = 117, y = 141, w = 36, h = 12
+      x = 118, y = 142, w = 36, h = 12
       text = "Back"
       leftanchor = true, group = 0, fontid = 0
       frame = 1

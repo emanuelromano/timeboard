@@ -72,7 +72,7 @@ bool getPrefs() {
 bool setDefaultPrefs() {
 	bool debugFlag = false;
 	int interfaceMode = 0,
-		widgetCornerRadius = 4, // 8 pixels
+		widgetCornerRadius = 8, // 0-4-8 pixels
 		useAnalogClockNumbers = 1;	// Show numbers or lines in analog clock:
 									// 1 = true
 									// 0 = false
@@ -126,9 +126,9 @@ bool setDefaultPrefs() {
 	appPrefs[1].highlightG = 0;
 	appPrefs[1].highlightB = 0;
 	
-	appPrefs[1].mainR = 128;
-	appPrefs[1].mainG = 128;
-	appPrefs[1].mainB = 128;
+	appPrefs[1].mainR = 85;
+	appPrefs[1].mainG = 85;
+	appPrefs[1].mainB = 85;
 	
 	appPrefs[1].batteryR = 0;
 	appPrefs[1].batteryG = 0;

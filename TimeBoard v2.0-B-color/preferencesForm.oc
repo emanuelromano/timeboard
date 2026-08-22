@@ -1,23 +1,52 @@
 handler preferencesForm.onopen() {
-	if (origInterfaceMode == 0) {
+	// Interface push buttons
+	if (origInterfaceMode == 0)
 		interfaceApush.checked = true;
-	}
 	else
-	{
 		interfaceBpush.checked = true;
-	}
+	
+	// Corners push buttons
+	switch (widgetCornerRadius) {
+		case 0:
+			corner0push.checked = true;
+			break;
+		case 4:
+			corner4push.checked = true;
+			break;
+		case 8:
+			corner8push.checked = true;
+			break;
+	}	
 }
 
 
-// Push button A
+// Interface: Push button A
 handler interfaceApush.onselect() {
 	origInterfaceMode = 0;
 }
 
 
-// Push button B
+// Interface: Push button B
 handler interfaceBpush.onselect() {
 	origInterfaceMode = 1;
+}
+
+
+// Corners: 0
+handler corner0push.onselect() {
+	widgetCornerRadius = 0;
+}
+
+
+// Corners: 4
+handler corner4push.onselect() {
+	widgetCornerRadius = 4;
+}
+
+
+// Corners: 8
+handler corner8push.onselect() {
+	widgetCornerRadius = 8;
 }
 
 
