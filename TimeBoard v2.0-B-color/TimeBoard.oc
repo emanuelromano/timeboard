@@ -16,7 +16,7 @@ int colorDepth,
 						// 0: B/W screens (1-bit)
 						// 1: Grayscale screens (2-bit)
 						// 2: Grayscale screens (4-bit)
-						// 3: Color screens (8-bit)
+						// 3: Color screens (8-bit & 16-bit)
 
 struct AppPrefs {
 	bool debugFlag;
@@ -251,15 +251,15 @@ handler TimeBoard.onstart() {
 				appPrefsPosition = 3; // 3: Color screens (8-bit)
 				break;
 		case 16:
-				appPrefsPosition = 3; // 3: Color screens (8-bit)
+				appPrefsPosition = 3; // 3: Color screens (16-bit)
 				break;
 		default:
-				appPrefsPosition = 3; // 3: Color screens (8-bit)
+				appPrefsPosition = 3; // 3: Color screens (16-bit)
 				break;
 	}
 	
 	// If there is no default prefs, set default prefs
-	//if (getPrefs() == false)
+	if (getPrefs() == false)
 		setDefaultPrefs();
 	
 	// Load the main form

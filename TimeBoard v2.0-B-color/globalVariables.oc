@@ -52,7 +52,9 @@ int	startX1 = 8,
 	widgetH,
 		
 	widgetCornerRadius,
-	auxWidgetCornerRadius;
+	auxWidgetCornerRadius,
+	
+	fontRadius;
 
 
 // Mini panels

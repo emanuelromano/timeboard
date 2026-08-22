@@ -141,6 +141,9 @@ handler mainForm.onopen() {
 	
 	charge = battery(false);
 	
+	// Corner radius for font segments
+	fontRadius = 2;
+	
 	timer(1);
 }
 

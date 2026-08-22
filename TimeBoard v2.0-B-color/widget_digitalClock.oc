@@ -2,7 +2,7 @@ void digitalClockWidget(int startX, int startY) {
 	string amPmStr;
 	int digitW = 16,
 		digitH = 28,
-		radius = 2,
+		radius = fontRadius,
 		segmentThickness = 6,
 	
 		digitHr1X = startX + 6,
@@ -54,7 +54,7 @@ void digitalClockWidget(int startX, int startY) {
 void miniDigitalClockWidget(int startX, int startY) {
 	int digitW = 10,
 	digitH = 18,
-	radius = 2,
+	radius = fontRadius,
 	segmentThickness = 4,
 	
 	digitHr1X = startX,

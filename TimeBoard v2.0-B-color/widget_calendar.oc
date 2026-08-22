@@ -2,7 +2,7 @@
 /*void calendarWidget(int startX, int startY) {
 	int digitW = 16,
 		digitH = 30,
-		radius = 2,
+		radius = fontRadius,
 		segmentThickness = 6,
 		
 		digitDateX1 = startX + 19,
@@ -145,7 +145,7 @@
 void calendarWidget(int startX, int startY) {
 	int digitW = 22,
 		digitH = 44,
-		radius = 2,
+		radius = fontRadius,
 		segmentThickness = 8,
 		
 		digitDateX1 = startX + ((digitW * 2) / 2) - 11,
@@ -265,7 +265,7 @@ void miniCalendarWidget(int startX, int startY) {
 	string weekdayStr, monthStr;
 	int digitW = 10,
 	digitH = 19,
-	radius = 2,
+	radius = fontRadius,
 	segmentThickness = 4,
 	
 	digitDate1X = startX + ((digitW * 2) / 2) - 3,
