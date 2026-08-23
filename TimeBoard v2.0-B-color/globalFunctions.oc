@@ -229,7 +229,7 @@ void drawAuxiliarPanel(string orientation) {
 		else
 			auxWidgetCornerRadius = widgetCornerRadius;
 		
-		mainBuffer.fg(highlightIndex);
+		mainBuffer.fg(shadowIndex);
 		mainBuffer.rect(clrFG, mainForm.x+8, 166, mainForm.w-7, mainForm.h-7, widgetCornerRadius);
 		mainBuffer.fg(fgColorIndex);
 		mainBuffer.rect(clrFG, mainForm.x+9, 167, mainForm.w-9, mainForm.h-9, auxWidgetCornerRadius-1);
@@ -257,7 +257,7 @@ void drawAuxiliarPanel(string orientation) {
 		else
 			auxWidgetCornerRadius = widgetCornerRadius;
 		
-		mainBuffer.fg(highlightIndex);
+		mainBuffer.fg(shadowIndex);
 		mainBuffer.rect(clrFG, mainForm.x+166, 8, mainForm.w-7, mainForm.h-7, widgetCornerRadius);
 		mainBuffer.fg(fgColorIndex);
 		mainBuffer.rect(clrFG, mainForm.x+167, 9, mainForm.w-9, mainForm.h-9, auxWidgetCornerRadius-1);
@@ -285,7 +285,7 @@ void drawAuxiliarPanel(string orientation) {
 		else
 			auxWidgetCornerRadius = widgetCornerRadius;
 		
-		mainBuffer.fg(highlightIndex);
+		mainBuffer.fg(shadowIndex);
 		mainBuffer.rect(clrFG, mainForm.x+8, 101, mainForm.w-7, mainForm.h-7, widgetCornerRadius);
 		mainBuffer.fg(fgColorIndex);
 		mainBuffer.rect(clrFG, mainForm.x+9, 102, mainForm.w-9, mainForm.h-9, auxWidgetCornerRadius-1);

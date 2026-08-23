@@ -18,7 +18,7 @@ void composeBackgroundBuffer() {
 		else
 			auxWidgetCornerRadius = widgetCornerRadius;
 		
-		mainBuffer.fg(highlightIndex);
+		mainBuffer.fg(shadowIndex);
 		mainBuffer.rect(clrFG, startX1, startY1, startX1+widgetW+1, startY1+widgetH+1, widgetCornerRadius);
 		mainBuffer.fg(fgColorIndex);
 		mainBuffer.rect(clrFG, startX1+1, startY1+1, startX1+widgetW-1, startY1+widgetH-1, auxWidgetCornerRadius-1);		
@@ -26,7 +26,7 @@ void composeBackgroundBuffer() {
 	
 	if (showWidget2) {
 		// Main rectangle
-		mainBuffer.fg(highlightIndex);
+		mainBuffer.fg(shadowIndex);
 		mainBuffer.rect(clrFG, startX2, startY2, startX2+widgetW+1, startY2+widgetH+1, widgetCornerRadius);
 		mainBuffer.fg(fgColorIndex);
 		mainBuffer.rect(clrFG, startX2+1, startY2+1, startX2+widgetW-1, startY2+widgetH-1, auxWidgetCornerRadius-1);
@@ -34,7 +34,7 @@ void composeBackgroundBuffer() {
 	
 	if (showWidget3) {
 		// Main rectangle
-		mainBuffer.fg(highlightIndex);
+		mainBuffer.fg(shadowIndex);
 		mainBuffer.rect(clrFG, startX3, startY3, startX3+widgetW+1, startY3+widgetH+1, widgetCornerRadius);
 		mainBuffer.fg(fgColorIndex);
 		mainBuffer.rect(clrFG, startX3+1, startY3+1, startX3+widgetW-1, startY3+widgetH-1, auxWidgetCornerRadius-1);
@@ -42,7 +42,7 @@ void composeBackgroundBuffer() {
 	
 	if (showWidget4) {
 		// Main rectangle
-		mainBuffer.fg(highlightIndex);
+		mainBuffer.fg(shadowIndex);
 		mainBuffer.rect(clrFG, startX4, startY4, startX4+widgetW+1, startY4+widgetH+1, widgetCornerRadius);
 		mainBuffer.fg(fgColorIndex);
 		mainBuffer.rect(clrFG, startX4+1, startY4+1, startX4+widgetW-1, startY4+widgetH-1, auxWidgetCornerRadius-1);
