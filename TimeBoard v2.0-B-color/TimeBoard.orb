@@ -228,7 +228,7 @@
     }
     label UILabel colorsLbl {
       id = 1048
-      x = 16, y = 4
+      x = 17, y = 4
       fontid = 1
       text = "Colors"
       hresize = 0, vresize = 0

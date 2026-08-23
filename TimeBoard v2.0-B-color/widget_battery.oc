@@ -122,28 +122,25 @@ void batteryWidget(int startX, int startY) {
 	drawBatteryDots(startX, startY, widgetW, widgetH-13, dotRadius, ringRadius, charge);
 	
 	// Battery icon
-	
-	
-	
 	if (colorDepth > 4 || colorDepth == 1)
-		mainBuffer.fgRGB(mainR, mainG, mainB);
+		mainBuffer.fg(mainIndex);
 	else
-		mainBuffer.fgRGB(highlightR, highlightG, highlightB);
+		mainBuffer.fg(highlightIndex);
 	
 	mainBuffer.frame(clrFG, iconX, iconY, iconX+15, iconY+8, 2, 1);
 	mainBuffer.line(clrFG, iconX+16, iconY+2, iconX+16, iconY+5);
 	
-	mainBuffer.fgRGB(highlightR, highlightG, highlightB);
+	mainBuffer.fg(highlightIndex);
 	mainBuffer.rect(clrFG, iconX+1, iconY+1, iconX+14, iconY+7, 1);
 	
 	// Battery percentage
 	if (colorDepth > 4 || colorDepth == 1)
-		mainBuffer.textRGB(mainR, mainG, mainB);
+		mainBuffer.textColor(mainIndex);
 	else
-		mainBuffer.textRGB(highlightR, highlightG, highlightB);
+		mainBuffer.textColor(highlightIndex);
 	
 	mainBuffer.textAlign(02);
-	mainBuffer.bgRGB(fgColorR, fgColorG, fgColorB);
+	mainBuffer.bg(fgColorIndex);
 	mainBuffer.font(fntLargeBold);
 	mainBuffer.text(clrText, startX+65, digitY, "   "+charge+"%");
 	mainBuffer.end();
@@ -192,12 +189,12 @@ void miniBatteryWidget(int startX, int startY) {
 	// Battery percentage
 	mainBuffer.begin();
 	if (colorDepth > 4 || colorDepth == 1)
-		mainBuffer.textRGB(mainR, mainG, mainB);
+		mainBuffer.textColor(mainIndex);
 	else
-		mainBuffer.textRGB(highlightR, highlightG, highlightB);
+		mainBuffer.textColor(highlightIndex);
 	
 	mainBuffer.textAlign(11);
-	mainBuffer.bgRGB(fgColorR, fgColorG, fgColorB);
+	mainBuffer.bg(fgColorIndex);
 	mainBuffer.font(fntStandard);
 	
 	// Charge

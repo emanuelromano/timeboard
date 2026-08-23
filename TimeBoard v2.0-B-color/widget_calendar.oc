@@ -234,25 +234,25 @@ void calendarWidget(int startX, int startY) {
 		
 	mainBuffer.begin();
 	// Background rectangle for new drawings
-	mainBuffer.fgRGB(fgColorR, fgColorG, fgColorB);
+	mainBuffer.fg(fgColorIndex);
 	mainBuffer.rect(clrFG, startX+3, startY+3, startX+widgetW-2, startY+widgetH-2, cornerRadiusAux-3);
 	
 	// Weekday
 	mainBuffer.textAlign(01);
-	mainBuffer.textRGB(highlightR, highlightG, highlightB);
-	mainBuffer.bgRGB(fgColorR, fgColorG, fgColorB);
+	mainBuffer.textColor(highlightIndex);
+	mainBuffer.bg(fgColorIndex);
 	mainBuffer.font(fntLargeBold);
 	mainBuffer.text(clrText, textX-13, startY+4, weekdayStr);
 	
 	// Month
 	mainBuffer.textAlign(01);
-	mainBuffer.textRGB(mainR, mainG, mainB);
-	mainBuffer.bgRGB(fgColorR, fgColorG, fgColorB);
+	mainBuffer.textColor(mainIndex);
+	mainBuffer.bg(fgColorIndex);
 	mainBuffer.font(fntLargeBold);
 	mainBuffer.text(clrText, textX+13, startY+4, monthStr);
 	
 	// Date
-	mainBuffer.fgRGB(mainR, mainG, mainB);
+	mainBuffer.fg(mainIndex);
 	// drawDigit() comes from globalFunctions.oc
 	drawDigit(dayDigit1, digitW, digitH, digitDateX1, digitY, radius, segmentThickness);
 	drawDigit(dayDigit2, digitW, digitH, digitDateX2, digitY, radius, segmentThickness);
@@ -346,16 +346,16 @@ void miniCalendarWidget(int startX, int startY) {
 	mainBuffer.begin();
 	mainBuffer.textAlign(11);
 	mainBuffer.font(fntBold);
-	mainBuffer.textRGB(highlightR, highlightG, highlightB);
-	mainBuffer.bgRGB(fgColorR, fgColorG, fgColorB);
+	mainBuffer.textColor(highlightIndex);
+	mainBuffer.bg(fgColorIndex);
 	// Weekday
 	mainBuffer.text(clrText, textX, textY-18, weekdayStr);
 	// Date
-	mainBuffer.fgRGB(mainR, mainG, mainB);
+	mainBuffer.fg(mainIndex);
 	drawDigit(dayDigit1, digitW, digitH, digitDate1X, digitY, radius, segmentThickness);
 	drawDigit(dayDigit2, digitW, digitH, digitDate2X, digitY, radius, segmentThickness);
 	// Month
-	mainBuffer.textRGB(mainR, mainG, mainB);
+	mainBuffer.textColor(mainIndex);
 	mainBuffer.text(clrText, textX, textY+14, monthStr);
 	mainBuffer.end();
 }

@@ -89,7 +89,8 @@ handler mainForm.onopen() {
 	// Corner radius for font segments
 	fontRadius = 2;
 	
-	appPrefs[appPrefsPosition].allSet = true;
+	// All set!
+	allSet = true;
 	saveMainPreferences();
 	
 	timer(1);

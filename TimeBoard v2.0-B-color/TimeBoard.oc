@@ -89,6 +89,7 @@ bool setDefaultPrefs() {
 	
 	// 0: B/W screens (1-bit)
 	appPrefs[0].debugFlag = debugFlag;
+	appPrefs[0].allSet = allSet;
 	
 	appPrefs[0].bgColorR = 255;
 	appPrefs[0].bgColorG = 255;
@@ -125,6 +126,7 @@ bool setDefaultPrefs() {
 	
 	// 1: Grayscale screens (2-bit)
 	appPrefs[1].debugFlag = debugFlag;
+	appPrefs[1].allSet = allSet;
 	
 	appPrefs[1].bgColorR = 128;
 	appPrefs[1].bgColorG = 128;
@@ -161,6 +163,7 @@ bool setDefaultPrefs() {
 	
 	// 2: Grayscale screens (4-bit)
 	appPrefs[2].debugFlag = debugFlag;
+	appPrefs[2].allSet = allSet;
 	
 	appPrefs[2].bgColorR = 187;
 	appPrefs[2].bgColorG = 187;
@@ -197,6 +200,7 @@ bool setDefaultPrefs() {
 	
 	// 3: Color screens (8-bit)
 	appPrefs[3].debugFlag = debugFlag;
+	appPrefs[3].allSet = allSet;
 	
 	appPrefs[3].bgColorR = 51;
 	appPrefs[3].bgColorG = 51;
