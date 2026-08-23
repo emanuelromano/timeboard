@@ -20,6 +20,7 @@ int colorDepth,
 
 struct AppPrefs {
 	bool debugFlag;
+	bool allSet;
 	
 	// Background color
 	int bgColorR;
@@ -32,6 +33,12 @@ struct AppPrefs {
 	int fgColorG;
 	int fgColorB;
 	int fgColorIndex;
+	
+	// Shadows for widgets
+	int shadowR;
+	int shadowG;
+	int shadowB;
+	int shadowIndex;
 	
 	// Highlight color on widgets
 	int highlightR;
@@ -56,8 +63,6 @@ struct AppPrefs {
 	
 	// Other preferences
 	int interfaceMode;
-	bool widgetHighlight;
-	bool widgetShadow;
 	int widgetCornerRadius;
 	int useAnalogClockNumbers;
 };
@@ -75,6 +80,7 @@ bool getPrefs() {
 // Set default preferences in case they do not exist
 bool setDefaultPrefs() {
 	bool debugFlag = false;
+	bool allSet = false;
 	int interfaceMode = 1,
 		widgetCornerRadius = 4, // 0-4-8 pixels
 		useAnalogClockNumbers = 1;	// Show numbers or lines in analog clock:
@@ -91,6 +97,10 @@ bool setDefaultPrefs() {
 	appPrefs[0].fgColorR = 255;
 	appPrefs[0].fgColorG = 255;
 	appPrefs[0].fgColorB = 255;
+	
+	appPrefs[0].shadowR = 0;
+	appPrefs[0].shadowG = 0;
+	appPrefs[0].shadowB = 0;
 	
 	appPrefs[0].highlightR = 0;
 	appPrefs[0].highlightG = 0;
@@ -109,8 +119,6 @@ bool setDefaultPrefs() {
 	appPrefs[0].batteryEmptyB = 0;
 	
 	appPrefs[0].interfaceMode = interfaceMode;
-	appPrefs[0].widgetHighlight = false;
-	appPrefs[0].widgetShadow = false;
 	appPrefs[0].widgetCornerRadius = widgetCornerRadius;
 	appPrefs[0].useAnalogClockNumbers = useAnalogClockNumbers;
 		
@@ -125,6 +133,10 @@ bool setDefaultPrefs() {
 	appPrefs[1].fgColorR = 255;
 	appPrefs[1].fgColorG = 255;
 	appPrefs[1].fgColorB = 255;
+	
+	appPrefs[1].shadowR = 0;
+	appPrefs[1].shadowG = 0;
+	appPrefs[1].shadowB = 0;
 	
 	appPrefs[1].highlightR = 0;
 	appPrefs[1].highlightG = 0;
@@ -143,8 +155,6 @@ bool setDefaultPrefs() {
 	appPrefs[1].batteryEmptyB = 128;
 	
 	appPrefs[1].interfaceMode = interfaceMode;
-	appPrefs[1].widgetHighlight = false;
-	appPrefs[1].widgetShadow = false;
 	appPrefs[1].widgetCornerRadius = widgetCornerRadius;
 	appPrefs[1].useAnalogClockNumbers = useAnalogClockNumbers;
 	
@@ -159,6 +169,10 @@ bool setDefaultPrefs() {
 	appPrefs[2].fgColorR = 255;
 	appPrefs[2].fgColorG = 255;
 	appPrefs[2].fgColorB = 255;
+	
+	appPrefs[2].shadowR = 51;
+	appPrefs[2].shadowG = 51;
+	appPrefs[2].shadowB = 51;
 	
 	appPrefs[2].highlightR = 51;
 	appPrefs[2].highlightG = 51;
@@ -177,8 +191,6 @@ bool setDefaultPrefs() {
 	appPrefs[2].batteryEmptyB = 187;
 	
 	appPrefs[2].interfaceMode = interfaceMode;
-	appPrefs[2].widgetHighlight = false;
-	appPrefs[2].widgetShadow = false;
 	appPrefs[2].widgetCornerRadius = widgetCornerRadius;
 	appPrefs[2].useAnalogClockNumbers = useAnalogClockNumbers;
 	
@@ -193,6 +205,10 @@ bool setDefaultPrefs() {
 	appPrefs[3].fgColorR = 68;
 	appPrefs[3].fgColorG = 68;
 	appPrefs[3].fgColorB = 68;
+	
+	appPrefs[3].shadowR = 255;
+	appPrefs[3].shadowG = 204;
+	appPrefs[3].shadowB = 0;
 	
 	appPrefs[3].highlightR = 255;
 	appPrefs[3].highlightG = 204;
@@ -211,8 +227,6 @@ bool setDefaultPrefs() {
 	appPrefs[3].batteryEmptyB = 120;
 	
 	appPrefs[3].interfaceMode = interfaceMode;
-	appPrefs[3].widgetHighlight = true;
-	appPrefs[3].widgetShadow = true;
 	appPrefs[3].widgetCornerRadius = widgetCornerRadius;
 	appPrefs[3].useAnalogClockNumbers = useAnalogClockNumbers;
 	

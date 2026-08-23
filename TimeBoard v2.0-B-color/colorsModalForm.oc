@@ -1,14 +1,8 @@
 Draw prefsBuffer;
 
 
-handler colorsModalForm.onopen() {
-	draw.attachForm(this);
-	prefsBuffer.create(156, 85);
-}
-
-
-handler colorsModalForm.ondraw() {
-	int startX = 6,
+void drawWidgetRepresentation() {
+int startX = 6,
 		startY = 6,
 		digitW = 16,
 		digitH = 28,
@@ -28,21 +22,17 @@ handler colorsModalForm.ondraw() {
 		widH = 70;
 	
 	prefsBuffer.begin();
-	calculateShadowColor(100);
-	calculateHighlightColor(50);
-	
 	// Background
 	prefsBuffer.fg(bgColorIndex);
 	prefsBuffer.rect(clrFG, 0, 0, 85, 85, 0);
 	
 	// Shadow
-	prefsBuffer.fgRGB(bgShadowColorR, bgShadowColorR, bgShadowColorR);
-	prefsBuffer.rect(clrFG, startX+1, startY+1, startX+widW+1, startY+widH+1, widgetCornerRadius);
+	prefsBuffer.fg(shadowIndex);
+	prefsBuffer.rect(clrFG, startX, startY, startX+widW+1, startY+widH+1, widgetCornerRadius);
 	
 	// Widget
 	prefsBuffer.fg(fgColorIndex);
-	prefsBuffer.rect(clrFG, startX, startY, startX+widW, startY+widH, widgetCornerRadius);
-	drawWidgetHighlight(startX, startY, startX+widW, startY+widH);
+	prefsBuffer.rect(clrFG, startX+1, startY+1, startX+widW-1, startY+widH-1, widgetCornerRadius);
 	
 	// Hour
 	prefsBuffer.fg(highlightIndex);
@@ -73,25 +63,45 @@ handler colorsModalForm.ondraw() {
 	bgLbl.visible = true;
 	fgColorBtn.visible = true;
 	fgLbl.visible = true;
+	shadowColorBtn.visible = true;
+	shadowLbl.visible = true;
 	highlightBtn.visible = true;
 	hlghtLbl.visible = true;
 	mainBtn.visible = true;
 	mainLbl.visible = true;
-	
+}
+
+
+void drawColorSquares() {
 	draw.begin();
 	// Background
-	draw.fgRGB(bgColorR, bgColorG, bgColorB);
+	draw.fg(bgColorIndex);
+	draw.rect(clrFG, 92, 31, 102, 41, 0);
+	// Widgets
+	draw.fg(fgColorIndex);
 	draw.rect(clrFG, 92, 46, 102, 56, 0);
-	// Foreground
-	draw.fgRGB(fgColorR, fgColorG, fgColorB);
+	//Shadows
+	draw.fg(shadowIndex);
 	draw.rect(clrFG, 92, 61, 102, 71, 0);
 	// Highlights
-	draw.fgRGB(highlightR, highlightG, highlightB);
+	draw.fg(highlightIndex);
 	draw.rect(clrFG, 92, 76, 102, 86, 0);
 	// Main
-	draw.fgRGB(mainR, mainG, mainB);
+	draw.fg(mainIndex);
 	draw.rect(clrFG, 92, 91, 102, 101, 0);
 	draw.end();
+}
+
+
+handler colorsModalForm.onopen() {
+	draw.attachForm(this);
+	prefsBuffer.create(156, 85);
+}
+
+
+handler colorsModalForm.ondraw() {
+	drawWidgetRepresentation();
+	drawColorSquares();
 }
 
 
@@ -100,16 +110,19 @@ handler bgColorBtn.onselect() {
 	if (draw.selectIndex("Choose background color:", &bgColorIndex)) {
 		draw.begin();
 		draw.fg(bgColorIndex);
-		draw.rect(clrFG, 92, 46, 102, 56, 0);
+		draw.rect(clrFG, 92, 31, 102, 41, 0);
 		draw.end();
 	}
 	else
 	{
 		draw.begin();
 		draw.fg(bgColorIndex);
-		draw.rect(clrFG, 92, 46, 102, 56, 0);
+		draw.rect(clrFG, 92, 31, 102, 41, 0);
 		draw.end();
 	}
+	
+	drawWidgetRepresentation();
+	drawColorSquares();
 }
 
 
@@ -118,16 +131,40 @@ handler fgColorBtn.onselect() {
 	if (draw.selectIndex("Choose widgets color:", &fgColorIndex)) {
 		draw.begin();
 		draw.fg(fgColorIndex);
-		draw.rect(clrFG, 92, 61, 102, 71, 0);
+		draw.rect(clrFG, 92, 46, 102, 56, 0);
 		draw.end();
 	}
 	else
 	{
 		draw.begin();
 		draw.fg(fgColorIndex);
+		draw.rect(clrFG, 92, 46, 102, 56, 0);
+		draw.end();
+	}
+	
+	drawWidgetRepresentation();
+	drawColorSquares();
+}
+
+
+// Shadows color selector
+handler shadowColorBtn.onselect() {
+	if (draw.selectIndex("Choose shadows color:", &shadowIndex)) {
+		draw.begin();
+		draw.fg(shadowIndex);
 		draw.rect(clrFG, 92, 61, 102, 71, 0);
 		draw.end();
 	}
+	else
+	{
+		draw.begin();
+		draw.fg(shadowIndex);
+		draw.rect(clrFG, 92, 61, 102, 71, 0);
+		draw.end();
+	}
+	
+	drawWidgetRepresentation();
+	drawColorSquares();
 }
 
 
@@ -146,6 +183,9 @@ handler highlightBtn.onselect() {
 		draw.rect(clrFG, 92, 76, 102, 86, 0);
 		draw.end();
 	}
+	
+	drawWidgetRepresentation();
+	drawColorSquares();
 }
 
 
@@ -164,6 +204,9 @@ handler mainBtn.onselect() {
 		draw.rect(clrFG, 92, 91, 102, 101, 0);
 		draw.end();
 	}
+	
+	drawWidgetRepresentation();
+	drawColorSquares();
 }
 
 
@@ -174,6 +217,5 @@ handler colorsModalBackBtn.onselect() {
 
 handler colorsModalSaveBtn.onselect() {
 	saveMainPreferences();
-	
 	colorsModalForm.close();
 }

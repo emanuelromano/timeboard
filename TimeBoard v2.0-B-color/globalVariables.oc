@@ -3,7 +3,8 @@ Event e;
 Date date;
 Draw mainBuffer,
 	draw;
-bool debugFlag;
+bool debugFlag,
+	allSet;
 int charge, lastCharge; // Battery
 
 
@@ -76,8 +77,6 @@ bool showWidget1,
 	showWidget2,
 	showWidget3,
 	showWidget4,
-	widgetHighlight,
-	widgetShadow,
 	falseZero; // Makes minipanel ontimer updates work in Landscape or Portrait mode while interfaceMode == 1
 
 
@@ -91,6 +90,11 @@ int bgColorR,
 	fgColorG,
 	fgColorB,
 	fgColorIndex,
+	
+	shadowR,
+	shadowG,
+	shadowB,
+	shadowIndex,
 	
 	highlightR,
 	highlightG,
@@ -108,12 +112,4 @@ int bgColorR,
 	
 	batteryEmptyR,
 	batteryEmptyG,
-	batteryEmptyB,
-	
-	bgShadowColorR,
-	bgShadowColorG,
-	bgShadowColorB,
-	
-	bgHighlightColorR,
-	bgHighlightColorG,
-	bgHighlightColorB;
+	batteryEmptyB;

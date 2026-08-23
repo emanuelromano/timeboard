@@ -5,103 +5,48 @@ void composeBackgroundBuffer() {
 	mainBuffer.begin();
 	
 	// Draw background
-	mainBuffer.fgRGB(bgColorR, bgColorG, bgColorB);
+	mainBuffer.fg(bgColorIndex);
 	mainBuffer.rect(clrFG, mainForm.x, mainForm.y, mainForm.w, mainForm.h, 0);
 	
-	// Set & calculate colors
-	mainBuffer.fgRGB(fgColorR, fgColorG, fgColorB);
+	// Set colors
+	mainBuffer.fg(fgColorIndex);
 	
-	if (colorDepth > 4) {
-		calculateShadowColor(100);
-		calculateHighlightColor(50);
+	if (showWidget1) {		
+		// Main rectangle
+		if (widgetCornerRadius == 0)
+			auxWidgetCornerRadius = 1;
+		else
+			auxWidgetCornerRadius = widgetCornerRadius;
+		
+		mainBuffer.fg(highlightIndex);
+		mainBuffer.rect(clrFG, startX1, startY1, startX1+widgetW+1, startY1+widgetH+1, widgetCornerRadius);
+		mainBuffer.fg(fgColorIndex);
+		mainBuffer.rect(clrFG, startX1+1, startY1+1, startX1+widgetW-1, startY1+widgetH-1, auxWidgetCornerRadius-1);		
 	}
 	
-	mainBuffer.bgRGB(bgShadowColorR, bgShadowColorG, bgShadowColorB);
-	
-	if (showWidget1) {
-		// Shadow
-		if (widgetShadow) mainBuffer.rect(clrBG, startX1+1, startY1+1, startX1+widgetW+1, startY1+widgetH+1, widgetCornerRadius);
-		
-		// Main rectangle
-		if (colorDepth > 4) {
-			mainBuffer.rect(clrFG, startX1, startY1, startX1+widgetW, startY1+widgetH, widgetCornerRadius);
-		}
-		else
-		{
-			if (widgetCornerRadius == 0)
-				auxWidgetCornerRadius = 1;
-			else
-				auxWidgetCornerRadius = widgetCornerRadius;
-			
-			mainBuffer.fgRGB(highlightR, highlightG, highlightB);
-			mainBuffer.rect(clrFG, startX1, startY1, startX1+widgetW+1, startY1+widgetH+1, widgetCornerRadius);
-			mainBuffer.fgRGB(fgColorR, fgColorR, fgColorR);
-			mainBuffer.rect(clrFG, startX1+1, startY1+1, startX1+widgetW-1, startY1+widgetH-1, auxWidgetCornerRadius-1);
-		}
-		
-		// Highlight
-		if (widgetHighlight) drawWidgetHighlight(startX1, startY1, widgetW, widgetH);
-		}
-	
 	if (showWidget2) {
-		// Shadow
-		if (widgetShadow) mainBuffer.rect(clrBG, startX2+1, startY2+1, startX2+widgetW+1, startY2+widgetH+1, widgetCornerRadius);
-		
 		// Main rectangle
-		if (colorDepth > 4) {
-			mainBuffer.rect(clrFG, startX2, startY2, startX2+widgetW, startY2+widgetH, widgetCornerRadius);
-		}
-		else
-		{
-			mainBuffer.fgRGB(highlightR, highlightG, highlightB);
-			mainBuffer.rect(clrFG, startX2, startY2, startX2+widgetW+1, startY2+widgetH+1, widgetCornerRadius);
-			mainBuffer.fgRGB(fgColorR, fgColorR, fgColorR);
-			mainBuffer.rect(clrFG, startX2+1, startY2+1, startX2+widgetW-1, startY2+widgetH-1, auxWidgetCornerRadius-1);
-		}
-				
-		// Highlight
-		if (widgetHighlight) drawWidgetHighlight(startX2, startY2, widgetW, widgetH);
-		}
+		mainBuffer.fg(highlightIndex);
+		mainBuffer.rect(clrFG, startX2, startY2, startX2+widgetW+1, startY2+widgetH+1, widgetCornerRadius);
+		mainBuffer.fg(fgColorIndex);
+		mainBuffer.rect(clrFG, startX2+1, startY2+1, startX2+widgetW-1, startY2+widgetH-1, auxWidgetCornerRadius-1);
+	}
 	
 	if (showWidget3) {
-		// Shadow
-		if (widgetShadow) mainBuffer.rect(clrBG, startX3+1, startY3+1, startX3+widgetW+1, startY3+widgetH+1, widgetCornerRadius);
-		
 		// Main rectangle
-		if (colorDepth > 4) {
-			mainBuffer.rect(clrFG, startX3, startY3, startX3+widgetW, startY3+widgetH, widgetCornerRadius);
-		}
-		else
-		{
-			mainBuffer.fgRGB(highlightR, highlightG, highlightB);
-			mainBuffer.rect(clrFG, startX3, startY3, startX3+widgetW+1, startY3+widgetH+1, widgetCornerRadius);
-			mainBuffer.fgRGB(fgColorR, fgColorR, fgColorR);
-			mainBuffer.rect(clrFG, startX3+1, startY3+1, startX3+widgetW-1, startY3+widgetH-1, auxWidgetCornerRadius-1);
-		}
-				
-		// Highlight
-		if (widgetHighlight) drawWidgetHighlight(startX3, startY3, widgetW, widgetH);
-		}
+		mainBuffer.fg(highlightIndex);
+		mainBuffer.rect(clrFG, startX3, startY3, startX3+widgetW+1, startY3+widgetH+1, widgetCornerRadius);
+		mainBuffer.fg(fgColorIndex);
+		mainBuffer.rect(clrFG, startX3+1, startY3+1, startX3+widgetW-1, startY3+widgetH-1, auxWidgetCornerRadius-1);
+	}
 	
 	if (showWidget4) {
-		// Shadow
-		if (widgetShadow) mainBuffer.rect(clrBG, startX4+1, startX4+1, startX4+widgetW+1, startY4+widgetH+1, widgetCornerRadius);
-		
 		// Main rectangle
-		if (colorDepth > 4) {
-			mainBuffer.rect(clrFG, startX4, startY4, startX4+widgetW, startY4+widgetH, widgetCornerRadius);
-		}
-		else
-		{
-			mainBuffer.fgRGB(highlightR, highlightG, highlightB);
-			mainBuffer.rect(clrFG, startX4, startY4, startX4+widgetW+1, startY4+widgetH+1, widgetCornerRadius);
-			mainBuffer.fgRGB(fgColorR, fgColorR, fgColorR);
-			mainBuffer.rect(clrFG, startX4+1, startY4+1, startX4+widgetW-1, startY4+widgetH-1, auxWidgetCornerRadius-1);
-		}
-				
-		// Highlight
-		if (widgetHighlight) drawWidgetHighlight(startX4, startY4, widgetW, widgetH);
-		}
+		mainBuffer.fg(highlightIndex);
+		mainBuffer.rect(clrFG, startX4, startY4, startX4+widgetW+1, startY4+widgetH+1, widgetCornerRadius);
+		mainBuffer.fg(fgColorIndex);
+		mainBuffer.rect(clrFG, startX4+1, startY4+1, startX4+widgetW-1, startY4+widgetH-1, auxWidgetCornerRadius-1);
+	}
 	
 	mainBuffer.end();
 }
@@ -143,6 +88,9 @@ handler mainForm.onopen() {
 	
 	// Corner radius for font segments
 	fontRadius = 2;
+	
+	appPrefs[appPrefsPosition].allSet = true;
+	saveMainPreferences();
 	
 	timer(1);
 }
@@ -252,11 +200,9 @@ handler mainForm.ondraw() {
 			
 			// Big widget background pannel
 			mainBuffer.begin();
-			mainBuffer.textRGB(highlightR, highlightG, highlightB);
-			mainBuffer.bgRGB(fgColorR, fgColorG, fgColorB);
+			mainBuffer.textColor(highlightIndex);
+			mainBuffer.bg(fgColorIndex);
 			mainBuffer.font(fntBold);
-			//mainBuffer.textAlign(02);
-			//mainBuffer.text(clrText, mainForm.w-14, mainForm.y+13, "/////////");
 			mainBuffer.textAlign(22);
 			mainBuffer.text(clrText, mainForm.w-14, mainForm.y+widgetH+1, "TimeBoard");
 			mainBuffer.end();

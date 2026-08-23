@@ -28,6 +28,5 @@ handler debugModalBackBtn.onselect() {
 		debugFlag = false;
 	
 	saveMainPreferences();
-	
 	debugModalForm.close();
 }

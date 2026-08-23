@@ -235,21 +235,21 @@
     }
     label UILabel themeLabel {
       id = 1046
-      x = 91, y = 16
+      x = 91, y = 4
       fontid = 0
       text = "Theme:"
       hresize = 0, vresize = 0
     }
     popup UIPopup themePopup {
       id = 1047
-      x = 91, y = 29, w = 49, h = 11
+      x = 91, y = 16, w = 49, h = 11
       text = "Select..."
       leftanchor = true, group = 0, fontid = 0
       hresize = 0, vresize = 0
     }
     button UIButton bgColorBtn {
       id = 1042
-      x = 91, y = 45, w = 12, h = 12
+      x = 91, y = 30, w = 12, h = 12
       text = ""
       leftanchor = true, group = 0, fontid = 0
       frame = 3
@@ -257,7 +257,7 @@
     }
     button UIButton fgColorBtn {
       id = 1043
-      x = 91, y = 60, w = 12, h = 12
+      x = 91, y = 45, w = 12, h = 12
       text = ""
       leftanchor = true, group = 0, fontid = 0
       frame = 3
@@ -281,14 +281,14 @@
     }
     label UILabel bgLbl {
       id = 1050
-      x = 106, y = 46
+      x = 106, y = 31
       fontid = 0
       text = "Background"
       hresize = 0, vresize = 0
     }
     label UILabel fgLbl {
       id = 1051
-      x = 106, y = 61
+      x = 106, y = 46
       fontid = 0
       text = "Widgets"
       hresize = 0, vresize = 0
@@ -322,6 +322,21 @@
       leftanchor = true, group = 0, fontid = 0
       frame = 1
       hresize = 1, vresize = 1
+    }
+    button UIButton shadowColorBtn {
+      id = 1057
+      x = 91, y = 60, w = 12, h = 12
+      text = ""
+      leftanchor = true, group = 0, fontid = 0
+      frame = 3
+      hresize = 0, vresize = 0
+    }
+    label UILabel shadowLbl {
+      id = 1058
+      x = 106, y = 61
+      fontid = 0
+      text = "Shadows"
+      hresize = 0, vresize = 0
     }
   }
   form UIForm debugModalForm {
