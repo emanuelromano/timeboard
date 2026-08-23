@@ -44,8 +44,10 @@ void setMainPreferences() {
 	mainG = appPrefs[appPrefsPosition].mainG;
 	mainB = appPrefs[appPrefsPosition].mainB;
 	
-	mainIndex = appPrefs[appPrefsPosition].mainIndex;
-	mainIndex = draw.indexFromColor(mainR, mainG, mainB);
+	if (allSet)
+		mainIndex = appPrefs[appPrefsPosition].mainIndex;
+	else
+		mainIndex = draw.indexFromColor(mainR, mainG, mainB);
 	
 	batteryR = appPrefs[appPrefsPosition].batteryR;
 	batteryG = appPrefs[appPrefsPosition].batteryG;

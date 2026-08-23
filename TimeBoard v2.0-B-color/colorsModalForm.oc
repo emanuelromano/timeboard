@@ -57,6 +57,7 @@ int startX = 6,
 	draw.draw(prefsBuffer, 3, 18);
 	draw.end();
 	
+	// Controls set to be visible
 	themeLabel.visible = true;
 	themePopup.visible = true;
 	bgColorBtn.visible = true;
