@@ -1,15 +1,9 @@
-void composeBackgroundBuffer() {
-	// Create offscreen buffer
-	mainBuffer.create(mainForm.w, mainForm.h);
-	
+void composeBackgroundBuffer() {	
 	mainBuffer.begin();
 	
 	// Draw background
 	mainBuffer.fg(bgColorIndex);
 	mainBuffer.rect(clrFG, mainForm.x, mainForm.y, mainForm.w, mainForm.h, 0);
-	
-	// Set colors
-	mainBuffer.fg(fgColorIndex);
 	
 	if (showWidget1) {		
 		// Main rectangle
@@ -18,33 +12,33 @@ void composeBackgroundBuffer() {
 		else
 			auxWidgetCornerRadius = widgetCornerRadius;
 		
-		mainBuffer.fg(shadowIndex);
+		mainBuffer.fg(shadowColorIndex);
 		mainBuffer.rect(clrFG, startX1, startY1, startX1+widgetW+1, startY1+widgetH+1, widgetCornerRadius);
-		mainBuffer.fg(fgColorIndex);
+		mainBuffer.fg(widgetColorIndex);
 		mainBuffer.rect(clrFG, startX1+1, startY1+1, startX1+widgetW-1, startY1+widgetH-1, auxWidgetCornerRadius-1);		
 	}
 	
 	if (showWidget2) {
 		// Main rectangle
-		mainBuffer.fg(shadowIndex);
+		mainBuffer.fg(shadowColorIndex);
 		mainBuffer.rect(clrFG, startX2, startY2, startX2+widgetW+1, startY2+widgetH+1, widgetCornerRadius);
-		mainBuffer.fg(fgColorIndex);
+		mainBuffer.fg(widgetColorIndex);
 		mainBuffer.rect(clrFG, startX2+1, startY2+1, startX2+widgetW-1, startY2+widgetH-1, auxWidgetCornerRadius-1);
 	}
 	
 	if (showWidget3) {
 		// Main rectangle
-		mainBuffer.fg(shadowIndex);
+		mainBuffer.fg(shadowColorIndex);
 		mainBuffer.rect(clrFG, startX3, startY3, startX3+widgetW+1, startY3+widgetH+1, widgetCornerRadius);
-		mainBuffer.fg(fgColorIndex);
+		mainBuffer.fg(widgetColorIndex);
 		mainBuffer.rect(clrFG, startX3+1, startY3+1, startX3+widgetW-1, startY3+widgetH-1, auxWidgetCornerRadius-1);
 	}
 	
 	if (showWidget4) {
 		// Main rectangle
-		mainBuffer.fg(shadowIndex);
+		mainBuffer.fg(shadowColorIndex);
 		mainBuffer.rect(clrFG, startX4, startY4, startX4+widgetW+1, startY4+widgetH+1, widgetCornerRadius);
-		mainBuffer.fg(fgColorIndex);
+		mainBuffer.fg(widgetColorIndex);
 		mainBuffer.rect(clrFG, startX4+1, startY4+1, startX4+widgetW-1, startY4+widgetH-1, auxWidgetCornerRadius-1);
 	}
 	
@@ -89,8 +83,6 @@ handler mainForm.onopen() {
 	// Corner radius for font segments
 	fontRadius = 2;
 	
-	// All set!
-	allSet = true;
 	saveMainPreferences();
 	
 	timer(1);
@@ -103,14 +95,14 @@ handler mainForm.ondraw() {
 	showWidget3 = false;
 	showWidget4 = false;
 	
-	falseZero = false;
+	bigUI = false;
 	
 	if (mainForm.h > 160) {
 		// Portrait mode
 		showWidget1 = true;
 		
 		interfaceMode = 0; // Force interfaceMode to 0 for fullscreen modes
-		falseZero  = true;
+		bigUI  = true;
 		
 		widgetW = 144;
 		widgetH = 154;
@@ -144,7 +136,7 @@ handler mainForm.ondraw() {
 		showWidget1 = true;
 		
 		interfaceMode = 0; // Force interfaceMode to 0 for fullscreen modes
-		falseZero  = true;
+		bigUI  = true;
 		
 		widgetW = 154;
 		widgetH = 144;
@@ -199,10 +191,10 @@ handler mainForm.ondraw() {
 			composeBackgroundBuffer();
 			composeWidgetsBuffer();
 			
-			// Big widget background pannel
+			// Big widget background pannel text
 			mainBuffer.begin();
-			mainBuffer.textColor(highlightIndex);
-			mainBuffer.bg(fgColorIndex);
+			mainBuffer.textColor(highlightColorIndex);
+			mainBuffer.bg(widgetColorIndex);
 			mainBuffer.font(fntBold);
 			mainBuffer.textAlign(22);
 			mainBuffer.text(clrText, mainForm.w-14, mainForm.y+widgetH+1, "TimeBoard");
@@ -261,21 +253,21 @@ handler mainForm.ontimer() {
 		if (showWidget2)
 			digitalClockWidget(startX2, startY2);
 		else
-			if (interfaceMode == 1 || falseZero)
+			if (interfaceMode == 1 || bigUI)
 				miniDigitalClockWidget(miniPanelX1, miniPanelY1);
 		
 		if (showWidget3)
 			if (day != lastDay)
 				calendarWidget(startX3, startY3);
 		else
-			if (interfaceMode == 1 || falseZero)
+			if (interfaceMode == 1 || bigUI)
 				miniCalendarWidget(miniPanelX2, miniPanelY2);
 		
 		if (showWidget4)
 			if (charge != lastCharge)
 				batteryWidget(startX4, startY4);
 		else
-			if (interfaceMode == 1 || falseZero)
+			if (interfaceMode == 1 || bigUI)
 				miniBatteryWidget(miniPanelX3, miniPanelY3);
 		
 		// Draw mainBuffer

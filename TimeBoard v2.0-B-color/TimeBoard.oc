@@ -20,46 +20,20 @@ int colorDepth,
 
 struct AppPrefs {
 	bool debugFlag;
-	bool allSet;
 	
 	// Background color
-	int bgColorR;
-	int bgColorG;
-	int bgColorB;
 	int bgColorIndex;
-	
 	// Foreground color on widgets
-	int fgColorR;
-	int fgColorG;
-	int fgColorB;
-	int fgColorIndex;
-	
+	int widgetColorIndex;
 	// Shadows for widgets
-	int shadowR;
-	int shadowG;
-	int shadowB;
-	int shadowIndex;
-	
+	int shadowColorIndex;
 	// Highlight color on widgets
-	int highlightR;
-	int highlightG;
-	int highlightB;
-	int highlightIndex;
-	
+	int highlightColorIndex;
 	// Base color on widgets
-	int mainR;
-	int mainG;
-	int mainB;
-	int mainIndex;
-	
-	// Battery color between 100% - 50% charge 
-	int batteryR;
-	int batteryG;
-	int batteryB;
-	
-	int batteryEmptyR;
-	int batteryEmptyG;
-	int batteryEmptyB;
+	int mainColorIndex;
+	// Battery color between 50% - 100% charge 
+	int batteryColorIndex;
+	int batteryEmptyColorIndex;
 	
 	// Other preferences
 	int interfaceMode;
@@ -80,7 +54,6 @@ bool getPrefs() {
 // Set default preferences in case they do not exist
 bool setDefaultPrefs() {
 	bool debugFlag = false;
-	bool allSet = false;
 	int interfaceMode = 1,
 		widgetCornerRadius = 4, // 0-4-8 pixels
 		useAnalogClockNumbers = 1;	// Show numbers or lines in analog clock:
@@ -89,35 +62,14 @@ bool setDefaultPrefs() {
 	
 	// 0: B/W screens (1-bit)
 	appPrefs[0].debugFlag = debugFlag;
-	appPrefs[0].allSet = allSet;
 	
-	appPrefs[0].bgColorR = 255;
-	appPrefs[0].bgColorG = 255;
-	appPrefs[0].bgColorB = 255;
-	
-	appPrefs[0].fgColorR = 255;
-	appPrefs[0].fgColorG = 255;
-	appPrefs[0].fgColorB = 255;
-	
-	appPrefs[0].shadowR = 0;
-	appPrefs[0].shadowG = 0;
-	appPrefs[0].shadowB = 0;
-	
-	appPrefs[0].highlightR = 0;
-	appPrefs[0].highlightG = 0;
-	appPrefs[0].highlightB = 0;
-	
-	appPrefs[0].mainR = 0;
-	appPrefs[0].mainG = 0;
-	appPrefs[0].mainB = 0;
-	
-	appPrefs[0].batteryR = 0;
-	appPrefs[0].batteryG = 0;
-	appPrefs[0].batteryB = 0;
-	
-	appPrefs[0].batteryEmptyR = 0;
-	appPrefs[0].batteryEmptyG = 0;
-	appPrefs[0].batteryEmptyB = 0;
+	appPrefs[0].bgColorIndex = 0;
+	appPrefs[0].widgetColorIndex = 0;
+	appPrefs[0].shadowColorIndex = 1;
+	appPrefs[0].highlightColorIndex = 1;
+	appPrefs[0].mainColorIndex = 1;
+	appPrefs[0].batteryColorIndex = 1;
+	appPrefs[0].batteryEmptyColorIndex = 0;
 	
 	appPrefs[0].interfaceMode = interfaceMode;
 	appPrefs[0].widgetCornerRadius = widgetCornerRadius;
@@ -126,35 +78,14 @@ bool setDefaultPrefs() {
 	
 	// 1: Grayscale screens (2-bit)
 	appPrefs[1].debugFlag = debugFlag;
-	appPrefs[1].allSet = allSet;
 	
-	appPrefs[1].bgColorR = 128;
-	appPrefs[1].bgColorG = 128;
-	appPrefs[1].bgColorB = 128;
-	
-	appPrefs[1].fgColorR = 255;
-	appPrefs[1].fgColorG = 255;
-	appPrefs[1].fgColorB = 255;
-	
-	appPrefs[1].shadowR = 0;
-	appPrefs[1].shadowG = 0;
-	appPrefs[1].shadowB = 0;
-	
-	appPrefs[1].highlightR = 0;
-	appPrefs[1].highlightG = 0;
-	appPrefs[1].highlightB = 0;
-	
-	appPrefs[1].mainR = 85;
-	appPrefs[1].mainG = 85;
-	appPrefs[1].mainB = 85;
-	
-	appPrefs[1].batteryR = 0;
-	appPrefs[1].batteryG = 0;
-	appPrefs[1].batteryB = 0;
-	
-	appPrefs[1].batteryEmptyR = 128;
-	appPrefs[1].batteryEmptyG = 128;
-	appPrefs[1].batteryEmptyB = 128;
+	appPrefs[1].bgColorIndex = 1;
+	appPrefs[1].widgetColorIndex = 0;
+	appPrefs[1].shadowColorIndex = 3;
+	appPrefs[1].highlightColorIndex = 3;
+	appPrefs[1].mainColorIndex = 2;
+	appPrefs[1].batteryColorIndex = 3;
+	appPrefs[1].batteryEmptyColorIndex = 1;
 	
 	appPrefs[1].interfaceMode = interfaceMode;
 	appPrefs[1].widgetCornerRadius = widgetCornerRadius;
@@ -163,35 +94,14 @@ bool setDefaultPrefs() {
 	
 	// 2: Grayscale screens (4-bit)
 	appPrefs[2].debugFlag = debugFlag;
-	appPrefs[2].allSet = allSet;
 	
-	appPrefs[2].bgColorR = 187;
-	appPrefs[2].bgColorG = 187;
-	appPrefs[2].bgColorB = 187;
-	
-	appPrefs[2].fgColorR = 255;
-	appPrefs[2].fgColorG = 255;
-	appPrefs[2].fgColorB = 255;
-	
-	appPrefs[2].shadowR = 51;
-	appPrefs[2].shadowG = 51;
-	appPrefs[2].shadowB = 51;
-	
-	appPrefs[2].highlightR = 51;
-	appPrefs[2].highlightG = 51;
-	appPrefs[2].highlightB = 51;
-	
-	appPrefs[2].mainR = 136;
-	appPrefs[2].mainG = 136;
-	appPrefs[2].mainB = 136;
-	
-	appPrefs[2].batteryR = 85;
-	appPrefs[2].batteryG = 85;
-	appPrefs[2].batteryB = 85;
-	
-	appPrefs[2].batteryEmptyR = 187;
-	appPrefs[2].batteryEmptyG = 187;
-	appPrefs[2].batteryEmptyB = 187;
+	appPrefs[2].bgColorIndex = 3;
+	appPrefs[2].widgetColorIndex = 0;
+	appPrefs[2].shadowColorIndex = 12;
+	appPrefs[2].highlightColorIndex = 15;
+	appPrefs[2].mainColorIndex = 9;
+	appPrefs[2].batteryColorIndex = 11;
+	appPrefs[2].batteryEmptyColorIndex = 5;
 	
 	appPrefs[2].interfaceMode = interfaceMode;
 	appPrefs[2].widgetCornerRadius = widgetCornerRadius;
@@ -200,49 +110,20 @@ bool setDefaultPrefs() {
 	
 	// 3: Color screens (8-bit)
 	appPrefs[3].debugFlag = debugFlag;
-	appPrefs[3].allSet = allSet;
 	
-	appPrefs[3].bgColorR = 51;
-	appPrefs[3].bgColorG = 51;
-	appPrefs[3].bgColorB = 51;
-	
-	appPrefs[3].fgColorR = 68;
-	appPrefs[3].fgColorG = 68;
-	appPrefs[3].fgColorB = 68;
-	
-	appPrefs[3].shadowR = 255;
-	appPrefs[3].shadowG = 204;
-	appPrefs[3].shadowB = 0;
-	
-	appPrefs[3].highlightR = 255;
-	appPrefs[3].highlightG = 204;
-	appPrefs[3].highlightB = 0;
-	
-	appPrefs[3].mainR = 255;
-	appPrefs[3].mainG = 255;
-	appPrefs[3].mainB = 255;
-	
-	appPrefs[3].batteryR = 102;
-	appPrefs[3].batteryG = 255;
-	appPrefs[3].batteryB = 0;
-	
-	appPrefs[3].batteryEmptyR = 120;
-	appPrefs[3].batteryEmptyG = 120;
-	appPrefs[3].batteryEmptyB = 120;
+	appPrefs[3].bgColorIndex = 216;
+	appPrefs[3].widgetColorIndex = 217;
+	appPrefs[3].shadowColorIndex = 120;
+	appPrefs[3].highlightColorIndex = 120;
+	appPrefs[3].mainColorIndex = 0;
+	appPrefs[3].batteryColorIndex = 168;
+	appPrefs[3].batteryEmptyColorIndex = 219;
 	
 	appPrefs[3].interfaceMode = interfaceMode;
 	appPrefs[3].widgetCornerRadius = widgetCornerRadius;
 	appPrefs[3].useAnalogClockNumbers = useAnalogClockNumbers;
 	
 	return prefs.set(TimeBoard.creator, true, appPrefs, typeof(AppPrefs), numberOfPrefs);
-}
-
-
-// Delete preferences
-void deletePrefs() {
-	prefs.del(TimeBoard.creator, true);
-	
-	setDefaultPrefs();
 }
 
 

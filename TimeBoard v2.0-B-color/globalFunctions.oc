@@ -1,63 +1,16 @@
 // Set main preferences on global variables
 void setMainPreferences() {
-	debugFlag = appPrefs[appPrefsPosition].debugFlag;
-	allSet = appPrefs[appPrefsPosition].allSet;
-	
 	// Set UI colors
-	bgColorR = appPrefs[appPrefsPosition].bgColorR;
-	bgColorG = appPrefs[appPrefsPosition].bgColorG;
-	bgColorB = appPrefs[appPrefsPosition].bgColorB;
-	
-	if (allSet)
-		bgColorIndex = appPrefs[appPrefsPosition].bgColorIndex;
-	else
-		bgColorIndex = draw.indexFromColor(bgColorR, bgColorG, bgColorB);
-	
-	fgColorR = appPrefs[appPrefsPosition].fgColorR;
-	fgColorG = appPrefs[appPrefsPosition].fgColorG;
-	fgColorB = appPrefs[appPrefsPosition].fgColorB;
-	
-	if (allSet)
-		fgColorIndex = appPrefs[appPrefsPosition].fgColorIndex;
-	else
-		fgColorIndex = draw.indexFromColor(fgColorR, fgColorG, fgColorB);
-	
-	shadowR = appPrefs[appPrefsPosition].shadowR;
-	shadowG = appPrefs[appPrefsPosition].shadowG;
-	shadowB = appPrefs[appPrefsPosition].shadowB;
-	
-	if (allSet)
-		shadowIndex = appPrefs[appPrefsPosition].shadowIndex;
-	else
-		shadowIndex = draw.indexFromColor(shadowR, shadowG, shadowB);
-	
-	highlightR = appPrefs[appPrefsPosition].highlightR;
-	highlightG = appPrefs[appPrefsPosition].highlightG;
-	highlightB = appPrefs[appPrefsPosition].highlightB;
-	
-	if (allSet)
-		highlightIndex = appPrefs[appPrefsPosition].highlightIndex;
-	else
-		highlightIndex = draw.indexFromColor(highlightR, highlightG, highlightB);
-	
-	mainR = appPrefs[appPrefsPosition].mainR;
-	mainG = appPrefs[appPrefsPosition].mainG;
-	mainB = appPrefs[appPrefsPosition].mainB;
-	
-	if (allSet)
-		mainIndex = appPrefs[appPrefsPosition].mainIndex;
-	else
-		mainIndex = draw.indexFromColor(mainR, mainG, mainB);
-	
-	batteryR = appPrefs[appPrefsPosition].batteryR;
-	batteryG = appPrefs[appPrefsPosition].batteryG;
-	batteryB = appPrefs[appPrefsPosition].batteryB;
-	
-	batteryEmptyR = appPrefs[appPrefsPosition].batteryEmptyR;
-	batteryEmptyG = appPrefs[appPrefsPosition].batteryEmptyG;
-	batteryEmptyB = appPrefs[appPrefsPosition].batteryEmptyB;
+	bgColorIndex = appPrefs[appPrefsPosition].bgColorIndex;	
+	widgetColorIndex = appPrefs[appPrefsPosition].widgetColorIndex;	
+	shadowColorIndex = appPrefs[appPrefsPosition].shadowColorIndex;	
+	highlightColorIndex = appPrefs[appPrefsPosition].highlightColorIndex;	
+	mainColorIndex = appPrefs[appPrefsPosition].mainColorIndex;	
+	batteryColorIndex = appPrefs[appPrefsPosition].batteryColorIndex;
+	batteryEmptyColorIndex = appPrefs[appPrefsPosition].batteryEmptyColorIndex;
 	
 	// Set other parameters
+	debugFlag = appPrefs[appPrefsPosition].debugFlag;
 	origInterfaceMode = interfaceMode = appPrefs[appPrefsPosition].interfaceMode;
 	widgetCornerRadius = appPrefs[appPrefsPosition].widgetCornerRadius;
 	useAnalogClockNumbers = appPrefs[appPrefsPosition].useAnalogClockNumbers;
@@ -68,38 +21,13 @@ void setMainPreferences() {
 bool saveMainPreferences() {	
 	// Specific theme settings for color themes
 	if (colorDepth > 4) {
-		appPrefs[appPrefsPosition].bgColorR = bgColorR;
-		appPrefs[appPrefsPosition].bgColorG = bgColorG;
-		appPrefs[appPrefsPosition].bgColorB = bgColorB;
 		appPrefs[appPrefsPosition].bgColorIndex = bgColorIndex;
-		
-		appPrefs[appPrefsPosition].fgColorR = fgColorR;
-		appPrefs[appPrefsPosition].fgColorG = fgColorG;
-		appPrefs[appPrefsPosition].fgColorB = fgColorB;
-		appPrefs[appPrefsPosition].fgColorIndex = fgColorIndex;
-		
-		appPrefs[appPrefsPosition].shadowR = shadowR;
-		appPrefs[appPrefsPosition].shadowG = shadowG;
-		appPrefs[appPrefsPosition].shadowB = shadowB;
-		appPrefs[appPrefsPosition].shadowIndex = shadowIndex;
-		
-		appPrefs[appPrefsPosition].highlightR = highlightR;
-		appPrefs[appPrefsPosition].highlightG = highlightG;
-		appPrefs[appPrefsPosition].highlightB = highlightB;
-		appPrefs[appPrefsPosition].highlightIndex = highlightIndex;
-		
-		appPrefs[appPrefsPosition].mainR = mainR;
-		appPrefs[appPrefsPosition].mainG = mainG;
-		appPrefs[appPrefsPosition].mainB = mainB;
-		appPrefs[appPrefsPosition].mainIndex = mainIndex;
-		
-		appPrefs[appPrefsPosition].batteryR = batteryR;
-		appPrefs[appPrefsPosition].batteryG = batteryG;
-		appPrefs[appPrefsPosition].batteryB = batteryB;
-		
-		appPrefs[appPrefsPosition].batteryEmptyR = batteryEmptyR;
-		appPrefs[appPrefsPosition].batteryEmptyG = batteryEmptyG;
-		appPrefs[appPrefsPosition].batteryEmptyB = batteryEmptyB;
+		appPrefs[appPrefsPosition].widgetColorIndex = widgetColorIndex;
+		appPrefs[appPrefsPosition].shadowColorIndex = shadowColorIndex;
+		appPrefs[appPrefsPosition].highlightColorIndex = highlightColorIndex;
+		appPrefs[appPrefsPosition].mainColorIndex = mainColorIndex;
+		appPrefs[appPrefsPosition].batteryColorIndex = batteryColorIndex;
+		appPrefs[appPrefsPosition].batteryEmptyColorIndex = batteryEmptyColorIndex;
 	}
 	
 	// General
@@ -107,11 +35,6 @@ bool saveMainPreferences() {
 	appPrefs[1].debugFlag = debugFlag;
 	appPrefs[2].debugFlag = debugFlag;
 	appPrefs[3].debugFlag = debugFlag;
-	
-	appPrefs[0].allSet = allSet;
-	appPrefs[1].allSet = allSet;
-	appPrefs[2].allSet = allSet;
-	appPrefs[3].allSet = allSet;
 	
 	// B/W screens (1-bit)
 	appPrefs[0].interfaceMode = origInterfaceMode;
@@ -134,6 +57,14 @@ bool saveMainPreferences() {
 	appPrefs[3].useAnalogClockNumbers = useAnalogClockNumbers;
 	
 	return prefs.set(TimeBoard.creator, true, appPrefs, typeof(AppPrefs), numberOfPrefs);
+}
+
+
+// Delete preferences
+void deletePrefs() {
+	prefs.del(TimeBoard.creator, true);
+	
+	setDefaultPrefs();
 }
 
 
@@ -231,19 +162,19 @@ void drawAuxiliarPanel(string orientation) {
 		else
 			auxWidgetCornerRadius = widgetCornerRadius;
 		
-		mainBuffer.fg(shadowIndex);
+		mainBuffer.fg(shadowColorIndex);
 		mainBuffer.rect(clrFG, mainForm.x+8, 166, mainForm.w-7, mainForm.h-7, widgetCornerRadius);
-		mainBuffer.fg(fgColorIndex);
+		mainBuffer.fg(widgetColorIndex);
 		mainBuffer.rect(clrFG, mainForm.x+9, 167, mainForm.w-9, mainForm.h-9, auxWidgetCornerRadius-1);
 		
 		// Line separators
-		mainBuffer.fg(highlightIndex);
+		mainBuffer.fg(highlightColorIndex);
 		mainBuffer.line(clrFG, mainForm.x+56, 172, mainForm.x+56, 211);
 		mainBuffer.line(clrFG, mainForm.w-57, 172, mainForm.w-57, 211);
 		
 		// TESTING PANELS
 		if (debugFlag) {
-			mainBuffer.fg(mainIndex);
+			mainBuffer.fg(mainColorIndex);
 			mainBuffer.frame(clrFG, miniPanelX1, miniPanelY1, miniPanelX1+miniPanelW, miniPanelY1+miniPanelH, 0, 1);
 			mainBuffer.frame(clrFG, miniPanelX2, miniPanelY2, miniPanelX2+miniPanelW, miniPanelY2+miniPanelH, 0, 1);
 			mainBuffer.frame(clrFG, miniPanelX3, miniPanelY3, miniPanelX3+miniPanelW, miniPanelY3+miniPanelH, 0, 1);
@@ -259,19 +190,19 @@ void drawAuxiliarPanel(string orientation) {
 		else
 			auxWidgetCornerRadius = widgetCornerRadius;
 		
-		mainBuffer.fg(shadowIndex);
+		mainBuffer.fg(shadowColorIndex);
 		mainBuffer.rect(clrFG, mainForm.x+166, 8, mainForm.w-7, mainForm.h-7, widgetCornerRadius);
-		mainBuffer.fg(fgColorIndex);
+		mainBuffer.fg(widgetColorIndex);
 		mainBuffer.rect(clrFG, mainForm.x+167, 9, mainForm.w-9, mainForm.h-9, auxWidgetCornerRadius-1);
 				
 		// Line separators
-		mainBuffer.fg(highlightIndex);
+		mainBuffer.fg(highlightColorIndex);
 		mainBuffer.line(clrFG, 172, mainForm.h-56, 211, mainForm.h-56);
 		mainBuffer.line(clrFG, 172, mainForm.y+57, 211, mainForm.y+57);
 		
 		// TESTING PANELS
 		if (debugFlag) {
-			mainBuffer.fg(mainIndex);
+			mainBuffer.fg(mainColorIndex);
 			mainBuffer.frame(clrFG, miniPanelX1, miniPanelY1, miniPanelX1+miniPanelW, miniPanelY1+miniPanelH, 0, 1);
 			mainBuffer.frame(clrFG, miniPanelX2, miniPanelY2, miniPanelX2+miniPanelW, miniPanelY2+miniPanelH, 0, 1);
 			mainBuffer.frame(clrFG, miniPanelX3, miniPanelY3, miniPanelX3+miniPanelW, miniPanelY3+miniPanelH, 0, 1);
@@ -287,19 +218,19 @@ void drawAuxiliarPanel(string orientation) {
 		else
 			auxWidgetCornerRadius = widgetCornerRadius;
 		
-		mainBuffer.fg(shadowIndex);
+		mainBuffer.fg(shadowColorIndex);
 		mainBuffer.rect(clrFG, mainForm.x+8, 101, mainForm.w-7, mainForm.h-7, widgetCornerRadius);
-		mainBuffer.fg(fgColorIndex);
+		mainBuffer.fg(widgetColorIndex);
 		mainBuffer.rect(clrFG, mainForm.x+9, 102, mainForm.w-9, mainForm.h-9, auxWidgetCornerRadius-1);
 		
 		// Line separators
-		mainBuffer.fg(highlightIndex);
+		mainBuffer.fg(highlightColorIndex);
 		mainBuffer.line(clrFG, mainForm.x+56, 107, mainForm.x+56, 145);
 		mainBuffer.line(clrFG, mainForm.w-57, 107, mainForm.w-57, 145);
 		
 		// TESTING PANELS
 		if (debugFlag) {
-			mainBuffer.fg(mainIndex);
+			mainBuffer.fg(mainColorIndex);
 			mainBuffer.frame(clrFG, miniPanelX1, miniPanelY1, miniPanelX1+miniPanelW, miniPanelY1+miniPanelH, 0, 1);
 			mainBuffer.frame(clrFG, miniPanelX2, miniPanelY2, miniPanelX2+miniPanelW, miniPanelY2+miniPanelH, 0, 1);
 			mainBuffer.frame(clrFG, miniPanelX3, miniPanelY3, miniPanelX3+miniPanelW, miniPanelY3+miniPanelH, 0, 1);
@@ -448,7 +379,7 @@ void drawDigit(int number,
 	}
 	
 	// ERASE OLD DIGIT
-	mainBuffer.bg(fgColorIndex);
+	mainBuffer.bg(widgetColorIndex);
 	mainBuffer.rect(clrBG, digitX, digitY, digitX+digitW, digitY+digitH, 0);
 	
 	// DRAW NEW SEGMENTS
@@ -565,7 +496,7 @@ void drawMainBuffer() {
 			" Native W: " + nw + " / H: " + nh);
 		
 		draw.text(clrFG, 0, 33,
-			" InterfaceMode: " + interfaceMode + " / BigUI (FalseZero): " + falseZero);
+			" InterfaceMode: " + interfaceMode + " / BigUI: " + bigUI);
 			
 		draw.text(clrFG, 0, 44,
 			" OrigInterfaceMode: " + origInterfaceMode);	

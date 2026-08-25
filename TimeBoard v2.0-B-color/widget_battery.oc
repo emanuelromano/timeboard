@@ -2,7 +2,7 @@ void drawBatteryDots(int startX, int startY, int widW, int widH, int dotRadius, 
 	int centerX, centerY,
 		activeDots,
 		i, x, y,
-		activeR, activeG, activeB;
+		battColorIndex;
 	float angle;
 
 	centerX = startX + (widW / 2);
@@ -18,31 +18,19 @@ void drawBatteryDots(int startX, int startY, int widW, int widH, int dotRadius, 
 
 	// Battery color
 	if (colorDepth > 4) {
-		if (charge > 40) {
+		if (charge > 40)
 			// Green
-			activeR = batteryR;
-			activeG = batteryG;
-			activeB = batteryB;
-		}
-		else if (charge > 20) {
+			battColorIndex = batteryColorIndex;
+		else if (charge > 20)
 			// Orange
-			activeR = 255;
-			activeG = 153;
-			activeB = 0;
-		}
+			battColorIndex = 255;
 		else
-		{
 			// Red
-			activeR = 255;
-			activeG = 0;
-			activeB = 0;
-		}
+			battColorIndex = 255;
 	}
 	else
 	{
-		activeR = batteryR;
-		activeG = batteryG;
-		activeB = batteryB;
+		battColorIndex = batteryColorIndex;
 	}
 
 	for (i = 0; i < 10; i++) {
@@ -53,7 +41,7 @@ void drawBatteryDots(int startX, int startY, int widW, int widH, int dotRadius, 
 		y = centerY + (sin(angle) * ringRadius);
 
 		if (i < activeDots) {
-			mainBuffer.fgRGB(activeR, activeG, activeB);
+			mainBuffer.fg(battColorIndex);
 			
 			mainBuffer.rect(
 			clrFG,
@@ -66,7 +54,7 @@ void drawBatteryDots(int startX, int startY, int widW, int widH, int dotRadius, 
 		else
 		{
 			if (colorDepth > 4) {
-				mainBuffer.fgRGB(batteryEmptyR, batteryEmptyG, batteryEmptyB); // Color discharged grey
+				mainBuffer.fg(battColorIndex); // Color discharged grey
 				
 				mainBuffer.rect(
 				clrFG,
@@ -79,7 +67,7 @@ void drawBatteryDots(int startX, int startY, int widW, int widH, int dotRadius, 
 			else
 			{
 				if (colorDepth == 1) {
-					mainBuffer.fgRGB(activeR, activeG, activeB); // B/W discharged empty circles
+					mainBuffer.fg(battColorIndex); // B/W discharged empty circles
 					
 					mainBuffer.frame(
 					clrFG,
@@ -92,7 +80,7 @@ void drawBatteryDots(int startX, int startY, int widW, int widH, int dotRadius, 
 				}
 				else
 				{
-					mainBuffer.fgRGB(batteryEmptyR, batteryEmptyG, batteryEmptyB); // Gray discharged grey
+					mainBuffer.fg(batteryEmptyColorIndex); // Gray discharged grey
 					
 					mainBuffer.rect(
 					clrFG,
@@ -123,24 +111,24 @@ void batteryWidget(int startX, int startY) {
 	
 	// Battery icon
 	if (colorDepth > 4 || colorDepth == 1)
-		mainBuffer.fg(mainIndex);
+		mainBuffer.fg(mainColorIndex);
 	else
-		mainBuffer.fg(highlightIndex);
+		mainBuffer.fg(highlightColorIndex);
 	
 	mainBuffer.frame(clrFG, iconX, iconY, iconX+15, iconY+8, 2, 1);
 	mainBuffer.line(clrFG, iconX+16, iconY+2, iconX+16, iconY+5);
 	
-	mainBuffer.fg(highlightIndex);
+	mainBuffer.fg(highlightColorIndex);
 	mainBuffer.rect(clrFG, iconX+1, iconY+1, iconX+14, iconY+7, 1);
 	
 	// Battery percentage
 	if (colorDepth > 4 || colorDepth == 1)
-		mainBuffer.textColor(mainIndex);
+		mainBuffer.textColor(mainColorIndex);
 	else
-		mainBuffer.textColor(highlightIndex);
+		mainBuffer.textColor(highlightColorIndex);
 	
 	mainBuffer.textAlign(02);
-	mainBuffer.bg(fgColorIndex);
+	mainBuffer.bg(widgetColorIndex);
 	mainBuffer.font(fntLargeBold);
 	mainBuffer.text(clrText, startX+65, digitY, "   "+charge+"%");
 	mainBuffer.end();
@@ -189,12 +177,12 @@ void miniBatteryWidget(int startX, int startY) {
 	// Battery percentage
 	mainBuffer.begin();
 	if (colorDepth > 4 || colorDepth == 1)
-		mainBuffer.textColor(mainIndex);
+		mainBuffer.textColor(mainColorIndex);
 	else
-		mainBuffer.textColor(highlightIndex);
+		mainBuffer.textColor(highlightColorIndex);
 	
 	mainBuffer.textAlign(11);
-	mainBuffer.bg(fgColorIndex);
+	mainBuffer.bg(widgetColorIndex);
 	mainBuffer.font(fntStandard);
 	
 	// Charge

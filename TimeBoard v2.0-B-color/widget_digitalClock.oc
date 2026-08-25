@@ -20,31 +20,31 @@ void digitalClockWidget(int startX, int startY) {
 	
 	mainBuffer.begin();
 	// Hour
-	mainBuffer.fg(highlightIndex);
+	mainBuffer.fg(highlightColorIndex);
 	// drawDigit() comes from globalFunctions.oc
 	drawDigit(hourDigit1, digitW, digitH, digitHr1X, digitY1, radius, segmentThickness);
 	drawDigit(hourDigit2, digitW, digitH, digitHr2X, digitY1, radius, segmentThickness);
 	
 	// Minutes
-	mainBuffer.fg(mainIndex);
+	mainBuffer.fg(mainColorIndex);
 	drawDigit(minuteDigit1, digitW, digitH, digitMin1X, digitY2, radius, segmentThickness);
 	drawDigit(minuteDigit2, digitW, digitH, digitMin2X, digitY2, radius, segmentThickness);
 	
 	// AP/PM
 	/*mainBuffer.textAlign(02);
-	mainBuffer.textColor(highlightIndex);
-	mainBuffer.bg(fgColorIndex);
+	mainBuffer.textColor(highlightColorIndex);
+	mainBuffer.bg(widgetColorIndex);
 	mainBuffer.font(fntLargeBold);
 	mainBuffer.text(clrText, startX+widgetW-5, startY+4, amPmStr);*/
 	
 	// Seconds
 	if (colorDepth > 4 || colorDepth == 1)
-		mainBuffer.textColor(mainIndex);
+		mainBuffer.textColor(mainColorIndex);
 	else
-		mainBuffer.textColor(highlightIndex);
+		mainBuffer.textColor(highlightColorIndex);
 	
 	mainBuffer.textAlign(22);
-	mainBuffer.bg(fgColorIndex);
+	mainBuffer.bg(widgetColorIndex);
 	mainBuffer.font(fntLargeBold);
 	mainBuffer.text(clrText, startX+widgetW-5, startY+widgetH-6, "   " + secondDigit1 + "" + secondDigit2);
 	mainBuffer.end();
@@ -72,22 +72,22 @@ void miniDigitalClockWidget(int startX, int startY) {
 	splitTimeDigits();
 	
 	mainBuffer.begin();
-	mainBuffer.fg(highlightIndex);
-	mainBuffer.bg(fgColorIndex);
+	mainBuffer.fg(highlightColorIndex);
+	mainBuffer.bg(widgetColorIndex);
 	// Hour
 	drawDigit(hourDigit1, digitW, digitH, digitHr1X, digitY1, radius, segmentThickness);
 	drawDigit(hourDigit2, digitW, digitH, digitHr2X, digitY1, radius, segmentThickness);
 	
 	// Minutes
-	mainBuffer.fg(mainIndex);
+	mainBuffer.fg(mainColorIndex);
 	drawDigit(minuteDigit1, digitW, digitH, digitMin1X, digitY2, radius, segmentThickness);
 	drawDigit(minuteDigit2, digitW, digitH, digitMin2X, digitY2, radius, segmentThickness);
 
 	// Seconds
 	if (colorDepth > 4 || colorDepth == 1)
-		mainBuffer.textColor(mainIndex);
+		mainBuffer.textColor(mainColorIndex);
 	else
-		mainBuffer.textColor(highlightIndex);
+		mainBuffer.textColor(highlightColorIndex);
 	
 	mainBuffer.textAlign(11);
 	mainBuffer.font(fntStandard);
