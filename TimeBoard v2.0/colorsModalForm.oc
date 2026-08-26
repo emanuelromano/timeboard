@@ -6,19 +6,19 @@ void showColorsControls() {
 	themePopup.visible = true;
 	bgColorBtn.visible = true;
 	bgLbl.visible = true;
-	fgColorBtn.visible = true;
-	fgLbl.visible = true;
+	widgetColorBtn.visible = true;
+	widgetLbl.visible = true;
 	shadowColorBtn.visible = true;
 	shadowLbl.visible = true;
-	highlightBtn.visible = true;
+	highlightColorBtn.visible = true;
 	hlghtLbl.visible = true;
-	mainBtn.visible = true;
+	mainColorBtn.visible = true;
 	mainLbl.visible = true;
 }
 
 void drawWidgetRepresentation() {
-int startX = 6,
-		startY = 6,
+int startX = 7,
+		startY = 7,
 		digitW = 16,
 		digitH = 28,
 		radius = fontRadius,
@@ -69,7 +69,7 @@ int startX = 6,
 	prefsBuffer.end();
 	
 	draw.begin();
-	draw.draw(prefsBuffer, 3, 18);
+	draw.draw(prefsBuffer, 3, 32);
 	draw.end();
 	
 	showColorsControls();
@@ -80,19 +80,19 @@ void drawColorSquares() {
 	draw.begin();
 	// Background
 	draw.fg(bgColorIndex);
-	draw.rect(clrFG, 92, 31, 102, 41, 0);
+	draw.rect(clrFG, bgColorBtn.x+1, bgColorBtn.y+1, bgColorBtn.x+11, bgColorBtn.y+11, 0);
 	// Widgets
 	draw.fg(widgetColorIndex);
-	draw.rect(clrFG, 92, 46, 102, 56, 0);
+	draw.rect(clrFG, widgetColorBtn.x+1, widgetColorBtn.y+1, widgetColorBtn.x+11, widgetColorBtn.y+11, 0);
 	//Shadows
 	draw.fg(shadowColorIndex);
-	draw.rect(clrFG, 92, 61, 102, 71, 0);
+	draw.rect(clrFG, shadowColorBtn.x+1, shadowColorBtn.y+1, shadowColorBtn.x+11, shadowColorBtn.y+11, 0);
 	// Highlights
 	draw.fg(highlightColorIndex);
-	draw.rect(clrFG, 92, 76, 102, 86, 0);
+	draw.rect(clrFG, highlightColorBtn.x+1, highlightColorBtn.y+1, highlightColorBtn.x+11, highlightColorBtn.y+11, 0);
 	// Main
 	draw.fg(mainColorIndex);
-	draw.rect(clrFG, 92, 91, 102, 101, 0);
+	draw.rect(clrFG, mainColorBtn.x+1, mainColorBtn.y+1, mainColorBtn.x+11, mainColorBtn.y+11, 0);
 	draw.end();
 }
 
@@ -114,14 +114,14 @@ handler bgColorBtn.onselect() {
 	if (draw.selectIndex("Choose background color:", &bgColorIndex)) {
 		draw.begin();
 		draw.fg(bgColorIndex);
-		draw.rect(clrFG, 92, 31, 102, 41, 0);
+		draw.rect(clrFG, bgColorBtn.x+1, bgColorBtn.y+1, bgColorBtn.x+11, bgColorBtn.y+11, 0);
 		draw.end();
 	}
 	else
 	{
 		draw.begin();
 		draw.fg(bgColorIndex);
-		draw.rect(clrFG, 92, 31, 102, 41, 0);
+		draw.rect(clrFG, bgColorBtn.x+1, bgColorBtn.y+1, bgColorBtn.x+11, bgColorBtn.y+11, 0);
 		draw.end();
 	}
 	
@@ -131,18 +131,18 @@ handler bgColorBtn.onselect() {
 
 
 // Widgets color selector
-handler fgColorBtn.onselect() {
+handler widgetColorBtn.onselect() {
 	if (draw.selectIndex("Choose widgets color:", &widgetColorIndex)) {
 		draw.begin();
 		draw.fg(widgetColorIndex);
-		draw.rect(clrFG, 92, 46, 102, 56, 0);
+		draw.rect(clrFG, widgetColorBtn.x+1, widgetColorBtn.y+1, widgetColorBtn.x+11, widgetColorBtn.y+11, 0);
 		draw.end();
 	}
 	else
 	{
 		draw.begin();
 		draw.fg(widgetColorIndex);
-		draw.rect(clrFG, 92, 46, 102, 56, 0);
+		draw.rect(clrFG, widgetColorBtn.x+1, widgetColorBtn.y+1, widgetColorBtn.x+11, widgetColorBtn.y+11, 0);
 		draw.end();
 	}
 	
@@ -156,14 +156,14 @@ handler shadowColorBtn.onselect() {
 	if (draw.selectIndex("Choose shadows color:", &shadowColorIndex)) {
 		draw.begin();
 		draw.fg(shadowColorIndex);
-		draw.rect(clrFG, 92, 61, 102, 71, 0);
+		draw.rect(clrFG, shadowColorBtn.x+1, shadowColorBtn.y+1, shadowColorBtn.x+11, shadowColorBtn.y+11, 0);
 		draw.end();
 	}
 	else
 	{
 		draw.begin();
 		draw.fg(shadowColorIndex);
-		draw.rect(clrFG, 92, 61, 102, 71, 0);
+		draw.rect(clrFG, shadowColorBtn.x+1, shadowColorBtn.y+1, shadowColorBtn.x+11, shadowColorBtn.y+11, 0);
 		draw.end();
 	}
 	
@@ -173,18 +173,18 @@ handler shadowColorBtn.onselect() {
 
 
 // Highlights color selector
-handler highlightBtn.onselect() {
+handler highlightColorBtn.onselect() {
 	if (draw.selectIndex("Choose highlights color:", &highlightColorIndex)) {
 		draw.begin();
 		draw.fg(highlightColorIndex);
-		draw.rect(clrFG, 92, 76, 102, 86, 0);
+		draw.rect(clrFG, highlightColorBtn.x+1, highlightColorBtn.y+1, highlightColorBtn.x+11, highlightColorBtn.y+11, 0);
 		draw.end();
 	}
 	else
 	{
 		draw.begin();
 		draw.fg(highlightColorIndex);
-		draw.rect(clrFG, 92, 76, 102, 86, 0);
+		draw.rect(clrFG, highlightColorBtn.x+1, highlightColorBtn.y+1, highlightColorBtn.x+11, highlightColorBtn.y+11, 0);
 		draw.end();
 	}
 	
@@ -194,18 +194,18 @@ handler highlightBtn.onselect() {
 
 
 // Main color selector
-handler mainBtn.onselect() {
+handler mainColorBtn.onselect() {
 	if (draw.selectIndex("Choose main color:", &mainColorIndex)) {
 		draw.begin();
 		draw.fg(mainColorIndex);
-		draw.rect(clrFG, 92, 91, 102, 101, 0);
+		draw.rect(clrFG, mainColorBtn.x+1, mainColorBtn.y+1, mainColorBtn.x+11, mainColorBtn.y+11, 0);
 		draw.end();
 	}
 	else
 	{
 		draw.begin();
 		draw.fg(mainColorIndex);
-		draw.rect(clrFG, 92, 91, 102, 101, 0);
+		draw.rect(clrFG, mainColorBtn.x+1, mainColorBtn.y+1, mainColorBtn.x+11, mainColorBtn.y+11, 0);
 		draw.end();
 	}
 	

@@ -10,7 +10,7 @@ handler debugModalForm.onopen() {
 handler resetBtn.onselect() {
 	int response;
 	
-	response = alertc("Warning", "Reset the app to default values?", "OK:Cancel", alertWarning);
+	response = alertc("Warning!", "Reset the app to default values?", "OK:Cancel", alertWarning);
 	
 	if (response == 0) {
 		debugCbx.checked = false;
