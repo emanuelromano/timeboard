@@ -61,8 +61,6 @@ bool setDefaultPrefs() {
 									// 0 = false / lines
 	
 	// 0: B/W screens (1-bit)
-	appPrefs[0].debugFlag = debugFlag;
-	
 	appPrefs[0].bgColorIndex = 0;
 	appPrefs[0].widgetColorIndex = 0;
 	appPrefs[0].shadowColorIndex = 1;
@@ -71,14 +69,13 @@ bool setDefaultPrefs() {
 	appPrefs[0].batteryColorIndex = 1;
 	appPrefs[0].batteryEmptyColorIndex = 0;
 	
+	appPrefs[0].debugFlag = debugFlag;
 	appPrefs[0].interfaceMode = interfaceMode;
 	appPrefs[0].widgetCornerRadius = widgetCornerRadius;
 	appPrefs[0].useAnalogClockNumbers = useAnalogClockNumbers;
 		
 	
 	// 1: Grayscale screens (2-bit)
-	appPrefs[1].debugFlag = debugFlag;
-	
 	appPrefs[1].bgColorIndex = 1;
 	appPrefs[1].widgetColorIndex = 0;
 	appPrefs[1].shadowColorIndex = 3;
@@ -87,14 +84,13 @@ bool setDefaultPrefs() {
 	appPrefs[1].batteryColorIndex = 3;
 	appPrefs[1].batteryEmptyColorIndex = 1;
 	
+	appPrefs[1].debugFlag = debugFlag;
 	appPrefs[1].interfaceMode = interfaceMode;
 	appPrefs[1].widgetCornerRadius = widgetCornerRadius;
 	appPrefs[1].useAnalogClockNumbers = useAnalogClockNumbers;
 	
 	
 	// 2: Grayscale screens (4-bit)
-	appPrefs[2].debugFlag = debugFlag;
-	
 	appPrefs[2].bgColorIndex = 3;
 	appPrefs[2].widgetColorIndex = 0;
 	appPrefs[2].shadowColorIndex = 12;
@@ -103,14 +99,13 @@ bool setDefaultPrefs() {
 	appPrefs[2].batteryColorIndex = 11;
 	appPrefs[2].batteryEmptyColorIndex = 5;
 	
+	appPrefs[2].debugFlag = debugFlag;
 	appPrefs[2].interfaceMode = interfaceMode;
 	appPrefs[2].widgetCornerRadius = widgetCornerRadius;
 	appPrefs[2].useAnalogClockNumbers = useAnalogClockNumbers;
 	
 	
 	// 3: Color screens (8-bit)
-	appPrefs[3].debugFlag = debugFlag;
-	
 	appPrefs[3].bgColorIndex = 224;
 	appPrefs[3].widgetColorIndex = 217;
 	appPrefs[3].shadowColorIndex = 216;
@@ -119,6 +114,7 @@ bool setDefaultPrefs() {
 	appPrefs[3].batteryColorIndex = 168;
 	appPrefs[3].batteryEmptyColorIndex = 219;
 	
+	appPrefs[3].debugFlag = debugFlag;
 	appPrefs[3].interfaceMode = interfaceMode;
 	appPrefs[3].widgetCornerRadius = widgetCornerRadius;
 	appPrefs[3].useAnalogClockNumbers = useAnalogClockNumbers;
