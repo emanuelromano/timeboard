@@ -113,8 +113,8 @@ bool setDefaultPrefs() {
 	
 	appPrefs[3].bgColorIndex = 216;
 	appPrefs[3].widgetColorIndex = 217;
-	appPrefs[3].shadowColorIndex = 120;
-	appPrefs[3].highlightColorIndex = 120;
+	appPrefs[3].shadowColorIndex = 121;
+	appPrefs[3].highlightColorIndex = 121;
 	appPrefs[3].mainColorIndex = 0;
 	appPrefs[3].batteryColorIndex = 168;
 	appPrefs[3].batteryEmptyColorIndex = 219;

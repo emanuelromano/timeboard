@@ -26,6 +26,12 @@ handler preferencesForm.onopen() {
 }
 
 
+handler preferencesForm.ondraw() {
+	if (colorDepth > 4)
+		colorsBmp.visible = true;
+}
+
+
 handler prefsColorsBtn.onselect() {
 	colorsBmp.visible = true;
 	colorsModalForm.domodal();
@@ -77,7 +83,8 @@ handler prefsBackBtn.onselect() {
 
 
 handler preferencesForm.onpenup() {
-	if (colorDepth > 4) colorsBmp.visible = true;
+	if (colorDepth > 4)
+		colorsBmp.visible = true;
 }
 
 
