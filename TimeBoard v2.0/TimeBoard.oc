@@ -45,20 +45,20 @@ AppPrefs appPrefs[numberOfPrefs];
 
 
 // Getting saved preferences
-// Returns false if there is no stored preferences
+// Returns false if there are no stored preferences
 bool getPrefs() {
 	return prefs.get(TimeBoard.creator, true, appPrefs, typeof(AppPrefs), numberOfPrefs);
 }
 
 
-// Set default preferences in case they do not exist
+// Set default preferences
 bool setDefaultPrefs() {
 	bool debugFlag = false;
 	int interfaceMode = 1,
 		widgetCornerRadius = 4, // 0-4-8 pixels
 		useAnalogClockNumbers = 1;	// Show numbers or lines in analog clock:
-									// 1 = true
-									// 0 = false
+									// 1 = true / numbers
+									// 0 = false / lines
 	
 	// 0: B/W screens (1-bit)
 	appPrefs[0].debugFlag = debugFlag;
@@ -111,9 +111,9 @@ bool setDefaultPrefs() {
 	// 3: Color screens (8-bit)
 	appPrefs[3].debugFlag = debugFlag;
 	
-	appPrefs[3].bgColorIndex = 216;
+	appPrefs[3].bgColorIndex = 224;
 	appPrefs[3].widgetColorIndex = 217;
-	appPrefs[3].shadowColorIndex = 121;
+	appPrefs[3].shadowColorIndex = 216;
 	appPrefs[3].highlightColorIndex = 121;
 	appPrefs[3].mainColorIndex = 0;
 	appPrefs[3].batteryColorIndex = 168;
@@ -130,16 +130,15 @@ bool setDefaultPrefs() {
 handler TimeBoard.onstart() {
 	int version = osver();
 	
-	// VALIDATIONS
+	// VALIDATION
 	// Minimun OS version warning
 	if (version < 50462720) {
-    	alert("TimeBoard requires Palm OS 3.5 or higher.\nApp will exit.");
+    	alert("This version of TimeBoard requires Palm OS 3.5 or higher.\nApp will exit.");
     	TimeBoard.abort();
 	}
 	
 	// Get color depth supported by device at the moment
-	colorDepth = TimeBoard.getdepth();
-		
+	colorDepth = TimeBoard.getdepth();	
 	switch (colorDepth) {
 		case 1:
 				appPrefsPosition = 0; // 0: B/W screens (1-bit)
@@ -162,7 +161,7 @@ handler TimeBoard.onstart() {
 	}
 	
 	// If there is no default prefs, set default prefs
-	if (getPrefs() == false)
+	if (!getPrefs())
 		setDefaultPrefs();
 	
 	// Load the main form
