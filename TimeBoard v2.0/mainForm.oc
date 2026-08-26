@@ -1,23 +1,37 @@
-void composeBackgroundBuffer() {	
+void composeBackgroundBuffer() {
+	// Widget corner radius correction
+	if (widgetCornerRadius == 0)
+		auxWidgetCornerRadius = 1;
+	else
+		auxWidgetCornerRadius = widgetCornerRadius;
+	
 	mainBuffer.begin();
 	
 	// Draw background
 	mainBuffer.fg(bgColorIndex);
 	mainBuffer.rect(clrFG, mainForm.x, mainForm.y, mainForm.w, mainForm.h, 0);
 	
+	// For interfaceMode = 0 & 1:
 	if (showWidget1) {		
 		// Main rectangle
-		if (widgetCornerRadius == 0)
-			auxWidgetCornerRadius = 1;
-		else
-			auxWidgetCornerRadius = widgetCornerRadius;
-		
 		mainBuffer.fg(shadowColorIndex);
 		mainBuffer.rect(clrFG, startX1, startY1, startX1+widgetW+1, startY1+widgetH+1, widgetCornerRadius);
 		mainBuffer.fg(widgetColorIndex);
-		mainBuffer.rect(clrFG, startX1+1, startY1+1, startX1+widgetW-1, startY1+widgetH-1, auxWidgetCornerRadius-1);		
+		mainBuffer.rect(clrFG, startX1+1, startY1+1, startX1+widgetW-1, startY1+widgetH-1, auxWidgetCornerRadius-1);
+		
+		if (interfaceMode == 1) {
+			// Big widget pannel text
+			mainBuffer.begin();
+			mainBuffer.textColor(highlightColorIndex);
+			mainBuffer.bg(widgetColorIndex);
+			mainBuffer.font(fntBold);
+			mainBuffer.textAlign(22);
+			mainBuffer.text(clrText, mainForm.w-14, mainForm.y+widgetH+1, "TimeBoard");
+			mainBuffer.end();
+		}
 	}
 	
+	// For interfaceMode = 0:
 	if (showWidget2) {
 		// Main rectangle
 		mainBuffer.fg(shadowColorIndex);
@@ -191,15 +205,6 @@ handler mainForm.ondraw() {
 			composeBackgroundBuffer();
 			composeWidgetsBuffer();
 			
-			// Big widget background pannel text
-			mainBuffer.begin();
-			mainBuffer.textColor(highlightColorIndex);
-			mainBuffer.bg(widgetColorIndex);
-			mainBuffer.font(fntBold);
-			mainBuffer.textAlign(22);
-			mainBuffer.text(clrText, mainForm.w-14, mainForm.y+widgetH+1, "TimeBoard");
-			mainBuffer.end();
-		
 			orientation = "N"; // Normal (square)
 			drawAuxiliarPanel(orientation);
 			
@@ -260,24 +265,24 @@ handler mainForm.ontimer() {
 			if (day != lastDay)
 				calendarWidget(startX3, startY3);
 		else
-			if (interfaceMode == 1 || bigUI)
+			if ((day != lastDay) && interfaceMode == 1 || bigUI)
 				miniCalendarWidget(miniPanelX2, miniPanelY2);
 		
 		if (showWidget4)
 			if (charge != lastCharge)
 				batteryWidget(startX4, startY4);
 		else
-			if (interfaceMode == 1 || bigUI)
+			if ((charge != lastCharge) && interfaceMode == 1 || bigUI)
 				miniBatteryWidget(miniPanelX3, miniPanelY3);
 		
 		// Draw mainBuffer
 		drawMainBuffer();
+		
+		lastDay = day;
+		lastCharge = charge;
 	}
 	
 	lastSecond = seconds;
-	lastMinute = minutes;
-	lastDay = day;
-	lastCharge = charge;
 	timer(20);
 }
 

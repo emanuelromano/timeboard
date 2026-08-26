@@ -194,7 +194,7 @@
       leftanchor = true, group = 0, fontid = 0
       graphic = true, bitmapid = 1031, sbitmapid = 0
       frame = 3
-      hresize = 1, vresize = 1
+      hresize = 0, vresize = 1
     }
     button UIButton prefsSaveBtn {
       id = 1019

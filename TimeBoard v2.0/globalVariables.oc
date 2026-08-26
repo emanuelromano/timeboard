@@ -10,7 +10,7 @@ int charge, lastCharge; // Battery
 // Time & battery
 const float pi = 3.14159265;
 int year, month, day, lastDay, weekday,
-	hours, minutes, seconds, lastSecond, lastMinute,
+	hours, minutes, seconds, lastSecond,
 	
 	dayDigit1, dayDigit2,
 	
