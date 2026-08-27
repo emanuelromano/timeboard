@@ -106,7 +106,7 @@ bool setDefaultPrefs() {
 	
 	
 	// 3: Color screens (8-bit)
-	appPrefs[3].bgColorIndex = 224;
+	appPrefs[3].bgColorIndex = 115;
 	appPrefs[3].widgetColorIndex = 217;
 	appPrefs[3].shadowColorIndex = 216;
 	appPrefs[3].highlightColorIndex = 121;

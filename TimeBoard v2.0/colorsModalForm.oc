@@ -1,19 +1,27 @@
 Draw prefsBuffer;
+string colorElements[3];
 
-void showColorsControls() {
+void showColorControls() {
 	// Controls set to be visible
-	themeLabel.visible = true;
-	themePopup.visible = true;
+	colorPopup.visible = true;
+	
 	bgColorBtn.visible = true;
-	bgLbl.visible = true;
 	widgetColorBtn.visible = true;
-	widgetLbl.visible = true;
 	shadowColorBtn.visible = true;
-	shadowLbl.visible = true;
 	highlightColorBtn.visible = true;
-	hlghtLbl.visible = true;
 	mainColorBtn.visible = true;
-	mainLbl.visible = true;
+	
+	label1.text = "Background";
+	label2.text = "Widgets";
+	label3.text = "Shadows";
+	label4.text = "Highlights";
+	label5.text = "Main";
+	
+	label1.visible = true;
+	label2.visible = true;
+	label3.visible = true;
+	label4.visible = true;
+	label5.visible = true;
 }
 
 void drawWidgetRepresentation() {
@@ -72,7 +80,7 @@ int startX = 7,
 	draw.draw(prefsBuffer, 3, 32);
 	draw.end();
 	
-	showColorsControls();
+	showColorControls();
 }
 
 
@@ -100,6 +108,11 @@ void drawColorSquares() {
 handler colorsModalForm.onopen() {
 	draw.attachForm(this);
 	prefsBuffer.create(156, 85);
+	
+	colorElements[0] = "Widgets";
+	colorElements[1] = "Analog clock";
+	colorElements[2] = "Battery";
+	colorList.setitems(3, colorElements);
 }
 
 

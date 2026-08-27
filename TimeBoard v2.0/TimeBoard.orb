@@ -233,16 +233,9 @@
       text = "Colors"
       hresize = 0, vresize = 0
     }
-    label UILabel themeLabel {
-      id = 1046
-      x = 6, y = 17
-      fontid = 0
-      text = "Theme:"
-      hresize = 0, vresize = 0
-    }
-    popup UIPopup themePopup {
+    popup UIPopup colorPopup {
       id = 1047
-      x = 38, y = 17, w = 49, h = 11
+      x = 5, y = 17, w = 49, h = 11
       text = "Select..."
       leftanchor = true, group = 0, fontid = 0
       hresize = 0, vresize = 0
@@ -279,32 +272,32 @@
       frame = 3
       hresize = 0, vresize = 0
     }
-    label UILabel bgLbl {
+    label UILabel label1 {
       id = 1050
       x = 106, y = 38
       fontid = 0
-      text = "Background"
+      text = "label1                         "
       hresize = 0, vresize = 0
     }
-    label UILabel widgetLbl {
+    label UILabel label2 {
       id = 1051
       x = 106, y = 54
       fontid = 0
-      text = "Widgets"
+      text = "label2                         "
       hresize = 0, vresize = 0
     }
-    label UILabel hlghtLbl {
+    label UILabel label4 {
       id = 1052
       x = 106, y = 84
       fontid = 0
-      text = "Highlights"
+      text = "label4                         "
       hresize = 0, vresize = 0
     }
-    label UILabel mainLbl {
+    label UILabel label5 {
       id = 1053
       x = 106, y = 99
       fontid = 0
-      text = "Main"
+      text = "label5                         "
       hresize = 0, vresize = 0
     }
     button UIButton colorsModalSaveBtn {
@@ -331,11 +324,17 @@
       frame = 3
       hresize = 0, vresize = 0
     }
-    label UILabel shadowLbl {
+    label UILabel label3 {
       id = 1058
       x = 106, y = 69
       fontid = 0
-      text = "Shadows"
+      text = "label3                         "
+      hresize = 0, vresize = 0
+    }
+    list UIList colorList {
+      id = 1055
+      x = 5, y = 17, w = 60, h = 33
+      numvisible = 3, triggerid = 1047, fontid = 0
       hresize = 0, vresize = 0
     }
   }
