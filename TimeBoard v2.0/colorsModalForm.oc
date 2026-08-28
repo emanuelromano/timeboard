@@ -1,21 +1,16 @@
 Draw prefsBuffer;
 string colorElements[3];
+int popupSelection;
 
 void showColorControls() {
 	// Controls set to be visible
 	colorPopup.visible = true;
 	
-	bgColorBtn.visible = true;
-	widgetColorBtn.visible = true;
-	shadowColorBtn.visible = true;
-	highlightColorBtn.visible = true;
-	mainColorBtn.visible = true;
-	
-	label1.text = "Background";
-	label2.text = "Widgets";
-	label3.text = "Shadows";
-	label4.text = "Highlights";
-	label5.text = "Main";
+	color1Btn.visible = true;
+	color2Btn.visible = true;
+	color3Btn.visible = true;
+	color4Btn.visible = true;
+	color5Btn.visible = true;
 	
 	label1.visible = true;
 	label2.visible = true;
@@ -25,6 +20,263 @@ void showColorControls() {
 }
 
 void drawWidgetRepresentation() {
+	int startX = 7,
+		startY = 7,
+		widW = 70,
+		widH = 70,
+		digitW = 16,
+		digitH = 28,
+		radius = fontRadius,
+		segmentThickness = 6,
+	
+		digitHr1X = startX + 6,
+		digitHr2X = digitHr1X + digitW + 3,
+		
+		digitMin1X = startX + 6,
+		digitMin2X = digitMin1X + digitW + 3,
+		
+		digitY1 = startY + 6,
+		digitY2 = digitY1 + digitH + 3;
+	
+	prefsBuffer.begin();
+	// Background
+	prefsBuffer.fg(bgColorIndex);
+	prefsBuffer.rect(clrFG, 0, 0, 85, 85, 0);
+	
+	// Shadow
+	prefsBuffer.fg(shadowColorIndex);
+	prefsBuffer.rect(clrFG, startX, startY, startX+widW+1, startY+widH+1, widgetCornerRadius);
+	
+	// Widget
+	prefsBuffer.fg(widgetColorIndex);
+	prefsBuffer.rect(clrFG, startX+1, startY+1, startX+widW-1, startY+widH-1, widgetCornerRadius);
+	
+	// Hour
+	prefsBuffer.fg(highlightColorIndex);
+	// drawDigit() comes from globalFunctions.oc
+	drawDigit("1", digitW, digitH, digitHr1X, digitY1, radius, segmentThickness);
+	drawDigit("2", digitW, digitH, digitHr2X, digitY1, radius, segmentThickness);
+	
+	// Minutes
+	prefsBuffer.fg(mainColorIndex);
+	drawDigit("3", digitW, digitH, digitMin1X, digitY2, radius, segmentThickness);
+	drawDigit("4", digitW, digitH, digitMin2X, digitY2, radius, segmentThickness);
+
+	// Seconds
+	prefsBuffer.textAlign(22);
+	prefsBuffer.bg(widgetColorIndex);
+	mainBuffer.textColor(mainColorIndex);
+	prefsBuffer.font(fntLargeBold);
+	prefsBuffer.text(clrText, startX+widW-5, startY+widH-6, "56");
+	prefsBuffer.end();
+	
+	draw.begin();
+	draw.draw(prefsBuffer, 3, 32);
+	draw.end();
+	
+	label1.text = "Background";
+	label2.text = "Widgets";
+	label3.text = "Shadows";
+	label4.text = "Highlights";
+	label5.text = "Main";
+	
+	showColorControls();
+}
+
+
+void drawAnalogClockRepresentation() {
+	int startX = 7,
+		startY = 7,
+		widW = 70,
+		widH = 70,
+		i, x, y,
+		radius,
+		innerRadius,
+		outerRadius,
+		x1, y1,
+		x2, y2,
+		cenX, cenY,
+		hourLen, minuteLen, secondLen,
+		circleSeparation,
+		circleCornerRadius,
+		secondDotRadius;
+	float angle;
+	string number;
+	
+	cenX = startX + (widW / 2);
+	cenY = startY + (widH / 2);
+	
+	radius = (widW / 2) - (widH / 2) * 0.26;
+	
+	// Hands lenght
+	hourLen = (widW / 2) - (widW / 2) * 0.55;
+	minuteLen = (widW / 2) - (widW / 2) * 0.41;
+	secondLen = (widW / 2) - (widW / 2) * 0.41;
+	
+	prefsBuffer.begin();
+	
+	// Background
+	prefsBuffer.fg(bgColorIndex);
+	prefsBuffer.rect(clrFG, 0, 0, 85, 85, 0);
+	
+	// Shadow
+	prefsBuffer.fg(shadowColorIndex);
+	prefsBuffer.rect(clrFG, startX, startY, startX+widW+1, startY+widH+1, widgetCornerRadius);
+	
+	// Widget
+	prefsBuffer.fg(widgetColorIndex);
+	prefsBuffer.rect(clrFG, startX+1, startY+1, startX+widW-1, startY+widH-1, widgetCornerRadius);
+	
+	if (useAnalogClockNumbers == 1) {
+		// Clock numbers
+		for (i = 0; i < 12; i++) {
+	
+			// 0 = 12 upwards
+			angle = ((i * 30) - 90) * 3.14159265 / 180;
+	
+			x = cenX + roundCoord(cos(angle) * radius);
+			y = cenY + roundCoord(sin(angle) * radius) - 1;
+	
+			if (i == 0)
+				number = "12";
+			else
+				number = "" + i;
+						
+			// Centered text, font and color
+			prefsBuffer.textAlign(11);
+			prefsBuffer.bg(widgetColorIndex);
+			prefsBuffer.font(fntStandard);
+			
+			// Color switch
+			if (colorDepth == 2 || colorDepth == 4)
+    			prefsBuffer.textColor(highlightColorIndex);
+    		else
+    			prefsBuffer.textColor(mainColorIndex);
+    		
+			prefsBuffer.text(clrText, x, y, number);
+		}
+	}
+	else
+	{
+		// Clock lines
+		for (i = 0; i < 12; i++) {
+			if (i == 0 || i == 3 || i == 6 || i == 9) {
+    			// Longer lines
+    			innerRadius = (widW / 2) * 0.66;
+    			outerRadius = (widW / 2) * 0.80;
+			}
+			else {
+    			// Shorter lines
+    			innerRadius = (widW / 2) * 0.70;
+    			outerRadius = (widW / 2) * 0.80;
+			}
+			
+    		// 0 = 12 o'clock
+    		angle = ((i * 30) - 90) * 3.14159265 / 180;
+			
+			x1 = cenX + roundCoord(cos(angle) * innerRadius);
+			y1 = cenY + roundCoord(sin(angle) * innerRadius);
+			
+			x2 = cenX + roundCoord(cos(angle) * outerRadius);
+			y2 = cenY + roundCoord(sin(angle) * outerRadius);
+    		    		
+    		// Color for 3, 6, 9 & 12 lines
+    		prefsBuffer.fg(highlightColorIndex);
+    		if (i == 0) {
+    			prefsBuffer.line(clrFG, x1-1, y1-1, x2-1, y2+1);
+    			prefsBuffer.line(clrFG, x1, y1, x2, y2);
+    			prefsBuffer.line(clrFG, x1+1, y1-1, x2+1, y2+1);
+    		}
+    		else if (i == 3) {
+    			prefsBuffer.line(clrFG, x1+1, y1-1, x2-1, y2-1);
+    			prefsBuffer.line(clrFG, x1, y1, x2, y2);
+    			prefsBuffer.line(clrFG, x1+1, y1+1, x2-1, y2+1);
+    		}
+    		else if (i == 6) {
+    			prefsBuffer.line(clrFG, x1-1, y1+1, x2-1, y2-1);
+    			prefsBuffer.line(clrFG, x1, y1, x2, y2);
+    			prefsBuffer.line(clrFG, x1+1, y1+1, x2+1, y2-1);
+    		}
+    		else if (i == 9) {
+    			prefsBuffer.line(clrFG, x1-1, y1-1, x2+1, y2-1);
+    			prefsBuffer.line(clrFG, x1, y1, x2, y2);
+    			prefsBuffer.line(clrFG, x1-1, y1+1, x2+1, y2+1);
+    		}
+    		else
+    		{
+    			if (colorDepth > 4 || colorDepth ==1)
+					prefsBuffer.fg(mainColorIndex);
+				else
+					prefsBuffer.fg(highlightColorIndex);
+				
+    			if (widW != 70) {
+    				prefsBuffer.rect(clrFG, x2-1, y2-1, x2+2, y2+2, 2);
+    			}
+    			else
+    			{
+    				prefsBuffer.pixel(clrFG, x2, y2);
+    			}
+    		}
+		}
+	}
+	
+	// Circle around clock on widget
+	circleSeparation = 31;
+	circleCornerRadius = 31;
+	
+	prefsBuffer.fg(highlightColorIndex);
+	prefsBuffer.frame(clrFG,
+					cenX-circleSeparation,
+					cenY-circleSeparation,
+					cenX+circleSeparation,
+					cenY+circleSeparation,
+					circleCornerRadius,
+					1);
+	
+	// Hour
+	prefsBuffer.fg(mainColorIndex);
+	x = cenX + roundCoord(cos(0) * hourLen);
+	y = cenY + roundCoord(sin(0) * hourLen);
+	prefsBuffer.line(clrFG, cenX, cenY, x, y);
+	
+	// Minute
+	prefsBuffer.fg(mainColorIndex);
+	x = cenX + roundCoord(cos(4.7) * minuteLen);
+	y = cenY + roundCoord(sin(4.7) * minuteLen);
+	prefsBuffer.line(clrFG, cenX, cenY, x, y);
+	
+	// Second
+	prefsBuffer.fg(highlightColorIndex);
+	x = cenX + roundCoord(cos(5.5) * secondLen);
+	y = cenY + roundCoord(sin(5.5) * secondLen);
+	prefsBuffer.line(clrFG, cenX, cenY, x, y);
+	
+	// Clock center
+	prefsBuffer.fg(highlightColorIndex);
+	prefsBuffer.rect(clrFG,
+		cenX - 2,
+		cenY - 2,
+		cenX + 3,
+		cenY + 3,
+		3);
+	
+	prefsBuffer.end();
+	
+	draw.begin();
+	draw.draw(prefsBuffer, 3, 32);
+	draw.end();
+	
+	label1.text = "Background";
+	label2.text = "Numbers";
+	label3.text = "Hour/min";
+	label4.text = "Seconds";
+	label5.text = "Center";
+
+	showColorControls();
+}
+
+
+void drawBatteryRepresentation() {
 int startX = 7,
 		startY = 7,
 		digitW = 16,
@@ -80,6 +332,12 @@ int startX = 7,
 	draw.draw(prefsBuffer, 3, 32);
 	draw.end();
 	
+	label1.text = "Empty";
+	label2.text = "100-50%";
+	label3.text = "40-20%";
+	label4.text = "10-0%";
+	label5.text = "";
+	
 	showColorControls();
 }
 
@@ -88,20 +346,38 @@ void drawColorSquares() {
 	draw.begin();
 	// Background
 	draw.fg(bgColorIndex);
-	draw.rect(clrFG, bgColorBtn.x+1, bgColorBtn.y+1, bgColorBtn.x+11, bgColorBtn.y+11, 0);
+	draw.rect(clrFG, color1Btn.x+1, color1Btn.y+1, color1Btn.x+11, color1Btn.y+11, 0);
 	// Widgets
 	draw.fg(widgetColorIndex);
-	draw.rect(clrFG, widgetColorBtn.x+1, widgetColorBtn.y+1, widgetColorBtn.x+11, widgetColorBtn.y+11, 0);
+	draw.rect(clrFG, color2Btn.x+1, color2Btn.y+1, color2Btn.x+11, color2Btn.y+11, 0);
 	//Shadows
 	draw.fg(shadowColorIndex);
-	draw.rect(clrFG, shadowColorBtn.x+1, shadowColorBtn.y+1, shadowColorBtn.x+11, shadowColorBtn.y+11, 0);
+	draw.rect(clrFG, color3Btn.x+1, color3Btn.y+1, color3Btn.x+11, color3Btn.y+11, 0);
 	// Highlights
 	draw.fg(highlightColorIndex);
-	draw.rect(clrFG, highlightColorBtn.x+1, highlightColorBtn.y+1, highlightColorBtn.x+11, highlightColorBtn.y+11, 0);
+	draw.rect(clrFG, color4Btn.x+1, color4Btn.y+1, color4Btn.x+11, color4Btn.y+11, 0);
 	// Main
 	draw.fg(mainColorIndex);
-	draw.rect(clrFG, mainColorBtn.x+1, mainColorBtn.y+1, mainColorBtn.x+11, mainColorBtn.y+11, 0);
+	draw.rect(clrFG, color5Btn.x+1, color5Btn.y+1, color5Btn.x+11, color5Btn.y+11, 0);
 	draw.end();
+}
+
+
+void colorPopupSelection(int selectionInt) {	
+	switch (selectionInt) {
+		case 0:
+				drawWidgetRepresentation();
+				drawColorSquares();
+				break;
+		case 1:
+				drawAnalogClockRepresentation();
+				drawColorSquares();
+				break;
+		case 2:
+				drawBatteryRepresentation();
+				drawColorSquares();
+				break;
+	}
 }
 
 
@@ -109,7 +385,7 @@ handler colorsModalForm.onopen() {
 	draw.attachForm(this);
 	prefsBuffer.create(156, 85);
 	
-	colorElements[0] = "Widgets";
+	colorElements[0] = "General";
 	colorElements[1] = "Analog clock";
 	colorElements[2] = "Battery";
 	colorList.setitems(3, colorElements);
@@ -119,122 +395,66 @@ handler colorsModalForm.onopen() {
 
 
 handler colorsModalForm.ondraw() {
-	drawWidgetRepresentation();
-	drawColorSquares();
+	popupSelection = 0; // "General"
+	colorPopupSelection(popupSelection);
+}
+
+
+handler colorPopup.onlistselect() {
+	popupSelection = e.value;
+	colorPopup.text = colorElements[popupSelection];
+	colorPopupSelection(popupSelection);
 }
 
 
 // Background color selector
-handler bgColorBtn.onselect() {
-	if (draw.selectIndex("Choose background color:", &bgColorIndex)) {
-		draw.begin();
-		draw.fg(bgColorIndex);
-		draw.rect(clrFG, bgColorBtn.x+1, bgColorBtn.y+1, bgColorBtn.x+11, bgColorBtn.y+11, 0);
-		draw.end();
-	}
-	else
-	{
-		draw.begin();
-		draw.fg(bgColorIndex);
-		draw.rect(clrFG, bgColorBtn.x+1, bgColorBtn.y+1, bgColorBtn.x+11, bgColorBtn.y+11, 0);
-		draw.end();
-	}
-	
-	drawWidgetRepresentation();
+handler color1Btn.onselect() {
+	draw.selectIndex("Choose background color:", &bgColorIndex);
+	colorPopupSelection(popupSelection);
 	drawColorSquares();
 }
 
 
 // Widgets color selector
-handler widgetColorBtn.onselect() {
-	if (draw.selectIndex("Choose widgets color:", &widgetColorIndex)) {
-		draw.begin();
-		draw.fg(widgetColorIndex);
-		draw.rect(clrFG, widgetColorBtn.x+1, widgetColorBtn.y+1, widgetColorBtn.x+11, widgetColorBtn.y+11, 0);
-		draw.end();
-	}
-	else
-	{
-		draw.begin();
-		draw.fg(widgetColorIndex);
-		draw.rect(clrFG, widgetColorBtn.x+1, widgetColorBtn.y+1, widgetColorBtn.x+11, widgetColorBtn.y+11, 0);
-		draw.end();
-	}
-	
-	drawWidgetRepresentation();
+handler color2Btn.onselect() {
+	draw.selectIndex("Choose widgets color:", &widgetColorIndex);
+	colorPopupSelection(popupSelection);
 	drawColorSquares();
 }
 
 
 // Shadows color selector
-handler shadowColorBtn.onselect() {
-	if (draw.selectIndex("Choose shadows color:", &shadowColorIndex)) {
-		draw.begin();
-		draw.fg(shadowColorIndex);
-		draw.rect(clrFG, shadowColorBtn.x+1, shadowColorBtn.y+1, shadowColorBtn.x+11, shadowColorBtn.y+11, 0);
-		draw.end();
-	}
-	else
-	{
-		draw.begin();
-		draw.fg(shadowColorIndex);
-		draw.rect(clrFG, shadowColorBtn.x+1, shadowColorBtn.y+1, shadowColorBtn.x+11, shadowColorBtn.y+11, 0);
-		draw.end();
-	}
-	
-	drawWidgetRepresentation();
+handler color3Btn.onselect() {
+	draw.selectIndex("Choose shadows color:", &shadowColorIndex);
+	colorPopupSelection(popupSelection);
 	drawColorSquares();
 }
 
 
 // Highlights color selector
-handler highlightColorBtn.onselect() {
-	if (draw.selectIndex("Choose highlights color:", &highlightColorIndex)) {
-		draw.begin();
-		draw.fg(highlightColorIndex);
-		draw.rect(clrFG, highlightColorBtn.x+1, highlightColorBtn.y+1, highlightColorBtn.x+11, highlightColorBtn.y+11, 0);
-		draw.end();
-	}
-	else
-	{
-		draw.begin();
-		draw.fg(highlightColorIndex);
-		draw.rect(clrFG, highlightColorBtn.x+1, highlightColorBtn.y+1, highlightColorBtn.x+11, highlightColorBtn.y+11, 0);
-		draw.end();
-	}
-	
-	drawWidgetRepresentation();
+handler color4Btn.onselect() {
+	draw.selectIndex("Choose highlights color:", &highlightColorIndex);
+	colorPopupSelection(popupSelection);
 	drawColorSquares();
 }
 
 
 // Main color selector
-handler mainColorBtn.onselect() {
-	if (draw.selectIndex("Choose main color:", &mainColorIndex)) {
-		draw.begin();
-		draw.fg(mainColorIndex);
-		draw.rect(clrFG, mainColorBtn.x+1, mainColorBtn.y+1, mainColorBtn.x+11, mainColorBtn.y+11, 0);
-		draw.end();
-	}
-	else
-	{
-		draw.begin();
-		draw.fg(mainColorIndex);
-		draw.rect(clrFG, mainColorBtn.x+1, mainColorBtn.y+1, mainColorBtn.x+11, mainColorBtn.y+11, 0);
-		draw.end();
-	}
-	
-	drawWidgetRepresentation();
+handler color5Btn.onselect() {
+	draw.selectIndex("Choose main color:", &mainColorIndex);
+	colorPopupSelection(popupSelection);
 	drawColorSquares();
 }
 
 
 handler colorsModalBackBtn.onselect() {
+	prefsBuffer.release();
 	colorsModalForm.close();
 }
 
 
 handler colorsModalSaveBtn.onselect() {
 	saveMainPreferences();
+	prefsBuffer.release();
 	colorsModalForm.close();
 }

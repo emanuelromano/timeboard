@@ -84,10 +84,10 @@ void drawHand(float angle,
 	
 	mainBuffer.begin();
 	mainBuffer.fg(colorIndex);
-
+	
 	x = centerX + roundCoord(cos(angle) * length);
 	y = centerY + roundCoord(sin(angle) * length);
-
+	
 	mainBuffer.line(clrFG, centerX, centerY, x, y);
 	
 	// Little dot on the end of hands

@@ -246,7 +246,7 @@
       numvisible = 3, triggerid = 1047, fontid = 0
       hresize = 0, vresize = 0
     }
-    button UIButton bgColorBtn {
+    button UIButton color1Btn {
       id = 1042
       x = 91, y = 38, w = 12, h = 12
       text = ""
@@ -254,7 +254,7 @@
       frame = 3
       hresize = 0, vresize = 0
     }
-    button UIButton widgetColorBtn {
+    button UIButton color2Btn {
       id = 1043
       x = 91, y = 53, w = 12, h = 12
       text = ""
@@ -262,7 +262,7 @@
       frame = 3
       hresize = 0, vresize = 0
     }
-    button UIButton shadowColorBtn {
+    button UIButton color3Btn {
       id = 1057
       x = 91, y = 68, w = 12, h = 12
       text = ""
@@ -270,7 +270,7 @@
       frame = 3
       hresize = 0, vresize = 0
     }
-    button UIButton highlightColorBtn {
+    button UIButton color4Btn {
       id = 1044
       x = 91, y = 83, w = 12, h = 12
       text = ""
@@ -278,7 +278,7 @@
       frame = 3
       hresize = 0, vresize = 0
     }
-    button UIButton mainColorBtn {
+    button UIButton color5Btn {
       id = 1045
       x = 91, y = 98, w = 12, h = 12
       text = ""
