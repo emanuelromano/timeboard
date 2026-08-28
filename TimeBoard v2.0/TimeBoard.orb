@@ -240,6 +240,12 @@
       leftanchor = true, group = 0, fontid = 0
       hresize = 0, vresize = 0
     }
+    list UIList colorList {
+      id = 1055
+      x = 5, y = 17, w = 60, h = 33
+      numvisible = 3, triggerid = 1047, fontid = 0
+      hresize = 0, vresize = 0
+    }
     button UIButton bgColorBtn {
       id = 1042
       x = 91, y = 38, w = 12, h = 12
@@ -251,6 +257,14 @@
     button UIButton widgetColorBtn {
       id = 1043
       x = 91, y = 53, w = 12, h = 12
+      text = ""
+      leftanchor = true, group = 0, fontid = 0
+      frame = 3
+      hresize = 0, vresize = 0
+    }
+    button UIButton shadowColorBtn {
+      id = 1057
+      x = 91, y = 68, w = 12, h = 12
       text = ""
       leftanchor = true, group = 0, fontid = 0
       frame = 3
@@ -286,6 +300,13 @@
       text = "label2                         "
       hresize = 0, vresize = 0
     }
+    label UILabel label3 {
+      id = 1058
+      x = 106, y = 69
+      fontid = 0
+      text = "label3                         "
+      hresize = 0, vresize = 0
+    }
     label UILabel label4 {
       id = 1052
       x = 106, y = 84
@@ -315,27 +336,6 @@
       leftanchor = true, group = 0, fontid = 0
       frame = 1
       hresize = 1, vresize = 1
-    }
-    button UIButton shadowColorBtn {
-      id = 1057
-      x = 91, y = 68, w = 12, h = 12
-      text = ""
-      leftanchor = true, group = 0, fontid = 0
-      frame = 3
-      hresize = 0, vresize = 0
-    }
-    label UILabel label3 {
-      id = 1058
-      x = 106, y = 69
-      fontid = 0
-      text = "label3                         "
-      hresize = 0, vresize = 0
-    }
-    list UIList colorList {
-      id = 1055
-      x = 5, y = 17, w = 60, h = 33
-      numvisible = 3, triggerid = 1047, fontid = 0
-      hresize = 0, vresize = 0
     }
   }
   form UIForm debugModalForm {

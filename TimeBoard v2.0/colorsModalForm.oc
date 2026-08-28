@@ -113,6 +113,8 @@ handler colorsModalForm.onopen() {
 	colorElements[1] = "Analog clock";
 	colorElements[2] = "Battery";
 	colorList.setitems(3, colorElements);
+	
+	colorPopup.text = colorElements[0];
 }
 
 
