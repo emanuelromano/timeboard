@@ -235,14 +235,14 @@
     }
     popup UIPopup colorPopup {
       id = 1047
-      x = 5, y = 17, w = 49, h = 11
+      x = 3, y = 19, w = 49, h = 11
       text = "Select..."
       leftanchor = true, group = 0, fontid = 0
       hresize = 0, vresize = 0
     }
     list UIList colorList {
       id = 1055
-      x = 5, y = 17, w = 60, h = 33
+      x = 3, y = 19, w = 60, h = 33
       numvisible = 3, triggerid = 1047, fontid = 0
       hresize = 0, vresize = 0
     }

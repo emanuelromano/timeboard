@@ -22,7 +22,7 @@ struct AppPrefs {
 	bool debugFlag;
 	
 	// Background color
-	int bgColorIndex;
+	int backgroundColorIndex;
 	// Foreground color on widgets
 	int widgetColorIndex;
 	// Shadows for widgets
@@ -31,8 +31,22 @@ struct AppPrefs {
 	int highlightColorIndex;
 	// Base color on widgets
 	int mainColorIndex;
-	// Battery color between 50% - 100% charge 
+	
+	// Analog clock background
+	int acBackgroundColorIndex;
+	// Analog clock numbers
+	int acNumbersColorIndex;
+	// Analog clock hour/min hands
+	int acHourMinColorIndex;
+	// Analog clock seconds hand 
+	int acSecondsColorIndex;
+	// Analog clock center
+	int acCenterColorIndex;
+	
+	// Battery colors
 	int batteryColorIndex;
+	int battery40ColorIndex;
+	int battery20ColorIndex;
 	int batteryEmptyColorIndex;
 	
 	// Other preferences
@@ -61,27 +75,30 @@ bool setDefaultPrefs() {
 									// 0 = false / lines
 	
 	// 0: B/W screens (1-bit)
-	appPrefs[0].bgColorIndex = 0;
+	appPrefs[0].backgroundColorIndex = 0;
 	appPrefs[0].widgetColorIndex = 0;
 	appPrefs[0].shadowColorIndex = 1;
 	appPrefs[0].highlightColorIndex = 1;
 	appPrefs[0].mainColorIndex = 1;
 	appPrefs[0].batteryColorIndex = 1;
+	appPrefs[0].battery40ColorIndex = 1;
+	appPrefs[0].battery20ColorIndex = 1;
 	appPrefs[0].batteryEmptyColorIndex = 0;
 	
 	appPrefs[0].debugFlag = debugFlag;
 	appPrefs[0].interfaceMode = interfaceMode;
 	appPrefs[0].widgetCornerRadius = widgetCornerRadius;
 	appPrefs[0].useAnalogClockNumbers = useAnalogClockNumbers;
-		
 	
 	// 1: Grayscale screens (2-bit)
-	appPrefs[1].bgColorIndex = 1;
+	appPrefs[1].backgroundColorIndex = 1;
 	appPrefs[1].widgetColorIndex = 0;
 	appPrefs[1].shadowColorIndex = 3;
 	appPrefs[1].highlightColorIndex = 3;
 	appPrefs[1].mainColorIndex = 2;
 	appPrefs[1].batteryColorIndex = 3;
+	appPrefs[1].battery40ColorIndex = 3;
+	appPrefs[1].battery20ColorIndex = 3;
 	appPrefs[1].batteryEmptyColorIndex = 1;
 	
 	appPrefs[1].debugFlag = debugFlag;
@@ -89,14 +106,15 @@ bool setDefaultPrefs() {
 	appPrefs[1].widgetCornerRadius = widgetCornerRadius;
 	appPrefs[1].useAnalogClockNumbers = useAnalogClockNumbers;
 	
-	
 	// 2: Grayscale screens (4-bit)
-	appPrefs[2].bgColorIndex = 3;
+	appPrefs[2].backgroundColorIndex = 3;
 	appPrefs[2].widgetColorIndex = 0;
 	appPrefs[2].shadowColorIndex = 12;
 	appPrefs[2].highlightColorIndex = 15;
 	appPrefs[2].mainColorIndex = 9;
 	appPrefs[2].batteryColorIndex = 11;
+	appPrefs[2].battery40ColorIndex = 11;
+	appPrefs[2].battery20ColorIndex = 11;
 	appPrefs[2].batteryEmptyColorIndex = 5;
 	
 	appPrefs[2].debugFlag = debugFlag;
@@ -104,14 +122,15 @@ bool setDefaultPrefs() {
 	appPrefs[2].widgetCornerRadius = widgetCornerRadius;
 	appPrefs[2].useAnalogClockNumbers = useAnalogClockNumbers;
 	
-	
 	// 3: Color screens (8-bit)
-	appPrefs[3].bgColorIndex = 115;
+	appPrefs[3].backgroundColorIndex = 115;
 	appPrefs[3].widgetColorIndex = 217;
 	appPrefs[3].shadowColorIndex = 216;
 	appPrefs[3].highlightColorIndex = 121;
 	appPrefs[3].mainColorIndex = 0;
 	appPrefs[3].batteryColorIndex = 168;
+	appPrefs[3].battery40ColorIndex = 116;
+	appPrefs[3].battery20ColorIndex = 119;
 	appPrefs[3].batteryEmptyColorIndex = 219;
 	
 	appPrefs[3].debugFlag = debugFlag;

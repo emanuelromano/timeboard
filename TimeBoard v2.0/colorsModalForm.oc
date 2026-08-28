@@ -40,7 +40,7 @@ void drawWidgetRepresentation() {
 	
 	prefsBuffer.begin();
 	// Background
-	prefsBuffer.fg(bgColorIndex);
+	prefsBuffer.fg(backgroundColorIndex);
 	prefsBuffer.rect(clrFG, 0, 0, 85, 85, 0);
 	
 	// Shadow
@@ -85,10 +85,10 @@ void drawWidgetRepresentation() {
 
 
 void drawAnalogClockRepresentation() {
-	int startX = 7,
-		startY = 7,
-		widW = 70,
-		widH = 70,
+	int startX = 0,
+		startY = 0,
+		widW = 85,
+		widH = 85,
 		i, x, y,
 		radius,
 		innerRadius,
@@ -99,33 +99,25 @@ void drawAnalogClockRepresentation() {
 		hourLen, minuteLen, secondLen,
 		circleSeparation,
 		circleCornerRadius,
-		secondDotRadius;
+		minuteDotRadius;
 	float angle;
 	string number;
 	
 	cenX = startX + (widW / 2);
 	cenY = startY + (widH / 2);
 	
-	radius = (widW / 2) - (widH / 2) * 0.26;
+	radius = (widW / 2) - (widH / 2) * 0.3;
 	
 	// Hands lenght
 	hourLen = (widW / 2) - (widW / 2) * 0.55;
-	minuteLen = (widW / 2) - (widW / 2) * 0.41;
-	secondLen = (widW / 2) - (widW / 2) * 0.41;
+	minuteLen = (widW / 2) - (widW / 2) * 0.44;
+	secondLen = (widW / 2) - (widW / 2) * 0.44;
 	
 	prefsBuffer.begin();
-	
-	// Background
-	prefsBuffer.fg(bgColorIndex);
-	prefsBuffer.rect(clrFG, 0, 0, 85, 85, 0);
-	
-	// Shadow
-	prefsBuffer.fg(shadowColorIndex);
-	prefsBuffer.rect(clrFG, startX, startY, startX+widW+1, startY+widH+1, widgetCornerRadius);
-	
-	// Widget
+		
+	// Widget background
 	prefsBuffer.fg(widgetColorIndex);
-	prefsBuffer.rect(clrFG, startX+1, startY+1, startX+widW-1, startY+widH-1, widgetCornerRadius);
+	prefsBuffer.rect(clrFG, startX, startY, startX+widW, startY+widH, 0);
 	
 	if (useAnalogClockNumbers == 1) {
 		// Clock numbers
@@ -221,17 +213,29 @@ void drawAnalogClockRepresentation() {
 	}
 	
 	// Circle around clock on widget
-	circleSeparation = 31;
-	circleCornerRadius = 31;
+	circleSeparation = 38;
+	circleCornerRadius = 38;
 	
 	prefsBuffer.fg(highlightColorIndex);
 	prefsBuffer.frame(clrFG,
 					cenX-circleSeparation,
 					cenY-circleSeparation,
-					cenX+circleSeparation,
-					cenY+circleSeparation,
+					cenX+circleSeparation+1,
+					cenY+circleSeparation+1,
 					circleCornerRadius,
 					1);
+	
+	// Minutes dots
+	minuteDotRadius = 36;
+	for (i = 0; i < 60; i++) {
+		angle = ((i * 6) - 90) * 3.14159265 / 180;
+	
+		x = cenX + roundCoord(cos(angle) * minuteDotRadius);
+		y = cenY + roundCoord(sin(angle) * minuteDotRadius);
+		
+		prefsBuffer.fg(mainColorIndex);
+		mainBuffer.pixel(clrFG, x, y);
+	}
 	
 	// Hour
 	prefsBuffer.fg(mainColorIndex);
@@ -277,55 +281,109 @@ void drawAnalogClockRepresentation() {
 
 
 void drawBatteryRepresentation() {
-int startX = 7,
-		startY = 7,
-		digitW = 16,
-		digitH = 28,
-		radius = fontRadius,
-		segmentThickness = 6,
+	int startX = 0,
+		startY = 0,
+		widW = 85,
+		widH = 85,
+		dotRadius = 5,
+		ringRadius = 22,
+		cenX, cenY,
+		iconX = startX + 7,
+		iconY = startY + 70,
+		textY = startY + 67,
+		i, x, y,
+		battColorIndex;
+	float angle;
 	
-		digitHr1X = startX + 6,
-		digitHr2X = digitHr1X + digitW + 3,
-		
-		digitMin1X = startX + 6,
-		digitMin2X = digitMin1X + digitW + 3,
-		
-		digitY1 = startY + 6,
-		digitY2 = digitY1 + digitH + 3,
-		
-		widW = 70,
-		widH = 70;
+	cenX = startX + (widW / 2);
+	cenY = startY + (widH / 2) - 7;
+	
+	// Battery color
+	if (charge > 40)
+		// Green
+		battColorIndex = batteryColorIndex;
+	else if (charge > 20)
+		// Orange
+		battColorIndex = battery40ColorIndex;
+	else
+		// Red
+		battColorIndex = battery20ColorIndex;
 	
 	prefsBuffer.begin();
-	// Background
-	prefsBuffer.fg(bgColorIndex);
-	prefsBuffer.rect(clrFG, 0, 0, 85, 85, 0);
 	
-	// Shadow
-	prefsBuffer.fg(shadowColorIndex);
-	prefsBuffer.rect(clrFG, startX, startY, startX+widW+1, startY+widH+1, widgetCornerRadius);
-	
-	// Widget
+	// Widget background
 	prefsBuffer.fg(widgetColorIndex);
-	prefsBuffer.rect(clrFG, startX+1, startY+1, startX+widW-1, startY+widH-1, widgetCornerRadius);
+	prefsBuffer.rect(clrFG, startX, startY, startX+widW, startY+widH, 0);
 	
-	// Hour
-	prefsBuffer.fg(highlightColorIndex);
-	// drawDigit() comes from globalFunctions.oc
-	drawDigit("1", digitW, digitH, digitHr1X, digitY1, radius, segmentThickness);
-	drawDigit("2", digitW, digitH, digitHr2X, digitY1, radius, segmentThickness);
-	
-	// Minutes
-	prefsBuffer.fg(mainColorIndex);
-	drawDigit("3", digitW, digitH, digitMin1X, digitY2, radius, segmentThickness);
-	drawDigit("4", digitW, digitH, digitMin2X, digitY2, radius, segmentThickness);
+	for (i = 0; i < 10; i++) {
 
-	// Seconds
-	prefsBuffer.textAlign(22);
-	prefsBuffer.bg(widgetColorIndex);
-	mainBuffer.textColor(mainColorIndex);
-	prefsBuffer.font(fntLargeBold);
-	prefsBuffer.text(clrText, startX+widW-5, startY+widH-6, "56");
+		angle = ((i * 36) - 90) * 3.14159265 / 180;
+
+		x = cenX + (cos(angle) * ringRadius);
+		y = cenY + (sin(angle) * ringRadius);
+
+		if (i == 0 || i == 1) {
+			prefsBuffer.fg(battery20ColorIndex);
+			
+			prefsBuffer.rect(
+			clrFG,
+			x - dotRadius,
+			y - dotRadius,
+			x + dotRadius,
+			y + dotRadius,
+			dotRadius);
+		}
+		else if (i == 2 || i == 3 || i == 4) {
+			prefsBuffer.fg(battery40ColorIndex);
+			
+			prefsBuffer.rect(
+			clrFG,
+			x - dotRadius,
+			y - dotRadius,
+			x + dotRadius,
+			y + dotRadius,
+			dotRadius);
+		}
+		else if (i == 5 || i == 6 || i == 7) {
+			prefsBuffer.fg(batteryColorIndex);
+			
+			prefsBuffer.rect(
+			clrFG,
+			x - dotRadius,
+			y - dotRadius,
+			x + dotRadius,
+			y + dotRadius,
+			dotRadius);
+		}
+		else
+		{
+			prefsBuffer.fg(batteryEmptyColorIndex); // Gray discharged grey
+			
+			prefsBuffer.rect(
+			clrFG,
+			x - dotRadius,
+			y - dotRadius,
+			x + dotRadius,
+			y + dotRadius,
+			dotRadius);
+		}
+	}
+	
+	// Battery icon
+	prefsBuffer.fg(mainColorIndex);
+	prefsBuffer.frame(clrFG, iconX, iconY, iconX+15, iconY+8, 2, 1);
+	prefsBuffer.line(clrFG, iconX+16, iconY+2, iconX+16, iconY+5);
+	
+	prefsBuffer.fg(highlightColorIndex);
+	prefsBuffer.rect(clrFG, iconX+1, iconY+1, iconX+14, iconY+7, 1);
+	
+	// Dummy text
+	mainBuffer.textColor(mainColorIndex);	
+	mainBuffer.textAlign(02);
+	mainBuffer.bg(widgetColorIndex);
+	mainBuffer.font(fntLargeBold);
+	mainBuffer.text(clrText, startX+80, textY, "100%");
+	
 	prefsBuffer.end();
 	
 	draw.begin();
@@ -337,7 +395,7 @@ int startX = 7,
 	label3.text = "40-20%";
 	label4.text = "10-0%";
 	label5.text = "";
-	
+
 	showColorControls();
 }
 
@@ -345,7 +403,7 @@ int startX = 7,
 void drawColorSquares() {
 	draw.begin();
 	// Background
-	draw.fg(bgColorIndex);
+	draw.fg(backgroundColorIndex);
 	draw.rect(clrFG, color1Btn.x+1, color1Btn.y+1, color1Btn.x+11, color1Btn.y+11, 0);
 	// Widgets
 	draw.fg(widgetColorIndex);
@@ -409,7 +467,7 @@ handler colorPopup.onlistselect() {
 
 // Background color selector
 handler color1Btn.onselect() {
-	draw.selectIndex("Choose background color:", &bgColorIndex);
+	draw.selectIndex("Choose background color:", &backgroundColorIndex);
 	colorPopupSelection(popupSelection);
 	drawColorSquares();
 }

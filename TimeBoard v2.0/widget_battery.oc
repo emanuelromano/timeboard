@@ -23,10 +23,10 @@ void drawBatteryDots(int startX, int startY, int widW, int widH, int dotRadius, 
 			battColorIndex = batteryColorIndex;
 		else if (charge > 20)
 			// Orange
-			battColorIndex = 255;
+			battColorIndex = battery40ColorIndex;
 		else
 			// Red
-			battColorIndex = 255;
+			battColorIndex = battery20ColorIndex;
 	}
 	else
 	{

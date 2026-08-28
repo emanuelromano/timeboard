@@ -1,12 +1,14 @@
 // Set main preferences on global variables
 void setMainPreferences() {
 	// Set UI colors
-	bgColorIndex = appPrefs[appPrefsPosition].bgColorIndex;	
+	backgroundColorIndex = appPrefs[appPrefsPosition].backgroundColorIndex;	
 	widgetColorIndex = appPrefs[appPrefsPosition].widgetColorIndex;	
 	shadowColorIndex = appPrefs[appPrefsPosition].shadowColorIndex;	
 	highlightColorIndex = appPrefs[appPrefsPosition].highlightColorIndex;	
 	mainColorIndex = appPrefs[appPrefsPosition].mainColorIndex;	
 	batteryColorIndex = appPrefs[appPrefsPosition].batteryColorIndex;
+	battery40ColorIndex = appPrefs[appPrefsPosition].battery40ColorIndex;
+	battery20ColorIndex = appPrefs[appPrefsPosition].battery20ColorIndex;
 	batteryEmptyColorIndex = appPrefs[appPrefsPosition].batteryEmptyColorIndex;
 	
 	// Set other parameters
@@ -21,12 +23,14 @@ void setMainPreferences() {
 bool saveMainPreferences() {	
 	// Specific theme settings for color themes
 	if (colorDepth > 4) {
-		appPrefs[appPrefsPosition].bgColorIndex = bgColorIndex;
+		appPrefs[appPrefsPosition].backgroundColorIndex = backgroundColorIndex;
 		appPrefs[appPrefsPosition].widgetColorIndex = widgetColorIndex;
 		appPrefs[appPrefsPosition].shadowColorIndex = shadowColorIndex;
 		appPrefs[appPrefsPosition].highlightColorIndex = highlightColorIndex;
 		appPrefs[appPrefsPosition].mainColorIndex = mainColorIndex;
 		appPrefs[appPrefsPosition].batteryColorIndex = batteryColorIndex;
+		appPrefs[appPrefsPosition].battery40ColorIndex = battery40ColorIndex;
+		appPrefs[appPrefsPosition].battery20ColorIndex = battery20ColorIndex;
 		appPrefs[appPrefsPosition].batteryEmptyColorIndex = batteryEmptyColorIndex;
 	}
 	

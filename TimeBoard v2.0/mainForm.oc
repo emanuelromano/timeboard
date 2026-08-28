@@ -8,7 +8,7 @@ void composeBackgroundBuffer() {
 	mainBuffer.begin();
 	
 	// Draw background
-	mainBuffer.fg(bgColorIndex);
+	mainBuffer.fg(backgroundColorIndex);
 	mainBuffer.rect(clrFG, mainForm.x, mainForm.y, mainForm.w, mainForm.h, 0);
 	
 	// For interfaceMode = 0 & 1:

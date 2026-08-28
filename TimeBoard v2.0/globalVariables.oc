@@ -80,10 +80,19 @@ bool showWidget1,
 
 
 // Colors
-int bgColorIndex,
+int backgroundColorIndex,
 	widgetColorIndex,
 	shadowColorIndex,
 	highlightColorIndex,
 	mainColorIndex,
+	
+	acBackgroundColorIndex,
+	acNumbersColorIndex,
+	acHourMinColorIndex, 
+	acSecondsColorIndex,
+	acCenterColorIndex,
+	
 	batteryColorIndex,
+	battery40ColorIndex,
+	battery20ColorIndex,
 	batteryEmptyColorIndex;
