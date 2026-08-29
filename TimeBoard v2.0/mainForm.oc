@@ -249,31 +249,29 @@ handler mainForm.ontimer() {
 		charge = battery(false);
 		
 		// Widgets
-		if (showWidget1)
-			if (interfaceMode == 0)
-				updateClockHands();
-			if (interfaceMode == 1)
-				updateClockHands2();
+		if (showWidget1) {
+			if (interfaceMode == 0) updateClockHands();
+			if (interfaceMode == 1) updateClockHands2();
+		}
 		
 		if (showWidget2)
 			digitalClockWidget(startX2, startY2);
 		else
-			if (interfaceMode == 1 || bigUI)
-				miniDigitalClockWidget(miniPanelX1, miniPanelY1);
+			miniDigitalClockWidget(miniPanelX1, miniPanelY1);
 		
-		if (showWidget3)
-			if (day != lastDay)
-				calendarWidget(startX3, startY3);
-		else
-			if ((day != lastDay) && interfaceMode == 1 || bigUI)
-				miniCalendarWidget(miniPanelX2, miniPanelY2);
+		if (day != lastDay) {
+    		if (showWidget3)
+        		calendarWidget(startX3, startY3);
+    		else
+        		miniCalendarWidget(miniPanelX2, miniPanelY2);
+		}
 		
-		if (showWidget4)
-			if (charge != lastCharge)
-				batteryWidget(startX4, startY4);
-		else
-			if ((charge != lastCharge) && interfaceMode == 1 || bigUI)
-				miniBatteryWidget(miniPanelX3, miniPanelY3);
+		if (charge != lastCharge) {
+    		if (showWidget4)
+        		batteryWidget(startX4, startY4);
+    		else
+        		miniBatteryWidget(miniPanelX3, miniPanelY3);
+		}
 		
 		// Draw mainBuffer
 		drawMainBuffer();

@@ -454,8 +454,8 @@ void drawColorSquares() {
 			// 20-0%
 			draw.fg(battery20ColorIndex);
 			draw.rect(clrFG, color4Btn.x+1, color4Btn.y+1, color4Btn.x+11, color4Btn.y+11, 0);
-			// Main
-			//draw.fg(mainColorIndex);
+			// NON VISIBLE
+			//draw.fg();
 			//draw.rect(clrFG, color5Btn.x+1, color5Btn.y+1, color5Btn.x+11, color5Btn.y+11, 0);
 			draw.end();
 			break;
@@ -495,7 +495,7 @@ handler colorsModalForm.onopen() {
 
 
 handler colorsModalForm.ondraw() {
-	popupSelection = 0; // "General"
+	popupSelection = e.value; // "General"
 	colorPopupSelection(popupSelection);
 }
 

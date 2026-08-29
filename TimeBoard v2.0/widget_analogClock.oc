@@ -108,7 +108,7 @@ void updateClockHands() {
 		newSecondAngle;
 	
 	if (widgetW != 70) {
-		axisXcorrection = 27;
+		axisXcorrection = 40;
 		secondLength = 14;
 	}
 	
@@ -156,11 +156,7 @@ void updateClockHands() {
 		mainBuffer.text(clrText, centerX, centerY-27, " TimeBoard");
 		
 		// Small circle for seconds
-		if (colorDepth > 4)
-			mainBuffer.fg(highlightColorIndex);
-		else
-			mainBuffer.fg(mainColorIndex);
-		
+		mainBuffer.fg(highlightColorIndex);
 		mainBuffer.frame(clrFG, (centerX + axisXcorrection)-17, centerY-17, (centerX + axisXcorrection)+18, centerY+18, 18, 1);
 		
 		// Center

@@ -4,24 +4,24 @@ void drawBatteryDots(int startX, int startY, int widW, int widH, int dotRadius, 
 		i, x, y,
 		battColorIndex;
 	float angle;
-
+	
 	centerX = startX + (widW / 2);
 	centerY = startY + (widH / 2);
-
+	
 	activeDots = charge / 10;
-
+	
 	if (activeDots > 10)
 		activeDots = 10;
-
+	
 	if (activeDots < 0)
 		activeDots = 0;
-
+	
 	// Battery color
 	if (colorDepth > 4) {
-		if (charge > 40)
+		if (charge >= 50)
 			// Green
 			battColorIndex = batteryColorIndex;
-		else if (charge > 20)
+		else if (charge >= 21)
 			// Orange
 			battColorIndex = battery40ColorIndex;
 		else
@@ -32,14 +32,15 @@ void drawBatteryDots(int startX, int startY, int widW, int widH, int dotRadius, 
 	{
 		battColorIndex = batteryColorIndex;
 	}
-
+	
+	// Draw battery dots
 	for (i = 0; i < 10; i++) {
-
-		angle = ((i * 36) - 90) * 3.14159265 / 180;
-
+		
+		angle = ((i * 36) - 90) * pi / 180;
+		
 		x = centerX + (cos(angle) * ringRadius);
 		y = centerY + (sin(angle) * ringRadius);
-
+		
 		if (i < activeDots) {
 			mainBuffer.fg(battColorIndex);
 			
@@ -54,7 +55,7 @@ void drawBatteryDots(int startX, int startY, int widW, int widH, int dotRadius, 
 		else
 		{
 			if (colorDepth > 4) {
-				mainBuffer.fg(battColorIndex); // Color discharged grey
+				mainBuffer.fg(batteryEmptyColorIndex); // Color discharged grey
 				
 				mainBuffer.rect(
 				clrFG,
@@ -67,7 +68,7 @@ void drawBatteryDots(int startX, int startY, int widW, int widH, int dotRadius, 
 			else
 			{
 				if (colorDepth == 1) {
-					mainBuffer.fg(battColorIndex); // B/W discharged empty circles
+					mainBuffer.fg(batteryEmptyColorIndex); // B/W discharged empty circles
 					
 					mainBuffer.frame(
 					clrFG,
@@ -175,12 +176,8 @@ void miniBatteryWidget(int startX, int startY) {
 		digitY = startY + (miniPanelH / 2);
 	
 	// Battery percentage
-	mainBuffer.begin();
-	if (colorDepth > 4 || colorDepth == 1)
-		mainBuffer.textColor(mainColorIndex);
-	else
-		mainBuffer.textColor(highlightColorIndex);
-	
+	mainBuffer.begin();	
+	mainBuffer.textColor(mainColorIndex);
 	mainBuffer.textAlign(11);
 	mainBuffer.bg(widgetColorIndex);
 	mainBuffer.font(fntStandard);
