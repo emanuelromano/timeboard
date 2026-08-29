@@ -100,8 +100,7 @@ void drawHand(float angle,
 void updateClockHands() {
 	int i, x, y,
 		axisXcorrection = 0,
-		circleRadius,
-		color;
+		circleRadius;
 	float angle,
 		newHourAngle,
 		newMinuteAngle,
@@ -112,8 +111,6 @@ void updateClockHands() {
 		secondLength = 14;
 	}
 	
-	color = acSecondsColorIndex;
-	
 	// Delete old hands
 	if (oldHourAngle != 0) {
 		drawHand(oldSecondAngle,
@@ -122,14 +119,14 @@ void updateClockHands() {
 			 	centerY,
 			 	acBackgroundColorIndex,
 			 	true);
-		
+			
 		drawHand(oldHourAngle,
 			 	hourLength,
 			 	centerX,
 			 	centerY,
 			 	acBackgroundColorIndex,
 			 	false);
-	
+		
 		drawHand(oldMinuteAngle,
 			 	minuteLength,
 			 	centerX,
@@ -162,8 +159,8 @@ void updateClockHands() {
 		// 12 dots (every 5 seconds)
 		circleRadius = 16;
 		for (i = 0; i < 12; i++) {
-			angle = ((i * 30) - 90) * 3.14159265 / 180;
-		
+			angle = ((i * 30) - 90) * pi / 180;
+			
 			x = (centerX + axisXcorrection) + roundCoord(cos(angle) * circleRadius);
 			y = centerY + roundCoord(sin(angle) * circleRadius);
 			
@@ -181,6 +178,12 @@ void updateClockHands() {
 			 	centerY,
 			 	acSecondsColorIndex,
 			 	true);
+		
+		// Center for seconds
+		mainBuffer.begin();
+		mainBuffer.fg(acCenterColorIndex);
+		mainBuffer.rect(clrFG, (centerX + axisXcorrection)-2, centerY-2, (centerX + axisXcorrection)+3, centerY+3, 3);
+		mainBuffer.end();
 		
 		drawHand(newHourAngle,
 			 	hourLength,
@@ -211,7 +214,7 @@ void updateClockHands() {
 			 	centerY,
 			 	acHourMinColorIndex,
 			 	false);
-			 	
+		
 		drawHand(newSecondAngle,
 			 	secondLength,
 			 	centerX + axisXcorrection,
@@ -230,11 +233,6 @@ void updateClockHands() {
 			centerX + 4,
 			centerY + 4,
 			4);
-		
-		// Center for seconds
-		mainBuffer.fg(acCenterColorIndex);
-		mainBuffer.rect(clrFG, (centerX + axisXcorrection)-2, centerY-2, (centerX + axisXcorrection)+3, centerY+3, 3);
-
 	}
 	else
 	{
@@ -339,10 +337,10 @@ void analogClockWidget(int startX, int startY) {
 	
 			if (i == 0)
 				number = "12";
-			else if (i == 3)
-				number = "";
 			else
 				number = "" + i;
+			
+			if (i == 3 && widgetW != 70) number = "";
 						
 			// Centered text, font and color
 			mainBuffer.textAlign(11);
@@ -352,7 +350,7 @@ void analogClockWidget(int startX, int startY) {
 			if (widgetW == 70)
 				mainBuffer.font(fntStandard);
 			else
-				mainBuffer.font(fntLarge);
+				mainBuffer.font(fntLargeBold);
 			
     		mainBuffer.textColor(acNumbersColorIndex);
 			mainBuffer.text(clrText, x, y, number);
@@ -413,27 +411,14 @@ void analogClockWidget(int startX, int startY) {
 	}
 	
 	// Circle around clock
-	if (widgetW != 70) {
-		mainBuffer.fg(highlightColorIndex);
-		mainBuffer.frame(clrFG,
-						centerX-circleSeparation,
-						centerY-circleSeparation,
-						centerX+circleSeparation,
-						centerY+circleSeparation,
-						circleCornerRadius,
-						1);
-	}
-	else
-	{
-		mainBuffer.fg(highlightColorIndex);
-		mainBuffer.frame(clrFG,
-						centerX-circleSeparation,
-						centerY-circleSeparation,
-						centerX+circleSeparation,
-						centerY+circleSeparation,
-						circleCornerRadius,
-						1);
-	}
+	mainBuffer.fg(highlightColorIndex);
+	mainBuffer.frame(clrFG,
+					centerX-circleSeparation,
+					centerY-circleSeparation,
+					centerX+circleSeparation,
+					centerY+circleSeparation,
+					circleCornerRadius,
+					1);
 	
 	updateClockHands();
 	mainBuffer.end();
@@ -523,7 +508,7 @@ void updateClockHands2() {
 			 	centerY + axisYcorrection,
 			 	acSecondsColorIndex,
 			 	true);
-		
+				
 		drawHand(newHourAngle,
 			 	hourLength,
 			 	centerX,
