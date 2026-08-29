@@ -5,7 +5,15 @@ void setMainPreferences() {
 	widgetColorIndex = appPrefs[appPrefsPosition].widgetColorIndex;	
 	shadowColorIndex = appPrefs[appPrefsPosition].shadowColorIndex;	
 	highlightColorIndex = appPrefs[appPrefsPosition].highlightColorIndex;	
-	mainColorIndex = appPrefs[appPrefsPosition].mainColorIndex;	
+	mainColorIndex = appPrefs[appPrefsPosition].mainColorIndex;
+	
+	// Analog clock colors
+	acBackgroundColorIndex = appPrefs[appPrefsPosition].acBackgroundColorIndex;
+	acNumbersColorIndex = appPrefs[appPrefsPosition].acNumbersColorIndex;
+	acHourMinColorIndex = appPrefs[appPrefsPosition].acHourMinColorIndex;
+	acSecondsColorIndex = appPrefs[appPrefsPosition].acSecondsColorIndex;
+	acCenterColorIndex = appPrefs[appPrefsPosition].acCenterColorIndex;
+	
 	batteryColorIndex = appPrefs[appPrefsPosition].batteryColorIndex;
 	battery40ColorIndex = appPrefs[appPrefsPosition].battery40ColorIndex;
 	battery20ColorIndex = appPrefs[appPrefsPosition].battery20ColorIndex;
@@ -28,6 +36,13 @@ bool saveMainPreferences() {
 		appPrefs[appPrefsPosition].shadowColorIndex = shadowColorIndex;
 		appPrefs[appPrefsPosition].highlightColorIndex = highlightColorIndex;
 		appPrefs[appPrefsPosition].mainColorIndex = mainColorIndex;
+		
+		appPrefs[appPrefsPosition].acBackgroundColorIndex = acBackgroundColorIndex;
+		appPrefs[appPrefsPosition].acNumbersColorIndex = acNumbersColorIndex;
+		appPrefs[appPrefsPosition].acHourMinColorIndex = acHourMinColorIndex;
+		appPrefs[appPrefsPosition].acSecondsColorIndex = acSecondsColorIndex;
+		appPrefs[appPrefsPosition].acCenterColorIndex = acCenterColorIndex;
+		
 		appPrefs[appPrefsPosition].batteryColorIndex = batteryColorIndex;
 		appPrefs[appPrefsPosition].battery40ColorIndex = battery40ColorIndex;
 		appPrefs[appPrefsPosition].battery20ColorIndex = battery20ColorIndex;

@@ -5,12 +5,14 @@ int popupSelection;
 void showColorControls() {
 	// Controls set to be visible
 	colorPopup.visible = true;
-	
 	color1Btn.visible = true;
 	color2Btn.visible = true;
 	color3Btn.visible = true;
 	color4Btn.visible = true;
-	color5Btn.visible = true;
+	if (popupSelection != 2)
+		color5Btn.visible = true;
+	else
+		color5Btn.visible = false;
 	
 	label1.visible = true;
 	label2.visible = true;
@@ -119,6 +121,18 @@ void drawAnalogClockRepresentation() {
 	prefsBuffer.fg(widgetColorIndex);
 	prefsBuffer.rect(clrFG, startX, startY, startX+widW, startY+widH, 0);
 	
+	// Clock background
+	circleSeparation = 38;
+	circleCornerRadius = 38;
+	
+	prefsBuffer.fg(acBackgroundColorIndex);
+	prefsBuffer.rect(clrFG,
+					cenX-circleSeparation,
+					cenY-circleSeparation,
+					cenX+circleSeparation+1,
+					cenY+circleSeparation+1,
+					circleCornerRadius);
+	
 	if (useAnalogClockNumbers == 1) {
 		// Clock numbers
 		for (i = 0; i < 12; i++) {
@@ -136,15 +150,11 @@ void drawAnalogClockRepresentation() {
 						
 			// Centered text, font and color
 			prefsBuffer.textAlign(11);
-			prefsBuffer.bg(widgetColorIndex);
+			prefsBuffer.bg(acBackgroundColorIndex);
 			prefsBuffer.font(fntStandard);
 			
-			// Color switch
-			if (colorDepth == 2 || colorDepth == 4)
-    			prefsBuffer.textColor(highlightColorIndex);
-    		else
-    			prefsBuffer.textColor(mainColorIndex);
-    		
+			// Color
+    		prefsBuffer.textColor(acNumbersColorIndex);
 			prefsBuffer.text(clrText, x, y, number);
 		}
 	}
@@ -173,7 +183,7 @@ void drawAnalogClockRepresentation() {
 			y2 = cenY + roundCoord(sin(angle) * outerRadius);
     		    		
     		// Color for 3, 6, 9 & 12 lines
-    		prefsBuffer.fg(highlightColorIndex);
+    		prefsBuffer.fg(acSecondsColorIndex);
     		if (i == 0) {
     			prefsBuffer.line(clrFG, x1-1, y1-1, x2-1, y2+1);
     			prefsBuffer.line(clrFG, x1, y1, x2, y2);
@@ -196,18 +206,8 @@ void drawAnalogClockRepresentation() {
     		}
     		else
     		{
-    			if (colorDepth > 4 || colorDepth ==1)
-					prefsBuffer.fg(mainColorIndex);
-				else
-					prefsBuffer.fg(highlightColorIndex);
-				
-    			if (widW != 70) {
-    				prefsBuffer.rect(clrFG, x2-1, y2-1, x2+2, y2+2, 2);
-    			}
-    			else
-    			{
-    				prefsBuffer.pixel(clrFG, x2, y2);
-    			}
+				prefsBuffer.fg(acNumbersColorIndex);
+				prefsBuffer.pixel(clrFG, x2, y2);
     		}
 		}
 	}
@@ -233,30 +233,30 @@ void drawAnalogClockRepresentation() {
 		x = cenX + roundCoord(cos(angle) * minuteDotRadius);
 		y = cenY + roundCoord(sin(angle) * minuteDotRadius);
 		
-		prefsBuffer.fg(mainColorIndex);
+		prefsBuffer.fg(acNumbersColorIndex);
 		mainBuffer.pixel(clrFG, x, y);
 	}
 	
 	// Hour
-	prefsBuffer.fg(mainColorIndex);
+	prefsBuffer.fg(acHourMinColorIndex);
 	x = cenX + roundCoord(cos(0) * hourLen);
 	y = cenY + roundCoord(sin(0) * hourLen);
 	prefsBuffer.line(clrFG, cenX, cenY, x, y);
 	
 	// Minute
-	prefsBuffer.fg(mainColorIndex);
+	prefsBuffer.fg(acHourMinColorIndex);
 	x = cenX + roundCoord(cos(4.7) * minuteLen);
 	y = cenY + roundCoord(sin(4.7) * minuteLen);
 	prefsBuffer.line(clrFG, cenX, cenY, x, y);
 	
 	// Second
-	prefsBuffer.fg(highlightColorIndex);
+	prefsBuffer.fg(acSecondsColorIndex);
 	x = cenX + roundCoord(cos(5.5) * secondLen);
 	y = cenY + roundCoord(sin(5.5) * secondLen);
 	prefsBuffer.line(clrFG, cenX, cenY, x, y);
 	
 	// Clock center
-	prefsBuffer.fg(highlightColorIndex);
+	prefsBuffer.fg(acCenterColorIndex);
 	prefsBuffer.rect(clrFG,
 		cenX - 2,
 		cenY - 2,
@@ -392,8 +392,8 @@ void drawBatteryRepresentation() {
 	
 	label1.text = "Empty";
 	label2.text = "100-50%";
-	label3.text = "40-20%";
-	label4.text = "10-0%";
+	label3.text = "40-30%";
+	label4.text = "20-0%";
 	label5.text = "";
 
 	showColorControls();
@@ -401,27 +401,69 @@ void drawBatteryRepresentation() {
 
 
 void drawColorSquares() {
-	draw.begin();
-	// Background
-	draw.fg(backgroundColorIndex);
-	draw.rect(clrFG, color1Btn.x+1, color1Btn.y+1, color1Btn.x+11, color1Btn.y+11, 0);
-	// Widgets
-	draw.fg(widgetColorIndex);
-	draw.rect(clrFG, color2Btn.x+1, color2Btn.y+1, color2Btn.x+11, color2Btn.y+11, 0);
-	//Shadows
-	draw.fg(shadowColorIndex);
-	draw.rect(clrFG, color3Btn.x+1, color3Btn.y+1, color3Btn.x+11, color3Btn.y+11, 0);
-	// Highlights
-	draw.fg(highlightColorIndex);
-	draw.rect(clrFG, color4Btn.x+1, color4Btn.y+1, color4Btn.x+11, color4Btn.y+11, 0);
-	// Main
-	draw.fg(mainColorIndex);
-	draw.rect(clrFG, color5Btn.x+1, color5Btn.y+1, color5Btn.x+11, color5Btn.y+11, 0);
-	draw.end();
+	switch (popupSelection) {
+		case 0:
+			draw.begin();
+			// Background
+			draw.fg(backgroundColorIndex);
+			draw.rect(clrFG, color1Btn.x+1, color1Btn.y+1, color1Btn.x+11, color1Btn.y+11, 0);
+			// Widgets
+			draw.fg(widgetColorIndex);
+			draw.rect(clrFG, color2Btn.x+1, color2Btn.y+1, color2Btn.x+11, color2Btn.y+11, 0);
+			// Shadows
+			draw.fg(shadowColorIndex);
+			draw.rect(clrFG, color3Btn.x+1, color3Btn.y+1, color3Btn.x+11, color3Btn.y+11, 0);
+			// Highlights
+			draw.fg(highlightColorIndex);
+			draw.rect(clrFG, color4Btn.x+1, color4Btn.y+1, color4Btn.x+11, color4Btn.y+11, 0);
+			// Main
+			draw.fg(mainColorIndex);
+			draw.rect(clrFG, color5Btn.x+1, color5Btn.y+1, color5Btn.x+11, color5Btn.y+11, 0);
+			draw.end();
+			break;
+		case 1:
+			draw.begin();
+			// Background
+			draw.fg(acBackgroundColorIndex);
+			draw.rect(clrFG, color1Btn.x+1, color1Btn.y+1, color1Btn.x+11, color1Btn.y+11, 0);
+			// Numbers
+			draw.fg(acNumbersColorIndex);
+			draw.rect(clrFG, color2Btn.x+1, color2Btn.y+1, color2Btn.x+11, color2Btn.y+11, 0);
+			// Hour/min
+			draw.fg(acHourMinColorIndex);
+			draw.rect(clrFG, color3Btn.x+1, color3Btn.y+1, color3Btn.x+11, color3Btn.y+11, 0);
+			// Seconds
+			draw.fg(acSecondsColorIndex);
+			draw.rect(clrFG, color4Btn.x+1, color4Btn.y+1, color4Btn.x+11, color4Btn.y+11, 0);
+			// Center
+			draw.fg(acCenterColorIndex);
+			draw.rect(clrFG, color5Btn.x+1, color5Btn.y+1, color5Btn.x+11, color5Btn.y+11, 0);
+			draw.end();
+			break;
+		case 2:
+			draw.begin();
+			// Empty
+			draw.fg(batteryEmptyColorIndex);
+			draw.rect(clrFG, color1Btn.x+1, color1Btn.y+1, color1Btn.x+11, color1Btn.y+11, 0);
+			// 100-50%
+			draw.fg(batteryColorIndex);
+			draw.rect(clrFG, color2Btn.x+1, color2Btn.y+1, color2Btn.x+11, color2Btn.y+11, 0);
+			// 40-30%
+			draw.fg(battery40ColorIndex);
+			draw.rect(clrFG, color3Btn.x+1, color3Btn.y+1, color3Btn.x+11, color3Btn.y+11, 0);
+			// 20-0%
+			draw.fg(battery20ColorIndex);
+			draw.rect(clrFG, color4Btn.x+1, color4Btn.y+1, color4Btn.x+11, color4Btn.y+11, 0);
+			// Main
+			//draw.fg(mainColorIndex);
+			//draw.rect(clrFG, color5Btn.x+1, color5Btn.y+1, color5Btn.x+11, color5Btn.y+11, 0);
+			draw.end();
+			break;
+	}
 }
 
 
-void colorPopupSelection(int selectionInt) {	
+void colorPopupSelection(int selectionInt) {
 	switch (selectionInt) {
 		case 0:
 				drawWidgetRepresentation();
@@ -465,43 +507,111 @@ handler colorPopup.onlistselect() {
 }
 
 
-// Background color selector
+// Button 1 color selector
 handler color1Btn.onselect() {
-	draw.selectIndex("Choose background color:", &backgroundColorIndex);
-	colorPopupSelection(popupSelection);
-	drawColorSquares();
+	switch (popupSelection) {
+		case 0:
+			draw.selectIndex("Choose background color:", &backgroundColorIndex);
+			colorPopupSelection(popupSelection);
+			drawColorSquares();
+			break;
+		case 1:
+			draw.selectIndex("Choose background color:", &acBackgroundColorIndex);
+			colorPopupSelection(popupSelection);
+			drawColorSquares();
+			break;
+		case 2:
+			draw.selectIndex("Choose empty batt. color:", &batteryEmptyColorIndex);
+			colorPopupSelection(popupSelection);
+			drawColorSquares();
+			break;
+	}
 }
 
 
-// Widgets color selector
+// Button 2 color selector
 handler color2Btn.onselect() {
-	draw.selectIndex("Choose widgets color:", &widgetColorIndex);
-	colorPopupSelection(popupSelection);
-	drawColorSquares();
+	switch (popupSelection) {
+		case 0:
+			draw.selectIndex("Choose widget color:", &widgetColorIndex);
+			colorPopupSelection(popupSelection);
+			drawColorSquares();
+			break;
+		case 1:
+			draw.selectIndex("Choose number color:", &acNumbersColorIndex);
+			colorPopupSelection(popupSelection);
+			drawColorSquares();
+			break;
+		case 2:
+			draw.selectIndex("Choose 100-50% color:", &batteryColorIndex);
+			colorPopupSelection(popupSelection);
+			drawColorSquares();
+			break;
+	}
 }
 
 
-// Shadows color selector
+// Button 3 color selector
 handler color3Btn.onselect() {
-	draw.selectIndex("Choose shadows color:", &shadowColorIndex);
-	colorPopupSelection(popupSelection);
-	drawColorSquares();
+	switch (popupSelection) {
+		case 0:
+			draw.selectIndex("Choose shadow color:", &shadowColorIndex);
+			colorPopupSelection(popupSelection);
+			drawColorSquares();
+			break;
+		case 1:
+			draw.selectIndex("Choose hour/min. color:", &acHourMinColorIndex);
+			colorPopupSelection(popupSelection);
+			drawColorSquares();
+			break;
+		case 2:
+			draw.selectIndex("Choose 40-30% color:", &battery40ColorIndex);
+			colorPopupSelection(popupSelection);
+			drawColorSquares();
+			break;
+	}
 }
 
 
-// Highlights color selector
+// Button 4 color selector
 handler color4Btn.onselect() {
-	draw.selectIndex("Choose highlights color:", &highlightColorIndex);
-	colorPopupSelection(popupSelection);
-	drawColorSquares();
+	switch (popupSelection) {
+		case 0:
+			draw.selectIndex("Choose highlight color:", &highlightColorIndex);
+			colorPopupSelection(popupSelection);
+			drawColorSquares();
+			break;
+		case 1:
+			draw.selectIndex("Choose seconds color:", &acSecondsColorIndex);
+			colorPopupSelection(popupSelection);
+			drawColorSquares();
+			break;
+		case 2:
+			draw.selectIndex("Choose 20-0% color:", &battery20ColorIndex);
+			colorPopupSelection(popupSelection);
+			drawColorSquares();
+			break;
+	}
 }
 
 
-// Main color selector
+// Button 5 color selector
 handler color5Btn.onselect() {
-	draw.selectIndex("Choose main color:", &mainColorIndex);
-	colorPopupSelection(popupSelection);
-	drawColorSquares();
+	switch (popupSelection) {
+		case 0:
+			draw.selectIndex("Choose main color:", &mainColorIndex);
+			colorPopupSelection(popupSelection);
+			drawColorSquares();
+			break;
+		case 1:
+			draw.selectIndex("Choose center color:", &acCenterColorIndex);
+			colorPopupSelection(popupSelection);
+			drawColorSquares();
+			break;
+		case 2:
+			
+			break;
+	}
 }
 
 

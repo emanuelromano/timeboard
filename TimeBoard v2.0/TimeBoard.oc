@@ -80,6 +80,13 @@ bool setDefaultPrefs() {
 	appPrefs[0].shadowColorIndex = 1;
 	appPrefs[0].highlightColorIndex = 1;
 	appPrefs[0].mainColorIndex = 1;
+	
+	appPrefs[0].acBackgroundColorIndex = 0;
+	appPrefs[0].acNumbersColorIndex = 1;
+	appPrefs[0].acHourMinColorIndex = 1;
+	appPrefs[0].acSecondsColorIndex = 1;
+	appPrefs[0].acCenterColorIndex = 1;
+	
 	appPrefs[0].batteryColorIndex = 1;
 	appPrefs[0].battery40ColorIndex = 1;
 	appPrefs[0].battery20ColorIndex = 1;
@@ -96,6 +103,13 @@ bool setDefaultPrefs() {
 	appPrefs[1].shadowColorIndex = 3;
 	appPrefs[1].highlightColorIndex = 3;
 	appPrefs[1].mainColorIndex = 2;
+	
+	appPrefs[1].acBackgroundColorIndex = 0;
+	appPrefs[1].acNumbersColorIndex = 3;
+	appPrefs[1].acHourMinColorIndex = 3;
+	appPrefs[1].acSecondsColorIndex = 3;
+	appPrefs[1].acCenterColorIndex = 3;
+	
 	appPrefs[1].batteryColorIndex = 3;
 	appPrefs[1].battery40ColorIndex = 3;
 	appPrefs[1].battery20ColorIndex = 3;
@@ -112,6 +126,13 @@ bool setDefaultPrefs() {
 	appPrefs[2].shadowColorIndex = 12;
 	appPrefs[2].highlightColorIndex = 15;
 	appPrefs[2].mainColorIndex = 9;
+	
+	appPrefs[2].acBackgroundColorIndex = 0;
+	appPrefs[2].acNumbersColorIndex = 15;
+	appPrefs[2].acHourMinColorIndex = 15;
+	appPrefs[2].acSecondsColorIndex = 15;
+	appPrefs[2].acCenterColorIndex = 15;
+	
 	appPrefs[2].batteryColorIndex = 11;
 	appPrefs[2].battery40ColorIndex = 11;
 	appPrefs[2].battery20ColorIndex = 11;
@@ -128,6 +149,13 @@ bool setDefaultPrefs() {
 	appPrefs[3].shadowColorIndex = 216;
 	appPrefs[3].highlightColorIndex = 121;
 	appPrefs[3].mainColorIndex = 0;
+	
+	appPrefs[3].acBackgroundColorIndex = 218;
+	appPrefs[3].acNumbersColorIndex = 0;
+	appPrefs[3].acHourMinColorIndex = 0;
+	appPrefs[3].acSecondsColorIndex = 121;
+	appPrefs[3].acCenterColorIndex = 121;
+	
 	appPrefs[3].batteryColorIndex = 168;
 	appPrefs[3].battery40ColorIndex = 116;
 	appPrefs[3].battery20ColorIndex = 119;
