@@ -326,6 +326,7 @@ handler mainForm.onpenup() {
 				showBattPercentage = false;
 			
 			miniBatteryWidget(miniPanelX3, miniPanelY3);
+			drawMainBuffer();
 		}
 	}
 }

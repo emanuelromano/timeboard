@@ -39,7 +39,6 @@ void updateClockHands() {
 		newMinuteIndex,
 		newSecondIndex,
 		index = 0;
-	float angle;
 	
 	if (widgetW != 70) {
 		axisXcorrection = 38;
@@ -201,7 +200,6 @@ void analogClockWidget(int startX, int startY) {
 		circleCornerRadius,
 		secondDotRadius,
 		index;
-	float angle;
 	string number;
 	
 	centerX = startX + (widgetW / 2);
@@ -385,12 +383,10 @@ void updateClockHands2() {
 		axisXcorrection = 0,
 		axisYcorrection = 0,
 		circleRadius,
-		color, bgColor, secColor,
 		newHourIndex,
 		newMinuteIndex,
 		newSecondIndex,
 		index = 0;
-	float angle;
 	
 	if (interfaceMode == 1) {
 		axisXcorrection = 70;
@@ -551,7 +547,6 @@ void analogClockWidget2(int startX, int startY) {
 		circleCornerRadius,
 		secondDotRadius,
 		index;
-	float angle;
 	string number;
 	
 	centerX = startX + (widgetW / 2) - 28;
