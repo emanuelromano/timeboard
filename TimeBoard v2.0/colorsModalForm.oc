@@ -366,7 +366,7 @@ void drawBatteryRepresentation() {
 	prefsBuffer.fg(highlightColorIndex);
 	prefsBuffer.rect(clrFG, iconX+1, iconY+1, iconX+14, iconY+7, 1);
 	
-	// Dummy text
+	// Dummy battery text
 	mainBuffer.textColor(mainColorIndex);	
 	mainBuffer.textAlign(02);
 	mainBuffer.bg(widgetColorIndex);
@@ -382,7 +382,7 @@ void drawBatteryRepresentation() {
 	label1.text = "Empty";
 	label2.text = "100-50%";
 	label3.text = "40-30%";
-	label4.text = "20-0%";
+	label4.text = "20-10%";
 	label5.text = "";
 
 	showColorControls();
@@ -452,8 +452,8 @@ void drawColorSquares() {
 }
 
 
-void colorPopupSelection(int selectionInt) {
-	switch (selectionInt) {
+void colorPopupSelection(int selection) {
+	switch (selection) {
 		case 0:
 				drawWidgetRepresentation();
 				drawColorSquares();
@@ -598,7 +598,7 @@ handler color5Btn.onselect() {
 			drawColorSquares();
 			break;
 		case 2:
-			
+			// No function
 			break;
 	}
 }

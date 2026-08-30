@@ -270,7 +270,11 @@ void analogClockWidget(int startX, int startY) {
 	centerX = startX + (widgetW / 2);
 	centerY = startY + (widgetH / 2);
 	
-	radius = (widgetW / 2) - (widgetW / 2) * 0.26;
+	// Set radius based on widget size
+	if ((widgetW != 70) && widgetH > widgetW)
+		radius = (widgetW / 2) - (widgetW / 2) * 0.26;
+	else
+		radius = (widgetH / 2) - (widgetH / 2) * 0.26;
 	
 	// Hands lenght
 	hourLength = (widgetW / 2) - (widgetW / 2) * 0.55;
