@@ -111,11 +111,7 @@ void batteryWidget(int startX, int startY) {
 	drawBatteryDots(startX, startY, widgetW, widgetH-13, dotRadius, ringRadius, charge);
 	
 	// Battery icon
-	if (colorDepth > 4 || colorDepth == 1)
-		mainBuffer.fg(mainColorIndex);
-	else
-		mainBuffer.fg(highlightColorIndex);
-	
+	mainBuffer.fg(mainColorIndex);
 	mainBuffer.frame(clrFG, iconX, iconY, iconX+15, iconY+8, 2, 1);
 	mainBuffer.line(clrFG, iconX+16, iconY+2, iconX+16, iconY+5);
 	
@@ -172,21 +168,42 @@ void miniBatteryWidget(int startX, int startY) {
 	int dotRadius = 3,
 		ringRadius = 16,
 		
+		iconX = startX + 11,
+		iconY = startY + 15,
+		
 		digitX = startX + (miniPanelW / 2),
 		digitY = startY + (miniPanelH / 2);
 	
-	// Battery percentage
-	mainBuffer.begin();	
-	mainBuffer.textColor(mainColorIndex);
-	mainBuffer.textAlign(11);
-	mainBuffer.bg(widgetColorIndex);
-	mainBuffer.font(fntStandard);
+	mainBuffer.begin();
 	
-	// Charge
-	if (charge == 100)
-		mainBuffer.text(clrText, digitX-2, digitY-2, "  " + charge + "% ");
+	if (showBattPercentage) {
+		// Battery percentage
+		mainBuffer.fg(widgetColorIndex);
+		mainBuffer.rect(clrFG, iconX-3, iconY-2, iconX+18, iconY+10, 1);
+	
+		mainBuffer.textColor(mainColorIndex);
+		mainBuffer.textAlign(11);
+		mainBuffer.bg(widgetColorIndex);
+		mainBuffer.font(fntStandard);
+		
+		// Charge
+		if (charge == 100)
+			mainBuffer.text(clrText, digitX-2, digitY-2, "  " + charge + "% ");
+		else
+			mainBuffer.text(clrText, digitX, digitY-2, "  " + charge + "% ");
+	}
 	else
-		mainBuffer.text(clrText, digitX, digitY-2, "  " + charge + "% ");
+	{
+		// Battery icon
+		mainBuffer.fg(widgetColorIndex);
+		mainBuffer.rect(clrFG, iconX-3, iconY-2, iconX+18, iconY+10, 1);
+		mainBuffer.fg(mainColorIndex);
+		mainBuffer.frame(clrFG, iconX, iconY, iconX+15, iconY+8, 2, 1);
+		mainBuffer.line(clrFG, iconX+16, iconY+2, iconX+16, iconY+5);
+		
+		mainBuffer.fg(highlightColorIndex);
+		mainBuffer.rect(clrFG, iconX+1, iconY+1, iconX+14, iconY+7, 1);
+	}
 	
 	// Battery dots
 	drawBatteryDots(startX, startY, miniPanelW, miniPanelH, dotRadius, ringRadius, charge);

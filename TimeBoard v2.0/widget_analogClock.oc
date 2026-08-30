@@ -694,7 +694,7 @@ void analogClockWidget2(int startX, int startY) {
 			else {
     			// Shorter lines
     			innerRadius = (widgetH / 2) * 0.70;
-    			outerRadius = (widgetH / 2) * 0.80;
+    			outerRadius = (widgetH / 2) * 0.76;
 			}
 			
     		// 0 = 12 o'clock

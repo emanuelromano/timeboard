@@ -295,10 +295,10 @@ handler mainForm.onresize() {
 
 
 handler mainForm.onpenup() {
-	/*int penX = e.x,
+	int penX = e.x,
 		penY = e.y;
 	
-	// Widget 1
+	/* // Widget 1
 	if (penX >= startX1 && penX <= startX1 + widgetW && penY >= startY1 && penY <= startY1 + widgetH) {
 		//alert("Widget 1");
 	}
@@ -316,7 +316,16 @@ handler mainForm.onpenup() {
 	// Widget 4
 	if (penX >= startX4 && penX <= startX4 + widgetW && penY >= startY4 && penY <= startY4 + widgetH) {
 		//alert("Widget 4");
-	}*/
+	} */
+	
+	if (penX >= miniPanelX3 && penX <= miniPanelX3 + miniPanelW && penY >= miniPanelY3 && penY <= miniPanelY3 + miniPanelH) {
+		if (!showBattPercentage)
+			showBattPercentage = true;
+		else
+			showBattPercentage = false;
+		
+		miniBatteryWidget(miniPanelX3, miniPanelY3);
+	}
 }
 
 
