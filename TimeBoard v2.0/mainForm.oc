@@ -318,13 +318,15 @@ handler mainForm.onpenup() {
 		//alert("Widget 4");
 	} */
 	
-	if (penX >= miniPanelX3 && penX <= miniPanelX3 + miniPanelW && penY >= miniPanelY3 && penY <= miniPanelY3 + miniPanelH) {
-		if (!showBattPercentage)
-			showBattPercentage = true;
-		else
-			showBattPercentage = false;
-		
-		miniBatteryWidget(miniPanelX3, miniPanelY3);
+	if (interfaceMode == 1 || bigUI) {
+		if (penX >= miniPanelX3 && penX <= miniPanelX3 + miniPanelW && penY >= miniPanelY3 && penY <= miniPanelY3 + miniPanelH) {
+			if (!showBattPercentage)
+				showBattPercentage = true;
+			else
+				showBattPercentage = false;
+			
+			miniBatteryWidget(miniPanelX3, miniPanelY3);
+		}
 	}
 }
 
