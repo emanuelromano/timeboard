@@ -398,6 +398,24 @@ void drawDigit(int number,
 }
 
 
+// Sine calculation
+int calcSin(int index) {
+	if (index < 0)
+		index += 720;
+	
+	if (index >= 720)
+		index -= 720;
+	
+	return sinTable[index];
+}
+
+
+// Cosine calculation
+int calcCos(int index) {
+    return calcSin(index + 180);
+}
+
+
 // Checks if TimeBoard Time Service is installed
 bool isTBTSInstalled() {
 	DatabaseMgr dbMgr;
@@ -410,6 +428,7 @@ bool isTBTSInstalled() {
 
 	return false;
 }
+
 
 // Draw mainBuffer
 void drawMainBuffer() {

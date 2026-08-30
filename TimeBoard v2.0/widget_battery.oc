@@ -2,8 +2,8 @@ void drawBatteryDots(int startX, int startY, int widW, int widH, int dotRadius, 
 	int centerX, centerY,
 		activeDots,
 		i, x, y,
-		battColorIndex;
-	float angle;
+		battColorIndex,
+		index;
 	
 	centerX = startX + (widW / 2);
 	centerY = startY + (widH / 2);
@@ -34,12 +34,15 @@ void drawBatteryDots(int startX, int startY, int widW, int widH, int dotRadius, 
 	}
 	
 	// Draw battery dots
+	index = 0;
 	for (i = 0; i < 10; i++) {
+		index = i * 72;
 		
-		angle = ((i * 36) - 90) * pi / 180;
+		x = centerX + roundCoord(
+    		(float)calcSin(index) * ringRadius / 512);
 		
-		x = centerX + (cos(angle) * ringRadius);
-		y = centerY + (sin(angle) * ringRadius);
+		y = centerY - roundCoord(
+    		(float)calcCos(index) * ringRadius / 512);
 		
 		if (i < activeDots) {
 			mainBuffer.fg(battColorIndex);

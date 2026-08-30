@@ -101,8 +101,8 @@ void drawAnalogClockRepresentation() {
 		hourLen, minuteLen, secondLen,
 		circleSeparation,
 		circleCornerRadius,
-		minuteDotRadius;
-	float angle;
+		minuteDotRadius,
+		index;
 	string number;
 	
 	cenX = startX + (widW / 2);
@@ -135,13 +135,17 @@ void drawAnalogClockRepresentation() {
 	
 	if (useAnalogClockNumbers == 1) {
 		// Clock numbers
+		index = 0;
 		for (i = 0; i < 12; i++) {
 	
 			// 0 = 12 upwards
-			angle = ((i * 30) - 90) * 3.14159265 / 180;
+			index = i * 60;
 	
-			x = cenX + roundCoord(cos(angle) * radius);
-			y = cenY + roundCoord(sin(angle) * radius) - 1;
+    		x = cenX + roundCoord(
+        		(float)calcSin(index) * radius / 512);
+		
+    		y = cenY - roundCoord(
+        		(float)calcCos(index) * radius / 512) - 1;
 	
 			if (i == 0)
 				number = "12";
@@ -152,8 +156,6 @@ void drawAnalogClockRepresentation() {
 			prefsBuffer.textAlign(11);
 			prefsBuffer.bg(acBackgroundColorIndex);
 			prefsBuffer.font(fntStandard);
-			
-			// Color
     		prefsBuffer.textColor(acNumbersColorIndex);
 			prefsBuffer.text(clrText, x, y, number);
 		}
@@ -161,6 +163,7 @@ void drawAnalogClockRepresentation() {
 	else
 	{
 		// Clock lines
+		index = 0;
 		for (i = 0; i < 12; i++) {
 			if (i == 0 || i == 3 || i == 6 || i == 9) {
     			// Longer lines
@@ -175,13 +178,19 @@ void drawAnalogClockRepresentation() {
 			}
 			
     		// 0 = 12 o'clock
-    		angle = ((i * 30) - 90) * 3.14159265 / 180;
+    		index = i * 60;
 			
-			x1 = cenX + roundCoord(cos(angle) * innerRadius);
-			y1 = cenY + roundCoord(sin(angle) * innerRadius);
-			
-			x2 = cenX + roundCoord(cos(angle) * outerRadius);
-			y2 = cenY + roundCoord(sin(angle) * outerRadius);
+    		x1 = cenX + roundCoord(
+        		(float)calcSin(index) * innerRadius / 512);
+		
+    		y1 = cenY - roundCoord(
+        		(float)calcCos(index) * innerRadius / 512);
+		
+    		x2 = cenX + roundCoord(
+        		(float)calcSin(index) * outerRadius / 512);
+		
+    		y2 = cenY - roundCoord(
+        		(float)calcCos(index) * outerRadius / 512);
     		    		
     		// Color for 3, 6, 9 & 12 lines
     		prefsBuffer.fg(acSecondsColorIndex);
@@ -228,32 +237,57 @@ void drawAnalogClockRepresentation() {
 	
 	// Minutes dots
 	minuteDotRadius = 36;
+	index = 0;
 	for (i = 0; i < 60; i++) {
-		angle = ((i * 6) - 90) * 3.14159265 / 180;
+		index = i * 12;
 	
-		x = cenX + roundCoord(cos(angle) * minuteDotRadius);
-		y = cenY + roundCoord(sin(angle) * minuteDotRadius);
+    	x = cenX + roundCoord(
+        	(float)calcSin(index) * minuteDotRadius / 512);
+	
+    	y = cenY - roundCoord(
+        	(float)calcCos(index) * minuteDotRadius / 512);
 		
 		prefsBuffer.fg(acNumbersColorIndex);
-		mainBuffer.pixel(clrFG, x, y);
+		prefsBuffer.pixel(clrFG, x, y);
 	}
 	
 	// Hour
 	prefsBuffer.fg(acHourMinColorIndex);
-	x = cenX + roundCoord(cos(0) * hourLen);
-	y = cenY + roundCoord(sin(0) * hourLen);
+
+	index = 0;
+	
+	x = cenX + roundCoord(
+    	(float)calcSin(index) * hourLen / 512);
+	
+	y = cenY - roundCoord(
+    	(float)calcCos(index) * hourLen / 512);
+	
 	prefsBuffer.line(clrFG, cenX, cenY, x, y);
 	
 	// Minute
 	prefsBuffer.fg(acHourMinColorIndex);
-	x = cenX + roundCoord(cos(4.7) * minuteLen);
-	y = cenY + roundCoord(sin(4.7) * minuteLen);
+	
+	index = 539;
+	
+	x = cenX + roundCoord(
+    	(float)calcSin(index) * minuteLen / 512);
+	
+	y = cenY - roundCoord(
+    	(float)calcCos(index) * minuteLen / 512);
+	
 	prefsBuffer.line(clrFG, cenX, cenY, x, y);
 	
 	// Second
 	prefsBuffer.fg(acSecondsColorIndex);
-	x = cenX + roundCoord(cos(5.5) * secondLen);
-	y = cenY + roundCoord(sin(5.5) * secondLen);
+	
+	index = 630;
+	
+	x = cenX + roundCoord(
+    	(float)calcSin(index) * secondLen / 512);
+	
+	y = cenY - roundCoord(
+    	(float)calcCos(index) * secondLen / 512);
+	
 	prefsBuffer.line(clrFG, cenX, cenY, x, y);
 	
 	// Clock center
@@ -293,12 +327,12 @@ void drawBatteryRepresentation() {
 		iconY = startY + 70,
 		textY = startY + 67,
 		i, x, y,
-		battColorIndex;
-	float angle;
+		battColorIndex,
+		index;
 	
 	cenX = startX + (widW / 2);
 	cenY = startY + (widH / 2) - 7;
-		
+	
 	prefsBuffer.begin();
 	
 	// Widget background
@@ -306,11 +340,13 @@ void drawBatteryRepresentation() {
 	prefsBuffer.rect(clrFG, startX, startY, startX+widW, startY+widH, 0);
 	
 	for (i = 0; i < 10; i++) {
+		index = i * 72;
 
-		angle = ((i * 36) - 90) * 3.14159265 / 180;
-
-		x = cenX + (cos(angle) * ringRadius);
-		y = cenY + (sin(angle) * ringRadius);
+    	x = cenX + roundCoord(
+        	(float)calcSin(index) * ringRadius / 512);
+	
+    	y = cenY - roundCoord(
+        	(float)calcCos(index) * ringRadius / 512);
 
 		if (i == 0 || i == 1) {
 			prefsBuffer.fg(battery20ColorIndex);
