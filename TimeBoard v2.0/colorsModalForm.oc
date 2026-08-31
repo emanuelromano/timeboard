@@ -31,7 +31,7 @@ void drawWidgetRepresentation() {
 		digitH = 28,
 		radius = fontRadius,
 		segmentThickness = 6,
-	
+		
 		digitHr1X = startX + 6,
 		digitHr2X = digitHr1X + digitW + 3,
 		
@@ -42,6 +42,7 @@ void drawWidgetRepresentation() {
 		digitY2 = digitY1 + digitH + 3;
 	
 	prefsBuffer.begin();
+	
 	// Background
 	prefsBuffer.fg(backgroundColorIndex);
 	prefsBuffer.rect(clrFG, 0, 0, 85, 85, 0);
@@ -64,13 +65,14 @@ void drawWidgetRepresentation() {
 	prefsBuffer.fg(mainColorIndex);
 	drawDigit("3", digitW, digitH, digitMin1X, digitY2, radius, segmentThickness);
 	drawDigit("4", digitW, digitH, digitMin2X, digitY2, radius, segmentThickness);
-
+	
 	// Seconds
 	prefsBuffer.textAlign(22);
 	prefsBuffer.bg(widgetColorIndex);
 	mainBuffer.textColor(mainColorIndex);
 	prefsBuffer.font(fntLargeBold);
 	prefsBuffer.text(clrText, startX+widW-5, startY+widH-6, "56");
+	
 	prefsBuffer.end();
 	
 	draw.begin();
@@ -117,7 +119,7 @@ void drawAnalogClockRepresentation() {
 	secondLen = (widW / 2) - (widW / 2) * 0.44;
 	
 	prefsBuffer.begin();
-		
+	
 	// Widget background
 	prefsBuffer.fg(widgetColorIndex);
 	prefsBuffer.rect(clrFG, startX, startY, startX+widW, startY+widH, 0);
@@ -138,21 +140,19 @@ void drawAnalogClockRepresentation() {
 		// Clock numbers
 		index = 0;
 		for (i = 0; i < 12; i++) {
-	
-			// 0 = 12 upwards
 			index = i * 60;
-	
+			
     		x = cenX + roundCoord(
         		(float)calcSin(index) * radius / 512);
-		
+			
     		y = cenY - roundCoord(
         		(float)calcCos(index) * radius / 512) - 1;
-	
+			
 			if (i == 0)
 				number = "12";
 			else
 				number = "" + i;
-						
+			
 			// Centered text, font and color
 			prefsBuffer.textAlign(11);
 			prefsBuffer.bg(acBackgroundColorIndex);
@@ -183,16 +183,16 @@ void drawAnalogClockRepresentation() {
 			
     		x1 = cenX + roundCoord(
         		(float)calcSin(index) * innerRadius / 512);
-		
+			
     		y1 = cenY - roundCoord(
         		(float)calcCos(index) * innerRadius / 512);
-		
+			
     		x2 = cenX + roundCoord(
         		(float)calcSin(index) * outerRadius / 512);
-		
+			
     		y2 = cenY - roundCoord(
         		(float)calcCos(index) * outerRadius / 512);
-    		    		
+    		
     		// Color for 3, 6, 9 & 12 lines
     		prefsBuffer.fg(acSecondsColorIndex);
     		if (i == 0) {
@@ -241,10 +241,10 @@ void drawAnalogClockRepresentation() {
 	index = 0;
 	for (i = 0; i < 60; i++) {
 		index = i * 12;
-	
+		
     	x = cenX + roundCoord(
         	(float)calcSin(index) * minuteDotRadius / 512);
-	
+		
     	y = cenY - roundCoord(
         	(float)calcCos(index) * minuteDotRadius / 512);
 		
@@ -254,7 +254,7 @@ void drawAnalogClockRepresentation() {
 	
 	// Hour
 	prefsBuffer.fg(acHourMinColorIndex);
-
+	
 	index = 0;
 	
 	x = cenX + roundCoord(
@@ -313,7 +313,7 @@ void drawAnalogClockRepresentation() {
 	label3.text = "Hour/min";
 	label4.text = "Seconds";
 	label5.text = "Center";
-
+	
 	showColorControls();
 }
 
@@ -344,13 +344,13 @@ void drawBatteryRepresentation() {
 	
 	for (i = 0; i < 10; i++) {
 		index = i * 72;
-
+		
     	x = cenX + roundCoord(
         	(float)calcSin(index) * ringRadius / 512);
-	
+		
     	y = cenY - roundCoord(
         	(float)calcCos(index) * ringRadius / 512);
-
+		
 		if (i == 0 || i == 1) {
 			prefsBuffer.fg(battery20ColorIndex);
 			
@@ -424,7 +424,7 @@ void drawBatteryRepresentation() {
 	label3.text = "40-30%";
 	label4.text = "20-10%";
 	label5.text = "";
-
+	
 	showColorControls();
 }
 

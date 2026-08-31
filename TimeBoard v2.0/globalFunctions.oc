@@ -29,26 +29,6 @@ void setMainPreferences() {
 
 // Save main preferences from global variables
 bool saveMainPreferences() {	
-	// Specific theme settings for color themes
-	if (colorDepth > 4) {
-		appPrefs[appPrefsPosition].backgroundColorIndex = backgroundColorIndex;
-		appPrefs[appPrefsPosition].widgetColorIndex = widgetColorIndex;
-		appPrefs[appPrefsPosition].shadowColorIndex = shadowColorIndex;
-		appPrefs[appPrefsPosition].highlightColorIndex = highlightColorIndex;
-		appPrefs[appPrefsPosition].mainColorIndex = mainColorIndex;
-		
-		appPrefs[appPrefsPosition].acBackgroundColorIndex = acBackgroundColorIndex;
-		appPrefs[appPrefsPosition].acNumbersColorIndex = acNumbersColorIndex;
-		appPrefs[appPrefsPosition].acHourMinColorIndex = acHourMinColorIndex;
-		appPrefs[appPrefsPosition].acSecondsColorIndex = acSecondsColorIndex;
-		appPrefs[appPrefsPosition].acCenterColorIndex = acCenterColorIndex;
-		
-		appPrefs[appPrefsPosition].batteryColorIndex = batteryColorIndex;
-		appPrefs[appPrefsPosition].battery40ColorIndex = battery40ColorIndex;
-		appPrefs[appPrefsPosition].battery20ColorIndex = battery20ColorIndex;
-		appPrefs[appPrefsPosition].batteryEmptyColorIndex = batteryEmptyColorIndex;
-	}
-	
 	// B/W screens (1-bit)
 	appPrefs[0].debugFlag = debugFlag;
 	appPrefs[0].interfaceMode = origInterfaceMode;
@@ -72,6 +52,26 @@ bool saveMainPreferences() {
 	appPrefs[3].interfaceMode = origInterfaceMode;
 	appPrefs[3].widgetCornerRadius = widgetCornerRadius;
 	appPrefs[3].useAnalogClockNumbers = useAnalogClockNumbers;
+	
+	// Specific theme settings for color themes
+	if (colorDepth > 4) {
+		appPrefs[3].backgroundColorIndex = backgroundColorIndex;
+		appPrefs[3].widgetColorIndex = widgetColorIndex;
+		appPrefs[3].shadowColorIndex = shadowColorIndex;
+		appPrefs[3].highlightColorIndex = highlightColorIndex;
+		appPrefs[3].mainColorIndex = mainColorIndex;
+		
+		appPrefs[3].acBackgroundColorIndex = acBackgroundColorIndex;
+		appPrefs[3].acNumbersColorIndex = acNumbersColorIndex;
+		appPrefs[3].acHourMinColorIndex = acHourMinColorIndex;
+		appPrefs[3].acSecondsColorIndex = acSecondsColorIndex;
+		appPrefs[3].acCenterColorIndex = acCenterColorIndex;
+		
+		appPrefs[3].batteryColorIndex = batteryColorIndex;
+		appPrefs[3].battery40ColorIndex = battery40ColorIndex;
+		appPrefs[3].battery20ColorIndex = battery20ColorIndex;
+		appPrefs[3].batteryEmptyColorIndex = batteryEmptyColorIndex;
+	}
 	
 	return prefs.set(TimeBoard.creator, true, appPrefs, typeof(AppPrefs), numberOfPrefs);
 }
@@ -223,17 +223,16 @@ void drawDigit(int number,
 		 segment7 = false,
 		 segmentA = false,
 		 segmentB = false;
-
+	
 	int midY,
 		midYCorrection,
 		rightX;
-
+	
 	midY = digitH / 2;
 	midYCorrection = 2;
 	rightX = digitW - segThickness;
-
+	
 	switch (number) {
-
 		case 0:
 			segment1 = true;
 			segment3 = true;
@@ -242,13 +241,11 @@ void drawDigit(int number,
 			segment6 = true;
 			segment7 = true;
 			break;
-
 		case 1:
 			segment3 = true;
 			segmentA = true;
 			segmentB = true;
 			break;
-
 		case 2:
 			segment1 = true;
 			segment2 = true;
@@ -256,7 +253,6 @@ void drawDigit(int number,
 			segment4 = true;
 			segment7 = true;
 			break;
-
 		case 3:
 			segment1 = true;
 			segment2 = true;
@@ -264,14 +260,12 @@ void drawDigit(int number,
 			segment4 = true;
 			segment5 = true;
 			break;
-
 		case 4:
 			segment2 = true;
 			segment4 = true;
 			segment5 = true;
 			segment6 = true;
 			break;
-
 		case 5:
 			segment1 = true;
 			segment2 = true;
@@ -279,7 +273,6 @@ void drawDigit(int number,
 			segment5 = true;
 			segment6 = true;
 			break;
-
 		case 6:
 			segment1 = true;
 			segment2 = true;
@@ -288,13 +281,11 @@ void drawDigit(int number,
 			segment6 = true;
 			segment7 = true;
 			break;
-
 		case 7:
 			segment1 = true;
 			segment4 = true;
 			segment5 = true;
 			break;
-
 		case 8:
 			segment1 = true;
 			segment2 = true;
@@ -304,7 +295,6 @@ void drawDigit(int number,
 			segment6 = true;
 			segment7 = true;
 			break;
-
 		case 9:
 			segment1 = true;
 			segment2 = true;
@@ -387,7 +377,7 @@ void drawDigit(int number,
 					digitY + segThickness,
 					radius);
 	}
-
+	
 	if (segmentB) {
 		drawSegment(digitX + (digitW / 2) - (segThickness / 2),
 					digitY,
@@ -420,12 +410,12 @@ int calcCos(int index) {
 bool isTBTSInstalled() {
 	DatabaseMgr dbMgr;
 	string appName;
-
+	
 	appName = dbMgr.dbenum(true, "appl", "TBTS");
-
+	
 	if (appName != "")
 		return true;
-
+	
 	return false;
 }
 

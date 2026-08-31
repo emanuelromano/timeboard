@@ -4,7 +4,7 @@ void digitalClockWidget(int startX, int startY) {
 		digitH = 28,
 		radius = fontRadius,
 		segmentThickness = 6,
-	
+		
 		digitHr1X = startX + 6,
 		digitHr2X = digitHr1X + digitW + 3,
 		
@@ -82,7 +82,7 @@ void miniDigitalClockWidget(int startX, int startY) {
 	mainBuffer.fg(mainColorIndex);
 	drawDigit(minuteDigit1, digitW, digitH, digitMin1X, digitY2, radius, segmentThickness);
 	drawDigit(minuteDigit2, digitW, digitH, digitMin2X, digitY2, radius, segmentThickness);
-
+	
 	// Seconds
 	if (colorDepth > 4 || colorDepth == 1)
 		mainBuffer.textColor(mainColorIndex);

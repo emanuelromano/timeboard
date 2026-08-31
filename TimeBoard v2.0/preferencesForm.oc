@@ -71,7 +71,6 @@ handler corner8push.onselect() {
 // Save button
 handler prefsSaveBtn.onselect() {
 	saveMainPreferences();
-	
 	mainForm.load();
 }
 
