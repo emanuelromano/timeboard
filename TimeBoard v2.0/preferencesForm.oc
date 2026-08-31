@@ -1,6 +1,6 @@
 handler preferencesForm.onopen() {
 	// Interface push buttons
-	if (origInterfaceMode == 0)
+	if (origInterfaceMode == 1)
 		interfaceApush.checked = true;
 	else
 		interfaceBpush.checked = true;
@@ -40,13 +40,13 @@ handler prefsColorsBtn.onselect() {
 
 // Interface: Push button A
 handler interfaceApush.onselect() {
-	origInterfaceMode = 0;
+	origInterfaceMode = 1;
 }
 
 
 // Interface: Push button B
 handler interfaceBpush.onselect() {
-	origInterfaceMode = 1;
+	origInterfaceMode = 0;
 }
 
 

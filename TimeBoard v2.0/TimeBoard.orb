@@ -38,12 +38,12 @@
     smallh8 = "graphics\\icon_sh8.bmp"
   }
   bitmap Bitmap interfaceAbmp {
-    id = 1020
-    image1 = "graphics\\interfaceA.bmp"
-  }
-  bitmap Bitmap interfaceBbmp {
     id = 1021
     image1 = "graphics\\interfaceB.bmp"
+  }
+  bitmap Bitmap interfaceBbmp {
+    id = 1020
+    image1 = "graphics\\interfaceA.bmp"
   }
   bitmap Bitmap corner0bmp {
     id = 1025
@@ -128,30 +128,30 @@
     }
     label UILabel interfaceLbl {
       id = 1018
-      x = 8, y = 23
+      x = 9, y = 23
       fontid = 0
       text = "Interface:"
       hresize = 0, vresize = 0
     }
     pushbutton UIPushButton interfaceApush {
       id = 1003
-      x = 53, y = 25, w = 30, h = 30
+      x = 54, y = 25, w = 30, h = 30
       text = "A"
-      leftanchor = true, group = 1, fontid = 0
-      graphic = true, bitmapid = 1020, sbitmapid = 0
-      hresize = 0, vresize = 0
-    }
-    pushbutton UIPushButton interfaceBpush {
-      id = 1016
-      x = 86, y = 25, w = 30, h = 30
-      text = "B"
       leftanchor = true, group = 1, fontid = 0
       graphic = true, bitmapid = 1021, sbitmapid = 0
       hresize = 0, vresize = 0
     }
+    pushbutton UIPushButton interfaceBpush {
+      id = 1016
+      x = 87, y = 25, w = 30, h = 30
+      text = "B"
+      leftanchor = true, group = 1, fontid = 0
+      graphic = true, bitmapid = 1020, sbitmapid = 0
+      hresize = 0, vresize = 0
+    }
     pushbutton UIPushButton corner0push {
       id = 1022
-      x = 119, y = 25, w = 30, h = 8
+      x = 120, y = 25, w = 30, h = 8
       text = "A"
       leftanchor = true, group = 2, fontid = 0
       graphic = true, bitmapid = 1025, sbitmapid = 0
@@ -159,7 +159,7 @@
     }
     pushbutton UIPushButton corner4push {
       id = 1023
-      x = 119, y = 36, w = 30, h = 8
+      x = 120, y = 36, w = 30, h = 8
       text = "B"
       leftanchor = true, group = 2, fontid = 0
       graphic = true, bitmapid = 1026, sbitmapid = 0
@@ -167,7 +167,7 @@
     }
     pushbutton UIPushButton corner8push {
       id = 1024
-      x = 119, y = 47, w = 30, h = 8
+      x = 120, y = 47, w = 30, h = 8
       text = "C"
       leftanchor = true, group = 2, fontid = 0
       graphic = true, bitmapid = 1027, sbitmapid = 0
@@ -181,7 +181,7 @@
     }
     button UIButton prefsColorsBtn {
       id = 1028
-      x = 9, y = 41, w = 41, h = 14
+      x = 10, y = 41, w = 41, h = 14
       text = "      Colors"
       leftanchor = true, group = 0, fontid = 0
       frame = 3

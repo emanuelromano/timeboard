@@ -1,6 +1,7 @@
 Draw prefsBuffer;
 string colorElements[3];
-int popupSelection;
+int prefsBufferX, prefsBufferY,
+	popupSelection;
 
 void showColorControls() {
 	// Controls set to be visible
@@ -73,7 +74,7 @@ void drawWidgetRepresentation() {
 	prefsBuffer.end();
 	
 	draw.begin();
-	draw.draw(prefsBuffer, 3, 32);
+	draw.draw(prefsBuffer, prefsBufferX, prefsBufferY);
 	draw.end();
 	
 	label1.text = "Background";
@@ -304,7 +305,7 @@ void drawAnalogClockRepresentation() {
 	prefsBuffer.end();
 	
 	draw.begin();
-	draw.draw(prefsBuffer, 3, 32);
+	draw.draw(prefsBuffer, prefsBufferX, prefsBufferY);
 	draw.end();
 	
 	label1.text = "Background";
@@ -415,7 +416,7 @@ void drawBatteryRepresentation() {
 	prefsBuffer.end();
 	
 	draw.begin();
-	draw.draw(prefsBuffer, 3, 32);
+	draw.draw(prefsBuffer, prefsBufferX, prefsBufferY);
 	draw.end();
 	
 	label1.text = "Empty";
@@ -513,6 +514,9 @@ handler colorsModalForm.onopen() {
 	draw.attachForm(this);
 	prefsBuffer.create(156, 85);
 	
+	prefsBufferX = 3;
+	prefsBufferY = 32;
+	
 	colorElements[0] = "General";
 	colorElements[1] = "Analog clock";
 	colorElements[2] = "Battery";
@@ -566,7 +570,7 @@ handler color2Btn.onselect() {
 			drawColorSquares();
 			break;
 		case 1:
-			draw.selectIndex("Choose number color:", &acNumbersColorIndex);
+			draw.selectIndex("Choose numbers color:", &acNumbersColorIndex);
 			colorPopupSelection(popupSelection);
 			drawColorSquares();
 			break;
@@ -615,7 +619,7 @@ handler color4Btn.onselect() {
 			drawColorSquares();
 			break;
 		case 2:
-			draw.selectIndex("Choose 20-0% color:", &battery20ColorIndex);
+			draw.selectIndex("Choose 20-10% color:", &battery20ColorIndex);
 			colorPopupSelection(popupSelection);
 			drawColorSquares();
 			break;

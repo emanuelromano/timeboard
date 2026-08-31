@@ -25,7 +25,7 @@ void drawHand(int index,
 
 
 // Draws hour/minutes hands
-void drawHandWide(int index,
+void drawWideHand(int index,
 				int length,
 				int baseWidth,
 				int centerX,
@@ -100,14 +100,14 @@ void updateClockHands() {
 			centerY,
 			acBackgroundColorIndex);
 		
-	drawHandWide(oldHourIndex,
+	drawWideHand(oldHourIndex,
 			hourLength,
 			baseWidth,
 			centerX,
 			centerY,
 			acBackgroundColorIndex);
 	
-	drawHandWide(oldMinuteIndex,
+	drawWideHand(oldMinuteIndex,
 			minuteLength,
 			baseWidth,
 			centerX,
@@ -160,16 +160,21 @@ void updateClockHands() {
 		
 		// Center for seconds
 		mainBuffer.fg(acCenterColorIndex);
-		mainBuffer.rect(clrFG, (centerX + axisXcorrection)-2, centerY-2, (centerX + axisXcorrection)+3, centerY+3, 3);
+		mainBuffer.rect(clrFG,
+						(centerX + axisXcorrection)-3,
+						centerY-3,
+						(centerX + axisXcorrection)+4,
+						centerY+4,
+						4);
 		
-		drawHandWide(newHourIndex,
+		drawWideHand(newHourIndex,
 			 	hourLength,
 			 	baseWidth,
 			 	centerX,
 			 	centerY,
 			 	acHourMinColorIndex);
 		
-		drawHandWide(newMinuteIndex,
+		drawWideHand(newMinuteIndex,
 			 	minuteLength,
 			 	baseWidth,
 			 	centerX,
@@ -178,14 +183,14 @@ void updateClockHands() {
 	}
 	else
 	{
-		drawHandWide(newHourIndex,
+		drawWideHand(newHourIndex,
 			 	hourLength,
 			 	baseWidth,
 			 	centerX,
 			 	centerY,
 			 	acHourMinColorIndex);
 		
-		drawHandWide(newMinuteIndex,
+		drawWideHand(newMinuteIndex,
 			 	minuteLength,
 			 	baseWidth,
 			 	centerX,
@@ -448,14 +453,14 @@ void updateClockHands2() {
 			centerY + axisYcorrection,
 			acBackgroundColorIndex);
 	
-	drawHandWide(oldHourIndex,
+	drawWideHand(oldHourIndex,
 			hourLength,
 			baseWidth,
 			centerX,
 			centerY,
 			acBackgroundColorIndex);
 	
-	drawHandWide(oldMinuteIndex,
+	drawWideHand(oldMinuteIndex,
 			minuteLength,
 			baseWidth,
 			centerX,
@@ -503,14 +508,14 @@ void updateClockHands2() {
 			 	centerY + axisYcorrection,
 			 	acSecondsColorIndex);
 		
-		drawHandWide(newHourIndex,
+		drawWideHand(newHourIndex,
 			 	hourLength,
 			 	baseWidth,
 			 	centerX,
 			 	centerY,
 			 	acHourMinColorIndex);
 		
-		drawHandWide(newMinuteIndex,
+		drawWideHand(newMinuteIndex,
 			 	minuteLength,
 			 	baseWidth,
 			 	centerX,
@@ -519,14 +524,14 @@ void updateClockHands2() {
 	}
 	else
 	{
-		drawHandWide(newHourIndex,
+		drawWideHand(newHourIndex,
 			 	hourLength,
 			 	baseWidth,
 			 	centerX,
 			 	centerY,
 			 	acHourMinColorIndex);
 		
-		drawHandWide(newMinuteIndex,
+		drawWideHand(newMinuteIndex,
 			 	minuteLength,
 			 	baseWidth,
 			 	centerX,
@@ -552,7 +557,12 @@ void updateClockHands2() {
 		
 		// Center for seconds
 		mainBuffer.fg(acCenterColorIndex);
-		mainBuffer.rect(clrFG, (centerX+axisXcorrection)-2, (centerY+axisYcorrection)-2, (centerX+axisXcorrection)+3, (centerY+axisYcorrection)+3, 3);
+		mainBuffer.rect(clrFG,
+						(centerX+axisXcorrection)-3,
+						(centerY+axisYcorrection)-3,
+						(centerX+axisXcorrection)+4,
+						(centerY+axisYcorrection)+4,
+						4);
 	}
 	else
 	{
