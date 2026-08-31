@@ -267,7 +267,6 @@ void analogClockWidget(int startX, int startY) {
 		circleCornerRadius = 31;
 	}
 	
-	// Circles
 	mainBuffer.begin();
 	
 	// Clock background
@@ -311,23 +310,22 @@ void analogClockWidget(int startX, int startY) {
 	index = 0;
 	if (useAnalogClockNumbers == 1) {
 		for (i = 0; i < 12; i++) {
-	
-			// 0 = 12 upwards
 			index = i * 60;
-	
+			
 			x = centerX + roundCoord(
     			(float)calcSin(index) * radius / 512);
 			
 			y = centerY - roundCoord(
     			(float)calcCos(index) * radius / 512) - 1;
-	
+			
+			// 0 = 12 above
 			if (i == 0)
 				number = "12";
 			else
 				number = "" + i;
 			
 			if (i == 3 && widgetW != 70) number = "";
-						
+					
 			// Centered text, font and color
 			mainBuffer.textAlign(11);
 			mainBuffer.bg(acBackgroundColorIndex);
@@ -372,7 +370,7 @@ void analogClockWidget(int startX, int startY) {
 			
 			y2 = centerY - roundCoord(
     			(float)calcCos(index) * outerRadius / 512);
-    		    		
+    		
     		// Color for 3, 6, 9 & 12 lines
     		mainBuffer.fg(acSecondsColorIndex);
     		if (i == 0) {
@@ -414,6 +412,7 @@ void analogClockWidget(int startX, int startY) {
 					1);
 	
 	mainBuffer.end();
+	
 	updateClockHands();
 }
 
@@ -455,7 +454,7 @@ void updateClockHands2() {
 			centerX,
 			centerY,
 			acBackgroundColorIndex);
-
+	
 	drawHandWide(oldMinuteIndex,
 			minuteLength,
 			baseWidth,
@@ -482,7 +481,6 @@ void updateClockHands2() {
 		
 		// 12 dots (every 5 seconds)
 		circleRadius = 19;
-		
 		for (i = 0; i < 12; i++) {
     		index = i * 60;
 			
@@ -491,7 +489,7 @@ void updateClockHands2() {
 			
     		y = (centerY + axisYcorrection) - roundCoord(
         		(float)calcCos(index) * circleRadius / 512);
-        	    		
+        		
     		mainBuffer.fg(acNumbersColorIndex);
     		mainBuffer.pixel(clrFG, x, y);
 		}
@@ -504,7 +502,7 @@ void updateClockHands2() {
 			 	centerX + axisXcorrection,
 			 	centerY + axisYcorrection,
 			 	acSecondsColorIndex);
-				
+		
 		drawHandWide(newHourIndex,
 			 	hourLength,
 			 	baseWidth,
@@ -534,7 +532,7 @@ void updateClockHands2() {
 			 	centerX,
 			 	centerY,
 			 	acHourMinColorIndex);
-			 	
+		
 		drawHand(newSecondIndex,
 			 	secondLength,
 			 	centerX + axisXcorrection,
@@ -589,7 +587,7 @@ void analogClockWidget2(int startX, int startY) {
 		index;
 	string number;
 	
-	centerX = startX + (widgetW / 2) - 28;
+	centerX = startX + (widgetW / 2) - 28; // Clock center to the left
 	centerY = startY + (widgetH / 2);
 	
 	radius = (widgetH / 2) - (widgetH / 2) * 0.28;
@@ -636,7 +634,6 @@ void analogClockWidget2(int startX, int startY) {
 			mainBuffer.fg(acNumbersColorIndex);
 			mainBuffer.pixel(clrFG, x, y);
 		}
-
 	}
 	
 	// Clock background on small widget
@@ -654,8 +651,6 @@ void analogClockWidget2(int startX, int startY) {
 		// Clock numbers
 		index = 0;
 		for (i = 0; i < 12; i++) {
-			
-			// 0 = 12 upwards
 			index = i * 60;
 			
 			x = centerX + roundCoord(
@@ -664,6 +659,7 @@ void analogClockWidget2(int startX, int startY) {
 			y = centerY - roundCoord(
     			(float)calcCos(index) * radius / 512) - 1;
 			
+			// 0 = 12 above
 			if (i == 0)
 				number = "12";
 			else
@@ -694,7 +690,6 @@ void analogClockWidget2(int startX, int startY) {
     			outerRadius = (widgetH / 2) * 0.76;
 			}
 			
-    		// 0 = 12 o'clock
     		index = i * 60;
 			
 			x1 = centerX + roundCoord(
@@ -708,7 +703,7 @@ void analogClockWidget2(int startX, int startY) {
 			
 			y2 = centerY - roundCoord(
     			(float)calcCos(index) * outerRadius / 512);
-    		    		
+    			
     		// Color for 3, 6, 9 & 12 lines
     		mainBuffer.fg(highlightColorIndex);
     		if (i == 0) {
@@ -744,11 +739,7 @@ void analogClockWidget2(int startX, int startY) {
 	
 	// Circle around clock
 	if (widgetH != 70) {				
-		if (colorDepth > 4)
-			mainBuffer.fg(highlightColorIndex);
-		else
-			mainBuffer.fg(mainColorIndex);
-		
+		mainBuffer.fg(highlightColorIndex);
 		mainBuffer.frame(clrFG,
 						centerX-circleSeparation,
 						centerY-circleSeparation,
@@ -770,6 +761,7 @@ void analogClockWidget2(int startX, int startY) {
 						1);
 	}
 	
-	updateClockHands2();
 	mainBuffer.end();
+	
+	updateClockHands2();
 }

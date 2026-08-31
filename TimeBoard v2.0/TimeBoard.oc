@@ -19,17 +19,15 @@ int colorDepth,
 						// 3: Color screens (8-bit & 16-bit)
 
 struct AppPrefs {
-	bool debugFlag;
-	
 	// Background color
 	int backgroundColorIndex;
 	// Foreground color on widgets
 	int widgetColorIndex;
 	// Shadows for widgets
 	int shadowColorIndex;
-	// Highlight color on widgets
+	// Highlight color on widget elements
 	int highlightColorIndex;
-	// Base color on widgets
+	// Base color on widget elements
 	int mainColorIndex;
 	
 	// Analog clock background
@@ -50,6 +48,7 @@ struct AppPrefs {
 	int batteryEmptyColorIndex;
 	
 	// Other preferences
+	bool debugFlag;
 	int interfaceMode;
 	int widgetCornerRadius;
 	int useAnalogClockNumbers;
@@ -101,18 +100,18 @@ bool setDefaultPrefs() {
 	appPrefs[1].backgroundColorIndex = 1;
 	appPrefs[1].widgetColorIndex = 0;
 	appPrefs[1].shadowColorIndex = 3;
-	appPrefs[1].highlightColorIndex = 3;
-	appPrefs[1].mainColorIndex = 2;
+	appPrefs[1].highlightColorIndex = 2;
+	appPrefs[1].mainColorIndex = 3;
 	
 	appPrefs[1].acBackgroundColorIndex = 0;
 	appPrefs[1].acNumbersColorIndex = 3;
 	appPrefs[1].acHourMinColorIndex = 3;
-	appPrefs[1].acSecondsColorIndex = 3;
-	appPrefs[1].acCenterColorIndex = 3;
+	appPrefs[1].acSecondsColorIndex = 2;
+	appPrefs[1].acCenterColorIndex = 2;
 	
-	appPrefs[1].batteryColorIndex = 3;
-	appPrefs[1].battery40ColorIndex = 3;
-	appPrefs[1].battery20ColorIndex = 3;
+	appPrefs[1].batteryColorIndex = 2;
+	appPrefs[1].battery40ColorIndex = 2;
+	appPrefs[1].battery20ColorIndex = 2;
 	appPrefs[1].batteryEmptyColorIndex = 1;
 	
 	appPrefs[1].debugFlag = debugFlag;
@@ -124,18 +123,18 @@ bool setDefaultPrefs() {
 	appPrefs[2].backgroundColorIndex = 3;
 	appPrefs[2].widgetColorIndex = 0;
 	appPrefs[2].shadowColorIndex = 12;
-	appPrefs[2].highlightColorIndex = 15;
-	appPrefs[2].mainColorIndex = 9;
+	appPrefs[2].highlightColorIndex = 9;
+	appPrefs[2].mainColorIndex = 15;
 	
-	appPrefs[2].acBackgroundColorIndex = 0;
+	appPrefs[2].acBackgroundColorIndex = 1;
 	appPrefs[2].acNumbersColorIndex = 15;
 	appPrefs[2].acHourMinColorIndex = 15;
-	appPrefs[2].acSecondsColorIndex = 15;
-	appPrefs[2].acCenterColorIndex = 15;
+	appPrefs[2].acSecondsColorIndex = 10;
+	appPrefs[2].acCenterColorIndex = 10;
 	
-	appPrefs[2].batteryColorIndex = 11;
-	appPrefs[2].battery40ColorIndex = 11;
-	appPrefs[2].battery20ColorIndex = 11;
+	appPrefs[2].batteryColorIndex = 10;
+	appPrefs[2].battery40ColorIndex = 9;
+	appPrefs[2].battery20ColorIndex = 8;
 	appPrefs[2].batteryEmptyColorIndex = 5;
 	
 	appPrefs[2].debugFlag = debugFlag;
