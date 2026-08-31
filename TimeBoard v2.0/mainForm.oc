@@ -87,17 +87,12 @@ handler mainForm.onopen() {
 	month = date.month;
 	day = date.day;
 	weekday = date.weekday;
-
+	
 	hours = date.hour;
 	minutes = date.min;
 	seconds = date.sec;
 	
 	charge = battery(false);
-	
-	// Corner radius for font segments
-	fontRadius = 2;
-	
-	saveMainPreferences();
 	
 	timer(1);
 }
@@ -242,7 +237,7 @@ handler mainForm.ontimer() {
 		month = date.month;
 		day = date.day;
 		weekday = date.weekday;
-	
+		
 		hours = date.hour;
 		minutes = date.min;
 		
@@ -344,7 +339,8 @@ handler mainFuncTBTS.onselect() {
 	if (isTBTSInstalled()) {
 		launchCustomString("TBTS", launchCodeOrbCAppWithArgs, "TIMEBOARD");
 	}
-	else {
+	else
+	{
 		alert("TimeBoard Time Service (TBTS) is not installed.");
 	}
 }

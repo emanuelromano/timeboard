@@ -58,7 +58,7 @@ int	startX1 = 8,
 	widgetCornerRadius,
 	auxWidgetCornerRadius,
 	
-	fontRadius;
+	fontRadius = 2; // Corner radius for font segments
 
 
 // Mini panels
