@@ -524,6 +524,12 @@ handler colorsModalForm.onopen() {
 	
 	colorPopup.text = colorElements[0];
 	
+	color1Btn.visible = false;
+	color2Btn.visible = false;
+	color3Btn.visible = false;
+	color4Btn.visible = false;
+	color5Btn.visible = false;
+	
 	label1.visible = false;
 	label2.visible = false;
 	label3.visible = false;

@@ -21,13 +21,14 @@ void composeBackgroundBuffer() {
 		
 		if (interfaceMode == 1) {
 			// Big widget pannel text
-			mainBuffer.begin();
 			mainBuffer.textColor(highlightColorIndex);
 			mainBuffer.bg(widgetColorIndex);
 			mainBuffer.font(fntBold);
 			mainBuffer.textAlign(22);
-			mainBuffer.text(clrText, mainForm.w-14, mainForm.y+widgetH+1, "TimeBoard");
-			mainBuffer.end();
+			mainBuffer.text(clrText,
+							mainForm.w-14,
+							mainForm.y+widgetH+1,
+							"TimeBoard");
 		}
 	}
 	
@@ -336,13 +337,10 @@ handler mainOptionsPrefs.onselect() {
 
 // TBTS: Checks if TimeBoard Time Service is installed
 handler mainFuncTBTS.onselect() {
-	if (isTBTSInstalled()) {
+	if (isTBTSInstalled())
 		launchCustomString("TBTS", launchCodeOrbCAppWithArgs, "TIMEBOARD");
-	}
 	else
-	{
 		alert("TimeBoard Time Service (TBTS) is not installed.");
-	}
 }
 
 
