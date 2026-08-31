@@ -288,7 +288,7 @@
     }
     label UILabel label1 {
       id = 1050
-      x = 106, y = 38
+      x = 106, y = 39
       fontid = 0
       text = "label1                         "
       hresize = 0, vresize = 0
