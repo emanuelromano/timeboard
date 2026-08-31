@@ -262,7 +262,8 @@ void drawAnalogClockRepresentation() {
 	y = cenY - roundCoord(
     	(float)calcCos(index) * hourLen / 512);
 	
-	prefsBuffer.line(clrFG, cenX, cenY, x, y);
+	prefsBuffer.line(clrFG, cenX-3, cenY, x, y);
+	prefsBuffer.line(clrFG, cenX+3, cenY, x, y);
 	
 	// Minute
 	prefsBuffer.fg(acHourMinColorIndex);
@@ -275,7 +276,8 @@ void drawAnalogClockRepresentation() {
 	y = cenY - roundCoord(
     	(float)calcCos(index) * minuteLen / 512);
 	
-	prefsBuffer.line(clrFG, cenX, cenY, x, y);
+	prefsBuffer.line(clrFG, cenX, cenY-3, x, y);
+	prefsBuffer.line(clrFG, cenX, cenY+3, x, y);
 	
 	// Second
 	prefsBuffer.fg(acSecondsColorIndex);
@@ -293,11 +295,11 @@ void drawAnalogClockRepresentation() {
 	// Clock center
 	prefsBuffer.fg(acCenterColorIndex);
 	prefsBuffer.rect(clrFG,
-		cenX - 2,
-		cenY - 2,
-		cenX + 3,
-		cenY + 3,
-		3);
+		cenX - 4,
+		cenY - 4,
+		cenX + 5,
+		cenY + 5,
+		5);
 	
 	prefsBuffer.end();
 	
