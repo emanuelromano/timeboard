@@ -122,11 +122,7 @@ void batteryWidget(int startX, int startY) {
 	mainBuffer.rect(clrFG, iconX+1, iconY+1, iconX+14, iconY+7, 1);
 	
 	// Battery percentage
-	if (colorDepth > 4 || colorDepth == 1)
-		mainBuffer.textColor(mainColorIndex);
-	else
-		mainBuffer.textColor(highlightColorIndex);
-	
+	mainBuffer.textColor(mainColorIndex);	
 	mainBuffer.textAlign(02);
 	mainBuffer.bg(widgetColorIndex);
 	mainBuffer.font(fntLargeBold);
