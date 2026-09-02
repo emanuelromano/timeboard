@@ -28,7 +28,6 @@ int	centerX, centerY,
 	
 	interfaceMode,
 	origInterfaceMode,
-	useAnalogClockNumbers,
 	
 	oldHourIndex,
 	oldMinuteIndex,
@@ -37,6 +36,9 @@ int	centerX, centerY,
 float oldHourAngle,
 	oldMinuteAngle,
 	oldSecondAngle;
+
+bool acNumbers,
+	acCircle;
 
 
 // Widgets

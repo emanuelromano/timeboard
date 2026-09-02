@@ -23,7 +23,8 @@ void setMainPreferences() {
 	debugFlag = appPrefs[appPrefsPosition].debugFlag;
 	origInterfaceMode = interfaceMode = appPrefs[appPrefsPosition].interfaceMode;
 	widgetCornerRadius = appPrefs[appPrefsPosition].widgetCornerRadius;
-	useAnalogClockNumbers = appPrefs[appPrefsPosition].useAnalogClockNumbers;
+	acNumbers = appPrefs[appPrefsPosition].acNumbers;
+	acCircle = appPrefs[appPrefsPosition].acCircle;
 }
 
 
@@ -33,25 +34,29 @@ bool saveMainPreferences() {
 	appPrefs[0].debugFlag = debugFlag;
 	appPrefs[0].interfaceMode = origInterfaceMode;
 	appPrefs[0].widgetCornerRadius = widgetCornerRadius;
-	appPrefs[0].useAnalogClockNumbers = useAnalogClockNumbers;
+	appPrefs[0].acNumbers = acNumbers;
+	appPrefs[0].acCircle = true;
 	
 	// Grayscale screens (2-bit)
 	appPrefs[1].debugFlag = debugFlag;
 	appPrefs[1].interfaceMode = origInterfaceMode;
 	appPrefs[1].widgetCornerRadius = widgetCornerRadius;
-	appPrefs[1].useAnalogClockNumbers = useAnalogClockNumbers;
+	appPrefs[1].acNumbers = acNumbers;
+	appPrefs[1].acCircle = true;
 	
 	// Grayscale screens (4-bit)
 	appPrefs[2].debugFlag = debugFlag;
 	appPrefs[2].interfaceMode = origInterfaceMode;
 	appPrefs[2].widgetCornerRadius = widgetCornerRadius;
-	appPrefs[2].useAnalogClockNumbers = useAnalogClockNumbers;
+	appPrefs[2].acNumbers = acNumbers;
+	appPrefs[2].acCircle = true;
 	
 	// Color screens (8-bit & 16-bit)
 	appPrefs[3].debugFlag = debugFlag;
 	appPrefs[3].interfaceMode = origInterfaceMode;
 	appPrefs[3].widgetCornerRadius = widgetCornerRadius;
-	appPrefs[3].useAnalogClockNumbers = useAnalogClockNumbers;
+	appPrefs[3].acNumbers = acNumbers;
+	appPrefs[3].acCircle = acCircle;
 	
 	// Specific theme settings for color themes
 	if (colorDepth > 4) {

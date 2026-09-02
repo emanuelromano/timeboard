@@ -216,39 +216,39 @@
   form UIForm colorsModalForm {
     id = 1040
     text = ""
-    x = 2, y = 13, w = 156, h = 145
+    x = 2, y = 2, w = 156, h = 156
     menuid = 0, helpid = 0, defbuttonid = 1041
     modal = true, resizable = false
     hresize = 0, vresize = 1
     bitmap UIFBitmap colorsPrefsBmp {
       id = 1049
-      x = 3, y = 4
+      x = 4, y = 4
       bitmapid = 1032
       hresize = 0, vresize = 0
     }
     label UILabel colorsLbl {
       id = 1048
-      x = 17, y = 4
+      x = 18, y = 4
       fontid = 1
       text = "Colors"
       hresize = 0, vresize = 0
     }
     popup UIPopup colorPopup {
       id = 1047
-      x = 89, y = 35, w = 49, h = 11
+      x = 89, y = 31, w = 49, h = 11
       text = "Select..."
       leftanchor = true, group = 0, fontid = 0
       hresize = 0, vresize = 0
     }
     list UIList colorList {
       id = 1055
-      x = 89, y = 35, w = 60, h = 33
+      x = 89, y = 31, w = 60, h = 33
       numvisible = 3, triggerid = 1047, fontid = 0
       hresize = 0, vresize = 0
     }
     button UIButton color1Btn {
       id = 1042
-      x = 90, y = 48, w = 12, h = 12
+      x = 90, y = 44, w = 12, h = 12
       text = ""
       leftanchor = true, group = 0, fontid = 0
       frame = 3
@@ -256,7 +256,7 @@
     }
     button UIButton color2Btn {
       id = 1043
-      x = 90, y = 63, w = 12, h = 12
+      x = 90, y = 59, w = 12, h = 12
       text = ""
       leftanchor = true, group = 0, fontid = 0
       frame = 3
@@ -264,7 +264,7 @@
     }
     button UIButton color3Btn {
       id = 1057
-      x = 90, y = 78, w = 12, h = 12
+      x = 90, y = 74, w = 12, h = 12
       text = ""
       leftanchor = true, group = 0, fontid = 0
       frame = 3
@@ -272,7 +272,7 @@
     }
     button UIButton color4Btn {
       id = 1044
-      x = 90, y = 93, w = 12, h = 12
+      x = 90, y = 89, w = 12, h = 12
       text = ""
       leftanchor = true, group = 0, fontid = 0
       frame = 3
@@ -280,7 +280,7 @@
     }
     button UIButton color5Btn {
       id = 1045
-      x = 90, y = 108, w = 12, h = 12
+      x = 90, y = 104, w = 12, h = 12
       text = ""
       leftanchor = true, group = 0, fontid = 0
       frame = 3
@@ -288,42 +288,42 @@
     }
     label UILabel label1 {
       id = 1050
-      x = 105, y = 49
+      x = 105, y = 45
       fontid = 0
       text = "label1                         "
       hresize = 0, vresize = 0
     }
     label UILabel label2 {
       id = 1051
-      x = 105, y = 64
+      x = 105, y = 60
       fontid = 0
       text = "label2                         "
       hresize = 0, vresize = 0
     }
     label UILabel label3 {
       id = 1058
-      x = 105, y = 79
+      x = 105, y = 75
       fontid = 0
       text = "label3                         "
       hresize = 0, vresize = 0
     }
     label UILabel label4 {
       id = 1052
-      x = 105, y = 94
+      x = 105, y = 90
       fontid = 0
       text = "label4                         "
       hresize = 0, vresize = 0
     }
     label UILabel label5 {
       id = 1053
-      x = 105, y = 109
+      x = 105, y = 105
       fontid = 0
       text = "label5                         "
       hresize = 0, vresize = 0
     }
     button UIButton colorsModalSaveBtn {
       id = 1054
-      x = 72, y = 127, w = 36, h = 12
+      x = 72, y = 138, w = 36, h = 12
       text = "Save"
       leftanchor = true, group = 0, fontid = 0
       frame = 1
@@ -331,11 +331,39 @@
     }
     button UIButton colorsModalBackBtn {
       id = 1041
-      x = 114, y = 127, w = 36, h = 12
+      x = 114, y = 138, w = 36, h = 12
       text = "Back"
       leftanchor = true, group = 0, fontid = 0
       frame = 1
       hresize = 1, vresize = 1
+    }
+    label UILabel themeLbl {
+      id = 1046
+      x = 5, y = 18
+      fontid = 0
+      text = "Theme:"
+      hresize = 0, vresize = 0
+    }
+    popup UIPopup themePopup {
+      id = 1056
+      x = 36, y = 18, w = 49, h = 11
+      text = "Select..."
+      leftanchor = true, group = 0, fontid = 0
+      hresize = 0, vresize = 0
+    }
+    checkbox UICheckbox acCircleChk {
+      id = 1059
+      x = 3, y = 132, w = 40, h = 11
+      text = "Circle"
+      leftanchor = true, group = 0, fontid = 0
+      hresize = 0, vresize = 0
+    }
+    checkbox UICheckbox acNumbersChk {
+      id = 1060
+      x = 3, y = 120, w = 57, h = 11
+      text = "Numbers"
+      leftanchor = true, group = 0, fontid = 0
+      hresize = 0, vresize = 0
     }
   }
   form UIForm debugModalForm {

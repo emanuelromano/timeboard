@@ -51,7 +51,8 @@ struct AppPrefs {
 	bool debugFlag;
 	int interfaceMode;
 	int widgetCornerRadius;
-	int useAnalogClockNumbers;
+	bool acNumbers;
+	bool acCircle;
 };
 
 AppPrefs appPrefs[numberOfPrefs];
@@ -66,12 +67,13 @@ bool getPrefs() {
 
 // Set default preferences
 bool setDefaultPrefs() {
-	bool debugFlag = false;
+	bool debugFlag = false,
+		acNumbers = true,	// Show numbers or lines in Analog Clock:
+							// true / numbers
+							// false / lines
+		acCircle = true;	// Show circle around Analog Clock
 	int interfaceMode = 1,
-		widgetCornerRadius = 4, // 0-4-8 pixels
-		useAnalogClockNumbers = 1;	// Show numbers or lines in analog clock:
-									// 1 = true / numbers
-									// 0 = false / lines
+		widgetCornerRadius = 4; // 0-4-8 pixels
 	
 	// 0: B/W screens (1-bit)
 	appPrefs[0].backgroundColorIndex = 0;
@@ -94,7 +96,8 @@ bool setDefaultPrefs() {
 	appPrefs[0].debugFlag = debugFlag;
 	appPrefs[0].interfaceMode = interfaceMode;
 	appPrefs[0].widgetCornerRadius = widgetCornerRadius;
-	appPrefs[0].useAnalogClockNumbers = useAnalogClockNumbers;
+	appPrefs[0].acNumbers = acNumbers;
+	appPrefs[0].acCircle = true;
 	
 	// 1: Grayscale screens (2-bit)
 	appPrefs[1].backgroundColorIndex = 1;
@@ -117,7 +120,8 @@ bool setDefaultPrefs() {
 	appPrefs[1].debugFlag = debugFlag;
 	appPrefs[1].interfaceMode = interfaceMode;
 	appPrefs[1].widgetCornerRadius = widgetCornerRadius;
-	appPrefs[1].useAnalogClockNumbers = useAnalogClockNumbers;
+	appPrefs[1].acNumbers = acNumbers;
+	appPrefs[1].acCircle = true;
 	
 	// 2: Grayscale screens (4-bit)
 	appPrefs[2].backgroundColorIndex = 3;
@@ -140,7 +144,8 @@ bool setDefaultPrefs() {
 	appPrefs[2].debugFlag = debugFlag;
 	appPrefs[2].interfaceMode = interfaceMode;
 	appPrefs[2].widgetCornerRadius = widgetCornerRadius;
-	appPrefs[2].useAnalogClockNumbers = useAnalogClockNumbers;
+	appPrefs[2].acNumbers = acNumbers;
+	appPrefs[2].acCircle = true;
 	
 	// 3: Color screens (8-bit)
 	appPrefs[3].backgroundColorIndex = 115;
@@ -163,7 +168,8 @@ bool setDefaultPrefs() {
 	appPrefs[3].debugFlag = debugFlag;
 	appPrefs[3].interfaceMode = interfaceMode;
 	appPrefs[3].widgetCornerRadius = widgetCornerRadius;
-	appPrefs[3].useAnalogClockNumbers = useAnalogClockNumbers;
+	appPrefs[3].acNumbers = acNumbers;
+	appPrefs[3].acCircle = acCircle;
 	
 	return prefs.set(TimeBoard.creator, true, appPrefs, typeof(AppPrefs), numberOfPrefs);
 }
