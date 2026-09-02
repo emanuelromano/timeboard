@@ -514,8 +514,8 @@ handler colorsModalForm.onopen() {
 	draw.attachForm(this);
 	prefsBuffer.create(156, 85);
 	
-	prefsBufferX = 3;
-	prefsBufferY = 32;
+	prefsBufferX = 2;
+	prefsBufferY = 36;
 	
 	colorElements[0] = "General";
 	colorElements[1] = "Analog clock";

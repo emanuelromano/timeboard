@@ -235,20 +235,20 @@
     }
     popup UIPopup colorPopup {
       id = 1047
-      x = 3, y = 19, w = 49, h = 11
+      x = 89, y = 35, w = 49, h = 11
       text = "Select..."
       leftanchor = true, group = 0, fontid = 0
       hresize = 0, vresize = 0
     }
     list UIList colorList {
       id = 1055
-      x = 3, y = 19, w = 60, h = 33
+      x = 89, y = 35, w = 60, h = 33
       numvisible = 3, triggerid = 1047, fontid = 0
       hresize = 0, vresize = 0
     }
     button UIButton color1Btn {
       id = 1042
-      x = 91, y = 38, w = 12, h = 12
+      x = 90, y = 48, w = 12, h = 12
       text = ""
       leftanchor = true, group = 0, fontid = 0
       frame = 3
@@ -256,7 +256,7 @@
     }
     button UIButton color2Btn {
       id = 1043
-      x = 91, y = 53, w = 12, h = 12
+      x = 90, y = 63, w = 12, h = 12
       text = ""
       leftanchor = true, group = 0, fontid = 0
       frame = 3
@@ -264,7 +264,7 @@
     }
     button UIButton color3Btn {
       id = 1057
-      x = 91, y = 68, w = 12, h = 12
+      x = 90, y = 78, w = 12, h = 12
       text = ""
       leftanchor = true, group = 0, fontid = 0
       frame = 3
@@ -272,7 +272,7 @@
     }
     button UIButton color4Btn {
       id = 1044
-      x = 91, y = 83, w = 12, h = 12
+      x = 90, y = 93, w = 12, h = 12
       text = ""
       leftanchor = true, group = 0, fontid = 0
       frame = 3
@@ -280,7 +280,7 @@
     }
     button UIButton color5Btn {
       id = 1045
-      x = 91, y = 98, w = 12, h = 12
+      x = 90, y = 108, w = 12, h = 12
       text = ""
       leftanchor = true, group = 0, fontid = 0
       frame = 3
@@ -288,35 +288,35 @@
     }
     label UILabel label1 {
       id = 1050
-      x = 106, y = 39
+      x = 105, y = 49
       fontid = 0
       text = "label1                         "
       hresize = 0, vresize = 0
     }
     label UILabel label2 {
       id = 1051
-      x = 106, y = 54
+      x = 105, y = 64
       fontid = 0
       text = "label2                         "
       hresize = 0, vresize = 0
     }
     label UILabel label3 {
       id = 1058
-      x = 106, y = 69
+      x = 105, y = 79
       fontid = 0
       text = "label3                         "
       hresize = 0, vresize = 0
     }
     label UILabel label4 {
       id = 1052
-      x = 106, y = 84
+      x = 105, y = 94
       fontid = 0
       text = "label4                         "
       hresize = 0, vresize = 0
     }
     label UILabel label5 {
       id = 1053
-      x = 106, y = 99
+      x = 105, y = 109
       fontid = 0
       text = "label5                         "
       hresize = 0, vresize = 0
