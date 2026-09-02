@@ -86,13 +86,20 @@ void updateClockHands() {
 		baseWidth = 4;
 		
 		if (widgetH > widgetW) {
-			axisXcorrection = 40;
+			axisXcorrection = 41;
 			secondLength = 14;
 		}
 		else
 		{
-			axisXcorrection = 38;
-			secondLength = 11;
+			if (bigUI && mainForm.w == 224) { // For Hi-Res displays
+				axisXcorrection = 41;
+				secondLength = 14;
+			}
+			else
+			{
+				axisXcorrection = 37;
+				secondLength = 12;
+			}
 		}
 	}
 	else
