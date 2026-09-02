@@ -81,10 +81,19 @@ void updateClockHands() {
 		index = 0,
 		baseWidth;
 	
+	// Widget adjustments according to screen size
 	if (widgetW != 70) {
-		axisXcorrection = 38;
-		secondLength = 14;
 		baseWidth = 4;
+		
+		if (widgetH > widgetW) {
+			axisXcorrection = 40;
+			secondLength = 14;
+		}
+		else
+		{
+			axisXcorrection = 38;
+			secondLength = 11;
+		}
 	}
 	else
 	{
@@ -116,11 +125,11 @@ void updateClockHands() {
 	
 	// Calculate new angle index	
 	newHourIndex =
-		(hours % 12) * 60 + minutes;
+			(hours % 12) * 60 + minutes;
 	newMinuteIndex =
-		minutes * 12;
+			minutes * 12;
 	newSecondIndex =
-		seconds * 12;
+			seconds * 12;
 	
 	// TimeBoard text on big widget
 	if (widgetW != 70) {
@@ -133,11 +142,17 @@ void updateClockHands() {
 		// Small circle for seconds
 		if (acCircle) {
 			mainBuffer.fg(highlightColorIndex);
-			mainBuffer.frame(clrFG, (centerX + axisXcorrection)-17, centerY-17, (centerX + axisXcorrection)+18, centerY+18, 18, 1);
+			mainBuffer.frame(clrFG,
+							(centerX + axisXcorrection) - (secondLength + 3),
+							centerY - (secondLength+3),
+							(centerX + axisXcorrection) + (secondLength + 4),
+							centerY + (secondLength+4),
+							(secondLength+4),
+							1);
 		}
 		
 		// 12 dots (every 5 seconds)
-		circleRadius = 16;
+		circleRadius = secondLength + 2;
 		for (i = 0; i < 12; i++) {
     		index = i * 60;
 			
@@ -163,10 +178,10 @@ void updateClockHands() {
 		// Center for seconds
 		mainBuffer.fg(acCenterColorIndex);
 		mainBuffer.rect(clrFG,
-						(centerX + axisXcorrection)-3,
-						centerY-3,
-						(centerX + axisXcorrection)+4,
-						centerY+4,
+						(centerX + axisXcorrection) - 3,
+						centerY - 3,
+						(centerX + axisXcorrection) + 4,
+						centerY + 4,
 						4);
 		
 		drawWideHand(newHourIndex,
@@ -259,14 +274,31 @@ void analogClockWidget(int startX, int startY) {
 		radius = (widgetH / 2) - (widgetH / 2) * 0.26;
 	
 	// Hands lenght
-	hourLength = (widgetW / 2) - (widgetW / 2) * 0.55;
-	minuteLength = (widgetW / 2) - (widgetW / 2) * 0.41;
-	secondLength = (widgetW / 2) - (widgetW / 2) * 0.41;
+	if (widgetH > widgetW) {
+		hourLength = (widgetW / 2) - (widgetW / 2) * 0.55;
+		minuteLength = (widgetW / 2) - (widgetW / 2) * 0.41;
+		secondLength = (widgetW / 2) - (widgetW / 2) * 0.41;
+	}
+	else
+	{
+		hourLength = (widgetH / 2) - (widgetH / 2) * 0.55;
+		minuteLength = (widgetH / 2) - (widgetH / 2) * 0.41;
+		secondLength = (widgetH / 2) - (widgetH / 2) * 0.41;
+	}
 	
+	// Radius fot circle background, circle and seconds dots
 	if (widgetW != 70) {
-		circleSeparation = 66;
-		circleCornerRadius = 66;
-		secondDotRadius = 63;
+		if (widgetH > widgetW) {
+			circleSeparation = (widgetW / 2) - 5;
+			circleCornerRadius = (widgetW / 2) - 5;
+			secondDotRadius = (widgetW / 2) - 8;
+		}
+		else
+		{
+			circleSeparation = (widgetH / 2) - 5;
+			circleCornerRadius = (widgetH / 2) - 5;
+			secondDotRadius = (widgetH / 2) - 8;
+		}
 	}
 	else
 	{
@@ -445,6 +477,7 @@ void updateClockHands2() {
 		secondLength = 16;
 	}
 	
+	// Widget adjustments according to screen size
 	if (widgetW != 70)
 		baseWidth = 4;
 	else
@@ -475,11 +508,11 @@ void updateClockHands2() {
 	
 	// Calculate new angle index	
 	newHourIndex =
-		(hours % 12) * 60 + minutes;
+			(hours % 12) * 60 + minutes;
 	newMinuteIndex =
-		minutes * 12;
+			minutes * 12;
 	newSecondIndex =
-		seconds * 12;
+			seconds * 12;
 	
 	if (widgetW != 70) {		
 		// Background
@@ -489,11 +522,17 @@ void updateClockHands2() {
 		// Small circle for seconds
 		if (acCircle) {
     		mainBuffer.fg(highlightColorIndex);
-			mainBuffer.frame(clrFG, (centerX+axisXcorrection)-20, (centerY+axisYcorrection)-20, (centerX+axisXcorrection)+21, (centerY+axisYcorrection)+21, 21, 1);
+			mainBuffer.frame(clrFG,
+							(centerX + axisXcorrection) - (secondLength + 4),
+							(centerY + axisYcorrection) - (secondLength + 4),
+							(centerX + axisXcorrection) + (secondLength + 5),
+							(centerY + axisYcorrection) + (secondLength + 5),
+							(secondLength + 5),
+							1);
 		}
 		
 		// 12 dots (every 5 seconds)
-		circleRadius = 19;
+		circleRadius = (secondLength + 3);
 		for (i = 0; i < 12; i++) {
     		index = i * 60;
 			

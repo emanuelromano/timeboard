@@ -150,7 +150,7 @@ void miniBatteryWidget(int startX, int startY) {
 	if (showBattPercentage) {
 		// Battery percentage
 		mainBuffer.fg(widgetColorIndex);
-		mainBuffer.rect(clrFG, iconX-3, iconY-2, iconX+19, iconY+10, 1);
+		mainBuffer.rect(clrFG, iconX-3, iconY-2, iconX+20, iconY+10, 1);
 	
 		mainBuffer.textColor(mainColorIndex);
 		mainBuffer.textAlign(11);
@@ -167,7 +167,7 @@ void miniBatteryWidget(int startX, int startY) {
 	{
 		// Battery icon
 		mainBuffer.fg(widgetColorIndex);
-		mainBuffer.rect(clrFG, iconX-3, iconY-2, iconX+19, iconY+10, 1);
+		mainBuffer.rect(clrFG, iconX-3, iconY-2, iconX+20, iconY+10, 1);
 		mainBuffer.fg(mainColorIndex);
 		mainBuffer.frame(clrFG, iconX, iconY, iconX+15, iconY+8, 2, 1);
 		mainBuffer.line(clrFG, iconX+16, iconY+2, iconX+16, iconY+5);

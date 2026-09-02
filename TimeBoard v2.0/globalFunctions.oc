@@ -96,8 +96,9 @@ handler TimeBoard.onstop() {
 
 
 void drawAuxiliarPanel(string orientation) {
-	if (orientation == "P") {
-		mainBuffer.begin();		
+	mainBuffer.begin();
+	
+	if (orientation == "P") { // PORTRAIT
 		// Main rectangle
 		if (widgetCornerRadius == 0)
 			auxWidgetCornerRadius = 1;
@@ -105,14 +106,14 @@ void drawAuxiliarPanel(string orientation) {
 			auxWidgetCornerRadius = widgetCornerRadius;
 		
 		mainBuffer.fg(shadowColorIndex);
-		mainBuffer.rect(clrFG, mainForm.x+8, 166, mainForm.w-7, mainForm.h-7, widgetCornerRadius);
+		mainBuffer.rect(clrFG, mainForm.x+8, mainForm.h-miniPanelH-21, mainForm.w-7, mainForm.h-7, widgetCornerRadius);
 		mainBuffer.fg(widgetColorIndex);
-		mainBuffer.rect(clrFG, mainForm.x+9, 167, mainForm.w-9, mainForm.h-9, auxWidgetCornerRadius-1);
+		mainBuffer.rect(clrFG, mainForm.x+9, mainForm.h-miniPanelH-20, mainForm.w-9, mainForm.h-9, auxWidgetCornerRadius-1);
 		
 		// Line separators
 		mainBuffer.fg(highlightColorIndex);
-		mainBuffer.line(clrFG, mainForm.x+56, 172, mainForm.x+56, 211);
-		mainBuffer.line(clrFG, mainForm.w-57, 172, mainForm.w-57, 211);
+		mainBuffer.line(clrFG, mainForm.x+56, mainForm.h-miniPanelH-15, mainForm.x+56, mainForm.h-14);
+		mainBuffer.line(clrFG, mainForm.w-57, mainForm.h-miniPanelH-15, mainForm.w-57, mainForm.h-14);
 		
 		// TESTING PANELS
 		if (debugFlag) {
@@ -121,11 +122,9 @@ void drawAuxiliarPanel(string orientation) {
 			mainBuffer.frame(clrFG, miniPanelX2, miniPanelY2, miniPanelX2+miniPanelW, miniPanelY2+miniPanelH, 0, 1);
 			mainBuffer.frame(clrFG, miniPanelX3, miniPanelY3, miniPanelX3+miniPanelW, miniPanelY3+miniPanelH, 0, 1);
 		}
-		mainBuffer.end();
 	}
 	
-	if (orientation == "L") {
-		mainBuffer.begin();		
+	if (orientation == "L") { // LANDSCAPE	
 		// Main rectangle
 		if (widgetCornerRadius == 0)
 			auxWidgetCornerRadius = 1;
@@ -133,14 +132,14 @@ void drawAuxiliarPanel(string orientation) {
 			auxWidgetCornerRadius = widgetCornerRadius;
 		
 		mainBuffer.fg(shadowColorIndex);
-		mainBuffer.rect(clrFG, mainForm.x+166, 8, mainForm.w-7, mainForm.h-7, widgetCornerRadius);
+		mainBuffer.rect(clrFG, mainForm.w-miniPanelH-21, 8, mainForm.w-7, mainForm.h-7, widgetCornerRadius);
 		mainBuffer.fg(widgetColorIndex);
-		mainBuffer.rect(clrFG, mainForm.x+167, 9, mainForm.w-9, mainForm.h-9, auxWidgetCornerRadius-1);
+		mainBuffer.rect(clrFG, mainForm.w-miniPanelH-20, 9, mainForm.w-9, mainForm.h-9, auxWidgetCornerRadius-1);
 				
 		// Line separators
 		mainBuffer.fg(highlightColorIndex);
-		mainBuffer.line(clrFG, 172, mainForm.h-56, 211, mainForm.h-56);
-		mainBuffer.line(clrFG, 172, mainForm.y+57, 211, mainForm.y+57);
+		mainBuffer.line(clrFG, mainForm.w-miniPanelH-15, mainForm.h-56, mainForm.w-14, mainForm.h-56);
+		mainBuffer.line(clrFG, mainForm.w-miniPanelH-15, mainForm.y+57, mainForm.w-14, mainForm.y+57);
 		
 		// TESTING PANELS
 		if (debugFlag) {
@@ -149,11 +148,9 @@ void drawAuxiliarPanel(string orientation) {
 			mainBuffer.frame(clrFG, miniPanelX2, miniPanelY2, miniPanelX2+miniPanelW, miniPanelY2+miniPanelH, 0, 1);
 			mainBuffer.frame(clrFG, miniPanelX3, miniPanelY3, miniPanelX3+miniPanelW, miniPanelY3+miniPanelH, 0, 1);
 		}
-		mainBuffer.end();
 	}
 	
-	if (orientation == "N") {
-		mainBuffer.begin();		
+	if (orientation == "N") { // NORMAL	
 		// Main rectangle
 		if (widgetCornerRadius == 0)
 			auxWidgetCornerRadius = 1;
@@ -161,14 +158,14 @@ void drawAuxiliarPanel(string orientation) {
 			auxWidgetCornerRadius = widgetCornerRadius;
 		
 		mainBuffer.fg(shadowColorIndex);
-		mainBuffer.rect(clrFG, mainForm.x+8, 101, mainForm.w-7, mainForm.h-7, widgetCornerRadius);
+		mainBuffer.rect(clrFG, mainForm.x+8, mainForm.h-miniPanelH-21, mainForm.w-7, mainForm.h-7, widgetCornerRadius);
 		mainBuffer.fg(widgetColorIndex);
-		mainBuffer.rect(clrFG, mainForm.x+9, 102, mainForm.w-9, mainForm.h-9, auxWidgetCornerRadius-1);
+		mainBuffer.rect(clrFG, mainForm.x+9, mainForm.h-miniPanelH-20, mainForm.w-9, mainForm.h-9, auxWidgetCornerRadius-1);
 		
 		// Line separators
 		mainBuffer.fg(highlightColorIndex);
-		mainBuffer.line(clrFG, mainForm.x+56, 107, mainForm.x+56, 145);
-		mainBuffer.line(clrFG, mainForm.w-57, 107, mainForm.w-57, 145);
+		mainBuffer.line(clrFG, mainForm.x+56, mainForm.h-miniPanelH-15, mainForm.x+56, mainForm.h-14);
+		mainBuffer.line(clrFG, mainForm.w-57, mainForm.h-miniPanelH-15, mainForm.w-57, mainForm.h-14);
 		
 		// TESTING PANELS
 		if (debugFlag) {
@@ -177,8 +174,9 @@ void drawAuxiliarPanel(string orientation) {
 			mainBuffer.frame(clrFG, miniPanelX2, miniPanelY2, miniPanelX2+miniPanelW, miniPanelY2+miniPanelH, 0, 1);
 			mainBuffer.frame(clrFG, miniPanelX3, miniPanelY3, miniPanelX3+miniPanelW, miniPanelY3+miniPanelH, 0, 1);
 		}
-		mainBuffer.end();
 	}
+	
+	mainBuffer.end();
 }
 
 

@@ -107,6 +107,9 @@ handler mainForm.ondraw() {
 	
 	bigUI = false;
 	
+	miniPanelW = 38;
+	miniPanelH = 38;
+	
 	if (mainForm.h > 160) {
 		// Portrait mode
 		showWidget1 = true;
@@ -115,19 +118,16 @@ handler mainForm.ondraw() {
 		bigUI  = true;
 		
 		widgetW = 144;
-		widgetH = 154;
+		widgetH = mainForm.h - miniPanelH - 33;
 		
 		miniPanelX1 = 14;
-		miniPanelY1 = 173;
+		miniPanelY1 = mainForm.h - miniPanelH - 14;
 		
 		miniPanelX2 = 61;
-		miniPanelY2 = 173;
+		miniPanelY2 = mainForm.h - miniPanelH - 14;
 		
 		miniPanelX3 = 108;
-		miniPanelY3 = 173;
-		
-		miniPanelW = 38;
-		miniPanelH = 38;
+		miniPanelY3 = mainForm.h - miniPanelH - 14;
 		
 		composeBackgroundBuffer();
 		composeWidgetsBuffer();
@@ -148,20 +148,17 @@ handler mainForm.ondraw() {
 		interfaceMode = 0; // Force interfaceMode to 0 for fullscreen modes
 		bigUI  = true;
 		
-		widgetW = 154;
+		widgetW = mainForm.w - miniPanelW - 33;;
 		widgetH = 144;
 		
-		miniPanelX1 = 173;
+		miniPanelX1 = mainForm.w - miniPanelH - 14;
 		miniPanelY1 = 15;
 		
-		miniPanelX2 = 173;
+		miniPanelX2 = mainForm.w - miniPanelH - 14;
 		miniPanelY2 = 62;
 		
-		miniPanelX3 = 173;
+		miniPanelX3 = mainForm.w - miniPanelH - 14;
 		miniPanelY3 = 109;
-		
-		miniPanelW = 38;
-		miniPanelH = 38;
 		
 		composeBackgroundBuffer();
 		composeWidgetsBuffer();
@@ -187,16 +184,13 @@ handler mainForm.ondraw() {
 			widgetH = 89;
 			
 			miniPanelX1 = 14;
-			miniPanelY1 = 108;
+			miniPanelY1 = mainForm.h - miniPanelH - 14;
 			
 			miniPanelX2 = 61;
-			miniPanelY2 = 108;
+			miniPanelY2 = mainForm.h - miniPanelH - 14;
 			
 			miniPanelX3 = 108;
-			miniPanelY3 = 108;
-			
-			miniPanelW = 38;
-			miniPanelH = 38;
+			miniPanelY3 = mainForm.h - miniPanelH - 14;
 			
 			composeBackgroundBuffer();
 			composeWidgetsBuffer();
