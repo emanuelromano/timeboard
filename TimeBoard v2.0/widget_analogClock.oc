@@ -260,11 +260,11 @@ void updateClockHands() {
 void analogClockWidget(int startX, int startY) {
 	int i,
 		x, y,
+		x1, y1,
+		x2, y2,
 		radius,
 		innerRadius,
 		outerRadius,
-		x1, y1,
-		x2, y2,
 		circleSeparation,
 		circleCornerRadius,
 		secondDotRadius,
@@ -276,42 +276,56 @@ void analogClockWidget(int startX, int startY) {
 	centerY = startY + (widgetH / 2);
 	
 	// Set radius based on widget size
-	if ((widgetW > 70) && widgetH > widgetW)
-		radius = (widgetW / 2) - (widgetW / 2) * 0.26;
-	else
-		radius = (widgetH / 2) - (widgetH / 2) * 0.26;
-	
-	// Hands lenght
-	if (widgetH > widgetW) {
-		hourLength = (widgetW / 2) - (widgetW / 2) * 0.55;
-		minuteLength = (widgetW / 2) - (widgetW / 2) * 0.41;
-		secondLength = (widgetW / 2) - (widgetW / 2) * 0.41;
-	}
-	else
-	{
-		hourLength = (widgetH / 2) - (widgetH / 2) * 0.55;
-		minuteLength = (widgetH / 2) - (widgetH / 2) * 0.41;
-		secondLength = (widgetH / 2) - (widgetH / 2) * 0.41;
-	}
-	
-	// Radius fot circle background, circle and seconds dots
 	if (widgetW > 70) {
 		if (widgetH > widgetW) {
+			radius = (widgetW / 2) - (widgetW / 2) * 0.26;
+			
+			// Radius fot circle background, circle and seconds dots
 			circleSeparation = (widgetW / 2) - 5;
 			circleCornerRadius = (widgetW / 2) - 5;
 			secondDotRadius = (widgetW / 2) - 8;
+			
+			// Hands lenght
+			hourLength = (widgetW / 2) - (widgetW / 2) * 0.55;
+			minuteLength = (widgetW / 2) - (widgetW / 2) * 0.41;
+			secondLength = (widgetW / 2) - (widgetW / 2) * 0.41;
+			
+			auxiliarSize = widgetW;
 		}
 		else
 		{
+			radius = (widgetH / 2) - (widgetH / 2) * 0.26;
+			
+			// Radius fot circle background, circle and seconds dots
 			circleSeparation = (widgetH / 2) - 5;
 			circleCornerRadius = (widgetH / 2) - 5;
 			secondDotRadius = (widgetH / 2) - 8;
+			
+			// Hands lenght
+			hourLength = (widgetH / 2) - (widgetH / 2) * 0.55;
+			minuteLength = (widgetH / 2) - (widgetH / 2) * 0.41;
+			secondLength = (widgetH / 2) - (widgetH / 2) * 0.41;
+			
+			auxiliarSize = widgetH;
 		}
+		
+		innerRadius = circleSeparation - 8;
+		outerRadius = circleSeparation - 2;
 	}
 	else
 	{
+		radius = (widgetW / 2) - (widgetW / 2) * 0.26;
+		
 		circleSeparation = 31;
 		circleCornerRadius = 31;
+		
+		// Hands lenght
+		hourLength = (widgetW / 2) - (widgetW / 2) * 0.55;
+		minuteLength = (widgetW / 2) - (widgetW / 2) * 0.41;
+		secondLength = (widgetW / 2) - (widgetW / 2) * 0.41;
+		
+		innerRadius = circleSeparation - 5;
+		outerRadius = circleSeparation - 2;
 	}
 	
 	mainBuffer.begin();
@@ -387,17 +401,9 @@ void analogClockWidget(int startX, int startY) {
 	}
 	else
 	{
-		if (widgetH > widgetW)
-			auxiliarSize = widgetW;
-		else
-			auxiliarSize = widgetH;
-		
 		// Clock lines
 		index = 0;
 		for (i = 0; i < 12; i++) {
-			innerRadius = circleSeparation - 8;
-    		outerRadius = circleSeparation - 2;
-			
     		// 0 = 12 o'clock
     		index = i * 60;
 			
@@ -448,6 +454,17 @@ void analogClockWidget(int startX, int startY) {
 	// Circle around clock
 	if (acCircle) {
 		mainBuffer.fg(highlightColorIndex);
+		mainBuffer.frame(clrFG,
+						centerX-circleSeparation,
+						centerY-circleSeparation,
+						centerX+circleSeparation,
+						centerY+circleSeparation,
+						circleCornerRadius,
+						1);
+	}
+	else
+	{
+		mainBuffer.fg(widgetColorIndex);
 		mainBuffer.frame(clrFG,
 						centerX-circleSeparation,
 						centerY-circleSeparation,
@@ -636,11 +653,11 @@ void updateClockHands2() {
 void analogClockWidget2(int startX, int startY) {
 	int i,
 		x, y,
+		x1, y1,
+		x2, y2,
 		radius,
 		innerRadius,
 		outerRadius,
-		x1, y1,
-		x2, y2,
 		circleSeparation,
 		circleCornerRadius,
 		secondDotRadius,
@@ -657,16 +674,9 @@ void analogClockWidget2(int startX, int startY) {
 	minuteLength = (widgetH / 2) - (widgetH / 2) * 0.41;
 	secondLength = (widgetH / 2) - (widgetH / 2) * 0.41;
 	
-	if (widgetW > 70) {
-		circleSeparation = 40;
-		circleCornerRadius = 40;
-		secondDotRadius = 38;
-	}
-	else
-	{
-		circleSeparation = 31;
-		circleCornerRadius = 31;
-	}
+	circleSeparation = 40;
+	circleCornerRadius = 40;
+	secondDotRadius = 38;
 	
 	mainBuffer.begin();
 	
@@ -680,20 +690,18 @@ void analogClockWidget2(int startX, int startY) {
 			circleCornerRadius);
 	
 	// Minutes dots
-	if (widgetW > 70) {
-		index = 0;
-		for (i = 0; i < 60; i++) {
-    		index = i * 12;
-			
-    		x = centerX + roundCoord(
-        		(float)calcSin(index) * secondDotRadius / 512);
-			
-    		y = centerY - roundCoord(
-        		(float)calcCos(index) * secondDotRadius / 512);
-    		
-			mainBuffer.fg(acNumbersColorIndex);
-			mainBuffer.pixel(clrFG, x, y);
-		}
+	index = 0;
+	for (i = 0; i < 60; i++) {
+    	index = i * 12;
+		
+    	x = centerX + roundCoord(
+        	(float)calcSin(index) * secondDotRadius / 512);
+		
+    	y = centerY - roundCoord(
+        	(float)calcCos(index) * secondDotRadius / 512);
+    	
+		mainBuffer.fg(acNumbersColorIndex);
+		mainBuffer.pixel(clrFG, x, y);
 	}
 	
 	if (acNumbers) {

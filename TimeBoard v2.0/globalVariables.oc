@@ -6,7 +6,6 @@ Draw mainBuffer,
 bool debugFlag;
 int charge, lastCharge; // Battery
 
-
 // Time
 const float pi = 3.14159265;
 int year, month, day, lastDay, weekday,
@@ -17,7 +16,6 @@ int year, month, day, lastDay, weekday,
 	hourDigit1, hourDigit2,
 	minuteDigit1, minuteDigit2,
 	secondDigit1, secondDigit2;
-
 
 // Interface
 int	centerX, centerY,
@@ -40,7 +38,6 @@ float oldHourAngle,
 bool acNumbers,
 	acCircle;
 
-
 // Widgets
 int	startX1 = 8,
 	startY1 = 8,
@@ -61,7 +58,6 @@ int	startX1 = 8,
 	auxWidgetCornerRadius,
 	
 	fontRadius = 2; // Corner radius for font segments
-
 
 // Mini panels
 string orientation;
@@ -85,7 +81,6 @@ bool showWidget1,
 	bigUI, // Makes minipanel ontimer updates work in Landscape or Portrait mode while interfaceMode == 1
 	showBattPercentage;
 
-
 // Colors
 int backgroundColorIndex,
 	widgetColorIndex,
@@ -103,7 +98,6 @@ int backgroundColorIndex,
 	battery40ColorIndex,
 	battery20ColorIndex,
 	batteryEmptyColorIndex;
-
 
 // Sine table for analog clock and angles
 int sinTable[720] = {
