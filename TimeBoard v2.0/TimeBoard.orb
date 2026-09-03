@@ -365,6 +365,21 @@
       leftanchor = true, group = 0, fontid = 0
       hresize = 0, vresize = 0
     }
+    button UIButton color6Btn {
+      id = 1061
+      x = 90, y = 119, w = 12, h = 12
+      text = ""
+      leftanchor = true, group = 0, fontid = 0
+      frame = 3
+      hresize = 0, vresize = 0
+    }
+    label UILabel label6 {
+      id = 1062
+      x = 105, y = 120
+      fontid = 0
+      text = "label6                         "
+      hresize = 0, vresize = 0
+    }
   }
   form UIForm debugModalForm {
     id = 1034

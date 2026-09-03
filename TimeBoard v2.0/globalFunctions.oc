@@ -9,6 +9,7 @@ void setMainPreferences() {
 	
 	// Analog clock colors
 	acBackgroundColorIndex = appPrefs[appPrefsPosition].acBackgroundColorIndex;
+	acDotsColorIndex = appPrefs[appPrefsPosition].acDotsColorIndex;
 	acNumbersColorIndex = appPrefs[appPrefsPosition].acNumbersColorIndex;
 	acHourMinColorIndex = appPrefs[appPrefsPosition].acHourMinColorIndex;
 	acSecondsColorIndex = appPrefs[appPrefsPosition].acSecondsColorIndex;
@@ -67,6 +68,7 @@ bool saveMainPreferences() {
 		appPrefs[3].mainColorIndex = mainColorIndex;
 		
 		appPrefs[3].acBackgroundColorIndex = acBackgroundColorIndex;
+		appPrefs[3].acDotsColorIndex = acDotsColorIndex;
 		appPrefs[3].acNumbersColorIndex = acNumbersColorIndex;
 		appPrefs[3].acHourMinColorIndex = acHourMinColorIndex;
 		appPrefs[3].acSecondsColorIndex = acSecondsColorIndex;

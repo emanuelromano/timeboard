@@ -32,6 +32,8 @@ struct AppPrefs {
 	
 	// Analog clock background
 	int acBackgroundColorIndex;
+	// Analog clock dots
+	int acDotsColorIndex;
 	// Analog clock numbers
 	int acNumbersColorIndex;
 	// Analog clock hour/min hands
@@ -83,6 +85,7 @@ bool setDefaultPrefs() {
 	appPrefs[0].mainColorIndex = 1;
 	
 	appPrefs[0].acBackgroundColorIndex = 0;
+	appPrefs[0].acDotsColorIndex = 0;
 	appPrefs[0].acNumbersColorIndex = 1;
 	appPrefs[0].acHourMinColorIndex = 1;
 	appPrefs[0].acSecondsColorIndex = 1;
@@ -107,6 +110,7 @@ bool setDefaultPrefs() {
 	appPrefs[1].mainColorIndex = 3;
 	
 	appPrefs[1].acBackgroundColorIndex = 0;
+	appPrefs[1].acDotsColorIndex = 2;
 	appPrefs[1].acNumbersColorIndex = 3;
 	appPrefs[1].acHourMinColorIndex = 3;
 	appPrefs[1].acSecondsColorIndex = 2;
@@ -131,6 +135,7 @@ bool setDefaultPrefs() {
 	appPrefs[2].mainColorIndex = 15;
 	
 	appPrefs[2].acBackgroundColorIndex = 1;
+	appPrefs[2].acDotsColorIndex = 10;
 	appPrefs[2].acNumbersColorIndex = 15;
 	appPrefs[2].acHourMinColorIndex = 15;
 	appPrefs[2].acSecondsColorIndex = 10;
@@ -155,6 +160,7 @@ bool setDefaultPrefs() {
 	appPrefs[3].mainColorIndex = 0;
 	
 	appPrefs[3].acBackgroundColorIndex = 218;
+	appPrefs[3].acDotsColorIndex = 224;
 	appPrefs[3].acNumbersColorIndex = 0;
 	appPrefs[3].acHourMinColorIndex = 0;
 	appPrefs[3].acSecondsColorIndex = 121;

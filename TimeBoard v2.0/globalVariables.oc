@@ -89,6 +89,7 @@ int backgroundColorIndex,
 	mainColorIndex,
 	
 	acBackgroundColorIndex,
+	acDotsColorIndex,
 	acNumbersColorIndex,
 	acHourMinColorIndex, 
 	acSecondsColorIndex,

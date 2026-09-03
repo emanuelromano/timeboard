@@ -169,13 +169,13 @@ void updateClockHands() {
     		y = centerY - roundCoord(
         		(float)calcCos(index) * circleRadius / 512);
         	
-    		mainBuffer.fg(acNumbersColorIndex);
+    		mainBuffer.fg(acDotsColorIndex);
 			mainBuffer.pixel(clrFG, x, y);
 		}
 	}
 	
 	// Draw new hands (drawing order changes depending on widget size)
-	if (widgetW != 70) {
+	if (widgetW > 70) {
 		drawHand(newSecondIndex,
 			 	secondLength,
 			 	centerX + axisXcorrection,
@@ -351,15 +351,15 @@ void analogClockWidget(int startX, int startY) {
     		y = centerY - roundCoord(
         		(float)calcCos(index) * secondDotRadius / 512);
 			
-			if (i == 0 || i == 5 || i == 10 || i == 15 ||
-				i == 20 || i == 25 || i == 30 || i == 35 ||
-				i == 40 || i == 45 || i == 50 || i == 55) {
-				mainBuffer.fg(acNumbersColorIndex);
+			if (i == 5 || i == 10 || i == 15 ||
+				i == 20 || i == 25 || i == 35 ||
+				i == 40 || i == 50 || i == 55) {
+				mainBuffer.fg(acDotsColorIndex);
 				mainBuffer.rect(clrFG, x-1, y-1, x+2, y+2, 2);
 			}
 			else
 			{
-				mainBuffer.fg(acNumbersColorIndex);
+				mainBuffer.fg(acDotsColorIndex);
 				mainBuffer.pixel(clrFG, x, y);
 			}
 		}
@@ -420,7 +420,7 @@ void analogClockWidget(int startX, int startY) {
     			(float)calcCos(index) * outerRadius / 512);
     		
     		// Color for 3, 6, 9 & 12 lines
-    		mainBuffer.fg(acSecondsColorIndex);
+    		mainBuffer.fg(highlightColorIndex);
     		if (i == 0) {
     			mainBuffer.line(clrFG, x1-1, y1-1, x2-1, y2);
     			mainBuffer.line(clrFG, x1, y1, x2, y2);
@@ -444,7 +444,7 @@ void analogClockWidget(int startX, int startY) {
     		else
     		{
     			if (i != 3 && widgetH == 70) {
-					mainBuffer.fg(acNumbersColorIndex);
+					mainBuffer.fg(acDotsColorIndex);
 					mainBuffer.pixel(clrFG, x2, y2);
 				}
     		}
@@ -562,7 +562,7 @@ void updateClockHands2() {
     		y = (centerY + axisYcorrection) - roundCoord(
         		(float)calcCos(index) * circleRadius / 512);
         		
-    		mainBuffer.fg(acNumbersColorIndex);
+    		mainBuffer.fg(acDotsColorIndex);
     		mainBuffer.pixel(clrFG, x, y);
 		}
 	}
@@ -700,7 +700,7 @@ void analogClockWidget2(int startX, int startY) {
     	y = centerY - roundCoord(
         	(float)calcCos(index) * secondDotRadius / 512);
     	
-		mainBuffer.fg(acNumbersColorIndex);
+		mainBuffer.fg(acDotsColorIndex);
 		mainBuffer.pixel(clrFG, x, y);
 	}
 	
