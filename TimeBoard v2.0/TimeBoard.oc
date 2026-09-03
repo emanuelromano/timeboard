@@ -85,7 +85,7 @@ bool setDefaultPrefs() {
 	appPrefs[0].mainColorIndex = 1;
 	
 	appPrefs[0].acBackgroundColorIndex = 0;
-	appPrefs[0].acDotsColorIndex = 0;
+	appPrefs[0].acDotsColorIndex = 1;
 	appPrefs[0].acNumbersColorIndex = 1;
 	appPrefs[0].acHourMinColorIndex = 1;
 	appPrefs[0].acSecondsColorIndex = 1;
