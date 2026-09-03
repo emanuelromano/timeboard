@@ -86,18 +86,18 @@ void updateClockHands() {
 		baseWidth = 4;
 		
 		if (widgetH > widgetW) {
-			axisXcorrection = 41;
+			axisXcorrection = 40;
 			secondLength = 14;
 		}
 		else
 		{
-			if (bigUI && mainForm.w == 224) { // For Hi-Res displays
-				axisXcorrection = 41;
+			if (bigUI && mainForm.w == 224) { // For Hi-Res Landscape mode
+				axisXcorrection = 40;
 				secondLength = 14;
 			}
 			else
 			{
-				axisXcorrection = 37;
+				axisXcorrection = 35;
 				secondLength = 12;
 			}
 		}
@@ -115,7 +115,7 @@ void updateClockHands() {
 			centerX + axisXcorrection,
 			centerY,
 			acBackgroundColorIndex);
-		
+	
 	drawWideHand(oldHourIndex,
 			hourLength,
 			baseWidth,
@@ -139,15 +139,25 @@ void updateClockHands() {
 			seconds * 12;
 	
 	// TimeBoard text on big widget
-	if (widgetW != 70) {
+	if (widgetW > 70) {
 		mainBuffer.textColor(highlightColorIndex);
     	mainBuffer.bg(acBackgroundColorIndex);
 		mainBuffer.textAlign(11);
 		mainBuffer.font(fntBold);
 		mainBuffer.text(clrText, centerX, centerY-27, " TimeBoard");
 		
-		// Small circle for seconds
+		// Circle for seconds on BigUI
 		if (acCircle) {
+			// Background for seconds
+			/*mainBuffer.fg(widgetColorIndex);
+			mainBuffer.rect(clrFG,
+							(centerX + axisXcorrection) - (secondLength + 3),
+							centerY - (secondLength+3),
+							(centerX + axisXcorrection) + (secondLength + 4),
+							centerY + (secondLength+4),
+							(secondLength+4));*/
+			
+			// Circle around seconds
 			mainBuffer.fg(highlightColorIndex);
 			mainBuffer.frame(clrFG,
 							(centerX + axisXcorrection) - (secondLength + 3),
@@ -157,6 +167,17 @@ void updateClockHands() {
 							(secondLength+4),
 							1);
 		}
+		/*else
+		{
+			// Background for seconds
+			mainBuffer.fg(widgetColorIndex);
+			mainBuffer.rect(clrFG,
+							(centerX + axisXcorrection) - (secondLength + 3),
+							centerY - (secondLength+3),
+							(centerX + axisXcorrection) + (secondLength + 4),
+							centerY + (secondLength+4),
+							(secondLength+4));
+		}*/
 		
 		// 12 dots (every 5 seconds)
 		circleRadius = secondLength + 2;
@@ -351,16 +372,32 @@ void analogClockWidget(int startX, int startY) {
     		y = centerY - roundCoord(
         		(float)calcCos(index) * secondDotRadius / 512);
 			
-			if (i == 5 || i == 10 || i == 15 ||
-				i == 20 || i == 25 || i == 35 ||
-				i == 40 || i == 50 || i == 55) {
-				mainBuffer.fg(acDotsColorIndex);
-				mainBuffer.rect(clrFG, x-1, y-1, x+2, y+2, 2);
+			if (acNumbers) {
+				if (i == 0 || i == 5 || i == 10 || i == 15 ||
+					i == 20 || i == 25 || i == 30 || i == 35 ||
+					i == 40 || i == 45 || i == 50 || i == 55) {
+					mainBuffer.fg(acDotsColorIndex);
+					mainBuffer.rect(clrFG, x-1, y-1, x+2, y+2, 2);
+				}
+				else
+				{
+					mainBuffer.fg(acDotsColorIndex);
+					mainBuffer.pixel(clrFG, x, y);
+				}
 			}
 			else
 			{
-				mainBuffer.fg(acDotsColorIndex);
-				mainBuffer.pixel(clrFG, x, y);
+				if (i == 5 || i == 10 || i == 15 ||
+					i == 20 || i == 25 || i == 35 ||
+					i == 40 || i == 50 || i == 55) {
+					mainBuffer.fg(acDotsColorIndex);
+					mainBuffer.rect(clrFG, x-1, y-1, x+2, y+2, 2);
+				}
+				else
+				{
+					mainBuffer.fg(acDotsColorIndex);
+					mainBuffer.pixel(clrFG, x, y);
+				}
 			}
 		}
 	}

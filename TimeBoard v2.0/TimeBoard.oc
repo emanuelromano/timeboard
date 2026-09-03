@@ -134,7 +134,7 @@ bool setDefaultPrefs() {
 	appPrefs[2].highlightColorIndex = 9;
 	appPrefs[2].mainColorIndex = 15;
 	
-	appPrefs[2].acBackgroundColorIndex = 1;
+	appPrefs[2].acBackgroundColorIndex = 0;
 	appPrefs[2].acDotsColorIndex = 10;
 	appPrefs[2].acNumbersColorIndex = 15;
 	appPrefs[2].acHourMinColorIndex = 15;

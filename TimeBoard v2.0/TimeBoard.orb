@@ -117,7 +117,7 @@
     text = ""
     x = 0, y = 0, w = 160, h = 160
     menuid = 0, helpid = 0, defbuttonid = 0
-    modal = false, resizable = true
+    modal = false, resizable = false
     hresize = 2, vresize = 2
     label UILabel prefLabel {
       id = 1017
@@ -430,7 +430,7 @@
     text = ""
     x = 0, y = 0, w = 160, h = 160
     menuid = 0, helpid = 0, defbuttonid = 0
-    modal = false, resizable = true
+    modal = false, resizable = false
     hresize = 2, vresize = 2
     button UIButton helpBackBtn {
       id = 1009
