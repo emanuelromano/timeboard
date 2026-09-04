@@ -128,7 +128,7 @@ bool setDefaultPrefs() {
 	appPrefs[1].acCircle = true;
 	
 	// 2: Grayscale screens (4-bit)
-	appPrefs[2].backgroundColorIndex = 3;
+	appPrefs[2].backgroundColorIndex = 5;
 	appPrefs[2].widgetColorIndex = 0;
 	appPrefs[2].shadowColorIndex = 12;
 	appPrefs[2].highlightColorIndex = 9;
