@@ -46,7 +46,6 @@ void drawBatteryDots(int startX, int startY, int widW, int widH, int dotRadius, 
 		
 		if (i < activeDots) {
 			mainBuffer.fg(battColorIndex);
-			
 			mainBuffer.rect(
 			clrFG,
 			x - dotRadius,
@@ -57,9 +56,8 @@ void drawBatteryDots(int startX, int startY, int widW, int widH, int dotRadius, 
 		}
 		else
 		{
-			if (colorDepth > 4) {
+			if (colorDepth >= 2) {
 				mainBuffer.fg(batteryEmptyColorIndex); // Color discharged grey
-				
 				mainBuffer.rect(
 				clrFG,
 				x - dotRadius,
@@ -70,30 +68,24 @@ void drawBatteryDots(int startX, int startY, int widW, int widH, int dotRadius, 
 			}
 			else
 			{
-				if (colorDepth == 1) {
-					mainBuffer.fg(batteryEmptyColorIndex); // B/W discharged empty circles
-					
-					mainBuffer.frame(
-					clrFG,
-					x - (dotRadius-1),
-					y - (dotRadius-1),
-					x + (dotRadius),
-					y + (dotRadius),
-					dotRadius,
-					1);
-				}
-				else
-				{
-					mainBuffer.fg(batteryEmptyColorIndex); // Gray discharged grey
-					
-					mainBuffer.rect(
-					clrFG,
-					x - dotRadius,
-					y - dotRadius,
-					x + dotRadius,
-					y + dotRadius,
-					dotRadius);
-				}
+				mainBuffer.fg(batteryEmptyColorIndex); // B/W discharged empty circle background
+				mainBuffer.rect(
+				clrFG,
+				x - (dotRadius),
+				y - (dotRadius),
+				x + (dotRadius),
+				y + (dotRadius),
+				dotRadius);
+				
+				mainBuffer.fg(batteryColorIndex); // B/W discharged empty circle
+				mainBuffer.frame(
+				clrFG,
+				x - (dotRadius),
+				y - (dotRadius),
+				x + (dotRadius - 1),
+				y + (dotRadius - 1),
+				dotRadius,
+				1);
 			}
 		}
 	}
