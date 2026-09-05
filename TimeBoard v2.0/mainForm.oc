@@ -7,19 +7,26 @@ void composeBackgroundBuffer() {
 	
 	mainBuffer.begin();
 	
-	// Draw background
+	//  Background
 	mainBuffer.fg(backgroundColorIndex);
 	mainBuffer.rect(clrFG, mainForm.x, mainForm.y, mainForm.w, mainForm.h, 0);
 	
-	// For interfaceMode = 0 & 1:
-	if (showWidget1) {
+	if (bigUI) {
 		// Main rectangle
 		mainBuffer.fg(shadowColorIndex);
 		mainBuffer.rect(clrFG, startX1, startY1, startX1+widgetW+1, startY1+widgetH+1, widgetCornerRadius);
 		mainBuffer.fg(widgetColorIndex);
 		mainBuffer.rect(clrFG, startX1+1, startY1+1, startX1+widgetW-1, startY1+widgetH-1, auxWidgetCornerRadius-1);
-		
-		if (interfaceMode == 0 && !bigUI) {
+	}
+	else
+	{
+		if (interfaceMode == 0) {
+			// Main rectangle
+			mainBuffer.fg(shadowColorIndex);
+			mainBuffer.rect(clrFG, startX1, startY1, startX1+widgetW+1, startY1+widgetH+1, widgetCornerRadius);
+			mainBuffer.fg(widgetColorIndex);
+			mainBuffer.rect(clrFG, startX1+1, startY1+1, startX1+widgetW-1, startY1+widgetH-1, auxWidgetCornerRadius-1);
+			
 			// Big widget pannel text
 			mainBuffer.textColor(highlightColorIndex);
 			mainBuffer.bg(widgetColorIndex);
@@ -30,31 +37,32 @@ void composeBackgroundBuffer() {
 							mainForm.y+widgetH+1,
 							"TimeBoard");
 		}
-	}
-	
-	// For interfaceMode = 1:
-	if (showWidget2) {
-		// Main rectangle
-		mainBuffer.fg(shadowColorIndex);
-		mainBuffer.rect(clrFG, startX2, startY2, startX2+widgetW+1, startY2+widgetH+1, widgetCornerRadius);
-		mainBuffer.fg(widgetColorIndex);
-		mainBuffer.rect(clrFG, startX2+1, startY2+1, startX2+widgetW-1, startY2+widgetH-1, auxWidgetCornerRadius-1);
-	}
-	
-	if (showWidget3) {
-		// Main rectangle
-		mainBuffer.fg(shadowColorIndex);
-		mainBuffer.rect(clrFG, startX3, startY3, startX3+widgetW+1, startY3+widgetH+1, widgetCornerRadius);
-		mainBuffer.fg(widgetColorIndex);
-		mainBuffer.rect(clrFG, startX3+1, startY3+1, startX3+widgetW-1, startY3+widgetH-1, auxWidgetCornerRadius-1);
-	}
-	
-	if (showWidget4) {
-		// Main rectangle
-		mainBuffer.fg(shadowColorIndex);
-		mainBuffer.rect(clrFG, startX4, startY4, startX4+widgetW+1, startY4+widgetH+1, widgetCornerRadius);
-		mainBuffer.fg(widgetColorIndex);
-		mainBuffer.rect(clrFG, startX4+1, startY4+1, startX4+widgetW-1, startY4+widgetH-1, auxWidgetCornerRadius-1);
+		
+		if (interfaceMode == 1) {
+			mainBuffer.fg(shadowColorIndex);
+			mainBuffer.rect(clrFG, startX1, startY1, startX1+widgetW+1, startY1+widgetH+1, widgetCornerRadius);
+			mainBuffer.fg(widgetColorIndex);
+			mainBuffer.rect(clrFG, startX1+1, startY1+1, startX1+widgetW-1, startY1+widgetH-1, auxWidgetCornerRadius-1);
+			
+			mainBuffer.fg(shadowColorIndex);
+			mainBuffer.rect(clrFG, startX2, startY2, startX2+widgetW+1, startY2+widgetH+1, widgetCornerRadius);
+			mainBuffer.fg(widgetColorIndex);
+			mainBuffer.rect(clrFG, startX2+1, startY2+1, startX2+widgetW-1, startY2+widgetH-1, auxWidgetCornerRadius-1);
+			
+			mainBuffer.fg(shadowColorIndex);
+			mainBuffer.rect(clrFG, startX3, startY3, startX3+widgetW+1, startY3+widgetH+1, widgetCornerRadius);
+			mainBuffer.fg(widgetColorIndex);
+			mainBuffer.rect(clrFG, startX3+1, startY3+1, startX3+widgetW-1, startY3+widgetH-1, auxWidgetCornerRadius-1);
+			
+			mainBuffer.fg(shadowColorIndex);
+			mainBuffer.rect(clrFG, startX4, startY4, startX4+widgetW+1, startY4+widgetH+1, widgetCornerRadius);
+			mainBuffer.fg(widgetColorIndex);
+			mainBuffer.rect(clrFG, startX4+1, startY4+1, startX4+widgetW-1, startY4+widgetH-1, auxWidgetCornerRadius-1);
+		}
+		
+		if (interfaceMode == 2) {
+		
+		}
 	}
 	
 	mainBuffer.end();
@@ -62,22 +70,26 @@ void composeBackgroundBuffer() {
 
 
 void composeWidgetsBuffer() {
-	if (showWidget1) {
-		if (bigUI) {
-			analogClockWidgetBigUI(startX1, startY1);
+	if (bigUI) {
+		analogClockWidgetBigUI(startX1, startY1);
+	}
+	else
+	{
+		if (interfaceMode == 0) {
+			analogClockWidgetA(startX1, startY1);
 		}
-		else
-		{
-			if (interfaceMode == 0)
-				analogClockWidgetA(startX1, startY1);
-			if (interfaceMode == 1)
-				analogClockWidgetB(startX1, startY1);
+		
+		if (interfaceMode == 1) {
+			analogClockWidgetB(startX1, startY1);
+			digitalClockWidget(startX2, startY2);
+			calendarWidget(startX3, startY3);
+			batteryWidget(startX4, startY4);
+		}
+		
+		if (interfaceMode == 2) {
+		
 		}
 	}
-	
-	if (showWidget2) digitalClockWidget(startX2, startY2);
-	if (showWidget3) calendarWidget(startX3, startY3);
-	if (showWidget4) batteryWidget(startX4, startY4);
 }
 
 
@@ -106,21 +118,14 @@ handler mainForm.onopen() {
 }
 
 
-handler mainForm.ondraw() {
-	showWidget1 = false;
-	showWidget2 = false;
-	showWidget3 = false;
-	showWidget4 = false;
-	
+handler mainForm.ondraw() {	
 	bigUI = false;
 	
 	miniPanelW = 38;
 	miniPanelH = 38;
 	
+	// BigUI - Portrait mode
 	if (mainForm.h > 160) {
-		// Portrait mode
-		showWidget1 = true;
-		
 		bigUI  = true;
 		
 		widgetW = 144;
@@ -143,16 +148,12 @@ handler mainForm.ondraw() {
 		drawAuxiliarPanel(orientation);
 		
 		// Mini widgets
-		if (bigUI) {
-			miniDigitalClockWidget(miniPanelX1, miniPanelY1);
-			miniCalendarWidget(miniPanelX2, miniPanelY2);
-			miniBatteryWidget(miniPanelX3, miniPanelY3);
-		}
+		miniDigitalClockWidget(miniPanelX1, miniPanelY1);
+		miniCalendarWidget(miniPanelX2, miniPanelY2);
+		miniBatteryWidget(miniPanelX3, miniPanelY3);
 	}
+	// BigUI - Landscape mode
 	else if (mainForm.w > 160) {
-		// Landscape mode
-		showWidget1 = true;
-		
 		bigUI  = true;
 		
 		widgetW = mainForm.w - miniPanelW - 33;;
@@ -175,18 +176,14 @@ handler mainForm.ondraw() {
 		drawAuxiliarPanel(orientation);
 		
 		// Mini widgets
-		if (bigUI) {
-			miniDigitalClockWidget(miniPanelX1, miniPanelY1);
-			miniCalendarWidget(miniPanelX2, miniPanelY2);
-			miniBatteryWidget(miniPanelX3, miniPanelY3);
-		}
+		miniDigitalClockWidget(miniPanelX1, miniPanelY1);
+		miniCalendarWidget(miniPanelX2, miniPanelY2);
+		miniBatteryWidget(miniPanelX3, miniPanelY3);
 	}
 	else
 	{
-		// Normal mode (square display)		
+		// Interface mode A
 		if (interfaceMode == 0) {
-			showWidget1 = true;
-			
 			widgetW = 144;
 			widgetH = 89;
 			
@@ -210,13 +207,9 @@ handler mainForm.ondraw() {
 			miniCalendarWidget(miniPanelX2, miniPanelY2);
 			miniBatteryWidget(miniPanelX3, miniPanelY3);
 		}
-		else
-		{
-			showWidget1 = true;
-			showWidget2 = true;
-			showWidget3 = true;
-			showWidget4 = true;
-			
+		
+		// Interface mode B
+		if (interfaceMode == 1) {
 			widgetW = 70;
 			widgetH = 70;
 			

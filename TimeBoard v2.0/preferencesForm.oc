@@ -1,9 +1,16 @@
 handler preferencesForm.onopen() {
 	// Interface push buttons
-	if (origInterfaceMode == 0)
-		interfaceApush.checked = true;
-	else
-		interfaceBpush.checked = true;
+	switch (origInterfaceMode) {
+		case 0:
+			interfaceApush.checked = true;
+			break;
+		case 1:
+			interfaceBpush.checked = true;
+			break;
+		case 2:
+			interfaceCpush.checked = true;
+			break;
+	}
 	
 	// Corners push buttons
 	switch (widgetCornerRadius) {
@@ -54,6 +61,7 @@ handler interfaceBpush.onselect() {
 handler interfaceCpush.onselect() {
 	origInterfaceMode = 2;
 }
+
 
 // Corners: 0
 handler corner0push.onselect() {

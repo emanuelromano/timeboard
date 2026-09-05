@@ -74,11 +74,7 @@ int	miniPanelX1,
 	miniPanelW,
 	miniPanelH;
 
-bool showWidget1,
-	showWidget2,
-	showWidget3,
-	showWidget4,
-	bigUI, // Makes minipanel ontimer updates work in Landscape or Portrait mode while interfaceMode == 1
+bool bigUI, // Makes minipanel ontimer updates work in Landscape or Portrait mode while interfaceMode == 1
 	showBattPercentage;
 
 // Colors
