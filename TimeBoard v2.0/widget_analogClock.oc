@@ -161,7 +161,7 @@ void updateClockHandsA() {
 			 	centerY,
 			 	acHourMinColorIndex);
 	
-	// HOUR: Center size according to widget size
+	// HOUR: Center
 	mainBuffer.fg(acCenterColorIndex);
 	mainBuffer.rect(clrFG,
 		centerX - 4,
@@ -334,7 +334,7 @@ void analogClockWidgetA(int startX, int startY) {
 }
 
 
-void updateClockHandsB() {
+void updateClockHandsB(int mode) {
 	int i, x, y,
 		axisXcorrection = 0,
 		circleRadius,
@@ -342,7 +342,13 @@ void updateClockHandsB() {
 		newMinuteIndex,
 		newSecondIndex,
 		index = 0,
-		baseWidth = 3;
+		baseWidth;
+	
+	if (mode == 0)
+		baseWidth = 3; // For Interface mode B
+	else
+		baseWidth = 2; // For miniAnalogClockWidget
+		
 	
 	mainBuffer.begin();
 	
@@ -396,7 +402,8 @@ void updateClockHandsB() {
 			centerY,
 			acSecondsColorIndex);
 	
-	// Hand centre circle size according to widget size
+	// Hand centre circle
+	if (mode == 0) {
 		mainBuffer.fg(acCenterColorIndex);
 		mainBuffer.rect(clrFG,
 			centerX - 3,
@@ -404,6 +411,17 @@ void updateClockHandsB() {
 			centerX + 4,
 			centerY + 4,
 			4);
+	}
+	else
+	{
+		mainBuffer.fg(acCenterColorIndex);
+		mainBuffer.rect(clrFG,
+			centerX - 2,
+			centerY - 2,
+			centerX + 3,
+			centerY + 3,
+			3);
+	}
 	
 	mainBuffer.end();
 	
@@ -562,7 +580,7 @@ void analogClockWidgetB(int startX, int startY) {
 	
 	mainBuffer.end();
 	
-	updateClockHandsB();
+	updateClockHandsB(0);
 }
 
 
@@ -936,4 +954,69 @@ void analogClockWidgetBigUI(int startX, int startY) {
 	mainBuffer.end();
 	
 	updateClockHandsBigUI();
+}
+
+
+void miniAnalogClockWidget(int startX, int startY) {
+	int i,
+		x, y,
+		x1, y1,
+		x2, y2,
+		radius,
+		innerRadius,
+		outerRadius,
+		circleSeparation,
+		circleCornerRadius,
+		secondDotRadius,
+		index,
+		auxiliarSize,
+		circleRadius;
+	string number;
+	
+	centerX = startX + (miniPanelW / 2) - 1;
+	centerY = startY + (miniPanelH / 2) - 1;
+	
+	// Set radius
+	radius = 19;
+	
+	circleSeparation = 19;
+	circleCornerRadius = 19;
+	
+	// Hands lenght
+	hourLength = 12;
+	minuteLength = 15;
+	secondLength = 15;
+	
+	innerRadius = circleSeparation - 5;
+	outerRadius = circleSeparation - 2;
+	
+	mainBuffer.begin();
+	
+	// Clock background
+	mainBuffer.fg(acBackgroundColorIndex);
+	mainBuffer.rect(clrFG,
+			centerX-circleSeparation,
+			centerY-circleSeparation,
+			centerX+circleSeparation + 1,
+			centerY+circleSeparation + 1,
+			circleCornerRadius);
+	
+	// 12 dots
+	circleRadius = 17;
+	for (i = 0; i < 12; i++) {
+    	index = i * 60;
+		
+    	x = centerX + roundCoord(
+        	(float)calcSin(index) * circleRadius / 512);
+		
+    	y = centerY - roundCoord(
+        	(float)calcCos(index) * circleRadius / 512);
+        
+    	mainBuffer.fg(acDotsColorIndex);
+    	mainBuffer.pixel(clrFG, x, y);
+	}
+	
+	mainBuffer.end();
+	
+	updateClockHandsB(1);
 }

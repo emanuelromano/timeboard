@@ -252,7 +252,7 @@ handler mainForm.ondraw() {
 			drawAuxiliarPanel(orientation);
 			
 			// Mini widgets
-			miniDigitalClockWidget(miniPanelX1, miniPanelY1);
+			miniAnalogClockWidget(miniPanelX1, miniPanelY1);
 			miniCalendarWidget(miniPanelX2, miniPanelY2);
 			miniBatteryWidget(miniPanelX3, miniPanelY3);
 		}
@@ -289,11 +289,11 @@ handler mainForm.ontimer() {
 		else
 		{
 			if (interfaceMode == 0) updateClockHandsA();
-			if (interfaceMode == 1) updateClockHandsB();
+			if (interfaceMode == 1) updateClockHandsB(0);
 		
 			if (interfaceMode == 0) miniDigitalClockWidget(miniPanelX1, miniPanelY1);
 			if (interfaceMode == 1) digitalClockWidget(startX2, startY2);
-			if (interfaceMode == 2) miniDigitalClockWidget(miniPanelX1, miniPanelY1);
+			if (interfaceMode == 2) miniAnalogClockWidget(miniPanelX1, miniPanelY1);
 			
 			if (day != lastDay) {
 				if (interfaceMode == 0) miniCalendarWidget(miniPanelX2, miniPanelY2);
