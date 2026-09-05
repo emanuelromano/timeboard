@@ -12,14 +12,14 @@ void composeBackgroundBuffer() {
 	mainBuffer.rect(clrFG, mainForm.x, mainForm.y, mainForm.w, mainForm.h, 0);
 	
 	// For interfaceMode = 0 & 1:
-	if (showWidget1) {		
+	if (showWidget1) {
 		// Main rectangle
 		mainBuffer.fg(shadowColorIndex);
 		mainBuffer.rect(clrFG, startX1, startY1, startX1+widgetW+1, startY1+widgetH+1, widgetCornerRadius);
 		mainBuffer.fg(widgetColorIndex);
 		mainBuffer.rect(clrFG, startX1+1, startY1+1, startX1+widgetW-1, startY1+widgetH-1, auxWidgetCornerRadius-1);
 		
-		if (interfaceMode == 1) {
+		if (interfaceMode == 0 && !bigUI) {
 			// Big widget pannel text
 			mainBuffer.textColor(highlightColorIndex);
 			mainBuffer.bg(widgetColorIndex);
@@ -32,7 +32,7 @@ void composeBackgroundBuffer() {
 		}
 	}
 	
-	// For interfaceMode = 0:
+	// For interfaceMode = 1:
 	if (showWidget2) {
 		// Main rectangle
 		mainBuffer.fg(shadowColorIndex);
@@ -62,11 +62,18 @@ void composeBackgroundBuffer() {
 
 
 void composeWidgetsBuffer() {
-	if (showWidget1)
-		if (interfaceMode == 0)
-			analogClockWidget(startX1, startY1);
-		if (interfaceMode == 1)
-			analogClockWidget2(startX1, startY1);
+	if (showWidget1) {
+		if (bigUI) {
+			analogClockWidgetBigUI(startX1, startY1);
+		}
+		else
+		{
+			if (interfaceMode == 0)
+				analogClockWidgetA(startX1, startY1);
+			if (interfaceMode == 1)
+				analogClockWidgetB(startX1, startY1);
+		}
+	}
 	
 	if (showWidget2) digitalClockWidget(startX2, startY2);
 	if (showWidget3) calendarWidget(startX3, startY3);
@@ -114,7 +121,6 @@ handler mainForm.ondraw() {
 		// Portrait mode
 		showWidget1 = true;
 		
-		interfaceMode = 0; // Force interfaceMode to 0 for fullscreen modes
 		bigUI  = true;
 		
 		widgetW = 144;
@@ -137,15 +143,16 @@ handler mainForm.ondraw() {
 		drawAuxiliarPanel(orientation);
 		
 		// Mini widgets
-		miniDigitalClockWidget(miniPanelX1, miniPanelY1);
-		miniCalendarWidget(miniPanelX2, miniPanelY2);
-		miniBatteryWidget(miniPanelX3, miniPanelY3);
+		if (bigUI) {
+			miniDigitalClockWidget(miniPanelX1, miniPanelY1);
+			miniCalendarWidget(miniPanelX2, miniPanelY2);
+			miniBatteryWidget(miniPanelX3, miniPanelY3);
+		}
 	}
 	else if (mainForm.w > 160) {
 		// Landscape mode
 		showWidget1 = true;
 		
-		interfaceMode = 0; // Force interfaceMode to 0 for fullscreen modes
 		bigUI  = true;
 		
 		widgetW = mainForm.w - miniPanelW - 33;;
@@ -168,16 +175,16 @@ handler mainForm.ondraw() {
 		drawAuxiliarPanel(orientation);
 		
 		// Mini widgets
-		miniDigitalClockWidget(miniPanelX1, miniPanelY1);
-		miniCalendarWidget(miniPanelX2, miniPanelY2);
-		miniBatteryWidget(miniPanelX3, miniPanelY3);
+		if (bigUI) {
+			miniDigitalClockWidget(miniPanelX1, miniPanelY1);
+			miniCalendarWidget(miniPanelX2, miniPanelY2);
+			miniBatteryWidget(miniPanelX3, miniPanelY3);
+		}
 	}
 	else
 	{
-		// Normal mode (square display)
-		interfaceMode = appPrefs[appPrefsPosition].interfaceMode;
-		
-		if (interfaceMode == 1) {
+		// Normal mode (square display)		
+		if (interfaceMode == 0) {
 			showWidget1 = true;
 			
 			widgetW = 144;
@@ -239,28 +246,30 @@ handler mainForm.ontimer() {
 		charge = battery(false);
 		
 		// Widgets
-		if (showWidget1) {
-			if (interfaceMode == 0) updateClockHands();
-			if (interfaceMode == 1) updateClockHands2();
-		}
-		
-		if (showWidget2)
-			digitalClockWidget(startX2, startY2);
-		else
+		if (bigUI) {
+			updateClockHandsBigUI();
+			
 			miniDigitalClockWidget(miniPanelX1, miniPanelY1);
-		
-		if (day != lastDay) {
-    		if (showWidget3)
-        		calendarWidget(startX3, startY3);
-    		else
-        		miniCalendarWidget(miniPanelX2, miniPanelY2);
+			miniCalendarWidget(miniPanelX2, miniPanelY2);
+			miniBatteryWidget(miniPanelX3, miniPanelY3);	
 		}
+		else
+		{
+			if (interfaceMode == 0) updateClockHandsA();
+			if (interfaceMode == 1) updateClockHandsB();
 		
-		if (charge != lastCharge) {
-    		if (showWidget4)
-        		batteryWidget(startX4, startY4);
-    		else
-        		miniBatteryWidget(miniPanelX3, miniPanelY3);
+			if (interfaceMode == 0) miniDigitalClockWidget(miniPanelX1, miniPanelY1);
+			if (interfaceMode == 1) digitalClockWidget(startX2, startY2);
+			
+			if (day != lastDay) {
+				if (interfaceMode == 0) miniCalendarWidget(miniPanelX2, miniPanelY2);
+        		if (interfaceMode == 1) calendarWidget(startX3, startY3);
+			}
+			
+			if (charge != lastCharge) {
+        		if (interfaceMode == 0) miniBatteryWidget(miniPanelX3, miniPanelY3);
+        		if (interfaceMode == 1) batteryWidget(startX4, startY4);
+			}
 		}
 		
 		// Draw mainBuffer
@@ -308,7 +317,7 @@ handler mainForm.onpenup() {
 		//alert("Widget 4");
 	} */
 	
-	if (interfaceMode == 1 || bigUI) {
+	if (interfaceMode == 0 || bigUI) {
 		if (penX >= miniPanelX3 && penX <= miniPanelX3 + miniPanelW && penY >= miniPanelY3 && penY <= miniPanelY3 + miniPanelH) {
 			if (!showBattPercentage)
 				showBattPercentage = true;

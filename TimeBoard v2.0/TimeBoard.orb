@@ -128,7 +128,7 @@
     }
     label UILabel interfaceLbl {
       id = 1018
-      x = 9, y = 23
+      x = 11, y = 23
       fontid = 0
       text = "Interface:"
       hresize = 0, vresize = 0
@@ -151,7 +151,7 @@
     }
     pushbutton UIPushButton corner0push {
       id = 1022
-      x = 120, y = 25, w = 30, h = 8
+      x = 54, y = 58, w = 30, h = 8
       text = "A"
       leftanchor = true, group = 2, fontid = 0
       graphic = true, bitmapid = 1025, sbitmapid = 0
@@ -159,7 +159,7 @@
     }
     pushbutton UIPushButton corner4push {
       id = 1023
-      x = 120, y = 36, w = 30, h = 8
+      x = 87, y = 58, w = 30, h = 8
       text = "B"
       leftanchor = true, group = 2, fontid = 0
       graphic = true, bitmapid = 1026, sbitmapid = 0
@@ -167,7 +167,7 @@
     }
     pushbutton UIPushButton corner8push {
       id = 1024
-      x = 120, y = 47, w = 30, h = 8
+      x = 120, y = 58, w = 30, h = 8
       text = "C"
       leftanchor = true, group = 2, fontid = 0
       graphic = true, bitmapid = 1027, sbitmapid = 0
@@ -211,6 +211,20 @@
       leftanchor = true, group = 0, fontid = 0
       frame = 1
       hresize = 1, vresize = 1
+    }
+    pushbutton UIPushButton interfaceCpush {
+      id = 1063
+      x = 120, y = 25, w = 30, h = 30
+      text = ""
+      leftanchor = true, group = 1, fontid = 0
+      hresize = 0, vresize = 0
+    }
+    label UILabel cornersLbl {
+      id = 1064
+      x = 17, y = 57
+      fontid = 0
+      text = "Corners:"
+      hresize = 0, vresize = 0
     }
   }
   form UIForm colorsModalForm {

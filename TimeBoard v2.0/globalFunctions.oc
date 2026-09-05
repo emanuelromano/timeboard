@@ -98,15 +98,15 @@ handler TimeBoard.onstop() {
 
 
 void drawAuxiliarPanel(string orientation) {
+	if (widgetCornerRadius == 0)
+		auxWidgetCornerRadius = 1;
+	else
+		auxWidgetCornerRadius = widgetCornerRadius;
+	
 	mainBuffer.begin();
 	
 	if (orientation == "P") { // PORTRAIT
 		// Main rectangle
-		if (widgetCornerRadius == 0)
-			auxWidgetCornerRadius = 1;
-		else
-			auxWidgetCornerRadius = widgetCornerRadius;
-		
 		mainBuffer.fg(shadowColorIndex);
 		mainBuffer.rect(clrFG, mainForm.x+8, mainForm.h-miniPanelH-21, mainForm.w-7, mainForm.h-7, widgetCornerRadius);
 		mainBuffer.fg(widgetColorIndex);
@@ -128,16 +128,11 @@ void drawAuxiliarPanel(string orientation) {
 	
 	if (orientation == "L") { // LANDSCAPE	
 		// Main rectangle
-		if (widgetCornerRadius == 0)
-			auxWidgetCornerRadius = 1;
-		else
-			auxWidgetCornerRadius = widgetCornerRadius;
-		
 		mainBuffer.fg(shadowColorIndex);
 		mainBuffer.rect(clrFG, mainForm.w-miniPanelH-21, 8, mainForm.w-7, mainForm.h-7, widgetCornerRadius);
 		mainBuffer.fg(widgetColorIndex);
 		mainBuffer.rect(clrFG, mainForm.w-miniPanelH-20, 9, mainForm.w-9, mainForm.h-9, auxWidgetCornerRadius-1);
-				
+		
 		// Line separators
 		mainBuffer.fg(highlightColorIndex);
 		mainBuffer.line(clrFG, mainForm.w-miniPanelH-15, mainForm.h-56, mainForm.w-14, mainForm.h-56);
@@ -154,11 +149,6 @@ void drawAuxiliarPanel(string orientation) {
 	
 	if (orientation == "N") { // NORMAL	
 		// Main rectangle
-		if (widgetCornerRadius == 0)
-			auxWidgetCornerRadius = 1;
-		else
-			auxWidgetCornerRadius = widgetCornerRadius;
-		
 		mainBuffer.fg(shadowColorIndex);
 		mainBuffer.rect(clrFG, mainForm.x+8, mainForm.h-miniPanelH-21, mainForm.w-7, mainForm.h-7, widgetCornerRadius);
 		mainBuffer.fg(widgetColorIndex);
@@ -182,6 +172,33 @@ void drawAuxiliarPanel(string orientation) {
 }
 
 
+// Round coordinates for drawing and angles
+int roundCoord(float value) {
+    if (value >= 0)
+        return (int)(value + 0.5);
+    else
+        return (int)(value - 0.5);
+}
+
+
+// Sine calculation
+int calcSin(int index) {
+	if (index < 0)
+		index += 720;
+	
+	if (index >= 720)
+		index -= 720;
+	
+	return sinTable[index];
+}
+
+
+// Cosine calculation
+int calcCos(int index) {
+    return calcSin(index + 180);
+}
+
+
 void splitDateDigits(int day) {
 	dayDigit1 = day / 10;
 	dayDigit2 = day % 10;
@@ -192,11 +209,11 @@ void splitTimeDigits() {
 	// Hours
 	hourDigit1 = hours / 10;
 	hourDigit2 = hours % 10;
-
+	
 	// Minutes
 	minuteDigit1 = minutes / 10;
 	minuteDigit2 = minutes % 10;
-
+	
 	// Seconds
 	secondDigit1 = seconds / 10;
 	secondDigit2 = seconds % 10;
@@ -390,24 +407,6 @@ void drawDigit(int number,
 					digitY + digitH,
 					radius);
 	}
-}
-
-
-// Sine calculation
-int calcSin(int index) {
-	if (index < 0)
-		index += 720;
-	
-	if (index >= 720)
-		index -= 720;
-	
-	return sinTable[index];
-}
-
-
-// Cosine calculation
-int calcCos(int index) {
-    return calcSin(index + 180);
 }
 
 

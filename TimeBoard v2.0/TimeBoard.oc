@@ -74,7 +74,7 @@ bool setDefaultPrefs() {
 							// true / numbers
 							// false / lines
 		acCircle = true;	// Show circle around Analog Clock
-	int interfaceMode = 1,
+	int interfaceMode = 0,
 		widgetCornerRadius = 4; // 0-4-8 pixels
 	
 	// 0: B/W screens (1-bit)

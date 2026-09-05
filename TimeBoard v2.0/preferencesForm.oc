@@ -1,6 +1,6 @@
 handler preferencesForm.onopen() {
 	// Interface push buttons
-	if (origInterfaceMode == 1)
+	if (origInterfaceMode == 0)
 		interfaceApush.checked = true;
 	else
 		interfaceBpush.checked = true;
@@ -40,15 +40,20 @@ handler prefsColorsBtn.onselect() {
 
 // Interface: Push button A
 handler interfaceApush.onselect() {
-	origInterfaceMode = 1;
+	origInterfaceMode = 0;
 }
 
 
 // Interface: Push button B
 handler interfaceBpush.onselect() {
-	origInterfaceMode = 0;
+	origInterfaceMode = 1;
 }
 
+
+// Interface: Push button C
+handler interfaceCpush.onselect() {
+	origInterfaceMode = 2;
+}
 
 // Corners: 0
 handler corner0push.onselect() {
@@ -68,6 +73,12 @@ handler corner8push.onselect() {
 }
 
 
+// Debug button
+handler prefsDebugBtn.onselect() {
+	debugModalForm.domodal();
+}
+
+
 // Save button
 handler prefsSaveBtn.onselect() {
 	saveMainPreferences();
@@ -84,9 +95,4 @@ handler prefsBackBtn.onselect() {
 handler preferencesForm.onpenup() {
 	if (colorDepth > 4)
 		colorsBmp.visible = true;
-}
-
-
-handler prefsDebugBtn.onselect() {
-	debugModalForm.domodal();
 }
