@@ -51,6 +51,9 @@ int	startX1 = 8,
 	startX4 = 82,
 	startY4 = 82,
 	
+	startXc = 8,
+	startYc = 62,
+	
 	widgetW,
 	widgetH,
 		

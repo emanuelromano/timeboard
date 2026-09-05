@@ -61,7 +61,21 @@ void composeBackgroundBuffer() {
 		}
 		
 		if (interfaceMode == 2) {
-		
+			// Main rectangle
+			mainBuffer.fg(shadowColorIndex);
+			mainBuffer.rect(clrFG, startXc, startYc, startXc+widgetW+1, startYc+widgetH+1, widgetCornerRadius);
+			mainBuffer.fg(widgetColorIndex);
+			mainBuffer.rect(clrFG, startXc+1, startYc+1, startXc+widgetW-1, startYc+widgetH-1, auxWidgetCornerRadius-1);
+			
+			// Big widget pannel text
+			mainBuffer.textColor(highlightColorIndex);
+			mainBuffer.bg(widgetColorIndex);
+			mainBuffer.font(fntBold);
+			mainBuffer.textAlign(22);
+			mainBuffer.text(clrText,
+							mainForm.w-14,
+							mainForm.h-16,
+							"TimeBoard");
 		}
 	}
 	
@@ -199,7 +213,7 @@ handler mainForm.ondraw() {
 			composeBackgroundBuffer();
 			composeWidgetsBuffer();
 			
-			orientation = "N"; // Normal (square)
+			orientation = "A";
 			drawAuxiliarPanel(orientation);
 			
 			// Mini widgets
@@ -215,6 +229,32 @@ handler mainForm.ondraw() {
 			
 			composeBackgroundBuffer();
 			composeWidgetsBuffer();
+		}
+		
+		// Interface mode C
+		if (interfaceMode == 2) {
+			widgetW = 144;
+			widgetH = 89;
+			
+			miniPanelX1 = 14;
+			miniPanelY1 = 14;
+			
+			miniPanelX2 = 61;
+			miniPanelY2 = 14;
+			
+			miniPanelX3 = 108;
+			miniPanelY3 = 14;
+			
+			composeBackgroundBuffer();
+			//composeWidgetsBuffer();
+			
+			orientation = "C";
+			drawAuxiliarPanel(orientation);
+			
+			// Mini widgets
+			miniDigitalClockWidget(miniPanelX1, miniPanelY1);
+			miniCalendarWidget(miniPanelX2, miniPanelY2);
+			miniBatteryWidget(miniPanelX3, miniPanelY3);
 		}
 	}
 	
@@ -253,15 +293,18 @@ handler mainForm.ontimer() {
 		
 			if (interfaceMode == 0) miniDigitalClockWidget(miniPanelX1, miniPanelY1);
 			if (interfaceMode == 1) digitalClockWidget(startX2, startY2);
+			if (interfaceMode == 2) miniDigitalClockWidget(miniPanelX1, miniPanelY1);
 			
 			if (day != lastDay) {
 				if (interfaceMode == 0) miniCalendarWidget(miniPanelX2, miniPanelY2);
         		if (interfaceMode == 1) calendarWidget(startX3, startY3);
+        		if (interfaceMode == 2) miniCalendarWidget(miniPanelX2, miniPanelY2);
 			}
 			
 			if (charge != lastCharge) {
         		if (interfaceMode == 0) miniBatteryWidget(miniPanelX3, miniPanelY3);
         		if (interfaceMode == 1) batteryWidget(startX4, startY4);
+        		if (interfaceMode == 2) miniBatteryWidget(miniPanelX3, miniPanelY3);
 			}
 		}
 		

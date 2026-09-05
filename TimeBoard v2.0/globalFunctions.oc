@@ -147,7 +147,7 @@ void drawAuxiliarPanel(string orientation) {
 		}
 	}
 	
-	if (orientation == "N") { // NORMAL	
+	if (orientation == "A") { // Interface mode A
 		// Main rectangle
 		mainBuffer.fg(shadowColorIndex);
 		mainBuffer.rect(clrFG, mainForm.x+8, mainForm.h-miniPanelH-21, mainForm.w-7, mainForm.h-7, widgetCornerRadius);
@@ -158,6 +158,27 @@ void drawAuxiliarPanel(string orientation) {
 		mainBuffer.fg(highlightColorIndex);
 		mainBuffer.line(clrFG, mainForm.x+56, mainForm.h-miniPanelH-15, mainForm.x+56, mainForm.h-14);
 		mainBuffer.line(clrFG, mainForm.w-57, mainForm.h-miniPanelH-15, mainForm.w-57, mainForm.h-14);
+		
+		// TESTING PANELS
+		if (debugFlag) {
+			mainBuffer.fg(mainColorIndex);
+			mainBuffer.frame(clrFG, miniPanelX1, miniPanelY1, miniPanelX1+miniPanelW, miniPanelY1+miniPanelH, 0, 1);
+			mainBuffer.frame(clrFG, miniPanelX2, miniPanelY2, miniPanelX2+miniPanelW, miniPanelY2+miniPanelH, 0, 1);
+			mainBuffer.frame(clrFG, miniPanelX3, miniPanelY3, miniPanelX3+miniPanelW, miniPanelY3+miniPanelH, 0, 1);
+		}
+	}
+	
+	if (orientation == "C") { // Interface mode C
+		// Main rectangle
+		mainBuffer.fg(shadowColorIndex);
+		mainBuffer.rect(clrFG, mainForm.x+8, 8, mainForm.w-7, 59, widgetCornerRadius);
+		mainBuffer.fg(widgetColorIndex);
+		mainBuffer.rect(clrFG, mainForm.x+9, 9, mainForm.w-9, 57, auxWidgetCornerRadius-1);
+		
+		// Line separators
+		mainBuffer.fg(highlightColorIndex);
+		mainBuffer.line(clrFG, mainForm.x+56, 13, mainForm.x+56, 52);
+		mainBuffer.line(clrFG, mainForm.w-57, 13, mainForm.w-57, 52);
 		
 		// TESTING PANELS
 		if (debugFlag) {
