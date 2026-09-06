@@ -38,15 +38,65 @@ void digitalClockWidget(int startX, int startY) {
 	mainBuffer.text(clrText, startX+widgetW-5, startY+4, amPmStr);*/
 	
 	// Seconds
-	if (colorDepth > 4 || colorDepth == 1)
-		mainBuffer.textColor(mainColorIndex);
-	else
-		mainBuffer.textColor(highlightColorIndex);
-	
+	mainBuffer.textColor(mainColorIndex);
 	mainBuffer.textAlign(22);
 	mainBuffer.bg(widgetColorIndex);
 	mainBuffer.font(fntLargeBold);
 	mainBuffer.text(clrText, startX+widgetW-5, startY+widgetH-6, "   " + secondDigit1 + "" + secondDigit2);
+	mainBuffer.end();
+}
+
+
+void digitalClockWidgetC(int startX, int startY) {
+	string amPmStr;
+	int digitW1 = 31,
+		digitH1 = 60,
+		radius = fontRadius,
+		segmentThickness1 = 12,
+		
+		digitHr1X = startX + 8,
+		digitHr2X = digitHr1X + digitW1 + 6,
+		
+		digitY1 = startY + 20;
+	
+	int digitW2 = 24,
+		digitH2 = 36,
+		segmentThickness2 = 8,
+		
+		digitMin1X = digitHr2X + digitW1 + 6,
+		digitMin2X = digitMin1X + digitW2 + 6,
+		
+		digitY2 = startY + 20;
+	
+	splitTimeDigits();
+	
+	amPmStr = "AM";
+	
+	mainBuffer.begin();
+	// Hour
+	mainBuffer.fg(highlightColorIndex);
+	// drawDigit() comes from globalFunctions.oc
+	drawDigit(hourDigit1, digitW1, digitH1, digitHr1X, digitY1, radius, segmentThickness1);
+	drawDigit(hourDigit2, digitW1, digitH1, digitHr2X, digitY1, radius, segmentThickness1);
+	
+	// Minutes
+	mainBuffer.fg(mainColorIndex);
+	drawDigit(minuteDigit1, digitW2, digitH2, digitMin1X, digitY2, radius, segmentThickness2);
+	drawDigit(minuteDigit2, digitW2, digitH2, digitMin2X, digitY2, radius, segmentThickness2);
+	
+	// AP/PM
+	/*mainBuffer.textAlign(02);
+	mainBuffer.textColor(highlightColorIndex);
+	mainBuffer.bg(widgetColorIndex);
+	mainBuffer.font(fntLargeBold);
+	mainBuffer.text(clrText, startX+widgetW-5, startY+4, amPmStr);*/
+	
+	// Seconds
+	mainBuffer.textColor(mainColorIndex);
+	mainBuffer.textAlign(22);
+	mainBuffer.bg(widgetColorIndex);
+	mainBuffer.font(fntLargeBold);
+	mainBuffer.text(clrText, startX+widgetW-7, startY+widgetH-8, "   " + secondDigit1 + "" + secondDigit2);
 	mainBuffer.end();
 }
 

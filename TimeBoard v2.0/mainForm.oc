@@ -71,10 +71,10 @@ void composeBackgroundBuffer() {
 			mainBuffer.textColor(highlightColorIndex);
 			mainBuffer.bg(widgetColorIndex);
 			mainBuffer.font(fntBold);
-			mainBuffer.textAlign(22);
+			mainBuffer.textAlign(02);
 			mainBuffer.text(clrText,
-							mainForm.w-14,
-							mainForm.h-16,
+							mainForm.w-15,
+							startYc+4,
 							"TimeBoard");
 		}
 	}
@@ -101,7 +101,7 @@ void composeWidgetsBuffer() {
 		}
 		
 		if (interfaceMode == 2) {
-		
+			digitalClockWidgetC(startXc, startYc);
 		}
 	}
 }
@@ -246,7 +246,7 @@ handler mainForm.ondraw() {
 			miniPanelY3 = 14;
 			
 			composeBackgroundBuffer();
-			//composeWidgetsBuffer();
+			composeWidgetsBuffer();
 			
 			orientation = "C";
 			drawAuxiliarPanel(orientation);
@@ -290,6 +290,7 @@ handler mainForm.ontimer() {
 		{
 			if (interfaceMode == 0) updateClockHandsA();
 			if (interfaceMode == 1) updateClockHandsB(0);
+			if (interfaceMode == 2) digitalClockWidgetC(startXc, startYc);
 		
 			if (interfaceMode == 0) miniDigitalClockWidget(miniPanelX1, miniPanelY1);
 			if (interfaceMode == 1) digitalClockWidget(startX2, startY2);
