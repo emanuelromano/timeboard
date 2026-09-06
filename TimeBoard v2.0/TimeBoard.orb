@@ -39,11 +39,15 @@
   }
   bitmap Bitmap interfaceAbmp {
     id = 1021
-    image1 = "graphics\\interfaceB.bmp"
+    image1 = "graphics\\interfaceA.bmp"
   }
   bitmap Bitmap interfaceBbmp {
     id = 1020
-    image1 = "graphics\\interfaceA.bmp"
+    image1 = "graphics\\interfaceB.bmp"
+  }
+  bitmap Bitmap interfaceCbmp {
+    id = 1065
+    image1 = "graphics\\interfaceC.bmp"
   }
   bitmap Bitmap corner0bmp {
     id = 1025
@@ -217,6 +221,7 @@
       x = 120, y = 25, w = 30, h = 30
       text = ""
       leftanchor = true, group = 1, fontid = 0
+      graphic = true, bitmapid = 1065, sbitmapid = 0
       hresize = 0, vresize = 0
     }
     label UILabel cornersLbl {

@@ -50,23 +50,32 @@ void digitalClockWidget(int startX, int startY) {
 void digitalClockWidgetC(int startX, int startY) {
 	string amPmStr;
 	int digitW1 = 31,
-		digitH1 = 60,
+		digitH1 = 58,
 		radius = fontRadius,
 		segmentThickness1 = 12,
 		
-		digitHr1X = startX + 8,
+		digitHr1X = startX + 10,
 		digitHr2X = digitHr1X + digitW1 + 6,
 		
-		digitY1 = startY + 20;
+		digitY1 = startY + 21;
 	
-	int digitW2 = 24,
-		digitH2 = 36,
+	int digitW2 = 22,
+		digitH2 = 35,
 		segmentThickness2 = 8,
 		
-		digitMin1X = digitHr2X + digitW1 + 6,
-		digitMin2X = digitMin1X + digitW2 + 6,
+		digitMin1X = digitHr2X + digitW1 + 7,
+		digitMin2X = digitMin1X + digitW2 + 5,
 		
-		digitY2 = startY + 20;
+		digitY2 = digitY1;
+		
+	int digitW3 = 10,
+		digitH3 = 18,
+		segmentThickness3 = 4,
+		
+		digitSec1X = digitMin1X,
+		digitSec2X = digitSec1X + digitW3 + 2,
+		
+		digitY3 = digitY2 + digitH2 + 5;
 	
 	splitTimeDigits();
 	
@@ -84,6 +93,11 @@ void digitalClockWidgetC(int startX, int startY) {
 	drawDigit(minuteDigit1, digitW2, digitH2, digitMin1X, digitY2, radius, segmentThickness2);
 	drawDigit(minuteDigit2, digitW2, digitH2, digitMin2X, digitY2, radius, segmentThickness2);
 	
+	// Minutes
+	mainBuffer.fg(mainColorIndex);
+	drawDigit(secondDigit1, digitW3, digitH3, digitSec1X, digitY3, radius, segmentThickness3);
+	drawDigit(secondDigit2, digitW3, digitH3, digitSec2X, digitY3, radius, segmentThickness3);
+	
 	// AP/PM
 	/*mainBuffer.textAlign(02);
 	mainBuffer.textColor(highlightColorIndex);
@@ -93,10 +107,10 @@ void digitalClockWidgetC(int startX, int startY) {
 	
 	// Seconds
 	mainBuffer.textColor(mainColorIndex);
-	mainBuffer.textAlign(22);
+	mainBuffer.textAlign(02);
 	mainBuffer.bg(widgetColorIndex);
 	mainBuffer.font(fntLargeBold);
-	mainBuffer.text(clrText, startX+widgetW-7, startY+widgetH-8, "   " + secondDigit1 + "" + secondDigit2);
+	//mainBuffer.text(clrText, startX+widgetW-7, startY+8, "   " + secondDigit1 + "" + secondDigit2);
 	mainBuffer.end();
 }
 

@@ -73,8 +73,8 @@ void composeBackgroundBuffer() {
 			mainBuffer.font(fntBold);
 			mainBuffer.textAlign(02);
 			mainBuffer.text(clrText,
-							mainForm.w-15,
-							startYc+4,
+							mainForm.w-14,
+							startYc+5,
 							"TimeBoard");
 		}
 	}
@@ -354,7 +354,7 @@ handler mainForm.onpenup() {
 		//alert("Widget 4");
 	} */
 	
-	if (interfaceMode == 0 || bigUI) {
+	if (interfaceMode == 0 || interfaceMode == 2 || bigUI) {
 		if (penX >= miniPanelX3 && penX <= miniPanelX3 + miniPanelW && penY >= miniPanelY3 && penY <= miniPanelY3 + miniPanelH) {
 			if (!showBattPercentage)
 				showBattPercentage = true;
