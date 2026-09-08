@@ -63,8 +63,8 @@ void digitalClockWidgetC(int startX, int startY) {
 		digitH2 = 35,
 		segmentThickness2 = 8,
 		
-		digitMin1X = digitHr2X + digitW1 + 7,
-		digitMin2X = digitMin1X + digitW2 + 5,
+		digitMin1X = digitHr2X + digitW1 + 6,
+		digitMin2X = digitMin1X + digitW2 + 6,
 		
 		digitY2 = digitY1;
 		
