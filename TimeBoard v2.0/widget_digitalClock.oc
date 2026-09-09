@@ -1,5 +1,4 @@
-void digitalClockWidget(int startX, int startY) {
-	string amPmStr;
+void digitalClockWidgetB(int startX, int startY) {
 	int digitW = 16,
 		digitH = 28,
 		radius = fontRadius,
@@ -15,8 +14,6 @@ void digitalClockWidget(int startX, int startY) {
 		digitY2 = digitY1 + digitH + 3;
 	
 	splitTimeDigits();
-	
-	amPmStr = "AM";
 	
 	mainBuffer.begin();
 	// Hour
@@ -48,7 +45,6 @@ void digitalClockWidget(int startX, int startY) {
 
 
 void digitalClockWidgetC(int startX, int startY) {
-	string amPmStr;
 	int digitW1 = 34,
 		digitH1 = 62,
 		radius = fontRadius,
@@ -79,9 +75,8 @@ void digitalClockWidgetC(int startX, int startY) {
 	
 	splitTimeDigits();
 	
-	amPmStr = "AM";
-	
 	mainBuffer.begin();
+	
 	// Hour
 	mainBuffer.fg(highlightColorIndex);
 	// drawDigit() comes from globalFunctions.oc
@@ -93,24 +88,13 @@ void digitalClockWidgetC(int startX, int startY) {
 	drawDigit(minuteDigit1, digitW2, digitH2, digitMin1X, digitY2, radius, segmentThickness2);
 	drawDigit(minuteDigit2, digitW2, digitH2, digitMin2X, digitY2, radius, segmentThickness2);
 	
-	// Minutes
+	// Seconds
 	mainBuffer.fg(mainColorIndex);
 	drawDigit(secondDigit1, digitW3, digitH3, digitSec1X, digitY3, radius, segmentThickness3);
 	drawDigit(secondDigit2, digitW3, digitH3, digitSec2X, digitY3, radius, segmentThickness3);
 	
 	// AP/PM
-	/*mainBuffer.textAlign(02);
-	mainBuffer.textColor(highlightColorIndex);
-	mainBuffer.bg(widgetColorIndex);
-	mainBuffer.font(fntLargeBold);
-	mainBuffer.text(clrText, startX+widgetW-5, startY+4, amPmStr);*/
 	
-	// Seconds
-	mainBuffer.textColor(mainColorIndex);
-	mainBuffer.textAlign(02);
-	mainBuffer.bg(widgetColorIndex);
-	mainBuffer.font(fntLargeBold);
-	//mainBuffer.text(clrText, startX+widgetW-7, startY+8, "   " + secondDigit1 + "" + secondDigit2);
 	mainBuffer.end();
 }
 
@@ -136,8 +120,10 @@ void miniDigitalClockWidget(int startX, int startY) {
 	splitTimeDigits();
 	
 	mainBuffer.begin();
+	
 	mainBuffer.fg(highlightColorIndex);
 	mainBuffer.bg(widgetColorIndex);
+	
 	// Hour
 	drawDigit(hourDigit1, digitW, digitH, digitHr1X, digitY1, radius, segmentThickness);
 	drawDigit(hourDigit2, digitW, digitH, digitHr2X, digitY1, radius, segmentThickness);
@@ -148,13 +134,10 @@ void miniDigitalClockWidget(int startX, int startY) {
 	drawDigit(minuteDigit2, digitW, digitH, digitMin2X, digitY2, radius, segmentThickness);
 	
 	// Seconds
-	if (colorDepth > 4 || colorDepth == 1)
-		mainBuffer.textColor(mainColorIndex);
-	else
-		mainBuffer.textColor(highlightColorIndex);
-	
+	mainBuffer.textColor(mainColorIndex);
 	mainBuffer.textAlign(11);
 	mainBuffer.font(fntStandard);
 	mainBuffer.text(clrText, secondsX+14, secondsY+14, secondDigit1 + "" + secondDigit2);
+	
 	mainBuffer.end();
 }

@@ -19,65 +19,65 @@ void calendarWidget(int startX, int startY) {
 	// Months
 	switch (month) {
 		case 1:
-			monthStr = " JAN ";
+			monthStr = "  JAN  ";
 			break;
 		case 2:
-			monthStr = " FEB ";
+			monthStr = "  FEB  ";
 			break;
 		case 3:
-			monthStr = " MAR ";
+			monthStr = "  MAR  ";
 			break;
 		case 4:
-			monthStr = " APR ";
+			monthStr = "  APR  ";
 			break;
 		case 5:
-			monthStr = " MAY ";
+			monthStr = "  MAY  ";
 			break;
 		case 6:
-			monthStr = " JUN ";
+			monthStr = "  JUN  ";
 			break;
 		case 7:
-			monthStr = " JUL ";
+			monthStr = "  JUL  ";
 			break;
 		case 8:
-			monthStr = " AUG ";
+			monthStr = "  AUG  ";
 			break;
 		case 9:
-			monthStr = " SEP ";
+			monthStr = "  SEP  ";
 			break;
 		case 10:
-			monthStr = " OCT ";
+			monthStr = "  OCT  ";
 			break;
 		case 11:
-			monthStr = " NOV ";
+			monthStr = "  NOV  ";
 			break;
 		case 12:
-			monthStr = " DEC ";
+			monthStr = "  DEC  ";
 			break;
 	}
 	
 	// Weekdays
 	switch (weekday) {
 		case 0:
-			weekdayStr = " SUN ";
+			weekdayStr = "  SUN  ";
 			break;
 		case 1:
-			weekdayStr = " MON ";
+			weekdayStr = "  MON  ";
 			break;
 		case 2:
-			weekdayStr = " TUE ";
+			weekdayStr = "  TUE  ";
 			break;
 		case 3:
-			weekdayStr = " WED ";
+			weekdayStr = "  WED  ";
 			break;
 		case 4:
-			weekdayStr = " THU ";
+			weekdayStr = "  THU  ";
 			break;
 		case 5:
-			weekdayStr = " FRI ";
+			weekdayStr = "  FRI  ";
 			break;
 		case 6:
-			weekdayStr = " SAT ";
+			weekdayStr = "  SAT  ";
 			break;
 	}
 	
@@ -137,65 +137,65 @@ void miniCalendarWidget(int startX, int startY) {
 	// Months
 	switch (month) {
 		case 1:
-			monthStr = " JAN ";
+			monthStr = "  JAN  ";
 			break;
 		case 2:
-			monthStr = " FEB ";
+			monthStr = "  FEB  ";
 			break;
 		case 3:
-			monthStr = " MAR ";
+			monthStr = "  MAR  ";
 			break;
 		case 4:
-			monthStr = " APR ";
+			monthStr = "  APR  ";
 			break;
 		case 5:
-			monthStr = " MAY ";
+			monthStr = "  MAY  ";
 			break;
 		case 6:
-			monthStr = " JUN ";
+			monthStr = "  JUN  ";
 			break;
 		case 7:
-			monthStr = " JUL ";
+			monthStr = "  JUL  ";
 			break;
 		case 8:
-			monthStr = " AUG ";
+			monthStr = "  AUG  ";
 			break;
 		case 9:
-			monthStr = " SEP ";
+			monthStr = "  SEP  ";
 			break;
 		case 10:
-			monthStr = " OCT ";
+			monthStr = "  OCT  ";
 			break;
 		case 11:
-			monthStr = " NOV ";
+			monthStr = "  NOV  ";
 			break;
 		case 12:
-			monthStr = " DEC ";
+			monthStr = "  DEC  ";
 			break;
 	}
 	
 	// Weekdays
 	switch (weekday) {
 		case 0:
-			weekdayStr = " SUN ";
+			weekdayStr = "  SUN  ";
 			break;
 		case 1:
-			weekdayStr = " MON ";
+			weekdayStr = "  MON  ";
 			break;
 		case 2:
-			weekdayStr = " TUE ";
+			weekdayStr = "  TUE  ";
 			break;
 		case 3:
-			weekdayStr = " WED ";
+			weekdayStr = "  WED  ";
 			break;
 		case 4:
-			weekdayStr = " THU ";
+			weekdayStr = "  THU  ";
 			break;
 		case 5:
-			weekdayStr = " FRI ";
+			weekdayStr = "  FRI  ";
 			break;
 		case 6:
-			weekdayStr = " SAT ";
+			weekdayStr = "  SAT  ";
 			break;
 	}
 	

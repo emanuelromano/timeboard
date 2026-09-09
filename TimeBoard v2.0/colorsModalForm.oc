@@ -310,7 +310,7 @@ void drawAnalogClockRepresentation() {
         		(float)calcCos(index) * outerRadius / 512);
     		
     		// Color for 3, 6, 9 & 12 lines
-    		prefsBuffer.fg(highlightColorIndex);
+    		prefsBuffer.fg(acCenterColorIndex);
     		if (i == 0) {
     			prefsBuffer.line(clrFG, x1-1, y1-1, x2-1, y2);
     			prefsBuffer.line(clrFG, x1, y1, x2, y2);

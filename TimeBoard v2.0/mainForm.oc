@@ -32,6 +32,7 @@ void composeBackgroundBuffer() {
 	}
 	else
 	{
+		// Interface A
 		if (interfaceMode == 0) {
 			// Main rectangle
 			mainBuffer.fg(shadowColorIndex);
@@ -57,12 +58,15 @@ void composeBackgroundBuffer() {
 							appName);
 		}
 		
+		// Interface B
 		if (interfaceMode == 1) {
+			// Square 1
 			mainBuffer.fg(shadowColorIndex);
 			mainBuffer.rect(clrFG, startX1, startY1, startX1+widgetW+1, startY1+widgetH+1, widgetCornerRadius);
 			mainBuffer.fg(widgetColorIndex);
 			mainBuffer.rect(clrFG, startX1+1, startY1+1, startX1+widgetW-1, startY1+widgetH-1, auxWidgetCornerRadius-1);
 			
+			// Square 2
 			mainBuffer.fg(shadowColorIndex);
 			mainBuffer.rect(clrFG, startX2, startY2, startX2+widgetW+1, startY2+widgetH+1, widgetCornerRadius);
 			mainBuffer.fg(widgetColorIndex);
@@ -75,17 +79,20 @@ void composeBackgroundBuffer() {
 			mainBuffer.line(clrFG, startX2+44, startY2+10, startX2+widgetW-7, startY2+10);
 			mainBuffer.line(clrFG, startX2+44, startY2+12, startX2+widgetW-7, startY2+12);
 			
+			// Square 3
 			mainBuffer.fg(shadowColorIndex);
 			mainBuffer.rect(clrFG, startX3, startY3, startX3+widgetW+1, startY3+widgetH+1, widgetCornerRadius);
 			mainBuffer.fg(widgetColorIndex);
 			mainBuffer.rect(clrFG, startX3+1, startY3+1, startX3+widgetW-1, startY3+widgetH-1, auxWidgetCornerRadius-1);
 			
+			// Square 4
 			mainBuffer.fg(shadowColorIndex);
 			mainBuffer.rect(clrFG, startX4, startY4, startX4+widgetW+1, startY4+widgetH+1, widgetCornerRadius);
 			mainBuffer.fg(widgetColorIndex);
 			mainBuffer.rect(clrFG, startX4+1, startY4+1, startX4+widgetW-1, startY4+widgetH-1, auxWidgetCornerRadius-1);
 		}
 		
+		// Interface C
 		if (interfaceMode == 2) {
 			// Main rectangle
 			mainBuffer.fg(shadowColorIndex);
@@ -128,7 +135,7 @@ void composeWidgetsBuffer() {
 		
 		if (interfaceMode == 1) {
 			analogClockWidgetB(startX1, startY1);
-			digitalClockWidget(startX2, startY2);
+			digitalClockWidgetB(startX2, startY2);
 			calendarWidget(startX3, startY3);
 			batteryWidget(startX4, startY4);
 		}
@@ -326,7 +333,7 @@ handler mainForm.ontimer() {
 			if (interfaceMode == 2) digitalClockWidgetC(startXc, startYc);
 		
 			if (interfaceMode == 0) miniDigitalClockWidget(miniPanelX1, miniPanelY1);
-			if (interfaceMode == 1) digitalClockWidget(startX2, startY2);
+			if (interfaceMode == 1) digitalClockWidgetB(startX2, startY2);
 			if (interfaceMode == 2) miniAnalogClockWidget(miniPanelX1, miniPanelY1);
 			
 			if (day != lastDay) {
