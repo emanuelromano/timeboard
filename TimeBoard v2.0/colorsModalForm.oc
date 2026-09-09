@@ -155,6 +155,13 @@ void drawWidgetRepresentation() {
 	prefsBuffer.fg(widgetColorIndex);
 	prefsBuffer.rect(clrFG, startX+1, startY+1, startX+widW-1, startY+widH-1, widgetCornerRadius);
 	
+	// Lines
+	prefsBuffer.fg(highlightColorIndex);
+	prefsBuffer.line(clrFG, startX+44, startY+6, startX+widW-7, startY+6);
+	prefsBuffer.line(clrFG, startX+44, startY+8, startX+widW-7, startY+8);
+	prefsBuffer.line(clrFG, startX+44, startY+10, startX+widW-7, startY+10);
+	prefsBuffer.line(clrFG, startX+44, startY+12, startX+widW-7, startY+12);
+	
 	// Hour
 	prefsBuffer.fg(highlightColorIndex);
 	// drawDigit() comes from globalFunctions.oc

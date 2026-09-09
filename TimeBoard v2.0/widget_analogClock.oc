@@ -75,7 +75,7 @@ void updateClockHandsA() {
 
 	axisXcorrection = 70;
 	axisYcorrection = 0;
-	secondLength = 16;
+	secondLength = 15;
 	baseWidth = 4;
 	
 	mainBuffer.begin();
@@ -117,16 +117,16 @@ void updateClockHandsA() {
 	if (acCircle) {
     	mainBuffer.fg(highlightColorIndex);
 		mainBuffer.frame(clrFG,
-						(centerX + axisXcorrection) - (secondLength + 4),
-						(centerY + axisYcorrection) - (secondLength + 4),
-						(centerX + axisXcorrection) + (secondLength + 5),
-						(centerY + axisYcorrection) + (secondLength + 5),
-						(secondLength + 5),
+						(centerX + axisXcorrection) - (secondLength + 5),
+						(centerY + axisYcorrection) - (secondLength + 5),
+						(centerX + axisXcorrection) + (secondLength + 6),
+						(centerY + axisYcorrection) + (secondLength + 6),
+						(secondLength + 6),
 						1);
 	}
 	
 	// 12 dots (every 5 seconds)
-	circleRadius = (secondLength + 3);
+	circleRadius = (secondLength + 2);
 	for (i = 0; i < 12; i++) {
     	index = i * 60;
 		
