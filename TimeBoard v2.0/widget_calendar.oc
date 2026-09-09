@@ -1,15 +1,15 @@
 void calendarWidget(int startX, int startY) {
-	int digitW = 22,
+	int digitW = 24,
 		digitH = 44,
 		radius = fontRadius,
 		segmentThickness = 8,
 		
-		digitDateX1 = startX + ((digitW * 2) / 2) - 11,
+		digitDateX1 = startX + ((digitW * 2) / 2) - 15,
 		digitDateX2 = digitDateX1 + digitW + 4,
 		
 		digitY = startY + 20,
 		
-		textX = startX + (widgetW / 2),
+		textX = (startX + widgetW) / 2,
 		
 		cornerRadiusAux;
 	string weekdayStr, monthStr;
@@ -94,18 +94,18 @@ void calendarWidget(int startX, int startY) {
 	mainBuffer.rect(clrFG, startX+3, startY+3, startX+widgetW-2, startY+widgetH-2, cornerRadiusAux-3);
 	
 	// Weekday
-	mainBuffer.textAlign(01);
+	mainBuffer.textAlign(02);
 	mainBuffer.textColor(highlightColorIndex);
 	mainBuffer.bg(widgetColorIndex);
 	mainBuffer.font(fntLargeBold);
-	mainBuffer.text(clrText, textX-13, startY+4, weekdayStr);
+	mainBuffer.text(clrText, textX+7, startY+4, weekdayStr);
 	
 	// Month
-	mainBuffer.textAlign(01);
+	mainBuffer.textAlign(00);
 	mainBuffer.textColor(mainColorIndex);
 	mainBuffer.bg(widgetColorIndex);
 	mainBuffer.font(fntLargeBold);
-	mainBuffer.text(clrText, textX+13, startY+4, monthStr);
+	mainBuffer.text(clrText, textX+2, startY+4, monthStr);
 	
 	// Date
 	mainBuffer.fg(mainColorIndex);

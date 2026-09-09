@@ -10,6 +10,7 @@ void drawHand(int index,
 	x = centerX + roundCoord((float)calcSin(index) * length / 512);
 	y = centerY - roundCoord((float)calcCos(index) * length / 512);
 	
+	// Draw line
 	mainBuffer.fg(colorIndex);
 	mainBuffer.line(clrFG, centerX, centerY, x, y);
 }
@@ -53,10 +54,8 @@ void drawWideHand(int index,
 	baseY2 = centerY -
 		roundCoord((float)calcCos(baseIndex2) * baseWidth / 512);
 	
-	// Color
-	mainBuffer.fg(colorIndex);
-	
 	// Draw the triangular hand
+	mainBuffer.fg(colorIndex);
 	mainBuffer.line(clrFG, tipX, tipY, baseX1, baseY1);
 	mainBuffer.line(clrFG, tipX, tipY, baseX2, baseY2);
 }
