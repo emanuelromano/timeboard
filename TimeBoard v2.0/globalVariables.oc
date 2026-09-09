@@ -5,6 +5,7 @@ Draw mainBuffer,
 	draw;
 bool debugFlag;
 int charge, lastCharge; // Battery
+string appName = "TimeBoard";
 
 // Time
 const float pi = 3.14159265;

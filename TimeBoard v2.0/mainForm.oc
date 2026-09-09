@@ -17,6 +17,18 @@ void composeBackgroundBuffer() {
 		mainBuffer.rect(clrFG, startX1, startY1, startX1+widgetW+1, startY1+widgetH+1, widgetCornerRadius);
 		mainBuffer.fg(widgetColorIndex);
 		mainBuffer.rect(clrFG, startX1+1, startY1+1, startX1+widgetW-1, startY1+widgetH-1, auxWidgetCornerRadius-1);
+		
+		// Lines
+		mainBuffer.fg(highlightColorIndex);
+		mainBuffer.line(clrFG, startX1+7, startY1+7, startX1+widgetW-8, startY1+7);
+		mainBuffer.line(clrFG, startX1+7, startY1+9, startX1+widgetW-8, startY1+9);
+		mainBuffer.line(clrFG, startX1+7, startY1+11, startX1+widgetW-8, startY1+11);
+		mainBuffer.line(clrFG, startX1+7, startY1+13, startX1+widgetW-8, startY1+13);
+		
+		mainBuffer.line(clrFG, startX1+7, startY1+widgetH-8, startX1+widgetW-8, startY1+widgetH-8);
+		mainBuffer.line(clrFG, startX1+7, startY1+widgetH-10, startX1+widgetW-8, startY1+widgetH-10);
+		mainBuffer.line(clrFG, startX1+7, startY1+widgetH-12, startX1+widgetW-8, startY1+widgetH-12);
+		mainBuffer.line(clrFG, startX1+7, startY1+widgetH-14, startX1+widgetW-8, startY1+widgetH-14);
 	}
 	else
 	{
@@ -27,15 +39,22 @@ void composeBackgroundBuffer() {
 			mainBuffer.fg(widgetColorIndex);
 			mainBuffer.rect(clrFG, startX1+1, startY1+1, startX1+widgetW-1, startY1+widgetH-1, auxWidgetCornerRadius-1);
 			
+			// Lines
+			mainBuffer.fg(highlightColorIndex);
+			mainBuffer.line(clrFG, startX1+7, startY1+7, startX1+widgetW-8, startY1+7);
+			mainBuffer.line(clrFG, startX1+7, startY1+9, startX1+widgetW-8, startY1+9);
+			mainBuffer.line(clrFG, startX1+7, startY1+11, startX1+widgetW-8, startY1+11);
+			mainBuffer.line(clrFG, startX1+7, startY1+13, startX1+widgetW-8, startY1+13);
+			
 			// Big widget pannel text
 			mainBuffer.textColor(highlightColorIndex);
 			mainBuffer.bg(widgetColorIndex);
 			mainBuffer.font(fntBold);
 			mainBuffer.textAlign(22);
 			mainBuffer.text(clrText,
-							mainForm.w-14,
-							mainForm.y+widgetH+1,
-							"TimeBoard");
+							startX1+widgetW-6,
+							startY1+widgetH-7,
+							appName);
 		}
 		
 		if (interfaceMode == 1) {
@@ -48,6 +67,13 @@ void composeBackgroundBuffer() {
 			mainBuffer.rect(clrFG, startX2, startY2, startX2+widgetW+1, startY2+widgetH+1, widgetCornerRadius);
 			mainBuffer.fg(widgetColorIndex);
 			mainBuffer.rect(clrFG, startX2+1, startY2+1, startX2+widgetW-1, startY2+widgetH-1, auxWidgetCornerRadius-1);
+			
+			// Lines
+			mainBuffer.fg(highlightColorIndex);
+			mainBuffer.line(clrFG, startX2+44, startY2+6, startX2+widgetW-7, startY2+6);
+			mainBuffer.line(clrFG, startX2+44, startY2+8, startX2+widgetW-7, startY2+8);
+			mainBuffer.line(clrFG, startX2+44, startY2+10, startX2+widgetW-7, startY2+10);
+			mainBuffer.line(clrFG, startX2+44, startY2+12, startX2+widgetW-7, startY2+12);
 			
 			mainBuffer.fg(shadowColorIndex);
 			mainBuffer.rect(clrFG, startX3, startY3, startX3+widgetW+1, startY3+widgetH+1, widgetCornerRadius);
@@ -67,15 +93,22 @@ void composeBackgroundBuffer() {
 			mainBuffer.fg(widgetColorIndex);
 			mainBuffer.rect(clrFG, startXc+1, startYc+1, startXc+widgetW-1, startYc+widgetH-1, auxWidgetCornerRadius-1);
 			
+			// Lines
+			mainBuffer.fg(highlightColorIndex);
+			mainBuffer.line(clrFG, startXc+7, startYc+widgetH-8, startXc+widgetW-64, startYc+widgetH-8);
+			mainBuffer.line(clrFG, startXc+7, startYc+widgetH-10, startXc+widgetW-64, startYc+widgetH-10);
+			mainBuffer.line(clrFG, startXc+7, startYc+widgetH-12, startXc+widgetW-64, startYc+widgetH-12);
+			mainBuffer.line(clrFG, startXc+7, startYc+widgetH-14, startXc+widgetW-64, startYc+widgetH-14);
+			
 			// Big widget pannel text
 			mainBuffer.textColor(highlightColorIndex);
 			mainBuffer.bg(widgetColorIndex);
 			mainBuffer.font(fntBold);
-			mainBuffer.textAlign(02);
+			mainBuffer.textAlign(22);
 			mainBuffer.text(clrText,
-							mainForm.w-14,
-							startYc+5,
-							"TimeBoard");
+							startXc+widgetW-6,
+							startYc+widgetH-7,
+							appName);
 		}
 	}
 	

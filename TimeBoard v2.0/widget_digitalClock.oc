@@ -49,18 +49,18 @@ void digitalClockWidget(int startX, int startY) {
 
 void digitalClockWidgetC(int startX, int startY) {
 	string amPmStr;
-	int digitW1 = 31,
-		digitH1 = 58,
+	int digitW1 = 34,
+		digitH1 = 62,
 		radius = fontRadius,
 		segmentThickness1 = 12,
 		
-		digitHr1X = startX + 10,
+		digitHr1X = startX + 7,
 		digitHr2X = digitHr1X + digitW1 + 6,
 		
-		digitY1 = startY + 21;
+		digitY1 = startY + 7;
 	
 	int digitW2 = 22,
-		digitH2 = 35,
+		digitH2 = 37,
 		segmentThickness2 = 8,
 		
 		digitMin1X = digitHr2X + digitW1 + 6,
@@ -69,7 +69,7 @@ void digitalClockWidgetC(int startX, int startY) {
 		digitY2 = digitY1;
 		
 	int digitW3 = 10,
-		digitH3 = 18,
+		digitH3 = 20,
 		segmentThickness3 = 4,
 		
 		digitSec1X = digitMin1X,
