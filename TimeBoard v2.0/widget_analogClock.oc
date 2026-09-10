@@ -683,7 +683,7 @@ void updateClockHandsBigUI() {
 						(secondLength+4));
 	}*/
 	
-	// 12 dots (every 5 seconds)
+	// 12 dots for seconds
 	circleRadius = secondLength + 2;
 	for (i = 0; i < 12; i++) {
     	index = i * 60;
@@ -705,7 +705,7 @@ void updateClockHandsBigUI() {
 			centerY,
 			acSecondsColorIndex);
 	
-	// Center for seconds
+	// Center circle for seconds
 	mainBuffer.fg(acCenterColorIndex);
 	mainBuffer.rect(clrFG,
 					(centerX + axisXcorrection) - 3,
@@ -728,7 +728,7 @@ void updateClockHandsBigUI() {
 			centerY,
 			acHourMinColorIndex);
 	
-	// Hand centre circle size according to widget size
+	// Hand centre circle
 		mainBuffer.fg(acCenterColorIndex);
 		mainBuffer.rect(clrFG,
 			centerX - 4,
@@ -775,8 +775,8 @@ void analogClockWidgetBigUI(int startX, int startY) {
 		
 		// Hands lenght
 		hourLength = (widgetW / 2) - (widgetW / 2) * 0.55;
-		minuteLength = (widgetW / 2) - (widgetW / 2) * 0.41;
-		secondLength = (widgetW / 2) - (widgetW / 2) * 0.41;
+		minuteLength = (widgetW / 2) - (widgetW / 2) * 0.36;
+		secondLength = (widgetW / 2) - (widgetW / 2) * 0.36;
 		
 		auxiliarSize = widgetW;
 	}
@@ -791,8 +791,8 @@ void analogClockWidgetBigUI(int startX, int startY) {
 		
 		// Hands lenght
 		hourLength = (widgetH / 2) - (widgetH / 2) * 0.55;
-		minuteLength = (widgetH / 2) - (widgetH / 2) * 0.41;
-		secondLength = (widgetH / 2) - (widgetH / 2) * 0.41;
+		minuteLength = (widgetH / 2) - (widgetH / 2) * 0.39;
+		secondLength = (widgetH / 2) - (widgetH / 2) * 0.39;
 		
 		auxiliarSize = widgetH;
 	}

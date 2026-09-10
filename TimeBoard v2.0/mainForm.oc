@@ -78,7 +78,7 @@ void composeBackgroundBuffer() {
 			mainBuffer.line(clrFG, startX2+44, startY2+8, startX2+widgetW-7, startY2+8);
 			mainBuffer.line(clrFG, startX2+44, startY2+10, startX2+widgetW-7, startY2+10);
 			mainBuffer.line(clrFG, startX2+44, startY2+12, startX2+widgetW-7, startY2+12);
-			
+						
 			// Square 3
 			mainBuffer.fg(shadowColorIndex);
 			mainBuffer.rect(clrFG, startX3, startY3, startX3+widgetW+1, startY3+widgetH+1, widgetCornerRadius);
