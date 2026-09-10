@@ -45,31 +45,33 @@ void digitalClockWidgetB(int startX, int startY) {
 
 
 void digitalClockWidgetC(int startX, int startY) {
-	int digitW1 = 34,
+	int digitW1 = 32,
 		digitH1 = 62,
 		radius = fontRadius,
-		segmentThickness1 = 12,
+		segmentThickness1 = 10,
 		
 		digitHr1X = startX + 7,
 		digitHr2X = digitHr1X + digitW1 + 6,
 		
 		digitY1 = startY + 7;
 	
-	int digitW2 = 22,
+	int digitW2 = 24,
 		digitH2 = 37,
-		segmentThickness2 = 8,
+		segmentThickness2 = 6,
 		
 		digitMin1X = digitHr2X + digitW1 + 6,
 		digitMin2X = digitMin1X + digitW2 + 6,
 		
 		digitY2 = digitY1;
 		
-	int digitW3 = 10,
+	int digitW3 = 24, // 10,
 		digitH3 = 20,
 		segmentThickness3 = 4,
 		
+		//digitSec1X = digitMin1X,
+		//digitSec2X = digitSec1X + digitW3 + 2,
 		digitSec1X = digitMin1X,
-		digitSec2X = digitSec1X + digitW3 + 2,
+		digitSec2X = digitMin2X,
 		
 		digitY3 = digitY2 + digitH2 + 5;
 	

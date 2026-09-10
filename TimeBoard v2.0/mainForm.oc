@@ -102,10 +102,10 @@ void composeBackgroundBuffer() {
 			
 			// Lines
 			mainBuffer.fg(highlightColorIndex);
-			mainBuffer.line(clrFG, startXc+7, startYc+widgetH-8, startXc+widgetW-64, startYc+widgetH-8);
-			mainBuffer.line(clrFG, startXc+7, startYc+widgetH-10, startXc+widgetW-64, startYc+widgetH-10);
-			mainBuffer.line(clrFG, startXc+7, startYc+widgetH-12, startXc+widgetW-64, startYc+widgetH-12);
-			mainBuffer.line(clrFG, startXc+7, startYc+widgetH-14, startXc+widgetW-64, startYc+widgetH-14);
+			mainBuffer.line(clrFG, startXc+7, startYc+widgetH-8, startXc+widgetW-68, startYc+widgetH-8);
+			mainBuffer.line(clrFG, startXc+7, startYc+widgetH-10, startXc+widgetW-68, startYc+widgetH-10);
+			mainBuffer.line(clrFG, startXc+7, startYc+widgetH-12, startXc+widgetW-68, startYc+widgetH-12);
+			mainBuffer.line(clrFG, startXc+7, startYc+widgetH-14, startXc+widgetW-68, startYc+widgetH-14);
 			
 			// Big widget pannel text
 			mainBuffer.textColor(highlightColorIndex);
